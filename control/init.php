@@ -6,9 +6,9 @@
 
 
     //PDO
-    $_PDO['dsn'] = 'mysql:host=localhost;dbname=project;charset=utf8';
-    $_PDO['username'] = 'root';
-    $_PDO['password'] = '';
+    $_PDO['dsn'] = 'mysql:host=178.128.16.91;dbname=admin_project;charset=utf8';
+    $_PDO['username'] = 'admin_project';
+    $_PDO['password'] = 'pwa@pass';
 
     try {
         $_DB = new PDO($_PDO['dsn'], $_PDO['username'], $_PDO['password']);
@@ -24,6 +24,6 @@
 
     }
 
-    $_G['url'] = 'http://localhost/project/';
+    $_G['url'] = 'https://exam-analyze.herokuapp.com/';
 
     require_once 'functions.php';
