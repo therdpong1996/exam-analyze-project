@@ -24,6 +24,7 @@
 
     }
 
-    $_G['url'] = 'https://exam-analyze.herokuapp.com/';
+    //WEB URL  
+    $_G['url'] = 'http://localhost/project/';
 
     require_once 'functions.php';

@@ -1,15 +1,14 @@
 <?php
     session_start();
+
+    require_once __DIR__.'/control/init.php';
     if(!isset($_SESSION['auth']) and !isset($_SESSION['username'])){
-        header('Location: ../login/');
+        header('Location: '.$_G['url'].'login/');
         exit;
     }
 
-    require_once __DIR__.'/control/init.php';
-
     $_G['title'] = 'ภาพรวมระบบ';
 
-    //USER
     $stm = $_DB->prepare("SELECT * FROM users JOIN users_role_title ON users.role = users_role_title.role_id WHERE users.username = :username LIMIT 1");
     $stm->bindParam(':username', $_SESSION['username'], PDO::PARAM_STR);
     $stm->execute();
