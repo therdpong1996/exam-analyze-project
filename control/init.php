@@ -24,6 +24,7 @@
 
     }
 
+    //WEB URL
     $_G['url'] = 'http://localhost/project/';
 
     require_once 'functions.php';
