@@ -103,7 +103,7 @@ $('#login-form').on('submit', function(){
 
   $('#register-form').on('submit', function(){
     var data = $(this).serialize();
-    
+
     $.ajax({
       type: "POST",
       url: weburl + "ajax/register",
