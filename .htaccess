@@ -1,0 +1,23 @@
+RewriteEngine On
+
+#TEACHER
+RewriteRule ^dashboard/$ index.php [L,QSA]
+RewriteRule ^register/$ register.php [L,QSA]
+RewriteRule ^login/$ login.php [L,QSA]
+RewriteRule ^logout/$ logout.php [L,QSA]
+RewriteRule ^subject/$ subject.php [L,QSA]
+RewriteRule ^examination/$ examination.php [L,QSA]
+RewriteRule ^session/$ session.php [L,QSA]
+RewriteRule ^session/scorelist/$ session.scorelist.php [L,QSA]
+RewriteRule ^session/analyze/$ session.analyze.php [L,QSA]
+RewriteRule ^examination/qa/$ examination.qa.php [L,QSA]
+
+#STUDENT
+RewriteRule ^stu-examination/$ stu-examination.php [L,QSA]
+RewriteRule ^doing-examination/([a-zA-Z0-9-_]+)$ doing-examination.php?session_id=$1 [L,QSA]
+RewriteRule ^cancel-examination/([a-zA-Z0-9-_]+)$ ajax/cancel-examination.php?session_id=$1 [L,QSA]
+RewriteRule ^solve-examination/([a-zA-Z0-9-_]+)$ solve-examination.php?session_id=$1 [L,QSA]
+RewriteRule ^solve/$ solve.php [L,QSA]
+
+#CONTROLLER
+RewriteRule ^ajax/([a-zA-Z0-9-_]+)$ ajax/$1.php [L,QSA]

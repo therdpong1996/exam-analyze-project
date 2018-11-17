@@ -1,0 +1,221 @@
+<!-- Main content -->
+<div class="main-content">
+    <!-- Top navbar -->
+    <nav class="navbar bg-gradient-primary navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+      <div class="container-fluid">
+        <!-- Brand -->
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="<?php url('session/'); ?>">Session <small>(เซสชั่น)</small></a>
+        <?php require_once 'parts/usermenu.common.php'; ?>
+    <!-- Page content -->
+    <div class="container-fluid pb-8 pt-5 pt-md-8">
+      <div class="row">
+        <div class="col-xl-12">
+          <?php if(isset($_GET['add'])){ ?>
+              <div class="card shadow">
+                <div class="card-header bg-transparent">
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <h6 class="text-uppercase text-muted ls-1 mb-1">เพิ่มเซสชั่น</h6>
+                      <h2 class="mb-0">Add Session</h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <form action="javascript:void(0)" id="add-session-form">
+                    <input type="hidden" name="action" value="add">
+                    <input type="hidden" name="session_owner" value="<?php echo $user_row['uid']; ?>">
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="session_exam">ข้อสอบ</label>
+                      <div class="col-sm-10">
+                        <select class="form-control" id="session_exam" name="session_exam" required>
+                            <?php
+                                $stm = $_DB->prepare("SELECT * FROM examinations WHERE examination_owner = :uid");
+                                $stm->bindParam(':uid', $user_row['uid']);
+                                $stm->execute();
+                                while($rows = $stm->fetch(PDO::FETCH_ASSOC)){
+                            ?>
+                                <option value="<?php echo $rows['examination_id']; ?>"><?php echo $rows['examination_title']; ?></option>
+                            <?php
+                                }
+                            ?>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="session_start">เวลาเริ่ม</label>
+                      <div class="col-sm-10">
+                        <input type="datetime-local" class="form-control" id="session_start" name="session_start" required>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="session_end">เวลาสิ้นสุด</label>
+                      <div class="col-sm-10">
+                        <input type="datetime-local" class="form-control" id="session_end" name="session_end" required>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="session_timeleft">เวลาในการทำ (นาที)</label>
+                      <div class="col-sm-10">
+                        <input type="number" class="form-control" id="session_timeleft" name="session_timeleft" required>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="session_password">รหัสผ่าน <small class="text-muted">(Option)</small></label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="session_password" name="session_password">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2" for="session_password">อนุญาตให้ดูข้อที่ถูกต้อง</label>
+                      <div class="col-sm-10">
+                        <div class="custom-control custom-checkbox mb-3">
+                          <input class="custom-control-input" id="session_solve" value="1" name="session_solve" type="checkbox">
+                          <label class="custom-control-label" for="session_solve">เปิด</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-sm-2"></div>
+                      <div class="col-sm-10">
+                        <button type="submit" class="btn btn-success">บันทึก</button>
+                        <a href="<?php url('session/'); ?>" class="btn btn-danger">ยกเลิก</a>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+          <?php
+                }elseif(isset($_GET['edit']) and isset($_GET['session_id'])){
+                  $stm = $_DB->prepare("SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE session_id = :session_id");
+							    $stm->bindParam(':session_id', $_GET['session_id'], PDO::PARAM_INT);
+							    $stm->execute();
+							    $row = $stm->fetch(PDO::FETCH_ASSOC);
+          ?>
+              <div class="card shadow">
+                <div class="card-header bg-transparent">
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <h6 class="text-uppercase text-muted ls-1 mb-1">แก้ไขเซสชั่น</h6>
+                      <h2 class="mb-0"><?php echo $row['examination_title']; ?></h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <form action="javascript:void(0)" id="edit-session-form">
+                  <input type="hidden" name="action" value="edit">
+                  <input type="hidden" name="session_id" value="<?php echo $row['session_id']; ?>">
+                  <input type="hidden" name="session_owner" value="<?php echo $row['session_owner']; ?>">
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="session_exam">ข้อสอบ</label>
+                      <div class="col-sm-10">
+                        <select class="form-control" id="session_exam" name="session_exam" required>
+                            <?php
+                                $stm = $_DB->prepare("SELECT * FROM examinations WHERE examination_owner = :uid");
+                                $stm->bindParam(':uid', $user_row['uid']);
+                                $stm->execute();
+                                while($rows = $stm->fetch(PDO::FETCH_ASSOC)){
+                            ?>
+                                <option value="<?php echo $rows['examination_id']; ?>" <?php echo ($rows['examination_id'] == $row['session_exam'])?'selected':''; ?>><?php echo $rows['examination_title']; ?></option>
+                            <?php
+                                }
+                            ?>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="session_start">เวลาเริ่ม</label>
+                      <div class="col-sm-10">
+                        <input type="datetime-local" class="form-control" id="session_start" name="session_start" required value="<?php echo str_replace(' ', 'T', $row['session_start']); ?>">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="session_end">เวลาสิ้นสุด</label>
+                      <div class="col-sm-10">
+                        <input type="datetime-local" class="form-control" id="session_end" name="session_end" required value="<?php echo str_replace(' ', 'T', $row['session_end']); ?>">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="session_timeleft">เวลาในการทำ (นาที)</label>
+                      <div class="col-sm-10">
+                        <input type="number" class="form-control" id="session_timeleft" name="session_timeleft" required value="<?php echo $row['session_timeleft']; ?>">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="session_password">รหัสผ่าน <small class="text-muted">(Option)</small></label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="session_password" name="session_password" value="<?php echo $row['session_password']; ?>">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2" for="session_password">อนุญาตให้ดูข้อที่ถูกต้อง</label>
+                      <div class="col-sm-10">
+                        <div class="custom-control custom-checkbox mb-3">
+                          <input class="custom-control-input" id="session_solve" value="1" name="session_solve" type="checkbox" <?php echo ($row['session_solve']==1?'checked':''); ?>>
+                          <label class="custom-control-label" for="session_solve">เปิด</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-sm-2"></div>
+                      <div class="col-sm-10">
+                        <button type="submit" class="btn btn-success">บันทึก</button>
+                        <a href="<?php url('subject/'); ?>" class="btn btn-danger">ยกเลิก</a>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+          <?php }else{ ?>
+              <a class="btn btn-success mb-3" href="?add"><span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span> เพิ่มเซสชั่น</a>
+              <div class="card shadow">
+                <div class="card-header bg-transparent">
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <h6 class="text-uppercase text-muted ls-1 mb-1">เซสชั่น</h6>
+                      <h2 class="mb-0">Session</h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table align-items-center">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Examination</th>
+                            <th scope="col">Start</th>
+                            <th scope="col">End</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                          $stm = $_DB->query('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id ORDER BY sessions.session_start ASC');
+                          while($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
+                        <tr id="session-<?php echo $rows['session_id']; ?>">
+                            <th scope="row">
+                              <span class="mb-0 text-sm"><?php echo $rows['examination_title']; ?> <?php echo ($rows['session_password']!=NULL?'<i class="fas fa-key"></i>':'');?></span>
+                            </th>
+                            <td>
+                              <?php echo $rows['session_start']; ?>
+                            </td>
+                            <td>
+                              <?php echo $rows['session_end']; ?>
+                            </td>
+                            <td class="text-right">
+                                <a target="_blank" href="analyze/?session_id=<?php echo $rows['session_id']; ?>" class="btn btn-success btn-sm">Analyze</a>
+                                <a href="scorelist/?session_id=<?php echo $rows['session_id']; ?>" class="btn btn-warning btn-sm">Score List</a>
+                                <a href="?edit&session_id=<?php echo $rows['session_id']; ?>" class="btn btn-info btn-sm">Edit</a> 
+                                <button onclick="session_delete(<?php echo $rows['session_id']; ?>)" class="btn btn-danger btn-sm">Delete</button>
+                            </td>
+                        </tr>
+                        <?php }?>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          <?php } ?>
+        </div>
+      </div>
+    </div>
