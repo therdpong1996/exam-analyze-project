@@ -9,7 +9,7 @@
 	require('../library/spreadsheet-reader/SpreadsheetReader.php');
 
 	$allowedFileType = ['application/vnd.ms-excel','text/xls','text/xlsx','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
-	//DDDDDDDD
+
 	if($_SESSION['role'] != 2){
         echo json_encode(['state'=>false,'msg'=>'No permission']); exit;
     }
