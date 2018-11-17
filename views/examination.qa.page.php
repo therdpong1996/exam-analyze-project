@@ -40,6 +40,9 @@
                 }
             ?>
             <a href="?examination_id=<?php echo $exam['examination_id']; ?>&n=<?php echo $exami;?>" class="btn btn-outline-success mb-1 btn-block"><i class="fa fa-plus"></i></a>
+            <label id="excel-btn" class="btn btn-outline-warning mb-1 btn-block">
+                <span id="zip-text"><i class="fa fa-upload"></i> Import Excel</span> <input class="form-control" style="display: none;" type="file" name="excel_file" id="excel_file" accept="application/vnd.ms-excel,text/xls,text/xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+            </label>
         </div>
         <div class="col-xl-10" id="exam-content">
             <div class="card shadow mb-3 card-qa">
@@ -124,3 +127,47 @@
         </div>
       </div>
     </div>
+    <script type="text/javascript">
+        $(function() {
+                $('#excel_file').bind("change", function() {
+
+                    var formData = new FormData();
+                    formData.append("file", document.getElementById('excel_file').files[0]);
+                    formData.append("subject", "<?php echo (isset($exam['examination_subject'])?$exam['examination_subject']:'0'); ?>");
+                    formData.append("exam" ,"<?php echo (isset($exam['examination_id'])?$exam['examination_id']:'0'); ?>");
+                    formData.append("qa_owner", "<?php echo (isset($exam['examination_owner'])?$exam['examination_owner']:'0'); ?>");
+
+                    $.ajax({
+                        url: weburl + "ajax/excel_import",
+                        type: 'post',
+                        data: formData,
+                        dataType: 'json',
+                        async: true,
+                        processData: false,  // tell jQuery not to process the data
+                        contentType: false,   // tell jQuery not to set contentType
+                        success : function(response) {
+                            if(response.state){
+                              swal({
+                                title: 'SUCCESS',
+                                text: response.msg,
+                                type: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'Yes'
+                              }).then((result) => {
+                                if (result.value) {
+                                  window.location.href = window.location.href;
+                                }
+                              })
+                            }else{
+                              swal(
+                                'SORRY',
+                                response.msg,
+                                'error'
+                              )
+                            }
+                        }
+                    });
+                });
+        });
+    </script>

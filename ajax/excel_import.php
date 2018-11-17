@@ -18,7 +18,6 @@
         echo json_encode(['state'=>false,'msg'=>'No permission']); exit;
     }
 
-	if (isset($_POST["import"])){
 
 		if(in_array($_FILES["file"]["type"],$allowedFileType)){
 
@@ -75,12 +74,11 @@
 					    $lastid = $_DB->lastInsertId();
 	                }
 
-	                echo json_encode(['state'=>true, 'msg'=>'Import ไฟล์ '.$_FILES['file']['tmp_name'].' เรียบร้อย']);
-
 	             }
 	         }
+	         unlink($targetPath);
+	        echo json_encode(['state'=>true, 'msg'=>'Import ไฟล์ '.$_FILES['file']['name'].' เรียบร้อย']);
 
 	    }else{
 	    	echo json_encode(['state'=>false, 'msg'=>'lid File Type. Upload Excel File.']);
   		}
-    }
