@@ -21,8 +21,7 @@
   <script src="<?php echo $_G['url'];?>assets/vendor/jquery/dist/jquery.min.js"></script>
   <script src="<?php echo $_G['url'];?>assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Optional JS -->
-  <script src="<?php echo $_G['url'];?>assets/vendor/chart.js/dist/Chart.min.js"></script>
-  <script src="<?php echo $_G['url'];?>assets/vendor/chart.js/dist/Chart.extension.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
   <script src="<?php echo $_G['url'];?>assets/js/argon.js?v=1.0.0"></script>
   <script src="<?php echo $_G['url'];?>assets/js/sweetalert2.all.min.js?v=1.0.0"></script>
   <script src="<?php echo $_G['url'];?>assets/dist/easytimer.min.js"></script>

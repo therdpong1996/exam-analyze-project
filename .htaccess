@@ -8,8 +8,8 @@ RewriteRule ^logout/$ logout.php [L,QSA]
 RewriteRule ^subject/$ subject.php [L,QSA]
 RewriteRule ^examination/$ examination.php [L,QSA]
 RewriteRule ^session/$ session.php [L,QSA]
-RewriteRule ^session/scorelist/$ session.scorelist.php [L,QSA]
 RewriteRule ^session/analyze/$ session.analyze.php [L,QSA]
+RewriteRule ^session/analyze/khan/$ session.analyze.khan.php [L,QSA]
 RewriteRule ^examination/qa/$ examination.qa.php [L,QSA]
 
 #STUDENT
