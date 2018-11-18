@@ -189,12 +189,12 @@
                     </thead>
                     <tbody>
                         <?php
-                          $stm = $_DB->query('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id ORDER BY sessions.session_start ASC');
+                          $stm = $_DB->query('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id ORDER BY sessions.session_start ASC');
                           while($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
                         ?>
                         <tr id="session-<?php echo $rows['session_id']; ?>">
                             <th scope="row">
-                              <span class="mb-0 text-sm"><?php echo $rows['examination_title']; ?> <?php echo ($rows['session_password']!=NULL?'<i class="fas fa-key"></i>':'');?></span>
+                              <span class="mb-0 text-sm"><?php echo $rows['examination_title']; ?> <?php echo ($rows['session_password']!=NULL?'<i class="fas fa-key"></i>':'');?> <small>[<?php echo $rows['subject_title']; ?>]</small></span>
                             </th>
                             <td>
                               <?php echo $rows['session_start']; ?>
@@ -203,8 +203,7 @@
                               <?php echo $rows['session_end']; ?>
                             </td>
                             <td class="text-right">
-                                <a target="_blank" href="analyze/?session_id=<?php echo $rows['session_id']; ?>" class="btn btn-success btn-sm">Analyze</a>
-                                <a href="scorelist/?session_id=<?php echo $rows['session_id']; ?>" class="btn btn-warning btn-sm">Score List</a>
+                                <a href="analyze/?session_id=<?php echo $rows['session_id']; ?>&overview" class="btn btn-success btn-sm">Analyze</a>
                                 <a href="?edit&session_id=<?php echo $rows['session_id']; ?>" class="btn btn-info btn-sm">Edit</a> 
                                 <button onclick="session_delete(<?php echo $rows['session_id']; ?>)" class="btn btn-danger btn-sm">Delete</button>
                             </td>

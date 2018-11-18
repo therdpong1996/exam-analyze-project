@@ -1,5 +1,6 @@
 <?php
     session_start();
+    header('Content-type: text/plain');
     if(!isset($_SESSION['auth']) and !isset($_SESSION['username'])){
         header('Location: ../login/');
         exit;
@@ -15,17 +16,17 @@
     $stm->execute();
     $user_row = $stm->fetch(PDO::FETCH_ASSOC);
 
-    include_once __DIR__.'/views/parts/header.common.php';
-    include_once __DIR__.'/views/parts/sidemenu.common.php';
-    
     if ($user_row['role'] == 2) {
-        include_once __DIR__.'/views/session.scorelist.page.php';
+        $stm = $_DB->prepare("SELECT * FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.session = :session ORDER BY users.stu_id ASC");
+        $stm->bindParam(':session', $_GET['session_id'], PDO::PARAM_INT);
+        $stm->execute();
+        while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+            echo $rows['stu_id'].",".$rows['question'].",".$rows['time_taken_m'].",".($rows['ans_check']==1?'True':'False').PHP_EOL;
+        }
     }else{
         include_once __DIR__.'/views/denied.page.php';
 
     }
 
-    include_once __DIR__.'/views/parts/footer.content.php';
-    include_once __DIR__.'/views/parts/footer.common.php';
 
 ?>
