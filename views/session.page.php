@@ -42,15 +42,31 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="col-sm-2 col-form-label" for="session_start">เวลาเริ่ม</label>
+                      <label class="col-sm-2 col-form-label" for="session_start">ระยะเวลา</label>
                       <div class="col-sm-10">
-                        <input type="datetime-local" class="form-control" id="session_start" name="session_start" required>
+                        <div class="input-daterange datepicker row align-items-center">
+                          <div class="col">
+                              <div class="form-group">
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                      </div>
+                                      <input class="form-control" placeholder="Start date" name="session_start" type="text" value="2018/01/01">
+                                  </div>
+                              </div>
+                          </div>
+                          ถึง
+                          <div class="col">
+                              <div class="form-group">
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                      </div>
+                                      <input class="form-control" placeholder="End date" name="session_end" type="text" value="2018/01/07">
+                                  </div>
+                              </div>
+                          </div>
                       </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 col-form-label" for="session_end">เวลาสิ้นสุด</label>
-                      <div class="col-sm-10">
-                        <input type="datetime-local" class="form-control" id="session_end" name="session_end" required>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -123,15 +139,31 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="col-sm-2 col-form-label" for="session_start">เวลาเริ่ม</label>
+                      <label class="col-sm-2 col-form-label" for="session_start">ระยะเวลา</label>
                       <div class="col-sm-10">
-                        <input type="datetime-local" class="form-control" id="session_start" name="session_start" required value="<?php echo str_replace(' ', 'T', $row['session_start']); ?>">
+                        <div class="input-daterange datepicker row align-items-center">
+                          <div class="col">
+                              <div class="form-group">
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                      </div>
+                                      <input class="form-control" placeholder="Start date" name="session_start" type="text" value="<?php echo date('Y/m/d', strtotime($row['session_start'])); ?>">
+                                  </div>
+                              </div>
+                          </div>
+                          ถึง
+                          <div class="col">
+                              <div class="form-group">
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                      </div>
+                                      <input class="form-control" placeholder="End date" name="session_end" type="text" value="<?php echo date('Y/m/d', strtotime($row['session_end'])); ?>">
+                                  </div>
+                              </div>
+                          </div>
                       </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 col-form-label" for="session_end">เวลาสิ้นสุด</label>
-                      <div class="col-sm-10">
-                        <input type="datetime-local" class="form-control" id="session_end" name="session_end" required value="<?php echo str_replace(' ', 'T', $row['session_end']); ?>">
                       </div>
                     </div>
                     <div class="form-group row">
@@ -197,10 +229,10 @@
                               <span class="mb-0 text-sm"><?php echo $rows['examination_title']; ?> <?php echo ($rows['session_password']!=NULL?'<i class="fas fa-key"></i>':'');?> <small>[<?php echo $rows['subject_title']; ?>]</small></span>
                             </th>
                             <td>
-                              <?php echo $rows['session_start']; ?>
+                              <?php echo date('l d, M Y', strtotime($rows['session_start'])); ?>
                             </td>
                             <td>
-                              <?php echo $rows['session_end']; ?>
+                              <?php echo date('l d, M Y', strtotime($rows['session_end'])); ?>
                             </td>
                             <td class="text-right">
                                 <a href="analyze/?session_id=<?php echo $rows['session_id']; ?>&overview" class="btn btn-success btn-sm">Analyze</a>

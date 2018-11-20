@@ -34,7 +34,8 @@ var Datepicker = (function() {
 	function init($this) {
 		var options = {
 			disableTouchKeyboard: true,
-			autoclose: false
+			autoclose: false,
+			format: "yyyy/mm/dd"
 		};
 
 		$this.datepicker(options);
