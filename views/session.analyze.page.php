@@ -13,9 +13,11 @@
             <a href="?session_id=<?php echo $session['session_id']; ?>&overview" class="btn btn-outline-success mb-1 btn-block <?php echo (isset($_GET['overview'])?'active':'');?>">Overview</a>
             <a href="?session_id=<?php echo $session['session_id']; ?>&scorelist" class="btn btn-outline-warning mb-1 btn-block <?php echo (isset($_GET['scorelist'])?'active':'');?>">Score List</a>
             <?php
-                $n = $_GET['n']-1;
+                if (isset($_GET['n'])) {
+                    $n = $_GET['n'];
+                }
 
-                $stmt = $_DB->prepare("SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_id ASC LIMIT :n, 1");
+                $stmt = $_DB->prepare("SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam AND qa_id = :n LIMIT 1");
                 $stmt->bindParam(':subject', $session['examination_subject']);
                 $stmt->bindParam(':exam', $session['examination_id']);
                 $stmt->bindParam(':n', $n, PDO::PARAM_INT);
@@ -24,13 +26,13 @@
                 $answer_arr = explode(',', $exam_row['qa_choice_true']);
 
                 $exami = 1;
-                $stmt = $_DB->prepare("SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_id ASC");
+                $stmt = $_DB->prepare("SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_order ASC");
                 $stmt->bindParam(':subject', $session['examination_subject']);
                 $stmt->bindParam(':exam', $session['examination_id']);
                 $stmt->execute();
                 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             ?>
-                    <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="?session_id=<?php echo $session['session_id']; ?>&n=<?php echo $exami;?>" class="btn btn-outline-primary mb-1 btn-block <?php echo ($exami==$n+1?'active':'');?>"><?php echo $exami;?>.<?php echo $row['qa_question'];?></a>
+                    <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="?session_id=<?php echo $session['session_id']; ?>&n=<?php echo $row['qa_id'];?>" class="btn btn-outline-primary mb-1 btn-block <?php echo ($row['qa_id']==$n?'active':'');?>"><?php echo $exami;?>.<?php echo $row['qa_question'];?></a>
             <?php
                     $exami++;
                 }
@@ -42,7 +44,7 @@
                 <div class="card-header bg-transparent">
                   <div class="row align-items-center">
                     <div class="col">
-                      <strong>#<?php echo $n+1;?></strong>
+                      <strong>Analyze</strong>
                     </div>
                   </div>
                 </div>
@@ -55,41 +57,13 @@
                             <canvas id="choiceChart"></canvas>
                         </div>
                         <div class="col-7">
-                            <p style="color: #4298b5"><strong>A.</strong> <?php echo $exam_row['qa_choice_1']; ?> <?php echo (in_array(1, $answer_arr)?'<i class="fa fa-check text-success"></i> ':''); ?>
+                            <p><strong>A.</strong> <?php echo $exam_row['qa_choice_1']; ?> <?php echo (in_array(1, $answer_arr)?'<i class="fa fa-check text-success"></i> ':''); ?>
                             </p>
-                            <p style="color: #49a942"><strong>B.</strong> <?php echo $exam_row['qa_choice_2']; ?> <?php echo (in_array(2, $answer_arr)?'<i class="fa fa-check text-success"></i> ':''); ?>
+                            <p><strong>B.</strong> <?php echo $exam_row['qa_choice_2']; ?> <?php echo (in_array(2, $answer_arr)?'<i class="fa fa-check text-success"></i> ':''); ?>
                             </p>
-                            <p style="color: #ffc845"><strong>C.</strong> <?php echo $exam_row['qa_choice_3']; ?> <?php echo (in_array(3, $answer_arr)?'<i class="fa fa-check text-success"></i> ':''); ?>
+                            <p><strong>C.</strong> <?php echo $exam_row['qa_choice_3']; ?> <?php echo (in_array(3, $answer_arr)?'<i class="fa fa-check text-success"></i> ':''); ?>
                             </p>
-                            <p style="color: #fe5000"><strong>D.</strong> <?php echo $exam_row['qa_choice_4']; ?> <?php echo (in_array(4, $answer_arr)?'<i class="fa fa-check text-success"></i> ':''); ?>
-                            </p>
-                        </div>
-                        <hr class="col-12">
-                        <div class="col-5">
-                            <canvas id="trueChart"></canvas>
-                        </div>
-                        <div class="col-7">
-                            <?php
-                                $stm = $_DB->prepare("SELECT COUNT(id) AS c FROM answer_data WHERE ans_check = 1 AND subject = :subject AND session = :session AND examination = :exam AND question = :question");
-                                $stm->bindParam(":subject", $session['examination_subject']);
-                                $stm->bindParam(":session", $session['session_id']);
-                                $stm->bindParam(":exam", $session['examination_id']);
-                                $stm->bindParam(":question", $exam_row['qa_id']);
-                                $stm->execute();
-                                $ctrue = $stm->fetch(PDO::FETCH_ASSOC);
-                                $stm = $_DB->prepare("SELECT COUNT(id) AS c FROM answer_data WHERE ans_check = 0 AND subject = :subject AND session = :session AND examination = :exam AND question = :question");
-                                $stm->bindParam(":subject", $session['examination_subject']);
-                                $stm->bindParam(":session", $session['session_id']);
-                                $stm->bindParam(":exam", $session['examination_id']);
-                                $stm->bindParam(":question", $exam_row['qa_id']);
-                                $stm->execute();
-                                $cfalse = $stm->fetch(PDO::FETCH_ASSOC);
-                            ?>
-                            <p>
-                                ตอบถูกต้อง <?php echo $ctrue['c']; ?> คน
-                            </p>
-                            <p>
-                                ตอบผิด <?php echo $cfalse['c']; ?> คน
+                            <p><strong>D.</strong> <?php echo $exam_row['qa_choice_4']; ?> <?php echo (in_array(4, $answer_arr)?'<i class="fa fa-check text-success"></i> ':''); ?>
                             </p>
                         </div>
                     </div>
@@ -160,38 +134,9 @@
                 }
             };
 
-            var config2 = {
-                type: 'pie',
-                data: {
-                    datasets: [{
-                        data: [
-                            <?php echo $ctrue['c'];?>,
-                            <?php echo $cfalse['c'];?>
-                        ],
-                        backgroundColor: [
-                            '#84bd00',
-                            '#fe5000'
-                        ],
-                        label: 'True Chart'
-                    }],
-                    labels: [
-                        'True',
-                        'False'
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    legend: {
-                        display: false
-                    },
-                }
-            };
-
             window.onload = function() {
                 var ctx = document.getElementById('choiceChart').getContext('2d');
                 window.myPie = new Chart(ctx, config);
-                var ctx2 = document.getElementById('trueChart').getContext('2d');
-                window.myPie = new Chart(ctx2, config2);
             };
         </script>
         <?php } elseif(!isset($_GET['n']) and isset($_GET['overview']) and !isset($_GET['scorelist'])) { ?>
@@ -205,28 +150,7 @@
                   </div>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <img src="<?php url('assets/img/'); ?>sigmoids.png" class="img-thumbnail" >
-                        </div>
-                        <div class="col-12 mt-5">
-                            <?php
-                                $stmt = $_DB->prepare("SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_id ASC");
-                                $stmt->bindParam(':subject', $session['examination_subject']);
-                                $stmt->bindParam(':exam', $session['examination_id']);
-                                $stmt->execute();
-                                while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                            ?>
-                                    <p><strong><?php echo $row['qa_id'];?>.</strong> <?php echo $row['qa_question'];?></p>
-                            <?php
-                                }
-                            ?>
-                        </div>
-                        <hr class="col-12">
-                        <div class="col-12">
-
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>

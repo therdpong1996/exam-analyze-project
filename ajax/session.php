@@ -15,8 +15,8 @@
 
         $uid = $_POST['session_owner'];
         $exam = $_POST['session_exam'];
-        $start = str_replace('/', '-', $_POST['session_start']).' 00:00:00';
-        $end = str_replace('/', '-', $_POST['session_end']).' 00:00:00';
+        $start = str_replace('/', '-', $_POST['session_start']).' '.$_POST['session_start_time'].':00';
+        $end = str_replace('/', '-', $_POST['session_end']).' '.$_POST['session_end_time'].':00';
         $timeleft = $_POST['session_timeleft'];
         $password = $_POST['session_password'];
         $solve = (isset($_POST['session_solve'])?'1':'0');
@@ -52,8 +52,8 @@
 
         $id = $_POST['session_id'];
         $exam = $_POST['session_exam'];
-        $start = str_replace('/', '-', $_POST['session_start']).' 00:00:00';
-        $end = str_replace('/', '-', $_POST['session_end']).' 00:00:00';
+        $start = str_replace('/', '-', $_POST['session_start']).' '.$_POST['session_start_time'].':00';
+        $end = str_replace('/', '-', $_POST['session_end']).' '.$_POST['session_end_time'].':00';
         $timeleft = $_POST['session_timeleft'];
         $password = $_POST['session_password'];
         $solve = (isset($_POST['session_solve'])?'1':'0');

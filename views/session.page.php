@@ -55,7 +55,7 @@
                                   </div>
                               </div>
                           </div>
-                          ถึง
+                          <div class="col-1 text-center" style="margin-bottom: -45px; font-size: 24px;">ถึง</div>
                           <div class="col">
                               <div class="form-group">
                                   <div class="input-group">
@@ -66,7 +66,16 @@
                                   </div>
                               </div>
                           </div>
-                      </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <input type="time" class="form-control" name="session_start_time">
+                          </div>
+                          <div class="col-1"></div>
+                          <div class="col">
+                            <input type="time" class="form-control" name="session_end_time">
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -152,7 +161,7 @@
                                   </div>
                               </div>
                           </div>
-                          ถึง
+                          <div class="col-1 text-center" style="margin-bottom: -45px; font-size: 24px;">ถึง</div>
                           <div class="col">
                               <div class="form-group">
                                   <div class="input-group">
@@ -163,7 +172,16 @@
                                   </div>
                               </div>
                           </div>
-                      </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <input type="time" class="form-control" name="session_start_time" value="<?php echo date('H:i', strtotime($row['session_start'])); ?>">
+                          </div>
+                          <div class="col-1"></div>
+                          <div class="col">
+                            <input type="time" class="form-control" name="session_end_time" value="<?php echo date('H:i', strtotime($row['session_end'])); ?>">
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row">
