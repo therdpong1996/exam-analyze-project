@@ -32,7 +32,7 @@
                 $stmt->execute();
                 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             ?>
-                    <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="?session_id=<?php echo $session['session_id']; ?>&n=<?php echo $row['qa_id'];?>" class="btn btn-outline-primary mb-1 btn-block <?php echo ($row['qa_id']==$n?'active':'');?>"><?php echo $exami;?>.<?php echo $row['qa_question'];?></a>
+                    <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="?session_id=<?php echo $session['session_id']; ?>&n=<?php echo $row['qa_id'];?>" class="btn btn-outline-primary mb-1 btn-block <?php echo ($row['qa_id']==$n?'active':'');?>"><?php echo $exami;?>.<?php echo strip_tags($row['qa_question']);?></a>
             <?php
                     $exami++;
                 }
@@ -51,12 +51,12 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12 mb-5">
-                            <?php echo $exam_row['qa_question']; ?>
+                            <?php echo strip_tags($exam_row['qa_question']); ?>
                         </div>
-                        <div class="col-5">
+                        <div class="col-6">
                             <canvas id="choiceChart"></canvas>
                         </div>
-                        <div class="col-7">
+                        <div class="col-6">
                             <p><strong>A.</strong> <?php echo $exam_row['qa_choice_1']; ?> <?php echo (in_array(1, $answer_arr)?'<i class="fa fa-check text-success"></i> ':''); ?>
                             </p>
                             <p><strong>B.</strong> <?php echo $exam_row['qa_choice_2']; ?> <?php echo (in_array(2, $answer_arr)?'<i class="fa fa-check text-success"></i> ':''); ?>
@@ -99,6 +99,7 @@
             $stm->bindParam(":question", $exam_row['qa_id']);
             $stm->execute();
             $c4c = $stm->fetch(PDO::FETCH_ASSOC);
+            $total = $c1c['c']+$c2c['c']+$c3c['c']+$c4c['c'];
         ?>
         <script type="text/javascript">
             var config = {
@@ -120,16 +121,16 @@
                         label: 'Choice Chart'
                     }],
                     labels: [
-                        '<?php echo $exam_row['qa_choice_1']; ?>',
-                        '<?php echo $exam_row['qa_choice_2']; ?>',
-                        '<?php echo $exam_row['qa_choice_3']; ?>',
-                        '<?php echo $exam_row['qa_choice_4']; ?>'
+                        'A (<?php echo round(($c1c['c']/$total)*100);?>%)',
+                        'B (<?php echo round(($c2c['c']/$total)*100);?>%)',
+                        'C (<?php echo round(($c3c['c']/$total)*100);?>%)',
+                        'D (<?php echo round(($c4c['c']/$total)*100);?>%)'
                     ]
                 },
                 options: {
                     responsive: true,
                     legend: {
-                        display: false
+                        display: true
                     },
                 }
             };
@@ -150,7 +151,45 @@
                   </div>
                 </div>
                 <div class="card-body">
-                    
+                    <?php
+                        $stmt = $_DB->prepare("SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_order ASC");
+                        $stmt->bindParam(':subject', $session['examination_subject']);
+                        $stmt->bindParam(':exam', $session['examination_id']);
+                        $stmt->execute();
+                        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                            $stm = $_DB->prepare("SELECT COUNT(id) AS c FROM answer_data WHERE subject = :subject AND session = :session AND examination = :exam AND question = :question");
+                            $stm->bindParam(":subject", $row['qa_subject']);
+                            $stm->bindParam(":session", $session['session_id']);
+                            $stm->bindParam(":exam", $row['qa_exam']);
+                            $stm->bindParam(":question", $row['qa_id']);
+                            $stm->execute();
+                            $total = $stm->fetch(PDO::FETCH_ASSOC);
+
+                            $stm = $_DB->prepare("SELECT COUNT(id) AS c FROM answer_data WHERE ans_check = 1 AND subject = :subject AND session = :session AND examination = :exam AND question = :question");
+                            $stm->bindParam(":subject", $row['qa_subject']);
+                            $stm->bindParam(":session", $session['session_id']);
+                            $stm->bindParam(":exam", $row['qa_exam']);
+                            $stm->bindParam(":question", $row['qa_id']);
+                            $stm->execute();
+                            $true = $stm->fetch(PDO::FETCH_ASSOC);
+
+                            $precen = ($true['c']/$total['c'])*100;
+                            $precen = floor($precen);
+                    ?>
+                        <div class="progress-wrapper" style="padding-top: 0.5rem;">
+                          <div class="progress-info">
+                            <?php echo $row['qa_order'];?>. <?php echo strip_tags($row['qa_question']);?>
+                            <div class="progress-percentage">
+                              <span><?php echo $precen; ?>%</span>
+                            </div>
+                          </div>
+                          <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="<?php echo $precen; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $precen; ?>%;"></div>
+                          </div>
+                        </div>
+                    <?php
+                        }
+                    ?>
                 </div>
             </div>
         </div>

@@ -44,7 +44,7 @@
                 $stmt->execute();
                 while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             ?>
-                    <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: move;" href="?examination_id=<?php echo $exam['examination_id']; ?>&n=<?php echo $row['qa_id'];?>" class="btn text-left list-exam-item btn-outline-primary mb-2 btn-block <?php echo ($row['qa_id']==$n?'active':'');?>" exam-id="<?php echo $row['qa_id'];?>"><span id="exam-order"><?php echo $exami;?></span>.<?php echo $row['qa_question'];?> </a>
+                    <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: move;" href="?examination_id=<?php echo $exam['examination_id']; ?>&n=<?php echo $row['qa_id'];?>" class="btn text-left list-exam-item btn-outline-primary mb-2 btn-block <?php echo ($row['qa_id']==$n?'active':'');?>" exam-id="<?php echo $row['qa_id'];?>"><span id="exam-order"><?php echo $exami;?></span>.<?php echo strip_tags($row['qa_question']);?> </a>
             <?php
                     $exami++;
                 }
@@ -101,7 +101,7 @@
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="question">คำถาม ?</label>
                       <div class="col-sm-10">
-                        <textarea class="form-control" id="question" name="question" required placeholder="คำถาม" rows="3"><?php echo (isset($exam_row['qa_question'])?$exam_row['qa_question']:''); ?></textarea>
+                        <textarea class="form-control summernote" id="question" name="question" required placeholder="คำถาม" rows="3"><?php echo (isset($exam_row['qa_question'])?$exam_row['qa_question']:''); ?></textarea>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -163,6 +163,11 @@
       </div>
     </div>
     <script type="text/javascript">
+        $('.summernote').summernote({
+        placeholder: 'Hello bootstrap 4',
+        tabsize: 2,
+        height: 200
+      });
         $(function() {
                 $('#excel_file').bind("change", function() {
 

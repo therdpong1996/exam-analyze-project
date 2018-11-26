@@ -34,6 +34,12 @@
                 $time_re = $stmt3->fetch(PDO::FETCH_ASSOC);
                 if ($time_re['time_remaining']) {
                     $time_ree = $time_re['time_remaining'];
+                    $time_tt = time();
+                    $stmt3 = $_DB->prepare("UPDATE time_remaining SET time_update1 = :time_update1 WHERE session = :session AND uid = :uid");
+                    $stmt3->bindParam(':time_update1', $time_tt);
+                    $stmt3->bindParam(':session', $session['session_id']);
+                    $stmt3->bindParam(':uid', $user_row['uid']);
+                    $stmt3->execute();
                 }else{
                     $time_tt = time();
                     $time_ree = $session['session_timeleft']*60;
@@ -108,7 +114,7 @@
         <script type="text/javascript">
             let session_id = <?php echo $session['session_id']; ?>;
             let user = <?php echo $user_row['uid']; ?>;
-            let timeleft_1 = <?php echo $time_ree; ?>;
+            let timeleft_1 = <?php echo ($time_ree<=0?0:$time_ree); ?>;
         </script>
         <div class="col-xl-9" id="exam-content">
             <div class="card shadow mb-3 card-qa">
