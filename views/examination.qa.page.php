@@ -170,7 +170,7 @@
       });
         $(function() {
                 $('#excel_file').bind("change", function() {
-
+                    $('#overlay-loading').fadeIn(200);
                     var formData = new FormData();
                     formData.append("file", document.getElementById('excel_file').files[0]);
                     formData.append("subject", "<?php echo isset($exam['examination_subject']) ? $exam['examination_subject'] : '0'; ?>");
@@ -186,6 +186,7 @@
                         processData: false,  // tell jQuery not to process the data
                         contentType: false,   // tell jQuery not to set contentType
                         success : function(response) {
+                            $('#overlay-loading').fadeOut(200);
                             if(response.state){
                               swal({
                                 title: 'SUCCESS',

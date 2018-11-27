@@ -12,7 +12,7 @@
     display: none;
 }
 .exam-scollbar {
-    max-height: 455px;
+    max-height: 620px;
     overflow-x: hidden;
     overflow-y: auto;
 }

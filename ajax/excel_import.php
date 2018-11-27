@@ -29,6 +29,13 @@
 
             $sheetCount = count($Reader->sheets());
 
+            $stm = $_DB->prepare('SELECT COUNT(qa_id) AS c FROM q_and_a WHERE qa_subject = :subj AND qa_exam = :exam');
+            $stm->bindParam(':subj', $_POST['subject'], PDO::PARAM_INT);
+            $stm->bindParam(':exam', $_POST['exam'], PDO::PARAM_INT);
+            $stm->execute();
+            $old_order = $stm->fetch(PDO::FETCH_ASSOC);
+            $old_order = $old_order['c'];
+
             for ($i = 0; $i < $sheetCount; ++$i) {
                 $Reader->ChangeSheet($i);
 
@@ -42,7 +49,11 @@
 
                     if (isset($Row[0])) {
                         $var = explode('!img=', $Row[0]);
-                        $qa_question = '<img src="'.$var[1].'" width="100%" class="img-thumbnail" /><br>'.$var[0];
+                        if (isset($var[1])) {
+                            $qa_question = '<p><img src="'.$var[1].'" width="50%" class="img-thumbnail" /></p><p>'.$var[0].'</p>';
+                        } else {
+                            $qa_question = $var[0];
+                        }
                     }
                     if (isset($Row[1])) {
                         $qa_choice_1 = $Row[1];
@@ -60,8 +71,10 @@
                         $qa_choice_true = $Row[5];
                     }
 
+                    $order = $old_order + $i + 1;
+
                     if (!empty($qa_question) and !empty($qa_choice_true)) {
-                        $stm = $_DB->prepare('INSERT INTO q_and_a (qa_subject,qa_exam,qa_question,qa_choice_1,qa_choice_2,qa_choice_3,qa_choice_4,qa_choice_true) VALUES (:subject, :exam, :question, :ch1, :ch2, :ch3, :ch4, :true)');
+                        $stm = $_DB->prepare('INSERT INTO q_and_a (qa_subject,qa_exam,qa_question,qa_choice_1,qa_choice_2,qa_choice_3,qa_choice_4,qa_choice_true,qa_order) VALUES (:subject, :exam, :question, :ch1, :ch2, :ch3, :ch4, :true, :order)');
                         $stm->bindParam(':subject', $_POST['subject'], PDO::PARAM_INT);
                         $stm->bindParam(':exam', $_POST['exam'], PDO::PARAM_INT);
                         $stm->bindParam(':question', $qa_question, PDO::PARAM_STR);
@@ -70,6 +83,7 @@
                         $stm->bindParam(':ch3', $qa_choice_3, PDO::PARAM_STR);
                         $stm->bindParam(':ch4', $qa_choice_4, PDO::PARAM_STR);
                         $stm->bindParam(':true', $qa_choice_true, PDO::PARAM_STR);
+                        $stm->bindParam(':order', $order, PDO::PARAM_INT);
                         $stm->execute();
                         $lastid = $_DB->lastInsertId();
                     }
