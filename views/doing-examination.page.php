@@ -34,11 +34,20 @@
                 $time_re = $stmt3->fetch(PDO::FETCH_ASSOC);
                 if ($time_re['time_remaining']) {
                     $time_ree = $time_re['time_remaining'];
-                }else{
-                    $time_ree = $session['session_timeleft']*60;
-                    $stmt3 = $_DB->prepare("INSERT INTO time_remaining (uid,session,time_remaining) VALUES (:uid, :session, :time_re)");
+                    $time_tt = time();
+                    $stmt3 = $_DB->prepare("UPDATE time_remaining SET time_update1 = :time_update1 WHERE session = :session AND uid = :uid");
+                    $stmt3->bindParam(':time_update1', $time_tt);
                     $stmt3->bindParam(':session', $session['session_id']);
                     $stmt3->bindParam(':uid', $user_row['uid']);
+                    $stmt3->execute();
+                }else{
+                    $time_tt = time();
+                    $time_ree = $session['session_timeleft']*60;
+                    $stmt3 = $_DB->prepare("INSERT INTO time_remaining (uid,session,time_start,time_update1,time_remaining) VALUES (:uid, :session, :start, :updatet1, :time_re)");
+                    $stmt3->bindParam(':session', $session['session_id']);
+                    $stmt3->bindParam(':uid', $user_row['uid']);
+                    $stmt3->bindParam(':start', $time_tt);
+                    $stmt3->bindParam(':updatet1', $time_tt);
                     $stmt3->bindParam(':time_re', $time_ree);
                     $stmt3->execute();
                     $max = $stmt3->fetch(PDO::FETCH_ASSOC);
@@ -105,7 +114,7 @@
         <script type="text/javascript">
             let session_id = <?php echo $session['session_id']; ?>;
             let user = <?php echo $user_row['uid']; ?>;
-            let timeleft_1 = <?php echo $time_ree; ?>;
+            let timeleft_1 = <?php echo ($time_ree<=0?0:$time_ree); ?>;
         </script>
         <div class="col-xl-9" id="exam-content">
             <div class="card shadow mb-3 card-qa">
@@ -218,7 +227,7 @@
                 url: weburl + 'ajax/time_remaining',
                 type: 'POST',
                 dataType: 'json',
-                data: {uid: user, session: session_id, time_ree: timeleft_1},
+                data: {uid: user, session: session_id},
             })
             .done(function() {
                 console.log("Update time remaining");

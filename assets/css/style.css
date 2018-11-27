@@ -1,0 +1,33 @@
+.overlay-loading {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 100%;
+    padding-top: 20%;
+    text-align: center;
+    overflow: hidden;
+    top: 0px;
+    left: 0px;
+    z-index: 9999;
+    display: none;
+}
+.exam-scollbar {
+    max-height: 455px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.exam-scollbar::-webkit-scrollbar-track {
+    border-radius: 3px;
+    background-color: #edeff7;
+    margin-left: 5px;
+}
+
+.exam-scollbar::-webkit-scrollbar {
+    width: 12px;
+    background-color: #edeff7
+}
+
+.exam-scollbar::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: #adb6d8
+}
