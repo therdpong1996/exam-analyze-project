@@ -1,7 +1,7 @@
 <?php
 
     date_default_timezone_set("Asia/Bangkok");
-    ini_set('display_errors', 0);
+    ini_set('display_errors', 1);
     error_reporting(E_ALL);
 
 
@@ -13,7 +13,7 @@
     try {
         $_DB = new PDO($_PDO['dsn'], $_PDO['username'], $_PDO['password']);
     } catch (Exception $ex) {
-        $ex->getMessage();
+        echo $ex->getMessage();
     }
 
     if (!strrpos($_SERVER['SCRIPT_NAME'], 'doing-examination')) {
