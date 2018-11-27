@@ -16,19 +16,19 @@
             showCancelButton: false,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'Yes'
-          }).then((result) => {
+          }).then(function(result){
             if (result.value) {
               window.location.href = weburl + "subject/";
             }
-          })
+          });
         }else{
           swal(
             'SORRY',
             response.msg,
             'error'
-          )
+          );
         }
-      })
+      });
     });
 
     $('#add-session-form').on('submit', function(){
@@ -48,19 +48,19 @@
             showCancelButton: false,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'Yes'
-          }).then((result) => {
+          }).then(function(result){
             if (result.value) {
               window.location.href = weburl + "session/";
             }
-          })
+          });
         }else{
           swal(
             'SORRY',
             response.msg,
             'error'
-          )
+          );
         }
-      })
+      });
     });
 
     $('#add-examination-form').on('submit', function(){
@@ -80,19 +80,19 @@
             showCancelButton: false,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'Yes'
-          }).then((result) => {
+          }).then(function(result){
             if (result.value) {
               window.location.href = weburl + "examination/";
             }
-          })
+          });
         }else{
           swal(
             'SORRY',
             response.msg,
             'error'
-          )
+          );
         }
-      })
+      });
     });
 
     $('#edit-subject-form').on('submit', function(){
@@ -112,19 +112,19 @@
             showCancelButton: false,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'Yes'
-          }).then((result) => {
+          }).then(function(result){
             if (result.value) {
               window.location.href = weburl + "subject/";
             }
-          })
+          });
         }else{
           swal(
             'SORRY',
             response.msg,
             'error'
-          )
+          );
         }
-      })
+      });
     });
 
     $('#edit-session-form').on('submit', function(){
@@ -144,19 +144,19 @@
             showCancelButton: false,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'Yes'
-          }).then((result) => {
+          }).then(function(result){
             if (result.value) {
               window.location.href = weburl + "session/";
             }
-          })
+          });
         }else{
           swal(
             'SORRY',
             response.msg,
             'error'
-          )
+          );
         }
-      })
+      });
     });
 
     $('#edit-examination-form').on('submit', function(){
@@ -176,19 +176,19 @@
             showCancelButton: false,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'Yes'
-          }).then((result) => {
+          }).then(function(result){
             if (result.value) {
               window.location.href = weburl + "examination/";
             }
-          })
+          });
         }else{
           swal(
             'SORRY',
             response.msg,
             'error'
-          )
+          );
         }
-      })
+      });
     });
 
     $('#exam-form').on('submit', function(){
@@ -215,19 +215,19 @@
             showCancelButton: false,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'Yes'
-          }).then((result) => {
+          }).then(function(result){
             if (result.value) {
               window.location.href = window.location.href;
             }
-          })
+          });
         }else{
           swal(
             'SORRY',
             response.msg,
             'error'
-          )
+          );
         }
-      })
+      });
     });
 
     delete_exam = function(qa_id){
@@ -243,7 +243,7 @@
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
+      }).then(function(result){
         if (result.value) {
           $.ajax({
             type: "POST",
@@ -259,12 +259,12 @@
                 'ERROR',
                 response.msg,
                 'error'
-              )
+              );
             }
           });
         }
-      })
-    }
+      });
+    };
 
     subject_delete = function(subject_id){
       swal({
@@ -275,7 +275,7 @@
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
+      }).then(function(result){
         if (result.value) {
           $.ajax({
             type: "POST",
@@ -291,12 +291,12 @@
                 'ERROR',
                 response.msg,
                 'error'
-              )
+              );
             }
           });
         }
-      })
-    }
+      });
+    };
 
     session_delete = function(session_id){
       swal({
@@ -307,7 +307,7 @@
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
+      }).then(function(result){
         if (result.value) {
           $.ajax({
             type: "POST",
@@ -323,12 +323,12 @@
                 'ERROR',
                 response.msg,
                 'error'
-              )
+              );
             }
           });
         }
-      })
-    }
+      });
+    };
 
     examination_delete = function(examination_id){
       swal({
@@ -339,7 +339,7 @@
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
+      }).then(function(result){
         if (result.value) {
           $.ajax({
             type: "POST",
@@ -355,9 +355,9 @@
                 'ERROR',
                 response.msg,
                 'error'
-              )
+              );
             }
           });
         }
-      })
-    }
+      });
+    };

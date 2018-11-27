@@ -29,7 +29,7 @@
           <!-- Navbar items -->
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="<?php echo $_G['url'];?>register/">
+              <a class="nav-link nav-link-icon" href="<?php echo $_G['url']; ?>register/">
                 <i class="ni ni-circle-08"></i>
                 <span class="nav-link-inner--text">Register</span>
               </a>
@@ -80,17 +80,17 @@
                   </label>
                 </div>
                 <div class="text-center">
-                  <button type="submit" class="btn btn-primary my-4">Sign in</button>
+                  <button type="submit" id="login-btn" class="btn btn-primary my-4">Sign in</button>
                 </div>
               </form>
             </div>
           </div>
           <div class="row mt-3">
             <div class="col-6">
-              <a href="<?php echo $_G['url'];?>forgot-password/" class="text-light"><small>Forgot password?</small></a>
+              <a href="<?php echo $_G['url']; ?>forgot-password/" class="text-light"><small>Forgot password?</small></a>
             </div>
             <div class="col-6 text-right">
-              <a href="<?php echo $_G['url'];?>register/" class="text-light"><small>Create new account</small></a>
+              <a href="<?php echo $_G['url']; ?>register/" class="text-light"><small>Create new account</small></a>
             </div>
           </div>
         </div>

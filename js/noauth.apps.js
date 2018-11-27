@@ -1,5 +1,7 @@
 // ----------------------------------LOGIN--------------------------
 $('#login-form').on('submit', function(){
+    var oldtext = $('#login-btn').html();
+    $('#login-btn').html('<i class="fa fa-spinner fa-spin"></i> Process..');
     var data = $(this).serialize();
     
     $.ajax({
@@ -17,26 +19,27 @@ $('#login-form').on('submit', function(){
           showCancelButton: false,
           confirmButtonColor: '#3085d6',
           confirmButtonText: 'Yes'
-        }).then((result) => {
+        }).then(function(result){
           if (result.value) {
             window.location.href = weburl + "dashboard/";
           }
-        })
+        });
       }else{
+        $('#login-btn').html(oldtext);
         swal(
           'SORRY',
           response.msg,
           'error'
-        )
+        );
       }
-  })
+  });
 });
 
   // ----------------------------------REGISTER------------------------
   $('#password').on('keyup', function(){
     var password = $(this).val();
     $('#password_chk').html(checkPassStrength(password));
-  })
+  });
 
   function scorePassword(pass) {
       var score = 0;
@@ -56,7 +59,7 @@ $('#login-form').on('submit', function(){
           lower: /[a-z]/.test(pass),
           upper: /[A-Z]/.test(pass),
           nonWords: /\W/.test(pass),
-      }
+      };
 
       variationCount = 0;
       for (var check in variations) {
@@ -98,10 +101,12 @@ $('#login-form').on('submit', function(){
       }else{
         $('#username_chk').html('');
       }
-    })
-  })
+    });
+  });
 
   $('#register-form').on('submit', function(){
+    var oldtext = $('#register-btn').html();
+    $('#register-btn').html('<i class="fa fa-spinner fa-spin"></i> Process..');
     var data = $(this).serialize();
 
     $.ajax({
@@ -119,23 +124,26 @@ $('#login-form').on('submit', function(){
           showCancelButton: false,
           confirmButtonColor: '#3085d6',
           confirmButtonText: 'Yes'
-        }).then((result) => {
+        }).then(function(result){
           if (result.value) {
             window.location.href = weburl + "dashboard/";
           }
-        })
+        });
       }else{
+        $('#register-btn').html(oldtext);
         swal(
           'ERROR',
           response.msg,
           'error'
-        )
+        );
       }
-    })
+    });
   });
 
   $('#verify_stu').on('click', function(){
-    let stu_id = $('#stu_id').val();
+    var oldtext = $(this).html();
+    $(this).html('<i class="fa fa-spinner fa-spin"></i>');
+    var stu_id = $('#stu_id').val();
     
     if(stu_id.length != 13){
       alert('Invalid Student ID');
@@ -149,13 +157,14 @@ $('#login-form').on('submit', function(){
       dataType: "json",
     })
     .done(function(response){
+      $('#verify_stu').html(oldtext);
       if(response.state){
         $('#fullname').val(response.full_name);
         $('#email').val(response.email);
       }else{
-        alert(response.msg)
+        alert(response.msg);
         return;
       }
     });
 
-  })
+  });
