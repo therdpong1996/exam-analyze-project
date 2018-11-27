@@ -4,13 +4,13 @@
     <nav class="navbar bg-gradient-primary navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"><?php echo $exam['examination_title'];?> <small>(<?php echo $exam['subject_title'];?>)</small></a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"><?php echo $exam['examination_title']; ?> <small>(<?php echo $exam['subject_title']; ?>)</small></a>
     <?php require_once 'parts/usermenu.common.php'; ?>
     <?php
         if (isset($_GET['n'])) {
             $n = $_GET['n'];
-        }else{
-            $stm = $_DB->prepare("SELECT qa_id FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_id ASC LIMIT 1");
+        } else {
+            $stm = $_DB->prepare('SELECT qa_id FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_id ASC LIMIT 1');
             $stm->bindParam(':subject', $exam['examination_subject']);
             $stm->bindParam(':exam', $exam['examination_id']);
             $stm->execute();
@@ -18,7 +18,7 @@
             $n = $exam_n['qa_id'];
         }
 
-        $stmt = $_DB->prepare("SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam AND qa_id = :n LIMIT 1");
+        $stmt = $_DB->prepare('SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam AND qa_id = :n LIMIT 1');
         $stmt->bindParam(':subject', $exam['examination_subject']);
         $stmt->bindParam(':exam', $exam['examination_id']);
         $stmt->bindParam(':n', $n, PDO::PARAM_INT);
@@ -38,19 +38,19 @@
             <div class="list-exam-sortable exam-scollbar pr-2">
             <?php
                 $exami = 1;
-                $stmt = $_DB->prepare("SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_order ASC");
+                $stmt = $_DB->prepare('SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_order ASC');
                 $stmt->bindParam(':subject', $exam['examination_subject']);
                 $stmt->bindParam(':exam', $exam['examination_id']);
                 $stmt->execute();
-                while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-            ?>
-                    <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: move;" href="?examination_id=<?php echo $exam['examination_id']; ?>&n=<?php echo $row['qa_id'];?>" class="btn text-left list-exam-item btn-outline-primary mb-2 btn-block <?php echo ($row['qa_id']==$n?'active':'');?>" exam-id="<?php echo $row['qa_id'];?>"><span id="exam-order"><?php echo $exami;?></span>.<?php echo strip_tags($row['qa_question']);?> </a>
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    ?>
+                    <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: move;" href="?examination_id=<?php echo $exam['examination_id']; ?>&n=<?php echo $row['qa_id']; ?>" class="btn text-left list-exam-item btn-outline-primary mb-2 btn-block <?php echo $row['qa_id'] == $n ? 'active' : ''; ?>" exam-id="<?php echo $row['qa_id']; ?>"><span id="exam-order"><?php echo $exami; ?></span>.<?php echo strip_tags($row['qa_question']); ?> </a>
             <?php
-                    $exami++;
+                    ++$exami;
                 }
                 if ($n == 'new') {
-            ?>
-                <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="" class="btn new-exam text-left btn-outline-primary mb-1 btn-block active"><?php echo $exami;?>.New Question</a>
+                    ?>
+                <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="" class="btn new-exam text-left btn-outline-primary mb-1 btn-block active"><?php echo $exami; ?>.New Question</a>
             <?php
                 }
             ?>
@@ -87,21 +87,21 @@
                             <strong>Edit Question</strong>
                         </div>
                         <div class="col-6 text-right">
-                            <button class="btn btn-danger btn-sm" onclick="delete_exam(<?php echo (isset($exam_row['qa_id'])?$exam_row['qa_id']:'0'); ?>);">ลบ</button>
+                            <button class="btn btn-danger btn-sm" onclick="delete_exam(<?php echo isset($exam_row['qa_id']) ? $exam_row['qa_id'] : '0'; ?>);">ลบ</button>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <form action="javascript:void(0)" id="exam-form">
-                    <input type="hidden" name="action" value="<?php echo (isset($exam_row['qa_id'])?'edit':'add'); ?>">
-                    <input type="hidden" name="qa_id" value="<?php echo (isset($exam_row['qa_id'])?$exam_row['qa_id']:'0'); ?>">
-                    <input type="hidden" name="qa_subject" value="<?php echo (isset($exam['examination_subject'])?$exam['examination_subject']:'0'); ?>">
-                    <input type="hidden" name="qa_exam" value="<?php echo (isset($exam['examination_id'])?$exam['examination_id']:'0'); ?>">
-                    <input type="hidden" name="qa_owner" value="<?php echo (isset($exam['examination_owner'])?$exam['examination_owner']:'0'); ?>">
+                    <input type="hidden" name="action" value="<?php echo isset($exam_row['qa_id']) ? 'edit' : 'add'; ?>">
+                    <input type="hidden" name="qa_id" value="<?php echo isset($exam_row['qa_id']) ? $exam_row['qa_id'] : '0'; ?>">
+                    <input type="hidden" name="qa_subject" value="<?php echo isset($exam['examination_subject']) ? $exam['examination_subject'] : '0'; ?>">
+                    <input type="hidden" name="qa_exam" value="<?php echo isset($exam['examination_id']) ? $exam['examination_id'] : '0'; ?>">
+                    <input type="hidden" name="qa_owner" value="<?php echo isset($exam['examination_owner']) ? $exam['examination_owner'] : '0'; ?>">
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="question">คำถาม ?</label>
                       <div class="col-sm-10">
-                        <textarea class="form-control summernote" id="question" name="question" required placeholder="คำถาม" rows="3"><?php echo (isset($exam_row['qa_question'])?$exam_row['qa_question']:''); ?></textarea>
+                        <textarea class="form-control summernote" id="question" name="question" required placeholder="คำถาม" rows="3"><?php echo isset($exam_row['qa_question']) ? $exam_row['qa_question'] : ''; ?></textarea>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -112,38 +112,38 @@
                             <small>ถูกต้อง</small>
                         </div>
                         <div class="col-9">
-                            <input type="text" class="form-control mb-2" name="choice_1" required placeholder="ตัวเลือกที่ 1" value="<?php echo (isset($exam_row['qa_choice_1'])?$exam_row['qa_choice_1']:''); ?>">
+                            <input type="text" class="form-control mb-2" name="choice_1" required placeholder="ตัวเลือกที่ 1" value="<?php echo isset($exam_row['qa_choice_1']) ? $exam_row['qa_choice_1'] : ''; ?>">
                         </div>
                         <div class="col-3">
                             <div class="custom-control custom-checkbox mb-2">
-                                <input class="custom-control-input" id="choice_1" type="checkbox" name="true[]" value="1" <?php echo (in_array(1, $answer_arr)?'checked':''); ?>>
+                                <input class="custom-control-input" id="choice_1" type="checkbox" name="true[]" value="1" <?php echo in_array(1, $answer_arr) ? 'checked' : ''; ?>>
                                 <label class="custom-control-label" for="choice_1"></label>
                             </div>
                         </div>
                         <div class="col-9">
-                            <input type="text" class="form-control mb-2" name="choice_2" required placeholder="ตัวเลือกที่ 2" value="<?php echo (isset($exam_row['qa_choice_2'])?$exam_row['qa_choice_2']:''); ?>">
+                            <input type="text" class="form-control mb-2" name="choice_2" required placeholder="ตัวเลือกที่ 2" value="<?php echo isset($exam_row['qa_choice_2']) ? $exam_row['qa_choice_2'] : ''; ?>">
                         </div>
                         <div class="col-3">
                             <div class="custom-control custom-checkbox mb-2">
-                                <input class="custom-control-input" id="choice_2" type="checkbox" name="true[]" value="2" <?php echo (in_array(2, $answer_arr)?'checked':''); ?>>
+                                <input class="custom-control-input" id="choice_2" type="checkbox" name="true[]" value="2" <?php echo in_array(2, $answer_arr) ? 'checked' : ''; ?>>
                                 <label class="custom-control-label" for="choice_2"></label>
                             </div>
                         </div>
                         <div class="col-9">
-                            <input type="text" class="form-control mb-2" name="choice_3" required placeholder="ตัวเลือกที่ 3" value="<?php echo (isset($exam_row['qa_choice_3'])?$exam_row['qa_choice_3']:''); ?>">
+                            <input type="text" class="form-control mb-2" name="choice_3" required placeholder="ตัวเลือกที่ 3" value="<?php echo isset($exam_row['qa_choice_3']) ? $exam_row['qa_choice_3'] : ''; ?>">
                         </div>
                         <div class="col-3">
                             <div class="custom-control custom-checkbox mb-2">
-                                <input class="custom-control-input" id="choice_3" type="checkbox" name="true[]" value="3" <?php echo (in_array(3, $answer_arr)?'checked':''); ?>>
+                                <input class="custom-control-input" id="choice_3" type="checkbox" name="true[]" value="3" <?php echo in_array(3, $answer_arr) ? 'checked' : ''; ?>>
                                 <label class="custom-control-label" for="choice_3"></label>
                             </div>
                         </div>
                         <div class="col-9">
-                            <input type="text" class="form-control mb-2" name="choice_4" required placeholder="ตัวเลือกที่ 4" value="<?php echo (isset($exam_row['qa_choice_4'])?$exam_row['qa_choice_4']:''); ?>">
+                            <input type="text" class="form-control mb-2" name="choice_4" required placeholder="ตัวเลือกที่ 4" value="<?php echo isset($exam_row['qa_choice_4']) ? $exam_row['qa_choice_4'] : ''; ?>">
                         </div>
                         <div class="col-3">
                             <div class="custom-control custom-checkbox mb-2">
-                                <input class="custom-control-input" id="choice_4" type="checkbox" name="true[]" value="4" <?php echo (in_array(4, $answer_arr)?'checked':''); ?>>
+                                <input class="custom-control-input" id="choice_4" type="checkbox" name="true[]" value="4" <?php echo in_array(4, $answer_arr) ? 'checked' : ''; ?>>
                                 <label class="custom-control-label" for="choice_4"></label>
                             </div>
                         </div>
@@ -173,9 +173,9 @@
 
                     var formData = new FormData();
                     formData.append("file", document.getElementById('excel_file').files[0]);
-                    formData.append("subject", "<?php echo (isset($exam['examination_subject'])?$exam['examination_subject']:'0'); ?>");
-                    formData.append("exam" ,"<?php echo (isset($exam['examination_id'])?$exam['examination_id']:'0'); ?>");
-                    formData.append("qa_owner", "<?php echo (isset($exam['examination_owner'])?$exam['examination_owner']:'0'); ?>");
+                    formData.append("subject", "<?php echo isset($exam['examination_subject']) ? $exam['examination_subject'] : '0'; ?>");
+                    formData.append("exam" ,"<?php echo isset($exam['examination_id']) ? $exam['examination_id'] : '0'; ?>");
+                    formData.append("qa_owner", "<?php echo isset($exam['examination_owner']) ? $exam['examination_owner'] : '0'; ?>");
 
                     $.ajax({
                         url: weburl + "ajax/excel_import",

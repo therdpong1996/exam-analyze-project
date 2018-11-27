@@ -192,6 +192,13 @@
     });
 
     $('#exam-form').on('submit', function(){
+      checked = $("input[type=checkbox]:checked").length;
+
+      if(!checked) {
+        alert("You must check at least one checkbox.");
+        return false;
+      }
+      
       var sData = $(this).serialize();
       $.ajax({
         type: "POST",
