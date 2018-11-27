@@ -1,7 +1,7 @@
 <?php
 
     date_default_timezone_set("Asia/Bangkok");
-    ini_set('display_errors', 1);
+    ini_set('display_errors', 0);
     error_reporting(E_ALL);
 
 
@@ -25,6 +25,6 @@
     }
 
     //WEB URL  
-    $_G['url'] = 'https://exam-analyze.herokuapp.com/;
+    $_G['url'] = 'https://exam-analyze.herokuapp.com/';
 
     require_once 'functions.php';
