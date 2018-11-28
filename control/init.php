@@ -22,6 +22,6 @@
     }
 
     //WEB URL
-    $_G['url'] = 'https://cat-project.azurewebsites.net/';
+    $_G['url'] = 'https://exam-analyze.herokuapp.com/';
 
     require_once 'functions.php';
