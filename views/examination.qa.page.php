@@ -87,7 +87,7 @@
                             <strong>Edit Question</strong>
                         </div>
                         <div class="col-6 text-right">
-                            <button class="btn btn-danger btn-sm" onclick="delete_exam(<?php echo isset($exam_row['qa_id']) ? $exam_row['qa_id'] : '0'; ?>);">ลบ</button>
+                            <button id="delete-btn" class="btn btn-danger btn-sm" onclick="delete_exam(<?php echo isset($exam_row['qa_id']) ? $exam_row['qa_id'] : '0'; ?>);">ลบ</button>
                         </div>
                     </div>
                 </div>
@@ -152,7 +152,7 @@
                     <div class="form-group row">
                       <div class="col-sm-2"></div>
                       <div class="col-sm-10">
-                        <button type="submit" class="btn btn-success">บันทึก</button>
+                        <button type="submit" id="exam-add" class="btn btn-success">บันทึก</button>
                         <a href="<?php url('examination/'); ?>" class="btn btn-danger">ยกเลิก</a>
                       </div>
                     </div>

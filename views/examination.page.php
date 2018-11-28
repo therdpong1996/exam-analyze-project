@@ -10,7 +10,8 @@
     <div class="container-fluid pb-8 pt-5 pt-md-8">
       <div class="row">
         <div class="col-xl-12">
-          <?php if(isset($_GET['add'])){ ?>
+          <?php if (isset($_GET['add'])) {
+    ?>
               <div class="card shadow">
                 <div class="card-header bg-transparent">
                   <div class="row align-items-center">
@@ -35,15 +36,14 @@
                       <div class="col-sm-10">
                         <select class="form-control" id="examination_subject" name="examination_subject" required>
                             <?php
-                                $stm = $_DB->prepare("SELECT * FROM subjects WHERE subject_owner = :uid");
-                                $stm->bindParam(':uid', $user_row['uid']);
-                                $stm->execute();
-                                while($rows = $stm->fetch(PDO::FETCH_ASSOC)){
-                            ?>
+                                $stm = $_DB->prepare('SELECT * FROM subjects WHERE subject_owner = :uid');
+    $stm->bindParam(':uid', $user_row['uid']);
+    $stm->execute();
+    while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+        ?>
                                 <option value="<?php echo $rows['subject_id']; ?>"><?php echo $rows['subject_title']; ?></option>
                             <?php
-                                }
-                            ?>
+    } ?>
                         </select>
                       </div>
                     </div>
@@ -56,7 +56,7 @@
                     <div class="form-group row">
                       <div class="col-sm-2"></div>
                       <div class="col-sm-10">
-                        <button type="submit" class="btn btn-success">บันทึก</button>
+                        <button type="submit" id="exam-add" class="btn btn-success">บันทึก</button>
                         <a href="<?php url('examination/'); ?>" class="btn btn-danger">ยกเลิก</a>
                       </div>
                     </div>
@@ -64,12 +64,11 @@
                 </div>
               </div>
           <?php
-                }elseif(isset($_GET['edit']) and isset($_GET['examination_id'])){
-                  $stm = $_DB->prepare("SELECT * FROM examinations WHERE examination_id = :examination_id");
-							    $stm->bindParam(':examination_id', $_GET['examination_id'], PDO::PARAM_INT);
-							    $stm->execute();
-							    $row = $stm->fetch(PDO::FETCH_ASSOC);
-          ?>
+} elseif (isset($_GET['edit']) and isset($_GET['examination_id'])) {
+        $stm = $_DB->prepare('SELECT * FROM examinations WHERE examination_id = :examination_id');
+        $stm->bindParam(':examination_id', $_GET['examination_id'], PDO::PARAM_INT);
+        $stm->execute();
+        $row = $stm->fetch(PDO::FETCH_ASSOC); ?>
               <div class="card shadow">
                 <div class="card-header bg-transparent">
                   <div class="row align-items-center">
@@ -95,15 +94,14 @@
                       <div class="col-sm-10">
                         <select class="form-control" id="examination_subject" name="examination_subject" required>
                             <?php
-                                $stm = $_DB->prepare("SELECT * FROM subjects WHERE subject_owner = :uid");
-                                $stm->bindParam(':uid', $user_row['uid']);
-                                $stm->execute();
-                                while($rows = $stm->fetch(PDO::FETCH_ASSOC)){
-                            ?>
-                                <option value="<?php echo $rows['subject_id']; ?>" <?php echo ($rows['subject_id'] == $row['examination_subject'])?'selected':''; ?>><?php echo $rows['subject_title']; ?></option>
+                                $stm = $_DB->prepare('SELECT * FROM subjects WHERE subject_owner = :uid');
+        $stm->bindParam(':uid', $user_row['uid']);
+        $stm->execute();
+        while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+            ?>
+                                <option value="<?php echo $rows['subject_id']; ?>" <?php echo ($rows['subject_id'] == $row['examination_subject']) ? 'selected' : ''; ?>><?php echo $rows['subject_title']; ?></option>
                             <?php
-                                }
-                            ?>
+        } ?>
                         </select>
                       </div>
                     </div>
@@ -116,14 +114,16 @@
                     <div class="form-group row">
                       <div class="col-sm-2"></div>
                       <div class="col-sm-10">
-                        <button type="submit" class="btn btn-success">บันทึก</button>
+                        <button type="submit" id="exam-save" class="btn btn-success">บันทึก</button>
                         <a href="<?php url('examination/'); ?>" class="btn btn-danger">ยกเลิก</a>
                       </div>
                     </div>
                   </form>
                 </div>
               </div>
-          <?php }else{ ?>
+          <?php
+    } else {
+        ?>
               <a class="btn btn-success mb-3" href="?add"><span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span> เพิ่มข้อสอบ</a>
               <div class="card shadow">
                 <div class="card-header bg-transparent">
@@ -148,8 +148,8 @@
                     <tbody>
                         <?php
                           $stm = $_DB->query('SELECT * FROM examinations JOIN subjects ON examinations.examination_subject = subjects.subject_id ORDER BY examination_createtime DESC');
-                          while($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
-                        ?>
+        while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+            ?>
                         <tr id="examination-<?php echo $rows['examination_id']; ?>">
                             <th scope="row">
                               <span class="mb-0 text-sm"><?php echo $rows['examination_title']; ?></span>
@@ -158,28 +158,29 @@
                             <span class="mb-0 text-sm"><?php echo $rows['subject_title']; ?></span>
                             </td>
                             <?php
-                              $stmt = $_DB->prepare("SELECT COUNT(qa_id) AS qac FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam");
-                              $stmt->bindParam(':subject', $rows['subject_id']);
-                              $stmt->bindParam(':exam', $rows['examination_id']);
-                              $stmt->execute();
-                              $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                            ?>
+                              $stmt = $_DB->prepare('SELECT COUNT(qa_id) AS qac FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam');
+            $stmt->bindParam(':subject', $rows['subject_id']);
+            $stmt->bindParam(':exam', $rows['examination_id']);
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC); ?>
                             <td>
                               <?php echo $row['qac']; ?>
                             </td>
                             <td class="text-right">
                                 <a href="qa/?examination_id=<?php echo $rows['examination_id']; ?>" class="btn btn-warning btn-sm">Edit Question</a>
                                 <a href="?edit&examination_id=<?php echo $rows['examination_id']; ?>" class="btn btn-info btn-sm">Edit</a> 
-                                <button onclick="examination_delete(<?php echo $rows['examination_id']; ?>)" class="btn btn-danger btn-sm">Delete</button>
+                                <button id="delete-btn" onclick="examination_delete(<?php echo $rows['examination_id']; ?>)" class="btn btn-danger btn-sm">Delete</button>
                             </td>
                         </tr>
-                        <?php }?>
+                        <?php
+        } ?>
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
-          <?php } ?>
+          <?php
+    } ?>
         </div>
       </div>
     </div>
