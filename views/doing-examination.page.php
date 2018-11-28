@@ -12,38 +12,32 @@
       <div class="row">
         <div class="col-xl-1">
             <?php
-                $n = (isset($_GET['n'])?$_GET['n']-1:0);
-                $stmt = $_DB->prepare("SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam LIMIT :n, 1");
+                $n = (isset($_GET['n']) ? $_GET['n'] - 1 : 0);
+                $stmt = $_DB->prepare('SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam LIMIT :n, 1');
                 $stmt->bindParam(':subject', $session['examination_subject']);
                 $stmt->bindParam(':exam', $session['examination_id']);
                 $stmt->bindParam(':n', $n, PDO::PARAM_INT);
                 $stmt->execute();
                 $exam_row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                $stmt2 = $_DB->prepare("SELECT COUNT(qa_id) AS C FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam");
+                $stmt2 = $_DB->prepare('SELECT COUNT(qa_id) AS C FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam');
                 $stmt2->bindParam(':subject', $session['examination_subject']);
                 $stmt2->bindParam(':exam', $session['examination_id']);
                 $stmt2->execute();
                 $max = $stmt2->fetch(PDO::FETCH_ASSOC);
 
                 //TIME
-                $stmt3 = $_DB->prepare("SELECT * FROM time_remaining WHERE session = :session AND uid = :uid");
+                $stmt3 = $_DB->prepare('SELECT * FROM time_remaining WHERE session = :session AND uid = :uid');
                 $stmt3->bindParam(':session', $session['session_id']);
                 $stmt3->bindParam(':uid', $user_row['uid']);
                 $stmt3->execute();
                 $time_re = $stmt3->fetch(PDO::FETCH_ASSOC);
                 if ($time_re['time_remaining']) {
                     $time_ree = $time_re['time_remaining'];
+                } else {
                     $time_tt = time();
-                    $stmt3 = $_DB->prepare("UPDATE time_remaining SET time_update1 = :time_update1 WHERE session = :session AND uid = :uid");
-                    $stmt3->bindParam(':time_update1', $time_tt);
-                    $stmt3->bindParam(':session', $session['session_id']);
-                    $stmt3->bindParam(':uid', $user_row['uid']);
-                    $stmt3->execute();
-                }else{
-                    $time_tt = time();
-                    $time_ree = $session['session_timeleft']*60;
-                    $stmt3 = $_DB->prepare("INSERT INTO time_remaining (uid,session,time_start,time_update1,time_remaining) VALUES (:uid, :session, :start, :updatet1, :time_re)");
+                    $time_ree = $session['session_timeleft'] * 60;
+                    $stmt3 = $_DB->prepare('INSERT INTO time_remaining (uid,session,time_start,time_update1,time_remaining) VALUES (:uid, :session, :start, :updatet1, :time_re)');
                     $stmt3->bindParam(':session', $session['session_id']);
                     $stmt3->bindParam(':uid', $user_row['uid']);
                     $stmt3->bindParam(':start', $time_tt);
@@ -53,7 +47,7 @@
                     $max = $stmt3->fetch(PDO::FETCH_ASSOC);
                 }
 
-                $stm = $_DB->prepare("SELECT * FROM answer_data WHERE uid = :uid AND question = :question AND subject = :subject AND examination = :exam AND session = :session LIMIT 1");
+                $stm = $_DB->prepare('SELECT * FROM answer_data WHERE uid = :uid AND question = :question AND subject = :subject AND examination = :exam AND session = :session LIMIT 1');
                 $stm->bindParam(':uid', $user_row['uid'], PDO::PARAM_INT);
                 $stm->bindParam(':question', $exam_row['qa_id'], PDO::PARAM_INT);
                 $stm->bindParam(':subject', $session['examination_subject'], PDO::PARAM_INT);
@@ -63,13 +57,12 @@
                 $answer = $stm->fetch(PDO::FETCH_ASSOC);
                 $exami = 1;
                 $not = 0;
-                $stmt = $_DB->prepare("SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_id ASC");
+                $stmt = $_DB->prepare('SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_id ASC');
                 $stmt->bindParam(':subject', $session['examination_subject']);
                 $stmt->bindParam(':exam', $session['examination_id']);
                 $stmt->execute();
-                while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-
-                    $stm = $_DB->prepare("SELECT * FROM answer_data WHERE uid = :uid AND question = :question AND subject = :subject AND examination = :exam AND session = :session LIMIT 1");
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $stm = $_DB->prepare('SELECT * FROM answer_data WHERE uid = :uid AND question = :question AND subject = :subject AND examination = :exam AND session = :session LIMIT 1');
                     $stm->bindParam(':uid', $user_row['uid'], PDO::PARAM_INT);
                     $stm->bindParam(':question', $row['qa_id'], PDO::PARAM_INT);
                     $stm->bindParam(':subject', $session['examination_subject'], PDO::PARAM_INT);
@@ -81,7 +74,7 @@
                     if (empty($ssrow['id'])) {
                         $ans = 0;
                         $temp = 1;
-                        $stm = $_DB->prepare("INSERT INTO answer_data(uid,question,subject,examination,session,answer,temp) VALUES (:uid, :question, :subject, :examination, :session, :answer, :temp)");
+                        $stm = $_DB->prepare('INSERT INTO answer_data(uid,question,subject,examination,session,answer,temp) VALUES (:uid, :question, :subject, :examination, :session, :answer, :temp)');
                         $stm->bindParam(':uid', $user_row['uid'], PDO::PARAM_INT);
                         $stm->bindParam(':question', $row['qa_id'], PDO::PARAM_INT);
                         $stm->bindParam(':subject', $session['examination_subject'], PDO::PARAM_INT);
@@ -92,7 +85,7 @@
                         $stm->execute();
                     }
 
-                    $stm = $_DB->prepare("SELECT * FROM answer_data WHERE uid = :uid AND question = :question AND subject = :subject AND examination = :exam AND session = :session LIMIT 1");
+                    $stm = $_DB->prepare('SELECT * FROM answer_data WHERE uid = :uid AND question = :question AND subject = :subject AND examination = :exam AND session = :session LIMIT 1');
 
                     $stm->bindParam(':uid', $user_row['uid'], PDO::PARAM_INT);
                     $stm->bindParam(':question', $row['qa_id'], PDO::PARAM_INT);
@@ -100,11 +93,10 @@
                     $stm->bindParam(':exam', $session['examination_id'], PDO::PARAM_INT);
                     $stm->bindParam(':session', $session['session_id'], PDO::PARAM_INT);
                     $stm->execute();
-                    $makec = $stm->fetch(PDO::FETCH_ASSOC);
-            ?>
-                    <a href="?n=<?php echo $exami;?>" class="btn btn-<?php echo ($makec['answer']==0||empty($makec['answer'])?'outline-':'');?>primary  mb-1 btn-block <?php echo ($exami==$n+1?'active':'');?>"><?php echo $exami;?></a>
+                    $makec = $stm->fetch(PDO::FETCH_ASSOC); ?>
+                    <a href="?n=<?php echo $exami; ?>" class="btn btn-<?php echo $makec['answer'] == 0 || empty($makec['answer']) ? 'outline-' : ''; ?>primary  mb-1 btn-block <?php echo $exami == $n + 1 ? 'active' : ''; ?>"><?php echo $exami; ?></a>
             <?php
-                    $exami++;
+                    ++$exami;
                 }
             ?>
         </div>
@@ -114,12 +106,12 @@
         <script type="text/javascript">
             let session_id = <?php echo $session['session_id']; ?>;
             let user = <?php echo $user_row['uid']; ?>;
-            let timeleft_1 = <?php echo ($time_ree<=0?0:$time_ree); ?>;
+            let timeleft_1 = <?php echo $time_ree <= 0 ? 0 : $time_ree; ?>;
         </script>
         <div class="col-xl-9" id="exam-content">
             <div class="card shadow mb-3 card-qa">
                 <div class="card-header">
-                    <strong>#<?php echo $n+1;?></strong>
+                    <strong>#<?php echo $n + 1; ?></strong>
                 </div>
                 <div class="card-body">
                     <form action="javascript:void(0)" id="doing-exam-form">
@@ -131,20 +123,20 @@
                     <div class="form-group row">
                       <label class="col-sm-2" for="question">คำถาม ?</label>
                       <div class="col-sm-10">
-                        <div><?php echo $exam_row['qa_question'];?></div>
+                        <div><?php echo $exam_row['qa_question']; ?></div>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="col-sm-2">ตัวเลือก</label>
                       <div class="col-sm-10 row">
                         <?php 
-                            $choices = UniqueRandomNumbersWithinRange(1,4,4);
+                            $choices = UniqueRandomNumbersWithinRange(1, 4, 4);
                             foreach ($choices as $choice) {
-                        ?>
+                                ?>
                         <div class="col-12">
                             <div class="custom-control custom-radio mb-2">
-                                <input class="custom-control-input" id="choice_<?php echo $choice;?>" type="radio" name="answer" required value="<?php echo $choice;?>" <?php echo ($answer['answer']==$choice?'checked':'');?>>
-                                <label class="custom-control-label" for="choice_<?php echo $choice;?>"><?php echo $exam_row['qa_choice_'.$choice];?></label>
+                                <input class="custom-control-input" id="choice_<?php echo $choice; ?>" type="radio" name="answer" required value="<?php echo $choice; ?>" <?php echo $answer['answer'] == $choice ? 'checked' : ''; ?>>
+                                <label class="custom-control-label" for="choice_<?php echo $choice; ?>"><?php echo $exam_row['qa_choice_'.$choice]; ?></label>
                             </div>
                         </div>
                         <?php
@@ -155,8 +147,8 @@
                     <div class="form-group row">
                       <div class="col-sm-2"></div>
                       <div class="col-sm-10">
-                        <a href="?n=<?php echo $_GET['n']-1;?>" class="btn btn-info <?php echo ($_GET['n']==1?'disabled':''); ?>"><i class="fa fa-arrow-left"></i> ข้อก่อนหน้า</a>
-                        <a href="?n=<?php echo $_GET['n']+1;?>" class="btn btn-success <?php echo ($_GET['n']==$max['C']?'disabled':''); ?>"><i class="fa fa-arrow-right"></i> ข้อถัดไป</a>
+                        <a href="?n=<?php echo $_GET['n'] - 1; ?>" class="btn btn-info <?php echo $_GET['n'] == 1 ? 'disabled' : ''; ?>"><i class="fa fa-arrow-left"></i> ข้อก่อนหน้า</a>
+                        <a href="?n=<?php echo $_GET['n'] + 1; ?>" class="btn btn-success <?php echo $_GET['n'] == $max['C'] ? 'disabled' : ''; ?>"><i class="fa fa-arrow-right"></i> ข้อถัดไป</a>
                       </div>
                     </div>
                     </form>
