@@ -6,8 +6,8 @@
 
 
     //PDO
-    $_PDO['dsn'] = 'mysql:host=178.128.16.91;dbname=admin_project;charset=utf8';
-    $_PDO['username'] = 'admin_project';
+    $_PDO['dsn'] = 'mysql:host=178.128.18.187;dbname=admin_cat;charset=utf8';
+    $_PDO['username'] = 'admin_cat';
     $_PDO['password'] = 'pwa@pass';
 
     try {
