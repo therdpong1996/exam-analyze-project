@@ -10,7 +10,8 @@
     <div class="container-fluid pb-8 pt-5 pt-md-8">
       <div class="row">
         <div class="col-xl-12">
-          <?php if(isset($_GET['add'])){ ?>
+          <?php if (isset($_GET['add'])) {
+    ?>
               <div class="card shadow">
                 <div class="card-header bg-transparent">
                   <div class="row align-items-center">
@@ -29,15 +30,14 @@
                       <div class="col-sm-10">
                         <select class="form-control" id="session_exam" name="session_exam" required>
                             <?php
-                                $stm = $_DB->prepare("SELECT * FROM examinations WHERE examination_owner = :uid");
-                                $stm->bindParam(':uid', $user_row['uid']);
-                                $stm->execute();
-                                while($rows = $stm->fetch(PDO::FETCH_ASSOC)){
-                            ?>
+                                $stm = $_DB->prepare('SELECT * FROM examinations WHERE examination_owner = :uid');
+    $stm->bindParam(':uid', $user_row['uid']);
+    $stm->execute();
+    while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+        ?>
                                 <option value="<?php echo $rows['examination_id']; ?>"><?php echo $rows['examination_title']; ?></option>
                             <?php
-                                }
-                            ?>
+    } ?>
                         </select>
                       </div>
                     </div>
@@ -102,7 +102,7 @@
                     <div class="form-group row">
                       <div class="col-sm-2"></div>
                       <div class="col-sm-10">
-                        <button type="submit" class="btn btn-success">บันทึก</button>
+                        <button type="submit" id="session-add" class="btn btn-success">บันทึก</button>
                         <a href="<?php url('session/'); ?>" class="btn btn-danger">ยกเลิก</a>
                       </div>
                     </div>
@@ -110,12 +110,11 @@
                 </div>
               </div>
           <?php
-                }elseif(isset($_GET['edit']) and isset($_GET['session_id'])){
-                  $stm = $_DB->prepare("SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE session_id = :session_id");
-							    $stm->bindParam(':session_id', $_GET['session_id'], PDO::PARAM_INT);
-							    $stm->execute();
-							    $row = $stm->fetch(PDO::FETCH_ASSOC);
-          ?>
+} elseif (isset($_GET['edit']) and isset($_GET['session_id'])) {
+        $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE session_id = :session_id');
+        $stm->bindParam(':session_id', $_GET['session_id'], PDO::PARAM_INT);
+        $stm->execute();
+        $row = $stm->fetch(PDO::FETCH_ASSOC); ?>
               <div class="card shadow">
                 <div class="card-header bg-transparent">
                   <div class="row align-items-center">
@@ -135,15 +134,14 @@
                       <div class="col-sm-10">
                         <select class="form-control" id="session_exam" name="session_exam" required>
                             <?php
-                                $stm = $_DB->prepare("SELECT * FROM examinations WHERE examination_owner = :uid");
-                                $stm->bindParam(':uid', $user_row['uid']);
-                                $stm->execute();
-                                while($rows = $stm->fetch(PDO::FETCH_ASSOC)){
-                            ?>
-                                <option value="<?php echo $rows['examination_id']; ?>" <?php echo ($rows['examination_id'] == $row['session_exam'])?'selected':''; ?>><?php echo $rows['examination_title']; ?></option>
+                                $stm = $_DB->prepare('SELECT * FROM examinations WHERE examination_owner = :uid');
+        $stm->bindParam(':uid', $user_row['uid']);
+        $stm->execute();
+        while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+            ?>
+                                <option value="<?php echo $rows['examination_id']; ?>" <?php echo ($rows['examination_id'] == $row['session_exam']) ? 'selected' : ''; ?>><?php echo $rows['examination_title']; ?></option>
                             <?php
-                                }
-                            ?>
+        } ?>
                         </select>
                       </div>
                     </div>
@@ -200,7 +198,7 @@
                       <label class="col-sm-2" for="session_password">อนุญาตให้ดูข้อที่ถูกต้อง</label>
                       <div class="col-sm-10">
                         <div class="custom-control custom-checkbox mb-3">
-                          <input class="custom-control-input" id="session_solve" value="1" name="session_solve" type="checkbox" <?php echo ($row['session_solve']==1?'checked':''); ?>>
+                          <input class="custom-control-input" id="session_solve" value="1" name="session_solve" type="checkbox" <?php echo $row['session_solve'] == 1 ? 'checked' : ''; ?>>
                           <label class="custom-control-label" for="session_solve">เปิด</label>
                         </div>
                       </div>
@@ -208,14 +206,16 @@
                     <div class="form-group row">
                       <div class="col-sm-2"></div>
                       <div class="col-sm-10">
-                        <button type="submit" class="btn btn-success">บันทึก</button>
+                        <button type="submit" id="session-save" class="btn btn-success">บันทึก</button>
                         <a href="<?php url('subject/'); ?>" class="btn btn-danger">ยกเลิก</a>
                       </div>
                     </div>
                   </form>
                 </div>
               </div>
-          <?php }else{ ?>
+          <?php
+    } else {
+        ?>
               <a class="btn btn-success mb-3" href="?add"><span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span> เพิ่มเซสชั่น</a>
               <div class="card shadow">
                 <div class="card-header bg-transparent">
@@ -240,11 +240,11 @@
                     <tbody>
                         <?php
                           $stm = $_DB->query('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id ORDER BY sessions.session_start ASC');
-                          while($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
-                        ?>
+        while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+            ?>
                         <tr id="session-<?php echo $rows['session_id']; ?>">
                             <th scope="row">
-                              <span class="mb-0 text-sm"><?php echo $rows['examination_title']; ?> <?php echo ($rows['session_password']!=NULL?'<i class="fas fa-key"></i>':'');?> <small>[<?php echo $rows['subject_title']; ?>]</small></span>
+                              <span class="mb-0 text-sm"><?php echo $rows['examination_title']; ?> <?php echo $rows['session_password'] != null ? '<i class="fas fa-key"></i>' : ''; ?> <small>[<?php echo $rows['subject_title']; ?>]</small></span>
                             </th>
                             <td>
                               <?php echo date('l d, M Y', strtotime($rows['session_start'])); ?>
@@ -255,16 +255,18 @@
                             <td class="text-right">
                                 <a href="analyze/?session_id=<?php echo $rows['session_id']; ?>&overview" class="btn btn-success btn-sm">Analyze</a>
                                 <a href="?edit&session_id=<?php echo $rows['session_id']; ?>" class="btn btn-info btn-sm">Edit</a> 
-                                <button onclick="session_delete(<?php echo $rows['session_id']; ?>)" class="btn btn-danger btn-sm">Delete</button>
+                                <button id="delete-btn" onclick="session_delete(<?php echo $rows['session_id']; ?>)" class="btn btn-danger btn-sm">Delete</button>
                             </td>
                         </tr>
-                        <?php }?>
+                        <?php
+        } ?>
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
-          <?php } ?>
+          <?php
+    } ?>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 .overlay-loading {
     position: fixed;
+    color: #fff;
     background-color: rgba(0, 0, 0, 0.8);
     width: 100%;
     height: 100%;
@@ -12,7 +13,7 @@
     display: none;
 }
 .exam-scollbar {
-    max-height: 455px;
+    max-height: 620px;
     overflow-x: hidden;
     overflow-y: auto;
 }
