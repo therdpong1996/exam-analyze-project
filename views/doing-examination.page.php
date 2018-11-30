@@ -27,17 +27,23 @@
                 $max = $stmt2->fetch(PDO::FETCH_ASSOC);
 
                 //TIME
-                $stmt3 = $_DB->prepare('SELECT * FROM time_remaining WHERE session = :session AND uid = :uid');
+                $time_tt = time();
+                $stmt3 = $_DB->prepare("SELECT * FROM time_remaining WHERE session = :session AND uid = :uid");
                 $stmt3->bindParam(':session', $session['session_id']);
                 $stmt3->bindParam(':uid', $user_row['uid']);
                 $stmt3->execute();
                 $time_re = $stmt3->fetch(PDO::FETCH_ASSOC);
                 if ($time_re['time_remaining']) {
-                    $time_ree = $time_re['time_remaining'];
-                } else {
-                    $time_tt = time();
-                    $time_ree = $session['session_timeleft'] * 60;
-                    $stmt3 = $_DB->prepare('INSERT INTO time_remaining (uid,session,time_start,time_update1,time_remaining) VALUES (:uid, :session, :start, :updatet1, :time_re)');
+                  
+                    $time_ree = $time_re['time_remaining']-($time_tt - $time_re['time_update1']);
+                    $time_ree = ($time_ree<=0)?0:$time_ree;
+                    if ($time_tt > $time_re['time_start']+($session['session_timeleft']*60)) {
+                        $time_ree = 0;
+                    }
+
+                }else{
+                    $time_ree = $session['session_timeleft']*60;
+                    $stmt3 = $_DB->prepare("INSERT INTO time_remaining (uid,session,time_start,time_update1,time_remaining) VALUES (:uid, :session, :start, :updatet1, :time_re)");
                     $stmt3->bindParam(':session', $session['session_id']);
                     $stmt3->bindParam(':uid', $user_row['uid']);
                     $stmt3->bindParam(':start', $time_tt);
@@ -106,7 +112,7 @@
         <script type="text/javascript">
             let session_id = <?php echo $session['session_id']; ?>;
             let user = <?php echo $user_row['uid']; ?>;
-            let timeleft_1 = <?php echo $time_ree <= 0 ? 0 : $time_ree; ?>;
+            let timeleft_1 = <?php echo $time_ree; ?>;
         </script>
         <div class="col-xl-9" id="exam-content">
             <div class="card shadow mb-3 card-qa">
@@ -176,6 +182,9 @@
     <script type="text/javascript">
 
         var timer = new Timer();
+        if (timeleft_1 == 0) {
+            $("form#submit-exam").submit();
+        }
         timer.start({countdown: true, startValues: {seconds: timeleft_1}});
         $('span#timeleft').html(timer.getTimeValues().toString());
         timer.addEventListener('secondsUpdated', function (e) {
