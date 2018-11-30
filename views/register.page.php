@@ -63,7 +63,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fas fa-id-badge"></i></span>
                     </div>
-                    <input class="form-control" placeholder="Username" id="username" name="username" type="text">
+                    <input class="form-control" placeholder="Username" id="username" name="username" type="text" required minlength="6" maxlength="15">
                   </div>
                   <small class="font-weight-700 text-danger font-italic" id="username_chk"></small>
                 </div>
@@ -72,7 +72,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
-                    <input class="form-control" placeholder="Password" id="password" name="password" type="password">
+                    <input class="form-control" placeholder="Password" id="password" name="password" type="password" required>
                   </div>
                   <div class="text-muted font-italic"><small>password strength: <span id="password_chk"><span class="text-danger font-weight-700">weak</span></span></small></div>
                 </div>
@@ -83,7 +83,7 @@
                         <div class="input-group-prepend">
                           <span class="input-group-text"><i class="fas fa-id-card"></i></span>
                         </div>
-                        <input class="form-control" placeholder="Student ID" id="stu_id" name="student_id" type="text">
+                        <input class="form-control" placeholder="Student ID" id="stu_id" name="student_id" type="text" required>
                       </div>
                     </div>
                     <div class="col-2">
@@ -96,7 +96,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fas fa-user"></i></span>
                     </div>
-                    <input class="form-control" placeholder="Full Name" id="fullname" name="fullname" type="text">
+                    <input class="form-control" placeholder="Full Name" id="fullname" name="fullname" type="text" required>
                   </div>
                 </div>
                 <div class="form-group">
@@ -104,7 +104,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                     </div>
-                    <input class="form-control" placeholder="Email" id="email" name="email" type="email">
+                    <input class="form-control" placeholder="Email" id="email" name="email" type="email" required>
                   </div>
                 </div>
                 <div class="row my-4">

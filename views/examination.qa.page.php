@@ -37,7 +37,7 @@
             <a href="?examination_id=<?php echo $exam['examination_id']; ?>&n=new" class="new-exam btn text-left btn-outline-success mb-2 btn-block"><i class="fa fa-plus"></i> เพิ่มข้อใหม่</a>
             <div class="list-exam-sortable exam-scollbar pr-2">
             <?php
-                $exami = 1;
+
                 $stmt = $_DB->prepare('SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_order ASC');
                 $stmt->bindParam(':subject', $exam['examination_subject']);
                 $stmt->bindParam(':exam', $exam['examination_id']);
@@ -46,11 +46,10 @@
                     ?>
                     <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: move;" href="?examination_id=<?php echo $exam['examination_id']; ?>&n=<?php echo $row['qa_id']; ?>" class="btn text-left list-exam-item btn-outline-primary mb-2 btn-block <?php echo $row['qa_id'] == $n ? 'active' : ''; ?>" exam-id="<?php echo $row['qa_id']; ?>"><span id="exam-order"><?php echo $exami; ?></span>.<?php echo strip_tags($row['qa_question']); ?> </a>
             <?php
-                    ++$exami;
                 }
                 if ($n == 'new') {
                     ?>
-                <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="" class="btn new-exam text-left btn-outline-primary mb-1 btn-block active"><?php echo $exami; ?>.New Question</a>
+                <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="" class="btn new-exam text-left btn-outline-primary mb-1 btn-block active">New Question</a>
             <?php
                 }
             ?>
