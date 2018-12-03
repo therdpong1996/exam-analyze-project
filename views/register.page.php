@@ -118,7 +118,8 @@
                   </div>
                 </div>
                 <div class="text-center">
-                  <button type="submit" id="register-btn" class="btn btn-primary mt-4">Create account</button>
+                  <button id="btn-register" type="submit" id="register-btn" class="btn btn-primary mt-4 disabled" disabled >Create account</button>
+                  <div class="mt-3"><small class="text-muted">*โปรดตรวจสอบรหัสนักศึกษาก่อนทุกครั้ง</small></div>
                 </div>
               </form>
             </div>

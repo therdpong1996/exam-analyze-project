@@ -161,6 +161,7 @@ $('#login-form').on('submit', function(){
       if(response.state){
         $('#fullname').val(response.full_name);
         $('#email').val(response.email);
+        $('#btn-register').removeAttr('disabled').removeClass('disabled');
       }else{
         alert(response.msg);
         return;
