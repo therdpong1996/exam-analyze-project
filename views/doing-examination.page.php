@@ -236,7 +236,9 @@
         setInterval(function(){
             time_taken++;
         },1000)
-        $(window).bind('beforeunload', function(){
+
+        $('a').on('click', function (e){ 
+            e.preventDefault();
             var data = $('form#doing-exam-form').serialize();
             data = data + '&timetake='+time_taken;
             $.ajax({
@@ -245,20 +247,16 @@
                 dataType: 'json',
                 data: data,
             })
-            .done(function() {
-                console.log("Update time taken");
-            });
-
+            .done(function() {});
             $.ajax({
                 url: weburl + 'ajax/time_remaining',
                 type: 'POST',
                 dataType: 'json',
                 data: {uid: user, session: session_id},
             })
-            .done(function() {
-                console.log("Update time remaining");
-            });
-        });
+            .done(function() {});
+            window.location.href = $(this).attr('href');
+        })
 
         $('input:radio[name="answer"]').change(
         function(){

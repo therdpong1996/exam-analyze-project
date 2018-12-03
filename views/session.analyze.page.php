@@ -12,7 +12,7 @@
         <div class="col-xl-2">
             <a href="?session_id=<?php echo $session['session_id']; ?>&overview" class="btn btn-outline-success mb-1 btn-block <?php echo isset($_GET['overview']) ? 'active' : ''; ?>">Overview</a>
             <a href="?session_id=<?php echo $session['session_id']; ?>&scorelist" class="btn btn-outline-warning mb-1 btn-block <?php echo isset($_GET['scorelist']) ? 'active' : ''; ?>">Score by Student</a>
-            <div class="exam-scollbar pr-1" style="height:420px;">
+            <div class="exam-scollbar pr-1" style="height:500px;">
             <?php
                 if (isset($_GET['n'])) {
                     $n = $_GET['n'];
@@ -220,7 +220,8 @@
                     $stm2->bindParam(':uid', $rows['uid']);
                     $stm2->bindParam(':session', $rows['session_id']);
                     $stm2->execute();
-                    $timet = $stm2->fetch(PDO::FETCH_ASSOC); ?>
+                    $timet = $stm2->fetch(PDO::FETCH_ASSOC);
+                    $timet['time_remaining'] = ($timet['time_remaining'] < 0 ? 0 : $timet['time_remaining']); ?>
                                 <tr id="score-<?php echo $rows['score_id']; ?>">
                                     <th scope="row">
                                       <span class="mb-0 text-sm"><?php echo $rows['stu_id']; ?></span>

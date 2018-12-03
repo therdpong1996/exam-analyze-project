@@ -22,6 +22,6 @@
     }
 
     //WEB URL
-    $_G['url'] = 'https://exam-analyze.herokuapp.com/';
+    $_G['url'] = 'https://cat.inzpi.com/';
 
     require_once 'functions.php';

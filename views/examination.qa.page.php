@@ -44,7 +44,7 @@
                 $stmt->execute();
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     ?>
-                    <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: move;" href="?examination_id=<?php echo $exam['examination_id']; ?>&n=<?php echo $row['qa_id']; ?>" class="btn text-left list-exam-item btn-outline-primary mb-2 btn-block <?php echo $row['qa_id'] == $n ? 'active' : ''; ?>" exam-id="<?php echo $row['qa_id']; ?>"><span id="exam-order"><?php echo $exami; ?></span>.<?php echo strip_tags($row['qa_question']); ?> </a>
+                    <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: move;" href="?examination_id=<?php echo $exam['examination_id']; ?>&n=<?php echo $row['qa_id']; ?>" class="btn text-left list-exam-item btn-outline-primary mb-2 btn-block <?php echo $row['qa_id'] == $n ? 'active' : ''; ?>" exam-id="<?php echo $row['qa_id']; ?>"><span id="exam-order"><?php echo $row['qa_order']; ?></span>.<?php echo strip_tags($row['qa_question']); ?> </a>
             <?php
                 }
                 if ($n == 'new') {

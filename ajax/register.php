@@ -12,8 +12,8 @@
     $stm = $_DB->prepare('SELECT uid FROM users WHERE username = :username LIMIT 1');
     $stm->bindParam(':username', $username, PDO::PARAM_STR);
     $stm->execute();
-    $username = $stm->fetch(PDO::FETCH_ASSOC);
-    if ($username['uid']) {
+    $userchk = $stm->fetch(PDO::FETCH_ASSOC);
+    if ($userchk['uid']) {
         echo json_encode(['state' => false, 'msg' => 'Username นี้มีคนใช้งานแล้ว']);
         exit;
     }
