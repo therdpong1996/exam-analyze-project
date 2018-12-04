@@ -54,7 +54,7 @@
         $lastid = $_DB->lastInsertId();
 
         if ($lastid) {
-            echo json_encode(['state' => true, 'msg' => strip_tags($question).' ได้ถูกเพิ่มแล้ว']);
+            echo json_encode(['state' => true, 'msg' => 'คำถามได้ถูกเพิ่มแล้ว']);
         } else {
             echo json_encode(['state' => false, 'msg' => 'Error MySQL Query']);
         }
@@ -92,7 +92,7 @@
         $stm->bindParam(':id', $id, PDO::PARAM_INT);
         $stm->execute();
 
-        echo json_encode(['state' => true, 'msg' => 'แก้ไข '.strip_tags($question).' แล้ว']);
+        echo json_encode(['state' => true, 'msg' => 'แก้ไขคำถามเรียบร้อย']);
         exit;
     } elseif ($_POST['action'] == 'delete') {
         if ($_SESSION['role'] != 2) {

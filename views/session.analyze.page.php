@@ -72,28 +72,28 @@
             </div>
         </div>
         <?php
-            $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM answer_data WHERE answer = 1 AND subject = :subject AND session = :session AND examination = :exam AND question = :question');
+            $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM answer_data WHERE answer = 1 AND subject = :subject AND session = :session AND examination = :exam AND question = :question AND temp = 0');
                 $stm->bindParam(':subject', $session['examination_subject']);
                 $stm->bindParam(':session', $session['session_id']);
                 $stm->bindParam(':exam', $session['examination_id']);
                 $stm->bindParam(':question', $exam_row['qa_id']);
                 $stm->execute();
                 $c1c = $stm->fetch(PDO::FETCH_ASSOC);
-                $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM answer_data WHERE answer = 2 AND subject = :subject AND session = :session AND examination = :exam AND question = :question');
+                $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM answer_data WHERE answer = 2 AND subject = :subject AND session = :session AND examination = :exam AND question = :question AND temp = 0');
                 $stm->bindParam(':subject', $session['examination_subject']);
                 $stm->bindParam(':session', $session['session_id']);
                 $stm->bindParam(':exam', $session['examination_id']);
                 $stm->bindParam(':question', $exam_row['qa_id']);
                 $stm->execute();
                 $c2c = $stm->fetch(PDO::FETCH_ASSOC);
-                $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM answer_data WHERE answer = 3 AND subject = :subject AND session = :session AND examination = :exam AND question = :question');
+                $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM answer_data WHERE answer = 3 AND subject = :subject AND session = :session AND examination = :exam AND question = :question AND temp = 0');
                 $stm->bindParam(':subject', $session['examination_subject']);
                 $stm->bindParam(':session', $session['session_id']);
                 $stm->bindParam(':exam', $session['examination_id']);
                 $stm->bindParam(':question', $exam_row['qa_id']);
                 $stm->execute();
                 $c3c = $stm->fetch(PDO::FETCH_ASSOC);
-                $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM answer_data WHERE answer = 4 AND subject = :subject AND session = :session AND examination = :exam AND question = :question');
+                $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM answer_data WHERE answer = 4 AND subject = :subject AND session = :session AND examination = :exam AND question = :question AND temp = 0');
                 $stm->bindParam(':subject', $session['examination_subject']);
                 $stm->bindParam(':session', $session['session_id']);
                 $stm->bindParam(':exam', $session['examination_id']);
@@ -159,7 +159,7 @@
                 $stmt->bindParam(':exam', $session['examination_id']);
                 $stmt->execute();
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM answer_data WHERE subject = :subject AND session = :session AND examination = :exam AND question = :question');
+                    $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM answer_data WHERE subject = :subject AND session = :session AND examination = :exam AND question = :question AND temp = 0');
                     $stm->bindParam(':subject', $row['qa_subject']);
                     $stm->bindParam(':session', $session['session_id']);
                     $stm->bindParam(':exam', $row['qa_exam']);
@@ -167,7 +167,7 @@
                     $stm->execute();
                     $total = $stm->fetch(PDO::FETCH_ASSOC);
 
-                    $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM answer_data WHERE ans_check = 1 AND subject = :subject AND session = :session AND examination = :exam AND question = :question');
+                    $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM answer_data WHERE ans_check = 1 AND subject = :subject AND session = :session AND examination = :exam AND question = :question AND temp = 0');
                     $stm->bindParam(':subject', $row['qa_subject']);
                     $stm->bindParam(':session', $session['session_id']);
                     $stm->bindParam(':exam', $row['qa_exam']);
@@ -240,7 +240,7 @@
                                       <?php echo $rows['finish_tile']; ?>
                                     </td>
                                     <td>
-                                        <button class="btn btn-danger btn-sm" onclick="resetscore($rows['session_id'], $rows['uid'])">รีเซ็ต</button>
+                                        <button id="reset_sc_<?php echo $rows['uid']; ?>" class="btn btn-danger btn-sm" onclick="resetscore($rows['session_id'], $rows['uid'])">รีเซ็ต</button>
                                     </td>
                                 </tr>
                                 <?php
@@ -255,3 +255,38 @@
             } ?>
     </div>
 </div>
+<script>
+    resetscore = function(sc_id, ses_id, uid){
+        swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, reset it!'
+        }).then(function(result){
+            if (result.value) {
+                var oldtext = $('#reset_sc_' + uid).html();
+                $('#reset_sc_' + uid).html('<i class="fa fa-spinner fa-spin"></i>');
+                $.ajax({
+                    type: "POST",
+                    url: weburl + "ajax/reset_score",
+                    data: {sc_id: sc_id, session_id: ses_id, uid: uid},
+                    dataType: "json"
+                })
+                .done(function(response){
+                    if(response.state){
+                        $('#score-' + sc_id).remove();
+                    }else{
+                    $('#delete-btn').html(oldtext);
+                    swal(
+                        'ERROR',
+                        response.msg,
+                        'error'
+                    );
+                    }
+                });
+            }
+    }
+</script>
