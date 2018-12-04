@@ -240,7 +240,7 @@
                                       <?php echo $rows['finish_tile']; ?>
                                     </td>
                                     <td>
-                                        <button id="reset_sc_<?php echo $rows['uid']; ?>" class="btn btn-danger btn-sm" onclick="resetscore($rows['session_id'], $rows['uid'])">รีเซ็ต</button>
+                                        <button id="reset_sc_<?php echo $rows['uid']; ?>" class="btn btn-danger btn-sm" onclick="resetscore(<?php echo $rows['score_id']; ?>, <?php echo $rows['session_id']; ?>, <?php echo $rows['uid']; ?>)">รีเซ็ต</button>
                                     </td>
                                 </tr>
                                 <?php
