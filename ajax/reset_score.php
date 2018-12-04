@@ -22,7 +22,7 @@
     $stm2->bindParam(':session', $session_id);
     $stm2->execute();
 
-    $stm3 = $_DB->prepare('DELETE FROM session_score WHERE uid = :uid AND session = :session');
+    $stm3 = $_DB->prepare('DELETE FROM session_score WHERE uid = :uid AND session_id = :session');
     $stm3->bindParam(':uid', $uid);
     $stm3->bindParam(':session', $session_id);
     $stm3->execute();
