@@ -181,10 +181,10 @@
                           <div class="progress-info">
                             <?php echo $row['qa_order']; ?>. <?php echo strip_tags($row['qa_question']); ?>
                             <div class="progress-percentage">
-                              <span><?php echo $precen; ?>%</span>
+                              <span><i class="fa fa-check text-success"></i> <strong class="text-success"><?php echo $precen; ?>%</strong> | <i class="fa fa-times text-danger"></i> <strong class="text-danger"><?php echo 100 - $precen; ?>%</strong></span>
                             </div>
                           </div>
-                          <div class="progress">
+                          <div class="progress" style="background-color: #ff4c4c;">
                             <div class="progress-bar bg-success" role="progressbar" aria-valuenow="<?php echo $precen; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $precen; ?>%;"></div>
                           </div>
                         </div>

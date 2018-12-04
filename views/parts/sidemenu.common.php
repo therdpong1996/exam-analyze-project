@@ -95,7 +95,8 @@
               <i class="ni ni-tv-2 text-primary"></i> Dashboard
             </a>
           </li>
-          <?php if($user_row['role'] == 2){ ?>
+          <?php if ($user_row['role'] == 2) {
+    ?>
           <li class="nav-item">
             <a class="nav-link" href="<?php url('subject/'); ?>">
               <i class="ni ni-folder-17 text-blue"></i> Subject
@@ -111,14 +112,40 @@
               <i class="ni ni-calendar-grid-58 text-blue"></i> Session
             </a>
           </li>
-          <?php }elseif($user_row['role'] == 3){ ?>
+          <?php
+} elseif ($user_row['role'] == 3) {
+        ?>
           <li class="nav-item">
             <a class="nav-link" href="<?php url('stu-examination/'); ?>">
               <i class="ni ni-ruler-pencil text-blue"></i> Examination
             </a>
           </li>
-          <?php } ?>
+          <?php
+    } ?>
         </ul>
+        <?php if ($user_row['role'] == 3) {
+        ?>
+        <hr class="my-3">
+        <!-- Heading -->
+        <h6 class="navbar-heading text-muted">อยู่ระหว่างทำการทดสอบ</h6>
+        <!-- Navigation -->
+        <ul class="navbar-nav mb-md-3">
+          <?php 
+        $stm = $_DB->prepare('SELECT * FROM time_remaining JOIN sessions ON time_remaining.session = sessions.session_id JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE time_remaining.uid = :uid');
+        $stm->bindParam(':uid', $user_row['uid']);
+        $stm->execute();
+        while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+            ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php url('doing-examination/'.$rows['session_id']); ?>">
+              <i class="fa fa-clock"></i> <?php echo $rows['session_title']; ?>
+            </a>
+          </li>
+            <?php
+        } ?>
+        </ul>
+        <?php
+    } ?>
       </div>
     </div>
   </nav>
