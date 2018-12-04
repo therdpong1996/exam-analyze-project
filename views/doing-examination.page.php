@@ -50,6 +50,13 @@
                     if ($time_tt > $time_re['time_start'] + ($session['session_timeleft'] * 60)) {
                         $time_ree = 0;
                     }
+
+                    $stm = $_DB->prepare('UPDATE time_remaining SET time_update1 = :updatet1, time_remaining = :time_re WHERE uid = :uid AND session = :session');
+                    $stm->bindParam(':time_re', $time_ree, PDO::PARAM_INT);
+                    $stm->bindParam(':uid', $user_row['uid'], PDO::PARAM_INT);
+                    $stm->bindParam(':updatet1', $time_tt, PDO::PARAM_INT);
+                    $stm->bindParam(':session', $session['session_id'], PDO::PARAM_INT);
+                    $stm->execute();
                 } else {
                     $time_ree = $session['session_timeleft'] * 60;
                     $stmt3 = $_DB->prepare('INSERT INTO time_remaining (uid,session,time_start,time_update1,time_remaining) VALUES (:uid, :session, :start, :updatet1, :time_re)');
@@ -246,13 +253,6 @@
                 type: 'POST',
                 dataType: 'json',
                 data: data,
-            })
-            .done(function() {});
-            $.ajax({
-                url: weburl + 'ajax/time_remaining',
-                type: 'POST',
-                dataType: 'json',
-                data: {uid: user, session: session_id},
             })
             .done(function() {});
             window.location.href = $(this).attr('href');
