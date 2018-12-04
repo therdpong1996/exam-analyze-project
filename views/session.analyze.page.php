@@ -208,6 +208,7 @@
                                     <th scope="col">Time Taken</th>
                                     <th scope="col">Score</th>
                                     <th scope="col">Date</th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -237,6 +238,9 @@
                                     </td>
                                     <td>
                                       <?php echo $rows['finish_tile']; ?>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm" onclick="resetscore($rows['session_id'], $rows['uid'])">รีเซ็ต</button>
                                     </td>
                                 </tr>
                                 <?php

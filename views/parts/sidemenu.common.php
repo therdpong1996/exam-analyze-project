@@ -112,6 +112,11 @@
               <i class="ni ni-calendar-grid-58 text-blue"></i> Session
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php url('docs/'); ?>">
+              <i class="fa fa-file-word"></i> Documents
+            </a>
+          </li>
           <?php
 } elseif ($user_row['role'] == 3) {
         ?>
@@ -138,7 +143,7 @@
             ?>
           <li class="nav-item">
             <a class="nav-link" href="<?php url('doing-examination/'.$rows['session_id']); ?>">
-              <i class="fa fa-clock"></i> <?php echo $rows['session_title']; ?>
+              <i class="fa fa-clock"></i> <?php echo $rows['examination_title']; ?>
             </a>
           </li>
             <?php
