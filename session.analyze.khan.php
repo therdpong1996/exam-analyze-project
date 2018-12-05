@@ -3,13 +3,11 @@
     header('Content-type: text/plain');
     require_once __DIR__.'/control/init.php';
 
-    $user = $_POST['username'];
-    $pass = $_POST['password'];
-
     if (!isset($_POST['username']) and !isset($_POST['password'])) {
         exit('not found account');
     }
-
+    $user = $_POST['username'];
+    $pass = hash('sha256', $_POST['password']);
     //USER
     $stm = $_DB->prepare('SELECT * FROM users JOIN users_role_title ON users.role = users_role_title.role_id WHERE users.username = :username AND users.password = :password LIMIT 1');
     $stm->bindParam(':username', $user, PDO::PARAM_STR);
