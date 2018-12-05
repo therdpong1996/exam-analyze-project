@@ -20,7 +20,7 @@
         $stm->bindParam(':session', $_GET['session_id'], PDO::PARAM_INT);
         $stm->execute();
         while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
-            echo $rows['stu_id'].','.$rows['question'].','.$rows['time_taken_m'].','.($rows['ans_check'] == 1 ? 'True' : 'False').PHP_EOL;
+            echo $rows['stu_id'].','.$rows['question'].','.$rows['time_taken_s'].','.($rows['ans_check'] == 1 ? 'True' : 'False').PHP_EOL;
         }
     } else {
         exit('don\'t have permission');
