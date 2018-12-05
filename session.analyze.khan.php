@@ -6,6 +6,10 @@
     $user = $_POST['username'];
     $pass = $_POST['password'];
 
+    if (!isset($_POST['username']) and !isset($_POST['password'])) {
+        exit('not found account');
+    }
+
     //USER
     $stm = $_DB->prepare('SELECT * FROM users JOIN users_role_title ON users.role = users_role_title.role_id WHERE users.username = :username AND users.password = :password LIMIT 1');
     $stm->bindParam(':username', $user, PDO::PARAM_STR);
@@ -21,5 +25,5 @@
             echo $rows['stu_id'].','.$rows['question'].','.$rows['time_taken_m'].','.($rows['ans_check'] == 1 ? 'True' : 'False').PHP_EOL;
         }
     } else {
-        include_once __DIR__.'/views/denied.page.php';
+        exit('don\'t have permission');
     }
