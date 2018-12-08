@@ -45,8 +45,15 @@
                         ?>
                                 <?php if ($rows['session_solve']) {
                             ?>
+                                <?php if ($rows['session_adap']) {
+                                ?>
+                                    <a class="btn btn-outline-success btn-block mt-4 pt-4 pb-4" href="<?php url('solve-examination-adaptive/'.$rows['session_id']); ?>"><?php echo $crow['score']; ?>/<?php echo $crow['score_full']; ?></a>
+                                <?php
+                            } else {
+                                ?>
                                     <a class="btn btn-outline-success btn-block mt-4 pt-4 pb-4" href="<?php url('solve-examination/'.$rows['session_id']); ?>"><?php echo $crow['score']; ?>/<?php echo $crow['score_full']; ?></a>
                                 <?php
+                            }
                         } else {
                             ?>
                                     <button class="btn btn-outline-success disabled btn-block mt-4 pt-4 pb-4"><?php echo $crow['score']; ?>/<?php echo $crow['score_full']; ?></button>
@@ -57,8 +64,29 @@
                         ?>
                             <?php if (timebetween($rows['session_start'], $rows['session_end'])) {
                             ?>
-                                <a href="<?php url('doing-examination/'.$rows['session_id']); ?>" class="btn btn-primary btn-block mt-4 pt-4 pb-4">เข้าทดสอบ</a>
+
+                            <?php 
+                            $stm = $_DB->prepare('SELECT * FROM time_remaining JOIN sessions ON time_remaining.session = sessions.session_id JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE time_remaining.uid = :uid AND time_remaining.session = :session AND time_remaining.time_status = 0 LIMIT 1');
+                            $stm->bindParam(':uid', $user_row['uid']);
+                            $stm->bindParam(':session', $rows['session_id']);
+                            $stm->execute();
+                            $ongoing = $stm->fetch(PDO::FETCH_ASSOC);
+
+                            if ($ongoing['time_remaining'] > 0) {
+                                $textbtn = 'อยู่ระหว่างการทำ';
+                            } else {
+                                $textbtn = 'เข้าทดสอบ';
+                            } ?>
+
+                                <?php if ($rows['session_adap']) {
+                                ?>
+                                <a href="<?php url('doing-examination-adaptive/'.$rows['session_id']); ?>" class="btn btn-primary btn-block mt-4 pt-4 pb-4"><?php echo $textbtn; ?></a>
+                                <?php
+                            } else {
+                                ?>
+                                <a href="<?php url('doing-examination/'.$rows['session_id']); ?>" class="btn btn-primary btn-block mt-4 pt-4 pb-4"><?php echo $textbtn; ?></a>
                             <?php
+                            }
                         } else {
                             ?>
                                 <div class="text-danger mt-4 pt-4 pb-4">ไม่อยู่ในช่วงเวลาการทดสอบ</div>
