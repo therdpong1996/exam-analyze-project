@@ -10,7 +10,8 @@
                 <div class="card-body">
                     <?php
                         if ($session['session_model'] != null) {
-                            ?>
+                            $data = file_get_contents($_G['webservice'].$session['session_model']);
+                            echo $data; ?>
                             
                     <?php
                         } else {

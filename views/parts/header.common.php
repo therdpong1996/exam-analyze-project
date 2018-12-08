@@ -24,10 +24,10 @@
   <script src="<?php echo $_G['url']; ?>assets/js/sweetalert2.all.min.js?v=1.0.0"></script>
   <script src="<?php echo $_G['url']; ?>assets/js/jquery.sortable.min.js?v=1.0.0"></script>
   <script src="<?php echo $_G['url']; ?>assets/dist/easytimer.min.js"></script>
-  <script src="<?php echo $_G['url'];?>assets/dist/js.cookie-2.2.0.min.js"></script>
+  <script src="<?php echo $_G['url']; ?>assets/dist/js.cookie-2.2.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
   <script>
-    const weburl = '<?php echo $_G['url'];?>';
-    const webservice = 'https://cat-service.inzpi.com/train/';
+    const weburl = '<?php echo $_G['url']; ?>';
+    const webservice = '<?php echo $_G['webservice']; ?>';
   </script>
 </head>

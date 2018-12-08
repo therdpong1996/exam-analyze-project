@@ -23,5 +23,6 @@
 
     //WEB URL
     $_G['url'] = 'https://exam-analyze.herokuapp.com/';
+    $_G['webservice'] = 'https://cat-service.inzpi.com/train/';
 
     require_once 'functions.php';
