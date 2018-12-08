@@ -10,8 +10,7 @@
     <div class="container-fluid pb-8 pt-5 pt-md-8">
       <div class="row">
         <div class="col-xl-12">
-          <?php if (isset($_GET['add'])) {
-    ?>
+          <?php if (isset($_GET['add'])) { ?>
               <div class="card shadow">
                 <div class="card-header bg-transparent">
                   <div class="row align-items-center">
@@ -31,13 +30,12 @@
                         <select class="form-control" id="session_exam" name="session_exam" required>
                             <?php
                                 $stm = $_DB->prepare('SELECT * FROM examinations WHERE examination_owner = :uid');
-    $stm->bindParam(':uid', $user_row['uid']);
-    $stm->execute();
-    while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
-        ?>
+                                $stm->bindParam(':uid', $user_row['uid']);
+                                $stm->execute();
+                                while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                            ?>
                                 <option value="<?php echo $rows['examination_id']; ?>"><?php echo $rows['examination_title']; ?></option>
-                            <?php
-    } ?>
+                            <?php } ?>
                         </select>
                       </div>
                     </div>
@@ -109,12 +107,12 @@
                   </form>
                 </div>
               </div>
-          <?php
-} elseif (isset($_GET['edit']) and isset($_GET['session_id'])) {
-        $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE session_id = :session_id');
-        $stm->bindParam(':session_id', $_GET['session_id'], PDO::PARAM_INT);
-        $stm->execute();
-        $row = $stm->fetch(PDO::FETCH_ASSOC); ?>
+            <?php }elseif (isset($_GET['edit']) and isset($_GET['session_id'])) {
+              $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE session_id = :session_id');
+              $stm->bindParam(':session_id', $_GET['session_id'], PDO::PARAM_INT);
+              $stm->execute();
+              $row = $stm->fetch(PDO::FETCH_ASSOC); 
+            ?>
               <div class="card shadow">
                 <div class="card-header bg-transparent">
                   <div class="row align-items-center">
@@ -145,13 +143,12 @@
                         <select class="form-control" id="session_exam" name="session_exam" required>
                             <?php
                                 $stm = $_DB->prepare('SELECT * FROM examinations WHERE examination_owner = :uid');
-        $stm->bindParam(':uid', $user_row['uid']);
-        $stm->execute();
-        while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
-            ?>
+                                $stm->bindParam(':uid', $user_row['uid']);
+                                $stm->execute();
+                                while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                            ?>
                                 <option value="<?php echo $rows['examination_id']; ?>" <?php echo ($rows['examination_id'] == $row['session_exam']) ? 'selected' : ''; ?>><?php echo $rows['examination_title']; ?></option>
-                            <?php
-        } ?>
+                            <?php } ?>
                         </select>
                       </div>
                     </div>
@@ -223,9 +220,7 @@
                   </form>
                 </div>
               </div>
-          <?php
-    } else {
-        ?>
+          <?php } else { ?>
               <a class="btn btn-success mb-3" href="?add"><span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span> เพิ่มเซสชั่น</a>
               <div class="card shadow">
                 <div class="card-header bg-transparent">
@@ -250,8 +245,8 @@
                     <tbody>
                         <?php
                           $stm = $_DB->query('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id ORDER BY sessions.session_start ASC');
-        while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
-            ?>
+                          while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
                         <tr id="session-<?php echo $rows['session_id']; ?>">
                             <th scope="row">
                               <span class="mb-0 text-sm"><?php echo $rows['session_adap'] == 1 ? '<span class="badge badge-primary">Adaptive</span>' : ''; ?> <?php echo $rows['examination_title']; ?> <?php echo $rows['session_password'] != null ? '<i class="fas fa-key"></i>' : ''; ?> <small>[<?php echo $rows['subject_title']; ?>]</small></span>
@@ -268,15 +263,13 @@
                                 <button id="delete-btn" onclick="session_delete(<?php echo $rows['session_id']; ?>)" class="btn btn-danger btn-sm">Delete</button>
                             </td>
                         </tr>
-                        <?php
-        } ?>
+                        <?php } ?>
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
-          <?php
-    } ?>
+          <?php } ?>
         </div>
       </div>
     </div>

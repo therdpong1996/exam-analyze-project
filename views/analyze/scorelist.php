@@ -27,19 +27,19 @@
                     $timet['time_remaining'] = ($timet['time_remaining'] < 0 ? 0 : $timet['time_remaining']); ?>
                                 <tr id="score-<?php echo $rows['score_id']; ?>">
                                     <th scope="row">
-                                      <span class="mb-0 text-sm"><?php echo $rows['stu_id']; ?></span>
+                                        <span class="mb-0 text-sm"><?php echo $rows['stu_id']; ?></span>
                                     </th>
                                     <td>
-                                      <span class="mb-0 text-sm"><?php echo $rows['full_name']; ?></span>
+                                        <span class="mb-0 text-sm"><?php echo $rows['full_name']; ?></span>
                                     </td>
                                     <td>
                                       <span class="mb-0 text-sm"><?php echo isset($timet['time_remaining']) ? floor((($rows['session_timeleft'] * 60) - $timet['time_remaining']) / 60).' min' : 'N/A'; ?></span>
                                     </td>
                                     <td>
-                                      <?php echo $rows['score']; ?>/<?php echo $rows['score_full']; ?>
+                                        <?php echo $rows['score']; ?>/<?php echo $rows['score_full']; ?>
                                     </td>
                                     <td>
-                                      <?php echo $rows['finish_tile']; ?>
+                                        <?php echo $rows['finish_tile']; ?>
                                     </td>
                                     <td>
                                         <button id="reset_sc_<?php echo $rows['uid']; ?>" class="btn btn-danger btn-sm" onclick="resetscore(<?php echo $rows['score_id']; ?>, <?php echo $rows['session_id']; ?>, <?php echo $rows['uid']; ?>)">รีเซ็ต</button>

@@ -10,8 +10,7 @@
     <div class="container-fluid pb-8 pt-5 pt-md-8">
       <div class="row">
         <div class="col-xl-12">
-          <?php if (isset($_GET['add'])) {
-    ?>
+          <?php if (isset($_GET['add'])) { ?>
               <div class="card shadow">
                 <div class="card-header bg-transparent">
                   <div class="row align-items-center">
@@ -47,12 +46,12 @@
                   </form>
                 </div>
               </div>
-          <?php
-} elseif (isset($_GET['edit']) and isset($_GET['subject_id'])) {
-        $stm = $_DB->prepare('SELECT * FROM subjects WHERE subject_id = :subject_id');
-        $stm->bindParam(':subject_id', $_GET['subject_id'], PDO::PARAM_INT);
-        $stm->execute();
-        $row = $stm->fetch(PDO::FETCH_ASSOC); ?>
+          <?php } elseif (isset($_GET['edit']) and isset($_GET['subject_id'])) {
+          $stm = $_DB->prepare('SELECT * FROM subjects WHERE subject_id = :subject_id');
+          $stm->bindParam(':subject_id', $_GET['subject_id'], PDO::PARAM_INT);
+          $stm->execute();
+          $row = $stm->fetch(PDO::FETCH_ASSOC);
+          ?>
               <div class="card shadow">
                 <div class="card-header bg-transparent">
                   <div class="row align-items-center">
@@ -89,9 +88,7 @@
                   </form>
                 </div>
               </div>
-          <?php
-    } else {
-        ?>
+          <?php } else { ?>
               <a class="btn btn-success mb-3" href="?add"><span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span> เพิ่มรายวิชา</a>
               <div class="card shadow">
                 <div class="card-header bg-transparent">
@@ -115,17 +112,18 @@
                     <tbody>
                         <?php
                           $stm = $_DB->query('SELECT * FROM subjects ORDER BY subject_createtime DESC');
-        while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
-            ?>
+                          while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
                         <tr id="subject-<?php echo $rows['subject_id']; ?>">
                             <th scope="row">
                               <span class="mb-0 text-sm"><?php echo $rows['subject_title']; ?></span>
                             </th>
                             <?php
                               $stmt = $_DB->prepare('SELECT COUNT(examination_id) AS exam FROM examinations WHERE examination_subject = :subject');
-            $stmt->bindParam(':subject', $rows['subject_id']);
-            $stmt->execute();
-            $row = $stmt->fetch(PDO::FETCH_ASSOC); ?>
+                              $stmt->bindParam(':subject', $rows['subject_id']);
+                              $stmt->execute();
+                              $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                            ?>
                             <td>
                               <?php echo $row['exam']; ?>
                             </td>
@@ -134,15 +132,13 @@
                                 <button id="delete-btn" onclick="subject_delete(<?php echo $rows['subject_id']; ?>)" class="btn btn-danger btn-sm">Delete</button>
                             </td>
                         </tr>
-                        <?php
-        } ?>
+                        <?php } ?>
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
-          <?php
-    } ?>
+          <?php } ?>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
 <div class="main-content">
     <!-- Top navbar -->
     <nav class="navbar bg-gradient-primary navbar-top navbar-expand-md navbar-dark" id="navbar-main">
-      <div class="container-fluid">
+        <div class="container-fluid">
         <!-- Brand -->
         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"><?php echo $exam['examination_title']; ?> <small>(<?php echo $exam['subject_title']; ?>)</small></a>
     <?php require_once 'parts/usermenu.common.php'; ?>
@@ -29,7 +29,7 @@
     ?>
     <!-- Page content -->
     <div class="container-fluid pb-5 pt-5 pt-md-8">
-      <div class="row">
+    <div class="row">
         <div class="col-xl-2">
             <label id="excel-btn" class="btn btn-outline-warning mb-2 text-left btn-block">
                 <span id="zip-text"><i class="fa fa-upload"></i> Import Excel</span> <input class="form-control" style="display: none;" type="file" name="excel_file" id="excel_file" accept="application/vnd.ms-excel,text/xls,text/xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
@@ -98,14 +98,14 @@
                     <input type="hidden" name="qa_exam" value="<?php echo isset($exam['examination_id']) ? $exam['examination_id'] : '0'; ?>">
                     <input type="hidden" name="qa_owner" value="<?php echo isset($exam['examination_owner']) ? $exam['examination_owner'] : '0'; ?>">
                     <div class="form-group row">
-                      <label class="col-sm-2 col-form-label" for="question">คำถาม ?</label>
-                      <div class="col-sm-10">
-                        <textarea class="form-control summernote" id="question" name="question" required placeholder="คำถาม" rows="3"><?php echo isset($exam_row['qa_question']) ? $exam_row['qa_question'] : ''; ?></textarea>
-                      </div>
+                        <label class="col-sm-2 col-form-label" for="question">คำถาม ?</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control summernote" id="question" name="question" required placeholder="คำถาม" rows="3"><?php echo isset($exam_row['qa_question']) ? $exam_row['qa_question'] : ''; ?></textarea>
+                        </div>
                     </div>
                     <div class="form-group row">
-                      <label class="col-sm-2 col-form-label mt-2">ตัวเลือก</label>
-                      <div class="col-sm-10 row">
+                        <label class="col-sm-2 col-form-label mt-2">ตัวเลือก</label>
+                        <div class="col-sm-10 row">
                         <div class="col-9"> </div>
                         <div class="col-3">
                             <small>ถูกต้อง</small>
@@ -146,27 +146,27 @@
                                 <label class="custom-control-label" for="choice_4"></label>
                             </div>
                         </div>
-                      </div>
+                        </div>
                     </div>
                     <div class="form-group row">
-                      <div class="col-sm-2"></div>
-                      <div class="col-sm-10">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-10">
                         <button type="submit" id="exam-add" class="btn btn-success">บันทึก</button>
                         <a href="<?php url('examination/'); ?>" class="btn btn-danger">ยกเลิก</a>
-                      </div>
+                        </div>
                     </div>
                     </form>
                 </div>
             </div>
         </div>
-      </div>
+        </div>
     </div>
     <script type="text/javascript">
         $('.summernote').summernote({
         placeholder: 'Hello bootstrap 4',
         tabsize: 2,
         height: 200
-      });
+        });
         $(function() {
                 $('#excel_file').bind("change", function() {
                     $('#overlay-loading').fadeIn(200);
@@ -187,24 +187,24 @@
                         success : function(response) {
                             $('#overlay-loading').fadeOut(200);
                             if(response.state){
-                              swal({
+                                swal({
                                 title: 'SUCCESS',
                                 text: response.msg,
                                 type: 'success',
                                 showCancelButton: false,
                                 confirmButtonColor: '#3085d6',
                                 confirmButtonText: 'Yes'
-                              }).then((result) => {
+                                }).then((result) => {
                                 if (result.value) {
-                                  window.location.href = window.location.href;
+                                    window.location.href = window.location.href;
                                 }
-                              })
+                                })
                             }else{
-                              swal(
+                                swal(
                                 'SORRY',
                                 response.msg,
                                 'error'
-                              )
+                                )
                             }
                         }
                     });

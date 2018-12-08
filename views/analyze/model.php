@@ -1,11 +1,11 @@
 <div class="col-xl-10">
             <div class="card shadow">
                 <div class="card-header bg-transparent">
-                  <div class="row align-items-center">
+                    <div class="row align-items-center">
                     <div class="col">
-                      <strong>Adaptive Model</strong>
+                        <strong>Adaptive Model</strong>
                     </div>
-                  </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <?php

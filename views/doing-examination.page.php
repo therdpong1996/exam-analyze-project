@@ -2,14 +2,14 @@
 <div class="main-content">
     <!-- Top navbar -->
     <nav class="navbar bg-gradient-primary navbar-top navbar-expand-md navbar-dark" id="navbar-main">
-      <div class="container-fluid">
+        <div class="container-fluid">
         <!-- Brand -->
         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"><?php echo $session['examination_title']; ?></a>
         <?php require_once 'parts/usermenu.common.php'; ?>
 
     <!-- Page content -->
     <div class="container-fluid pb-5 pt-5 pt-md-8">
-      <div class="row">
+        <div class="row">
         <div class="col-xl-1">
             <div class="exam-scollbar pr-1" style="height:500px;">
             <?php
@@ -141,14 +141,14 @@
                     <input type="hidden" name="examination" value="<?php echo $session['examination_id']; ?>">
                     <input type="hidden" name="session" value="<?php echo $session['session_id']; ?>">
                     <div class="form-group row">
-                      <label class="col-sm-2" for="question">คำถาม ?</label>
-                      <div class="col-sm-10">
+                        <label class="col-sm-2" for="question">คำถาม ?</label>
+                        <div class="col-sm-10">
                         <div><?php echo $exam_row['qa_question']; ?></div>
-                      </div>
+                        </div>
                     </div>
                     <div class="form-group row">
-                      <label class="col-sm-2">ตัวเลือก</label>
-                      <div class="col-sm-10 row">
+                        <label class="col-sm-2">ตัวเลือก</label>
+                        <div class="col-sm-10 row">
                         <?php 
                             $choices = UniqueRandomNumbersWithinRange(1, 4, 4);
                             foreach ($choices as $choice) {
@@ -162,11 +162,11 @@
                         <?php
                             }
                         ?>
-                      </div>
+                        </div>
                     </div>
                     <div class="form-group row">
-                      <div class="col-sm-2"></div>
-                      <div class="col-sm-10">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-10">
                         <?php 
                             $nprev = $exam_row['qa_order'] - 1;
                             $stmt2 = $_DB->prepare('SELECT qa_id FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam AND qa_order = :order LIMIT 1');
@@ -187,8 +187,8 @@
                             $next = $stmt2->fetch(PDO::FETCH_ASSOC);
                         ?>
                         <a href="?n=<?php echo $next['qa_id']; ?>" class="btn btn-success <?php echo $nnext == $max['C'] + 1 ? 'disabled' : ''; ?>"><i class="fa fa-arrow-right"></i> ข้อถัดไป</a>
-                      </div>
-                    </div>
+                        </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -209,7 +209,7 @@
             </form>
             <a class="mt-3 btn btn-warning btn-block pt-3 pb-3" href="<?php url('cancel-examination/'.$session['session_id']); ?>">บันทึกและออก</a>
         </div>
-      </div>
+        </div>
     </div>
     <script type="text/javascript">
 
@@ -225,18 +225,18 @@
         });
         timer.addEventListener('targetAchieved', function (e) {
             $('span#timeleft').html('หมดเวลา!');
-              swal({
+                swal({
                 title: 'TIMEOUT',
                 text: 'หมดเวลาการทำข้อสอบแล้ว',
                 type: 'error',
                 showCancelButton: false,
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Yes'
-              }).then((result) => {
+                }).then((result) => {
                 if (result.value) {
-                  $("form#submit-exam").submit();
+                    $("form#submit-exam").submit();
                 }
-              })
+                })
         });
 
         var time_taken = 1;
@@ -260,15 +260,15 @@
 
         $('input:radio[name="answer"]').change(
         function(){
-          var data = $('form#doing-exam-form').serialize();
-          $.ajax({
+            var data = $('form#doing-exam-form').serialize();
+            $.ajax({
             url: weburl + 'ajax/taken',
             type: 'POST',
             dataType: 'json',
             data: data,
-          })
-          .done(function(response) {
-            console.log(response);
-          });
+            })
+            .done(function(response) {
+                console.log(response);
+            });
         });
     </script>
