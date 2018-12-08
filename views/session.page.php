@@ -130,6 +130,16 @@
                   <input type="hidden" name="session_id" value="<?php echo $row['session_id']; ?>">
                   <input type="hidden" name="session_owner" value="<?php echo $row['session_owner']; ?>">
                     <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="session_adap">Adaptive</label>
+                      <div class="col-sm-10">
+                        <label class="custom-toggle">
+                          <input type="checkbox" name="session_adap" value="1" <?php echo $row['session_model'] == null ? 'disabled' : ''; ?>>
+                          <span class="custom-toggle-slider rounded-circle"></span>
+                        </label>
+                        <p class="text-muted">ใช้งานได้เมื่อมีการ train data เรียบร้อยแล้ว</p>
+                      </div>
+                    </div>
+                    <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="session_exam">ข้อสอบ</label>
                       <div class="col-sm-10">
                         <select class="form-control" id="session_exam" name="session_exam" required>
