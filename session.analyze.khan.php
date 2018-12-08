@@ -16,7 +16,7 @@
     $user_row = $stm->fetch(PDO::FETCH_ASSOC);
 
     if ($user_row['role'] == 2) {
-        $stm = $_DB->prepare('SELECT * FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.session = :session ORDER BY users.stu_id ASC');
+        $stm = $_DB->prepare('SELECT * FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.session = :session AND answer_data.temp = 0 ORDER BY users.stu_id ASC');
         $stm->bindParam(':session', $_GET['session_id'], PDO::PARAM_INT);
         $stm->execute();
         while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
