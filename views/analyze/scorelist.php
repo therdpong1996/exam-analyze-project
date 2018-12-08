@@ -53,3 +53,39 @@
                 </div>
             </div>
         </div>
+        <script>
+            resetscore = function(sc_id, ses_id, uid){
+                swal({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, reset it!'
+                }).then(function(result){
+                    if (result.value) {
+                        var oldtext = $('#reset_sc_' + uid).html();
+                        $('#reset_sc_' + uid).html('<i class="fa fa-spinner fa-spin"></i>');
+                        $.ajax({
+                            type: "POST",
+                            url: weburl + "ajax/reset_score",
+                            data: {sc_id: sc_id, session_id: ses_id, uid: uid},
+                            dataType: "json"
+                        })
+                        .done(function(response){
+                            if(response.state){
+                                $('#score-' + sc_id).remove();
+                            }else{
+                            $('#delete-btn').html(oldtext);
+                            swal(
+                                'ERROR',
+                                response.msg,
+                                'error'
+                            );
+                            }
+                        });
+                    }
+                })
+            }
+        </script>
