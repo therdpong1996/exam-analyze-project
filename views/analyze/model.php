@@ -56,20 +56,9 @@
                                 <?php
                                     foreach ($chart_data as $data) {
                                         if ($data['name']) {
-                                            $stm = $_DB->prepare("SELECT qa_question FROM q_and_a WHERE qa_id = :id");
-                                            $stm->bindParam(":id", $data['name']);
-                                            $stm->execute();
-                                            $row = $stm->fetch(PDO::FETCH_ASSOC);
-
-                                            $data = str_replace([']', '['], ['',''], $data['data']);
-                                            $data = explode(', ', $data);
-                                            $strdata = false;
-                                            foreach ($data as $d) {
-                                                $strdata .= '{y: '.$d.', dim: '.$report_data[$data['name']]['dim'].', bias: '.$report_data[$data['name']]['bias'].'},';
-                                            }
                                             echo '{';
                                             echo 'name: \''.$data['name'].'\',';
-                                            echo 'data: ['.$strdata.'],';
+                                            echo 'data: '.$data['data'].',';
                                             echo '},';
                                         }
                                     }
