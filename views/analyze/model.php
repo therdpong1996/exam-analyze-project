@@ -21,11 +21,6 @@
                             title: {
                                 text: 'Sigmoid Graph Each Exercises'
                             },
-                            tooltip: {
-                                formatter: function () {
-                                    return '<b>' + this.point.q + '</b><br /> Dim: ' + this.point.dim + ', Bias: ' + this.point.bias + '<br /> StuAbi: ' + this.x + ', Answer: ' + this.y;
-                                }
-                            },
                             yAxis: {
                                 title: {
                                     text: 'Answer (Correct)'
@@ -83,7 +78,7 @@
                         var $button = $('#hide-all');
                         $button.click(function () {
                             for (x in chart.series){
-                                f (chart.series[x].visible) {
+                                if (chart.series[x].visible) {
                                     chart.series[x].hide();
                                     $button.html('Show series');
                                 } else {
