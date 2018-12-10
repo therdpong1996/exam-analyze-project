@@ -9,7 +9,6 @@
                 </div>
                 <div class="card-body">
                     <?php
-                        //TODO:
                         if ($session['session_model'] != null) {
                             $chart_data = json_decode($session['session_model'], true);
                             $report_data = json_decode($session['session_report'], true);

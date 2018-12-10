@@ -1,7 +1,7 @@
 <?php
 
     date_default_timezone_set('Asia/Bangkok');
-    ini_set('display_errors', 0);
+    ini_set('display_errors', 1);
     error_reporting(E_ALL);
 
     //PDO
