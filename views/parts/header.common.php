@@ -26,6 +26,12 @@
   <script src="<?php echo $_G['url']; ?>assets/dist/easytimer.min.js"></script>
   <script src="<?php echo $_G['url']; ?>assets/dist/js.cookie-2.2.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+
+  <!-- Highcharts -->
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/series-label.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
   <script>
     const weburl = '<?php echo $_G['url']; ?>';
     const webservice = '<?php echo $_G['webservice']; ?>';

@@ -11,7 +11,18 @@
                     <?php
                         //TODO:
                         if ($session['session_model'] != null) {
-                            echo $session['session_model']; ?>
+                            $chart_data = [];
+                            $data = explode('####END####', $session['session_model']);
+                            for ($i=1; $i <= sizeof($data); $i++) { 
+                                $sub_data1 = explode('exer=', $data[$i]);
+                                $sub_data2 = explode('#', $sub_data1[1]);
+                                $sub_data3 = explode('#####', $sub_data1[1]);
+                                $var['name'] = $sub_data2[0];
+                                $var['data'] = $sub_data3[1];
+                                array_push($chart_data, $var);
+                            }
+                            print_r($chart_data);
+                    ?>
                             
                     <?php
                         } else {
