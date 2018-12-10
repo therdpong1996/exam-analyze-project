@@ -65,7 +65,7 @@
                                             $data = explode(', ', $data);
                                             $strdata = false;
                                             foreach ($data as $d) {
-                                                $strdata .= '{y: '.$d.', dim: '.$report_data[$data['name']]['dim'].', bias: '.$report_data[$data['name']]['bias'].', q: \''.strip_tags(trim(preg_replace('/\s\s+/', ' ', $row['qa_question']))).'\'},';
+                                                $strdata .= '{y: '.$d.', dim: '.$report_data[$data['name']]['dim'].', bias: '.$report_data[$data['name']]['bias'].'},';
                                             }
                                             echo '{';
                                             echo 'name: \''.$data['name'].'\',';
