@@ -23,7 +23,7 @@
                             },
                             tooltip: {
                                 formatter: function () {
-                                    return '<b>' + this.point.question + '</b><br /> Dim: ' + this.point.dim + ', Bias: ' + this.point.bias + '<br /> StuAbi: ' + this.x + ', Answer: ' + this.y;
+                                    return '<b>' + this.point.q + '</b><br /> Dim: ' + this.point.dim + ', Bias: ' + this.point.bias + '<br /> StuAbi: ' + this.x + ', Answer: ' + this.y;
                                 }
                             },
                             yAxis: {
@@ -60,12 +60,16 @@
                                             $stm->bindParam(":id", $data['name']);
                                             $stm->execute();
                                             $row = $stm->fetch(PDO::FETCH_ASSOC);
+
+                                            $data = str_replace([']', '['], ['',''], $data['data']);
+                                            $data = explode(', ', $data);
+                                            $strdata = false;
+                                            foreach ($data as $d) {
+                                                $strdata .= '{y: '.$d.', dim: '.$report_data[$data['name']]['dim'].', bias: '.$report_data[$data['name']]['bias'].', q: \''.strip_tags(trim(preg_replace('/\s\s+/', ' ', $row['qa_question']))).'\'},';
+                                            }
                                             echo '{';
                                             echo 'name: \''.$data['name'].'\',';
-                                            echo 'data: '.$data['data'].',';
-                                            echo 'bias:'.$report_data[$data['name']]['bias'].',';
-                                            echo 'dim:'.$report_data[$data['name']]['dim'].',';
-                                            echo 'question: \''.strip_tags(trim(preg_replace('/\s\s+/', ' ', $row['qa_question']))).'\',';
+                                            echo 'data: ['.$strdata.'],';
                                             echo '},';
                                         }
                                     }
