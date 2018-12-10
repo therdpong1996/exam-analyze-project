@@ -15,7 +15,7 @@
                     <div id="container"></div>
                     <button id="hide-all" class="mt-3 btn btn-primary btn-lg">Hide All</button>
                     <script>
-                        var report = '<?php echo $session['session_report']; ?>';
+                        var report = <?php echo $session['session_report']; ?>;
                         var chart = Highcharts.chart('container', {
                             title: {
                                 text: 'Sigmoid Graph Each Exercises'
