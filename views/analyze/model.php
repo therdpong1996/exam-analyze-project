@@ -63,9 +63,9 @@
                                             echo '{';
                                             echo 'name: \''.$data['name'].'\',';
                                             echo 'data: '.$data['data'].',';
-                                            echo 'bias: '.$report_data[$data['name']]['bias'].',';
-                                            echo 'dim: '.$report_data[$data['name']]['dim'].',';
-                                            echo 'question: \''.$row['qa_question'].'\',';
+                                            echo 'bias:'.$report_data[$data['name']]['bias'].',';
+                                            echo 'dim:'.$report_data[$data['name']]['dim'].',';
+                                            echo 'question: \''.strip_tags(trim(preg_replace('/\s\s+/', ' ', $row['qa_question']))).'\',';
                                             echo '},';
                                         }
                                     }
