@@ -11,13 +11,12 @@
                     <?php
                         if ($session['session_model'] != null) {
                             $chart_data = json_decode($session['session_model'], true);
-                            $report_data = json_decode($session['session_report'], true);
                     ?>
                     <div id="container"></div>
                     <button id="hide-all" class="mt-3 btn btn-primary btn-lg">Hide All</button>
                     <script>
-
-                        Highcharts.chart('container', {
+                        var report = '<?php echo $session['session_report']; ?>';
+                        var chart = Highcharts.chart('container', {
                             title: {
                                 text: 'Sigmoid Graph Each Exercises'
                             },
