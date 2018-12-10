@@ -57,7 +57,7 @@
                                         if ($data['name']) {
                                             echo '{';
                                             echo 'name: \''.$data['name'].'\',';
-                                            echo 'data: ['.$data['data'].']';
+                                            echo 'data: '.$data['data'];
                                             echo '},';
                                         }
                                     }
