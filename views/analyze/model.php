@@ -55,8 +55,8 @@
                                 <?php
                                     foreach ($chart_data as $data) {
                                         echo '{';
-                                        echo 'name: \''.$data['name'].'\','
-                                        echo 'data: \''.$data['data'].'\','
+                                        echo 'name: \''.$data['name'].'\',';
+                                        echo 'data: ['.implode(', ', $data['data']).']';
                                         echo '},';
                                     }
                                 ?>
