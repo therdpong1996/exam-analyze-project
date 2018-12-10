@@ -8,22 +8,75 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <div id="container"></div>
                     <?php
                         //TODO:
                         if ($session['session_model'] != null) {
-                            $chart_data = [];
-                            $data = explode('####END####', $session['session_model']);
-                            for ($i=1; $i <= sizeof($data); $i++) { 
-                                $sub_data1 = explode('exer=', $data[$i]);
-                                $sub_data2 = explode('#', $sub_data1[1]);
-                                $sub_data3 = explode('#####', $sub_data1[1]);
-                                $var['name'] = $sub_data2[0];
-                                $var['data'] = $sub_data3[1];
-                                array_push($chart_data, $var);
-                            }
-                            print_r($chart_data);
+                            $chart_data = json_decode($session['session_model'], true);
                     ?>
-                            
+                    <script>
+                        Highcharts.chart('container', {
+                            title: {
+                                text: 'Solar Employment Growth by Sector, 2010-2016'
+                            },
+                            tooltip: {
+                                formatter: function () {
+                                    return 'Questtion' + this.x + '</b> is <b>' + this.y + '</b>, in series ' + this.series
+                                        .name;
+                                }
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'Number of Employees'
+                                },
+                                min: 0,
+                                max: 1
+                            },
+                            xAxis: {
+                                title: {
+                                    text: 'Student Ability'
+                                }
+                            },
+                            legend: {
+                                layout: 'vertical',
+                                align: 'right',
+                                verticalAlign: 'middle'
+                            },
+                            plotOptions: {
+                                series: {
+                                    label: {
+                                        connectorAllowed: false
+                                    },
+                                    pointStart: -3.00,
+                                    pointInterval: 0.01
+                                }
+                            },
+                            series: [
+                                <?php
+                                    foreach ($chart_data as $data) {
+                                        echo '{';
+                                        echo 'name: \''.$data['name'].'\','
+                                        echo 'data: \''.$data['data'].'\','
+                                        echo '},';
+                                    }
+                                ?>
+                            ],
+                            responsive: {
+                                rules: [{
+                                    condition: {
+                                        maxWidth: 500
+                                    },
+                                    chartOptions: {
+                                        legend: {
+                                            layout: 'horizontal',
+                                            align: 'center',
+                                            verticalAlign: 'bottom'
+                                        }
+                                    }
+                                }]
+                            }
+                        });
+                    </script>
                     <?php
                         } else {
                             ?>

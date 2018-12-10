@@ -131,7 +131,7 @@
                       <label class="col-sm-2 col-form-label" for="session_adap">Adaptive</label>
                       <div class="col-sm-10">
                         <label class="custom-toggle">
-                          <input type="checkbox" name="session_adap" value="1" <?php echo $row['session_model'] == null ? 'disabled' : ''; ?>>
+                          <input type="checkbox" name="session_adap" value="1" <?php echo $row['session_adap'] == 1 ? 'checked' : ''; ?> <?php echo $row['session_model'] == null ? 'disabled' : ''; ?>>
                           <span class="custom-toggle-slider rounded-circle"></span>
                         </label>
                         <p class="text-muted">ใช้งานได้เมื่อมีการ train data เรียบร้อยแล้ว</p>
