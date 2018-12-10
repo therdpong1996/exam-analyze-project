@@ -8,15 +8,14 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div id="container"></div>
-
-                    <button id="hide-all" class="mt-3 btn btn-primary btn-lg">Hide All</button>
                     <?php
                         //TODO:
                         if ($session['session_model'] != null) {
                             $chart_data = json_decode($session['session_model'], true);
                             $report_data = json_decode($session['session_report'], true);
                     ?>
+                    <div id="container"></div>
+                    <button id="hide-all" class="mt-3 btn btn-primary btn-lg">Hide All</button>
                     <script>
 
                         Highcharts.chart('container', {
@@ -25,8 +24,7 @@
                             },
                             tooltip: {
                                 formatter: function () {
-                                    return 'Questtion' + this.x + '</b> is <b>' + this.y + '</b>, in series ' + this.series
-                                        .name;
+                                    return '<b>' + this.point.question + '</b><br /> Dim: ' + this.point.dim + ', Bias: ' + this.point.bias + '<br /> StuAbi: ' + this.x + ', Answer: ' + this.y;
                                 }
                             },
                             yAxis: {
@@ -68,7 +66,7 @@
                                             echo 'data: '.$data['data'].',';
                                             echo 'bias: '.$report_data[$data['name']]['bias'].',';
                                             echo 'dim: '.$report_data[$data['name']]['dim'].',';
-                                            echo 'question: '.$row['qa_question'].',';
+                                            echo 'question: \''.$row['qa_question'].'\',';
                                             echo '},';
                                         }
                                     }
