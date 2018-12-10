@@ -9,15 +9,19 @@
                 </div>
                 <div class="card-body">
                     <div id="container"></div>
+
+                    <button id="hide-all" class="mt-3 btn btn-primary btn-lg">Hide All</button>
                     <?php
                         //TODO:
                         if ($session['session_model'] != null) {
                             $chart_data = json_decode($session['session_model'], true);
+                            $report_data = json_decode($session['session_report'], true);
                     ?>
                     <script>
+
                         Highcharts.chart('container', {
                             title: {
-                                text: 'Solar Employment Growth by Sector, 2010-2016'
+                                text: 'Sigmoid Graph Each Exercises'
                             },
                             tooltip: {
                                 formatter: function () {
@@ -27,7 +31,7 @@
                             },
                             yAxis: {
                                 title: {
-                                    text: 'Number of Employees'
+                                    text: 'Answer (Correct)'
                                 },
                                 min: 0,
                                 max: 1
@@ -55,9 +59,16 @@
                                 <?php
                                     foreach ($chart_data as $data) {
                                         if ($data['name']) {
+                                            $stm = $_DB->prepare("SELECT qa_question FROM q_and_a WHERE qa_id = :id");
+                                            $stm->bindParam(":id", $data['name']);
+                                            $stm->execute();
+                                            $row = $stm->fetch(PDO::FETCH_ASSOC);
                                             echo '{';
                                             echo 'name: \''.$data['name'].'\',';
-                                            echo 'data: '.$data['data'];
+                                            echo 'data: '.$data['data'].',';
+                                            echo 'bias: '.$report_data[$data['name']]['bias'].',';
+                                            echo 'dim: '.$report_data[$data['name']]['dim'].',';
+                                            echo 'question: '.$row['qa_question'].',';
                                             echo '},';
                                         }
                                     }
@@ -76,6 +87,19 @@
                                         }
                                     }
                                 }]
+                            }
+                        });
+
+                        var $button = $('#hide-all');
+                        $button.click(function () {
+                            for (x in chart.series){
+                                f (chart.series[x].visible) {
+                                    chart.series[x].hide();
+                                    $button.html('Show series');
+                                } else {
+                                    chart.series[x].show();
+                                    $button.html('Hide series');
+                                }
                             }
                         });
                     </script>
