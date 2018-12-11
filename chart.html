@@ -11,62 +11,62 @@
     $.post('https://exam-analyze.herokuapp.com/ajax/chart_data.php', {
         session_id: 1
     }, function (data) {
-        console.log(data)
-    }, 'json')
-
-    var chart = Highcharts.chart('container', {
-        title: {
-            text: 'Sigmoid Graph Each Exercises'
-        },
-        yAxis: {
+        console.log(data.model)
+        var chart = Highcharts.chart('container', {
             title: {
-                text: 'Answer (Correct)'
+                text: 'Sigmoid Graph Each Exercises'
             },
-            min: 0,
-            max: 1
-        },
-        xAxis: {
-            title: {
-                text: 'Student Ability'
-            }
-        },
-        tooltip: {
-            formatter: function () {
-                return '<b>' + this.series.name + '</b><br /> Dim: ' + report[this.series.name]['dim'] +
-                    ', Bias: ' +
-                    report[this.series.name]['bias'] + '<br /> StuAbi: ' + this.x + ', Answer: ' + this.y;
-            }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
-        },
-        plotOptions: {
-            series: {
-                label: {
-                    connectorAllowed: false
+            yAxis: {
+                title: {
+                    text: 'Answer (Correct)'
                 },
-                pointStart: -3.00,
-                pointInterval: 0.01
-            }
-        },
-        series: [
-
-        ],
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 500
-                },
-                chartOptions: {
-                    legend: {
-                        layout: 'horizontal',
-                        align: 'center',
-                        verticalAlign: 'bottom'
-                    }
+                min: 0,
+                max: 1
+            },
+            xAxis: {
+                title: {
+                    text: 'Student Ability'
                 }
-            }]
-        }
-    });
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br /> Dim: ' + report[this.series.name]
+                        ['dim'] +
+                        ', Bias: ' +
+                        report[this.series.name]['bias'] + '<br /> StuAbi: ' + this.x +
+                        ', Answer: ' + this.y;
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+            plotOptions: {
+                series: {
+                    label: {
+                        connectorAllowed: false
+                    },
+                    pointStart: -3.00,
+                    pointInterval: 0.01
+                }
+            },
+            series: data.model,
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+        });
+
+    }, 'json')
 </script>

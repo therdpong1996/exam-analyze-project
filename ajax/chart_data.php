@@ -14,6 +14,7 @@
     $stm->execute();
     $row = $stm->fetch(PDO::FETCH_ASSOC);
 
+    $row['session_model'] = str_replace(['data":"', ']"}'], ['data":', ']}'], $row['session_model']);
     $data['model'] = json_decode($row['session_model'], true);
     $data['report'] = json_decode($row['session_report'], true);
 
