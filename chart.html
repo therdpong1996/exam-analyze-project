@@ -8,7 +8,12 @@
 <div id="container"></div>
 
 <script>
-    $.post('')
+    $.post('https://exam-analyze.herokuapp.com/ajax/chart_data.php', {
+        session_id: 1
+    }, function (data) {
+        console.log(data)
+    }, 'json')
+
     var chart = Highcharts.chart('container', {
         title: {
             text: 'Sigmoid Graph Each Exercises'
