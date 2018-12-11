@@ -14,6 +14,7 @@
                     ?>
                     <div id="container"></div>
                     <button id="hide-all" class="mt-3 btn btn-primary btn-lg">Hide All</button>
+                    <button id="show-all" class="mt-3 btn btn-success btn-lg">Show All</button>
                     <script>
                         var report = <?php echo $session['session_report']; ?>;
                         var chart = Highcharts.chart('container', {
@@ -58,6 +59,8 @@
                                             echo '{';
                                             echo 'name: \''.$data['name'].'\',';
                                             echo 'data: '.$data['data'].',';
+                                            echo 'visible: false,';
+                                            echo 'label: {enabled: false},';
                                             echo '},';
                                         }
                                     }
@@ -79,16 +82,15 @@
                             }
                         });
 
-                        var $button = $('#hide-all');
-                        $button.click(function () {
+                        $('#hide-all').click(function () {
                             for (x in chart.series){
-                                if (chart.series[x].visible) {
-                                    chart.series[x].hide();
-                                    $button.html('Show series');
-                                } else {
-                                    chart.series[x].show();
-                                    $button.html('Hide series');
-                                }
+                                chart.series[x].hide();
+                            }
+                        });
+
+                        $('#show-all').click(function () {
+                            for (x in chart.series){
+                                chart.series[x].show();
                             }
                         });
                     </script>
