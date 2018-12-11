@@ -52,16 +52,7 @@
             }
         },
         series: [
-            <?php
-                                    foreach ($chart_data as $data) {
-                                        if ($data['name']) {
-                                            echo '{';
-                                            echo 'name: \''.$data['name'].'\',';
-                                            echo 'data: '.$data['data'].',';
-                                            echo '},';
-                                        }
-                                    }
-                                ?>
+
         ],
         responsive: {
             rules: [{

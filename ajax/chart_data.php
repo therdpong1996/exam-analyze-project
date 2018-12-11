@@ -1,5 +1,5 @@
 <?php
-    header('');
+    header('Access-Control-Allow-Origin: *');
     header('Content-type: application/json');
     session_start();
     if (!isset($_SESSION['auth']) and !isset($_SESSION['username']) and $_SESSION['role'] > 2) {
