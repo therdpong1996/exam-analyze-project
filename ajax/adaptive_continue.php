@@ -33,6 +33,19 @@
         $chk = 0;
     }
 
+    // DATA PREPARE
+    $stm = $_DB->prepare('INSERT INTO adaptive_answer_data(uid,question,subject,examination,session,answer,temp,ans_check,time_taken_s) VALUES (:uid, :question, :subject, :examination, :session, :answer, :temp, :ans_check, :time_taken_s)');
+    $stm->bindParam(':uid', $uid, PDO::PARAM_INT);
+    $stm->bindParam(':question', $question, PDO::PARAM_INT);
+    $stm->bindParam(':subject', $subject, PDO::PARAM_INT);
+    $stm->bindParam(':examination', $examination, PDO::PARAM_INT);
+    $stm->bindParam(':session', $session, PDO::PARAM_INT);
+    $stm->bindParam(':answer', $answer, PDO::PARAM_INT);
+    $stm->bindParam(':temp', $temp, PDO::PARAM_INT);
+    $stm->bindParam(':ans_check', $chk, PDO::PARAM_INT);
+    $stm->bindParam(':time_taken_s', $time_taken, PDO::PARAM_INT);
+    $stm->execute();
+
     $post_data = 'session='.$session.'&userid='.$uid.'&exercise='.$question.'&correct='.$chk.'&time_taken='.$time_taken.'&number='.$number.'&token='.$token;
     $url = $_G['webservice'] . 'continue/';
     $ch = curl_init();
@@ -57,7 +70,7 @@
             $exam_row = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
                 <form action="javascript:void(0)" id="doing-exam-form">
-                    <input type="hidden" name="uid" value="<?php echo $userid; ?>">
+                    <input type="hidden" name="uid" value="<?php echo $uid; ?>">
                     <input type="hidden" name="question" value="<?php echo $exam_row['qa_id']; ?>">
                     <input type="hidden" name="subject" value="<?php echo $exam_row['qa_subject']; ?>">
                     <input type="hidden" name="examination" value="<?php echo $exam_row['qa_exam']; ?>">

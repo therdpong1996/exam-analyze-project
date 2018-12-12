@@ -178,20 +178,4 @@
             $('input#time_taken').val(time_taken);
             time_taken++;
         },1000)
-
-
-        // SEND DATA WHEN SELECTED
-        $('input:radio[name="answer"]').change(
-        function(){
-            var data = $('form#doing-exam-form').serialize();
-            $.ajax({
-            url: weburl + 'ajax/adaptive_taken',
-            type: 'POST',
-            dataType: 'json',
-            data: data,
-            })
-            .done(function(response) {
-                console.log(response);
-            });
-        });
     </script>
