@@ -68,7 +68,7 @@
                     $stmt3->execute();
                 }
 
-                $stm = $_DB->prepare('SELECT * FROM answer_data WHERE uid = :uid AND question = :question AND subject = :subject AND examination = :exam AND session = :session LIMIT 1');
+                $stm = $_DB->prepare('SELECT answer FROM answer_data WHERE uid = :uid AND question = :question AND subject = :subject AND examination = :exam AND session = :session LIMIT 1');
                 $stm->bindParam(':uid', $user_row['uid'], PDO::PARAM_INT);
                 $stm->bindParam(':question', $exam_row['qa_id'], PDO::PARAM_INT);
                 $stm->bindParam(':subject', $session['examination_subject'], PDO::PARAM_INT);
@@ -77,12 +77,12 @@
                 $stm->execute();
                 $answer = $stm->fetch(PDO::FETCH_ASSOC);
 
-                $stmt = $_DB->prepare('SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_order ASC');
+                $stmt = $_DB->prepare('SELECT qa_id,qa_order FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_order ASC');
                 $stmt->bindParam(':subject', $session['examination_subject']);
                 $stmt->bindParam(':exam', $session['examination_id']);
                 $stmt->execute();
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    $stm = $_DB->prepare('SELECT * FROM answer_data WHERE uid = :uid AND question = :question AND subject = :subject AND examination = :exam AND session = :session LIMIT 1');
+                    $stm = $_DB->prepare('SELECT id FROM answer_data WHERE uid = :uid AND question = :question AND subject = :subject AND examination = :exam AND session = :session LIMIT 1');
                     $stm->bindParam(':uid', $user_row['uid'], PDO::PARAM_INT);
                     $stm->bindParam(':question', $row['qa_id'], PDO::PARAM_INT);
                     $stm->bindParam(':subject', $session['examination_subject'], PDO::PARAM_INT);
@@ -105,8 +105,7 @@
                         $stm->execute();
                     }
 
-                    $stm = $_DB->prepare('SELECT * FROM answer_data WHERE uid = :uid AND question = :question AND subject = :subject AND examination = :exam AND session = :session LIMIT 1');
-
+                    $stm = $_DB->prepare('SELECT answer FROM answer_data WHERE uid = :uid AND question = :question AND subject = :subject AND examination = :exam AND session = :session LIMIT 1');
                     $stm->bindParam(':uid', $user_row['uid'], PDO::PARAM_INT);
                     $stm->bindParam(':question', $row['qa_id'], PDO::PARAM_INT);
                     $stm->bindParam(':subject', $session['examination_subject'], PDO::PARAM_INT);

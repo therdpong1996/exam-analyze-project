@@ -14,13 +14,6 @@
                 $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id JOIN users ON subjects.subject_owner = users.uid ORDER BY sessions.session_start ASC');
                 $stm->execute();
                 while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
-                    $stmt = $_DB->prepare('SELECT * FROM session_score WHERE session_id = :session AND exam_id = :exam AND subject_id = :subject AND uid = :uid LIMIT 1');
-                    $stmt->bindParam(':session', $rows['session_id']);
-                    $stmt->bindParam(':exam', $rows['examination_id']);
-                    $stmt->bindParam(':subject', $rows['subject_id']);
-                    $stmt->bindParam(':uid', $user_row['uid']);
-                    $stmt->execute();
-                    $crow = $stmt->fetch(PDO::FETCH_ASSOC); 
             ?>
                     <div class="col-xl-6" id="exam-content">
                         <div class="card shadow mb-3">
@@ -42,6 +35,27 @@
                                     </div>
                                     <div class="col-4 text-center">
                                         <small>เวลาในการทำ <strong class="text-success"><?php echo $rows['session_timeleft']; ?></strong> นาที</small>
+
+                                        <?php
+                                            if($rows['session_adap']) {
+                                                $stmt = $_DB->prepare('SELECT * FROM adaptive_session_score WHERE session_id = :session AND exam_id = :exam AND subject_id = :subject AND uid = :uid LIMIT 1');
+                                                $stmt->bindParam(':session', $rows['session_id']);
+                                                $stmt->bindParam(':exam', $rows['examination_id']);
+                                                $stmt->bindParam(':subject', $rows['subject_id']);
+                                                $stmt->bindParam(':uid', $user_row['uid']);
+                                                $stmt->execute();
+                                                $crow = $stmt->fetch(PDO::FETCH_ASSOC); 
+                                            }else{
+                                                $stmt = $_DB->prepare('SELECT * FROM session_score WHERE session_id = :session AND exam_id = :exam AND subject_id = :subject AND uid = :uid LIMIT 1');
+                                                $stmt->bindParam(':session', $rows['session_id']);
+                                                $stmt->bindParam(':exam', $rows['examination_id']);
+                                                $stmt->bindParam(':subject', $rows['subject_id']);
+                                                $stmt->bindParam(':uid', $user_row['uid']);
+                                                $stmt->execute();
+                                                $crow = $stmt->fetch(PDO::FETCH_ASSOC);
+                                            } 
+                                        ?>
+
                                         <?php if ($crow['score_id']) { ?>
                                             <?php if ($rows['session_solve']) { ?>
                                             <?php if ($rows['session_adap']) { ?>

@@ -13,14 +13,54 @@
                             $chart_data = json_decode($session['session_model'], true);
                     ?>
                     <div id="container"></div>
-                    <button id="hide-all" class="mt-3 btn btn-primary btn-lg">Hide All</button>
-                    <button id="show-all" class="mt-3 btn btn-info btn-lg">Show All</button>
-                    <form action="javascript:void(0)" id="plot-data">
-                        <input type="hidden" name="session" value="<?php echo $session['session_id']; ?>">
-                        <input type="hidden" name="token" value="<?php echo md5('computerizedadaptivetesting'.$session['session_id']); ?>">
-                        <button id="plot-btn" class="btn btn-success btn-lg" type="submit">Ganerate Graph Again</button>
-                    </form>
+                    <div class="row">
+                        <div class="col-3"><button id="hide-all" class="mt-3 btn btn-primary btn-lg">Hide All</button></div>
+                        <div class="col-3"><button id="show-all" class="mt-3 btn btn-info btn-lg">Show All</button></div>
+                        <div class="col-6">
+                            <form action="javascript:void(0)" id="plot-data">
+                                <input type="hidden" name="session" value="<?php echo $session['session_id']; ?>">
+                                <input type="hidden" name="token" value="<?php echo md5('computerizedadaptivetesting'.$session['session_id']); ?>">
+                                <button id="plot-btn" class="btn btn-success btn-lg" type="submit">Ganerate Graph Again</button>
+                            </form>
+                        </div>
+                    </div>
+                    
                     <script>
+                        $('#plot-data').on('submit', function(){
+                            var oldtext = $('#plot-btn').html();
+                            $('#plot-btn').html('<i class="fa fa-spinner fa-spin"></i> Process..');
+                            var sData = $(this).serialize();
+                            $.ajax({
+                                type: "POST",
+                                url: webservice + "plot/",
+                                data: sData,
+                                dataType: "json"
+                            })
+                            .done(function(response){
+                                if(response.state){
+                                swal({
+                                    title: 'SUCCESS',
+                                    text: response.msg,
+                                    type: 'success',
+                                    showCancelButton: false,
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: 'Yes'
+                                }).then(function(result){
+                                    if (result.value) {
+                                    window.location.href = window.location.href;
+                                    }
+                                });
+                                }else{
+                                $('#plot-btn').html(oldtext);
+                                swal(
+                                    'SORRY',
+                                    response.msg,
+                                    'error'
+                                );
+                                }
+                            });
+                        });
+
                         var report = <?php echo $session['session_report']; ?>;
                         var chart = Highcharts.chart('container', {
                             title: {
@@ -148,41 +188,6 @@
                     });
                     }else{
                     $('#train-btn').html(oldtext);
-                    swal(
-                        'SORRY',
-                        response.msg,
-                        'error'
-                    );
-                    }
-                });
-            });
-
-            $('#plot-data').on('submit', function(){
-                var oldtext = $('#plot-btn').html();
-                $('#plot-btn').html('<i class="fa fa-spinner fa-spin"></i> Process..');
-                var sData = $(this).serialize();
-                $.ajax({
-                    type: "POST",
-                    url: webservice + "plot/",
-                    data: sData,
-                    dataType: "json"
-                })
-                .done(function(response){
-                    if(response.state){
-                    swal({
-                        title: 'SUCCESS',
-                        text: response.msg,
-                        type: 'success',
-                        showCancelButton: false,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Yes'
-                    }).then(function(result){
-                        if (result.value) {
-                        window.location.href = window.location.href;
-                        }
-                    });
-                    }else{
-                    $('#plot-btn').html(oldtext);
                     swal(
                         'SORRY',
                         response.msg,
