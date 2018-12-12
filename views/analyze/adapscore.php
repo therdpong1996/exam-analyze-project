@@ -15,7 +15,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    $stm = $_DB->prepare('SELECT * FROM adaptive_session_score JOIN sessions ON session_score.session_id = sessions.session_id JOIN subjects ON session_score.subject_id = subjects.subject_id JOIN users ON session_score.uid = users.uid WHERE session_score.session_id = :session ORDER BY users.stu_id ASC');
+                                    $stm = $_DB->prepare('SELECT * FROM adaptive_session_score JOIN sessions ON adaptive_session_score.session_id = sessions.session_id JOIN subjects ON adaptive_session_score.subject_id = subjects.subject_id JOIN users ON adaptive_session_score.uid = users.uid WHERE adaptive_session_score.session_id = :session ORDER BY users.stu_id ASC');
                                     $stm->bindParam(':session', $_GET['session_id']);
                                     $stm->execute();
                                     while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
