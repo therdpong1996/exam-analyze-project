@@ -77,7 +77,7 @@
             let session_id = <?php echo $session['session_id']; ?>;
             let userid = <?php echo $user_row['uid']; ?>;
             let timeleft = <?php echo $time_ree; ?>;
-            let number = <?php echo $$session['session_adaptive_number']; ?>;
+            let number = <?php echo $$session['session_adap_number']; ?>;
         </script>
         <div class="col-xl-10" id="exam-content">
             <div class="card shadow mb-3 card-qa">
