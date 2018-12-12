@@ -49,7 +49,7 @@
         if ($crow['score_id'] or time() > strtotime($session['session_end'])) {
             include_once __DIR__.'/views/denied.page.php';
         } else {
-            if ($session['session_adap'] == 0) {
+            if ($session['session_adap'] == 1) {
                 if ($session['session_password'] != null and $_SESSION['exam_lock'] == false) {
                     include_once __DIR__.'/views/doing-password-examination-adaptive.page.php';
                 } elseif ($session['session_password'] == null and $_SESSION['exam_lock'] == false) {
