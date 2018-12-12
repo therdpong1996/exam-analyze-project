@@ -58,9 +58,9 @@
         $password = $_POST['session_password'];
         $solve = (isset($_POST['session_solve']) ? '1' : '0');
         $adap = (isset($_POST['session_adap']) ? '1' : '0');
-        $number = $_POST['session_adaptive_number'];
+        $number = $_POST['session_adap_number'];
 
-        $stm = $_DB->prepare('UPDATE sessions SET session_exam = :exam, session_password = :password, session_timeleft = :timeleft, session_start = :start, session_end = :end, session_solve = :solve, session_adap = :adap WHERE session_id = :session_id');
+        $stm = $_DB->prepare('UPDATE sessions SET session_exam = :exam, session_password = :password, session_timeleft = :timeleft, session_start = :start, session_end = :end, session_solve = :solve, session_adap = :adap, session_adap_number = :number WHERE session_id = :session_id');
         $stm->bindParam(':exam', $exam, PDO::PARAM_INT);
         $stm->bindParam(':start', $start, PDO::PARAM_STR);
         $stm->bindParam(':end', $end, PDO::PARAM_STR);
@@ -68,6 +68,7 @@
         $stm->bindParam(':password', $password, PDO::PARAM_STR);
         $stm->bindParam(':solve', $solve, PDO::PARAM_INT);
         $stm->bindParam(':adap', $adap, PDO::PARAM_INT);
+        $stm->bindParam(':number', $number, PDO::PARAM_INT);
         $stm->bindParam(':session_id', $id, PDO::PARAM_INT);
         $stm->execute();
 
