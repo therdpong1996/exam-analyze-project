@@ -23,7 +23,7 @@
     $session = $stm->fetch(PDO::FETCH_ASSOC);
 
     //DOING
-    $stmt = $_DB->prepare('SELECT * FROM session_score WHERE session_id = :session AND exam_id = :exam AND subject_id = :subject AND uid = :uid LIMIT 1');
+    $stmt = $_DB->prepare('SELECT * FROM adaptive_session_score WHERE session_id = :session AND exam_id = :exam AND subject_id = :subject AND uid = :uid LIMIT 1');
     $stmt->bindParam(':session', $session['session_id']);
     $stmt->bindParam(':exam', $session['examination_id']);
     $stmt->bindParam(':subject', $session['subject_id']);
