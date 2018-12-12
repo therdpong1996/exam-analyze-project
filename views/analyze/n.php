@@ -19,6 +19,7 @@
                             <canvas id="AdaptivechoiceChart"></canvas>
                         </div>
                         <div class="col-12 mt-4">
+                            <hr>
                             <p><strong>A.</strong> <?php echo $exam_row['qa_choice_1']; ?> <?php echo in_array(1, $answer_arr) ? '<i class="fa fa-check text-success"></i> ' : ''; ?>
                             </p>
                             <p><strong>B.</strong> <?php echo $exam_row['qa_choice_2']; ?> <?php echo in_array(2, $answer_arr) ? '<i class="fa fa-check text-success"></i> ' : ''; ?>
