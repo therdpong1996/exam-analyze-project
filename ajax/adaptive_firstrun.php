@@ -25,7 +25,7 @@
     $response = json_decode($response, true);
     if ($response['state'] == 'success') {
 ?>
-        <div class="text-center text-success pt-5 pb-5"><i class="fas fa-check-square fa-3x"></i> เสร็จเรียบร้อยแล้ว สามารถส่งคำตอบได้เลยครับ/ค่ะ</div>
+        <div class="text-center text-success pt-5 pb-5"><i class="fas fa-check-square fa-3x"></i> <h3 class="mt-3">เสร็จเรียบร้อยแล้ว สามารถส่งคำตอบได้เลยครับ/ค่ะ</h3></div>
 <?php
     }else{
         if ($response['qa_id']) {
@@ -70,7 +70,7 @@
 <?php
         }else{
 ?>
-            <div class="text-center text-danger pt-5 pb-5"><i class="fas fa-exclamation fa-3x"></i> ขออภัย! มีข้อผิดพลาดทางระบบ</div>
+            <div class="text-center text-danger pt-5 pb-5"><i class="fas fa-exclamation fa-3x"></i><h3 class="mt-3">ขออภัย! มีข้อผิดพลาดทางระบบ</h3></div>
 <?php
         }
     }
