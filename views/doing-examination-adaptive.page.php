@@ -48,7 +48,7 @@
         if (empty($ans_rows['id'])) {
             $ans = 0;
             $temp = 1;
-            $stm = $_DB->prepare('INSERT INTO answer_data(uid,question,subject,examination,session,answer,temp) VALUES (:uid, :question, :subject, :examination, :session, :answer, :temp)');
+            $stm = $_DB->prepare('INSERT INTO adaptive_answer_data(uid,question,subject,examination,session,answer,temp) VALUES (:uid, :question, :subject, :examination, :session, :answer, :temp)');
             $stm->bindParam(':uid', $user_row['uid'], PDO::PARAM_INT);
             $stm->bindParam(':question', $row['qa_id'], PDO::PARAM_INT);
             $stm->bindParam(':subject', $session['examination_subject'], PDO::PARAM_INT);
