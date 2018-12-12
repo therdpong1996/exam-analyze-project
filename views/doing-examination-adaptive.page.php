@@ -132,6 +132,7 @@
             e.preventDefault();
             var data = $('form#doing-exam-form').serialize();
             data = data + '&number=' + number;
+            content.html('<div class="text-center pt-5 pb-5"><i class="fas fa-spinner fa-spin fa-3x"></i></div>');
             $.ajax({
                 type: "POST",
                 url: weburl + "ajax/adaptive_continue",
