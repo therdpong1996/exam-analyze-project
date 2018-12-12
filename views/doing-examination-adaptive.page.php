@@ -82,7 +82,7 @@
         <div class="col-xl-10" id="exam-content">
             <div class="card shadow mb-3 card-qa">
                 <div class="card-header">
-                    <strong>#<?php echo $exam_row['qa_order']; ?></strong>
+                    <strong>Adaptive Testing not sorted</strong>
                 </div>
                 <div class="card-body" id="adaptive-content">
                     <!--CONTENT FOR ADAPTIVE EXERCISES-->
