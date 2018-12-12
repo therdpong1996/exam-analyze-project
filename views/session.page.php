@@ -137,7 +137,7 @@
                         <p class="text-muted">ใช้งานได้เมื่อมีการ train data เรียบร้อยแล้ว</p>
                       </div>
                     </div>
-                    <div class="form-group row" id="adaptive-number" <?php echo ($row['session_adap'] == 1)?'style="display:none;"':''; ?>>
+                    <div class="form-group row" id="adaptive-number" <?php echo ($row['session_adap'] == 0)?'style="display:none;"':''; ?>>
                       <label class="col-sm-2 col-form-label" for="session_adap_number">จำนวนข้อ</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control" id="session_adap_number" name="session_adap_number" value="<?php echo $row['session_adap_number']; ?>">
