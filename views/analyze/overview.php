@@ -5,33 +5,59 @@
                     <div class="col">
                       <strong>Overview</strong>
                     </div>
+                    <div class="col text-right">
+                      <?php if (isset($_GET['adaptive'])) { ?>
+                        <a href="?session_id=<?php echo $session['session_id']; ?>&overview">Normal Overview</a>
+                      <?php }else{ ?>
+                        <a href="?session_id=<?php echo $session['session_id']; ?>&overview&adaptive">Adaptive Overview</a>
+                      <?php } ?>
+                    </div>
                   </div>
                 </div>
                 <div class="card-body">
-                    <?php
-                        $stmt = $_DB->prepare('SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_order ASC');
-                $stmt->bindParam(':subject', $session['examination_subject']);
-                $stmt->bindParam(':exam', $session['examination_id']);
-                $stmt->execute();
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM answer_data WHERE subject = :subject AND session = :session AND examination = :exam AND question = :question AND temp = 0');
-                    $stm->bindParam(':subject', $row['qa_subject']);
-                    $stm->bindParam(':session', $session['session_id']);
-                    $stm->bindParam(':exam', $row['qa_exam']);
-                    $stm->bindParam(':question', $row['qa_id']);
-                    $stm->execute();
-                    $total = $stm->fetch(PDO::FETCH_ASSOC);
+                <?php
+                  $stmt = $_DB->prepare('SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_order ASC');
+                  $stmt->bindParam(':subject', $session['examination_subject']);
+                  $stmt->bindParam(':exam', $session['examination_id']);
+                  $stmt->execute();
+                  while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
-                    $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM answer_data WHERE ans_check = 1 AND subject = :subject AND session = :session AND examination = :exam AND question = :question AND temp = 0');
-                    $stm->bindParam(':subject', $row['qa_subject']);
-                    $stm->bindParam(':session', $session['session_id']);
-                    $stm->bindParam(':exam', $row['qa_exam']);
-                    $stm->bindParam(':question', $row['qa_id']);
-                    $stm->execute();
-                    $true = $stm->fetch(PDO::FETCH_ASSOC);
+                    if (isset($_GET['adaptive'])) {
+                      $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM adaptive_answer_data WHERE subject = :subject AND session = :session AND examination = :exam AND question = :question AND temp = 0');
+                      $stm->bindParam(':subject', $row['qa_subject']);
+                      $stm->bindParam(':session', $session['session_id']);
+                      $stm->bindParam(':exam', $row['qa_exam']);
+                      $stm->bindParam(':question', $row['qa_id']);
+                      $stm->execute();
+                      $total = $stm->fetch(PDO::FETCH_ASSOC);
+
+                      $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM adaptive_answer_data WHERE ans_check = 1 AND subject = :subject AND session = :session AND examination = :exam AND question = :question AND temp = 0');
+                      $stm->bindParam(':subject', $row['qa_subject']);
+                      $stm->bindParam(':session', $session['session_id']);
+                      $stm->bindParam(':exam', $row['qa_exam']);
+                      $stm->bindParam(':question', $row['qa_id']);
+                      $stm->execute();
+                      $true = $stm->fetch(PDO::FETCH_ASSOC);
+                    }else{
+                      $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM answer_data WHERE subject = :subject AND session = :session AND examination = :exam AND question = :question AND temp = 0');
+                      $stm->bindParam(':subject', $row['qa_subject']);
+                      $stm->bindParam(':session', $session['session_id']);
+                      $stm->bindParam(':exam', $row['qa_exam']);
+                      $stm->bindParam(':question', $row['qa_id']);
+                      $stm->execute();
+                      $total = $stm->fetch(PDO::FETCH_ASSOC);
+
+                      $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM answer_data WHERE ans_check = 1 AND subject = :subject AND session = :session AND examination = :exam AND question = :question AND temp = 0');
+                      $stm->bindParam(':subject', $row['qa_subject']);
+                      $stm->bindParam(':session', $session['session_id']);
+                      $stm->bindParam(':exam', $row['qa_exam']);
+                      $stm->bindParam(':question', $row['qa_id']);
+                      $stm->execute();
+                      $true = $stm->fetch(PDO::FETCH_ASSOC);
+                    }
 
                     $precen = ($true['c'] / $total['c']) * 100;
-                    $precen = floor($precen); ?>
+                ?>
                         <div class="progress-wrapper" style="padding-top: 0.5rem;">
                           <div class="progress-info">
                             <div style="white-space: nowrap;width: 600px;overflow: hidden;text-overflow: ellipsis;"><?php echo $row['qa_order']; ?>. <?php echo strip_tags($row['qa_question']); ?></div>

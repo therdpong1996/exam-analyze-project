@@ -68,14 +68,23 @@
                                         <?php } else { ?>
                                         <?php
                                             if (timebetween($rows['session_start'], $rows['session_end'])) {
-                                            $stm = $_DB->prepare('SELECT * FROM time_remaining JOIN sessions ON time_remaining.session = sessions.session_id JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE time_remaining.uid = :uid AND time_remaining.session = :session AND time_remaining.time_status = 0 LIMIT 1');
-                                            $stm->bindParam(':uid', $user_row['uid']);
-                                            $stm->bindParam(':session', $rows['session_id']);
-                                            $stm->execute();
-                                            $ongoing = $stm->fetch(PDO::FETCH_ASSOC);
+
+                                                if ($rows['session_adap']) {
+                                                    $stm = $_DB->prepare('SELECT * FROM adaptive_time_remaining JOIN sessions ON time_remaining.session = sessions.session_id JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE time_remaining.uid = :uid AND time_remaining.session = :session AND time_remaining.time_status = 0 LIMIT 1');
+                                                    $stm->bindParam(':uid', $user_row['uid']);
+                                                    $stm->bindParam(':session', $rows['session_id']);
+                                                    $stm->execute();
+                                                    $ongoing = $stm->fetch(PDO::FETCH_ASSOC);
+                                                }else{
+                                                    $stm = $_DB->prepare('SELECT * FROM time_remaining JOIN sessions ON time_remaining.session = sessions.session_id JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE time_remaining.uid = :uid AND time_remaining.session = :session AND time_remaining.time_status = 0 LIMIT 1');
+                                                    $stm->bindParam(':uid', $user_row['uid']);
+                                                    $stm->bindParam(':session', $rows['session_id']);
+                                                    $stm->execute();
+                                                    $ongoing = $stm->fetch(PDO::FETCH_ASSOC);
+                                                }
 
                                             if ($ongoing['time_remaining'] > 0) {
-                                                $textbtn = 'อยู่ระหว่างการทำ';
+                                                $textbtn = 'อยู่ระหว่างการทดสอบ';
                                             } else {
                                                 $textbtn = 'เข้าทดสอบ';
                                             }

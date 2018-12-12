@@ -16,12 +16,13 @@
                     if (isset($_GET['n'])) {
                         $n = $_GET['n'];
                     } else {
-                        $stm = $_DB->prepare('SELECT qa_id FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_order ASC LIMIT 1');
+                        $stm = $_DB->prepare('SELECT question FROM adaptive_answer_data WHERE subject = :subject AND examination = :exam AND uid = :uid ORDER BY id ASC LIMIT 1');
                         $stm->bindParam(':subject', $session['examination_subject']);
                         $stm->bindParam(':exam', $session['examination_id']);
+                        $stm->bindParam(':uid', $user_row['uid']);
                         $stm->execute();
                         $exam_n = $stm->fetch(PDO::FETCH_ASSOC);
-                        $n = $exam_n['qa_id'];
+                        $n = $exam_n['question'];
                     }
 
                     $stmt = $_DB->prepare('SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam AND qa_id = :n LIMIT 1');
@@ -42,12 +43,13 @@
 
                     $answer_arr = explode(',', $answer['qa_choice_true']);
 
-                    $stmt = $_DB->prepare('SELECT qa_id,qa_order,qa_question FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_order ASC');
+                    $stmt = $_DB->prepare('SELECT q_and_a.qa_id,q_and_a.qa_order,q_and_a.qa_question FROM adaptive_answer_data JOIN q_and_a ON adaptive_answer_data.question = q_and_a.qa_id WHERE adaptive_answer_data.uid = :uid AND adaptive_answer_data.subject = :subject AND adaptive_answer_data.examination = :exam ORDER BY adaptive_answer_data.id ASC');
                     $stmt->bindParam(':subject', $session['examination_subject']);
                     $stmt->bindParam(':exam', $session['examination_id']);
+                    $stm->bindParam(':uid', $user_row['uid']);
                     $stmt->execute();
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        $stm = $_DB->prepare('SELECT ans_check FROM answer_data WHERE uid = :uid AND question = :question AND subject = :subject AND examination = :exam AND session = :session AND temp = 0 LIMIT 1');
+                        $stm = $_DB->prepare('SELECT ans_check FROM adaptive_answer_data WHERE uid = :uid AND question = :question AND subject = :subject AND examination = :exam AND session = :session AND temp = 0 LIMIT 1');
                         $stm->bindParam(':uid', $user_row['uid'], PDO::PARAM_INT);
                         $stm->bindParam(':question', $row['qa_id'], PDO::PARAM_INT);
                         $stm->bindParam(':subject', $session['examination_subject'], PDO::PARAM_INT);

@@ -13,7 +13,10 @@
             <a href="?session_id=<?php echo $session['session_id']; ?>&overview" class="btn btn-outline-success mb-1 btn-block <?php echo isset($_GET['overview']) ? 'active' : ''; ?>">Overview</a>
             <a href="?session_id=<?php echo $session['session_id']; ?>&model" class="btn btn-outline-info mb-1 btn-block <?php echo isset($_GET['model']) ? 'active' : ''; ?>">Train Model</a>
             <a href="?session_id=<?php echo $session['session_id']; ?>&scorelist" class="btn btn-outline-warning mb-1 btn-block <?php echo isset($_GET['scorelist']) ? 'active' : ''; ?>">Score by Student</a>
-            <div class="exam-scollbar pr-1" style="height:500px;">
+            <?php if($session['session_adap']) { ?>
+            <a href="?session_id=<?php echo $session['session_id']; ?>&adapscore" class="btn btn-outline-warning mb-1 btn-block <?php echo isset($_GET['adapscore']) ? 'active' : ''; ?>">Adative Score</a>
+            <?php } ?>
+            <div>
             <?php
                 if (isset($_GET['n'])) {
                     $n = $_GET['n'];
@@ -40,12 +43,14 @@
             </div>
         </div>
         <?php 
-            if (isset($_GET['n']) and !isset($_GET['overview']) and !isset($_GET['scorelist']) and !isset($_GET['model'])) {
+            if (isset($_GET['n']) and !isset($_GET['overview']) and !isset($_GET['scorelist']) and !isset($_GET['model']) and !isset($_GET['adapscore'])) {
                 include_once 'analyze/n.php';
-            } elseif (!isset($_GET['n']) and isset($_GET['overview']) and !isset($_GET['scorelist']) and !isset($_GET['model'])) {
+            } elseif (!isset($_GET['n']) and isset($_GET['overview']) and !isset($_GET['scorelist']) and !isset($_GET['model']) and !isset($_GET['adapscore'])) {
                 include_once 'analyze/overview.php';
-            } elseif (!isset($_GET['n']) and !isset($_GET['overview']) and !isset($_GET['scorelist']) and isset($_GET['model'])) {
+            } elseif (!isset($_GET['n']) and !isset($_GET['overview']) and !isset($_GET['scorelist']) and isset($_GET['model']) and !isset($_GET['adapscore'])) {
                 include_once 'analyze/model.php';
+            }  elseif (!isset($_GET['n']) and !isset($_GET['overview']) and !isset($_GET['scorelist']) and !isset($_GET['model']) and isset($_GET['adapscore'])) {
+                include_once 'analyze/adapscore.php';
             } else {
                 include_once 'analyze/scorelist.php';
             } 

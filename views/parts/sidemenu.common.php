@@ -131,23 +131,32 @@
         <?php if ($user_row['role'] == 3) {
         ?>
         <hr class="my-3">
-        <!-- Heading -->
-        <h6 class="navbar-heading text-muted">อยู่ระหว่างทำการทดสอบ</h6>
         <!-- Navigation -->
         <ul class="navbar-nav mb-md-3">
-          <?php 
+        <?php 
         $stm = $_DB->prepare('SELECT * FROM time_remaining JOIN sessions ON time_remaining.session = sessions.session_id JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE time_remaining.uid = :uid AND time_remaining.time_status = 0');
         $stm->bindParam(':uid', $user_row['uid']);
         $stm->execute();
         while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
-            ?>
+        ?>
           <li class="nav-item">
             <a class="nav-link" href="<?php url('doing-examination/'.$rows['session_id']); ?>">
-              <i class="fa fa-clock"></i> <?php echo $rows['examination_title']; ?>
+              <i class="fa fa-clock"></i> [กำลังทำ] <?php echo $rows['examination_title']; ?>
             </a>
           </li>
-            <?php
-        } ?>
+        <?php } ?>
+        <?php 
+        $stm = $_DB->prepare('SELECT * FROM adaptive_time_remaining JOIN sessions ON time_remaining.session = sessions.session_id JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE time_remaining.uid = :uid AND time_remaining.time_status = 0');
+        $stm->bindParam(':uid', $user_row['uid']);
+        $stm->execute();
+        while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+        ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php url('doing-examination/'.$rows['session_id']); ?>">
+              <i class="fa fa-clock"></i> [กำลังทำ] <?php echo $rows['examination_title']; ?>
+            </a>
+          </li>
+        <?php } ?>
         </ul>
         <?php
     } ?>

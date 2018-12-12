@@ -37,7 +37,7 @@
     <nav class="navbar bg-gradient-primary navbar-top navbar-expand-md navbar-dark" id="navbar-main">
         <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"><?php echo $session['examination_title']; ?></a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">[ADAPTIVE] <?php echo $session['examination_title']; ?></a>
         <?php require_once 'parts/usermenu.common.php'; ?>
 
     <!-- Page content -->
