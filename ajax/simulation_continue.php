@@ -55,6 +55,7 @@
             $stmt->bindParam(':n', $response['qa_id'], PDO::PARAM_INT);
             $stmt->execute();
             $exam_row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $answer_arr = explode(',', $exam_row['qa_choice_true']);
 ?>
                 <form action="javascript:void(0)" id="doing-exam-form">
                     <input type="hidden" name="uid" value="<?php echo $uid; ?>">
@@ -79,7 +80,7 @@
                         <div class="col-12">
                             <div class="custom-control custom-radio mb-2">
                                 <input class="custom-control-input" id="choice_<?php echo $choice; ?>" type="radio" name="answer" required value="<?php echo $choice; ?>">
-                                <label class="custom-control-label" for="choice_<?php echo $choice; ?>"><?php echo $exam_row['qa_choice_'.$choice]; ?></label>
+                                <label class="custom-control-label" for="choice_<?php echo $choice; ?>"><?php echo $exam_row['qa_choice_'.$choice]; ?></label> <?php echo in_array($choice, $answer_arr) ? '<i class="fa fa-check text-success"></i> ' : ''; ?>
                             </div>
                         </div>
                         <?php

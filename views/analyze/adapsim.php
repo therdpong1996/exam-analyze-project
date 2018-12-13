@@ -19,17 +19,7 @@
             <div class="card shadow mt-3">
                 <div class="card-body">
                     <div id="container"></div>
-                    <div class="row">
-                        <div class="col-3"><button id="hide-all" class="mt-3 btn btn-primary btn-lg btn-block">Hide All</button></div>
-                        <div class="col-3"><button id="show-all" class="mt-3 btn btn-info btn-lg btn-block">Show All</button></div>
-                        <div class="col-6">
-                            <form action="javascript:void(0)" id="plot-data">
-                                <input type="hidden" name="session" value="<?php echo $session['session_id']; ?>">
-                                <input type="hidden" name="token" value="<?php echo md5('computerizedadaptivetesting'.$session['session_id']); ?>">
-                                <button id="plot-btn" class="btn btn-success btn-lg mt-3 btn-block" type="submit">Ganerate Graph Again</button>
-                            </form>
-                        </div>
-                    </div>
+                    
                     <?php 
                         $chart_data = json_decode($session['session_model'], true);
                     ?>
