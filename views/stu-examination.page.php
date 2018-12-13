@@ -84,7 +84,7 @@
                                                 }
 
                                             if ($ongoing['time_remaining'] > 0) {
-                                                $textbtn = 'อยู่ระหว่างการทดสอบ';
+                                                $textbtn = 'อยู่ระหว่างการทำ';
                                             } else {
                                                 $textbtn = 'เข้าทดสอบ';
                                             }

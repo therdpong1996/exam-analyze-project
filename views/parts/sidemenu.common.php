@@ -152,7 +152,7 @@
         while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
         ?>
           <li class="nav-item">
-            <a class="nav-link" href="<?php url('doing-examination/'.$rows['session_id']); ?>">
+            <a class="nav-link" href="<?php url('doing-examination-adaptive/'.$rows['session_id']); ?>">
               <i class="fa fa-clock"></i> [กำลังทำ] <?php echo $rows['examination_title']; ?>
             </a>
           </li>
