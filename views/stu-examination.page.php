@@ -70,7 +70,7 @@
                                             if (timebetween($rows['session_start'], $rows['session_end'])) {
 
                                                 if ($rows['session_adap']) {
-                                                    $stm = $_DB->prepare('SELECT * FROM adaptive_time_remaining JOIN sessions ON time_remaining.session = sessions.session_id JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE time_remaining.uid = :uid AND time_remaining.session = :session AND time_remaining.time_status = 0 LIMIT 1');
+                                                    $stm = $_DB->prepare('SELECT * FROM adaptive_time_remaining JOIN sessions ON adaptive_time_remaining.session = sessions.session_id JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE adaptive_time_remaining.uid = :uid AND adaptive_time_remaining.session = :session AND adaptive_time_remaining.time_status = 0 LIMIT 1');
                                                     $stm->bindParam(':uid', $user_row['uid']);
                                                     $stm->bindParam(':session', $rows['session_id']);
                                                     $stm->execute();
