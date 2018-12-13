@@ -32,7 +32,7 @@
                     $stmt->execute();
                     $exam_row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                    $stm = $_DB->prepare('SELECT answer_data.answer,q_and_a.qa_choice_true FROM answer_data JOIN q_and_a ON answer_data.question = q_and_a.qa_id WHERE uid = :uid AND question = :question AND subject = :subject AND examination = :exam AND session = :session AND temp = 0 LIMIT 1');
+                    $stm = $_DB->prepare('SELECT answer_data.answer,q_and_a.qa_choice_true FROM adaptive_answer_data JOIN q_and_a ON adaptive_answer_data.question = q_and_a.qa_id WHERE uid = :uid AND question = :question AND subject = :subject AND examination = :exam AND session = :session AND temp = 0 LIMIT 1');
                     $stm->bindParam(':uid', $user_row['uid'], PDO::PARAM_INT);
                     $stm->bindParam(':question', $exam_row['qa_id'], PDO::PARAM_INT);
                     $stm->bindParam(':subject', $session['examination_subject'], PDO::PARAM_INT);
