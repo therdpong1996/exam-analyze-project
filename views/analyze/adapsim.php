@@ -169,6 +169,9 @@
                         dataType: "html",
                         success: function (response) {
                             content.html(response)
+                            var qid = $('input#question').val();
+                            var cIndex = findChartIndex(qid);
+                            chart.series[cIndex].show();
                         }
                     });
                 })
