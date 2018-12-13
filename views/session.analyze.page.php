@@ -15,7 +15,7 @@
             <a href="?session_id=<?php echo $session['session_id']; ?>&scorelist" class="btn btn-outline-warning mb-1 btn-block <?php echo isset($_GET['scorelist']) ? 'active' : ''; ?>">Score by Student</a>
             <?php if($session['session_adap'] and $session['session_model'] != null) { ?>
             <a href="?session_id=<?php echo $session['session_id']; ?>&adapscore" class="btn btn-outline-warning mb-1 btn-block <?php echo isset($_GET['adapscore']) ? 'active' : ''; ?>">Adaptive Score</a>
-            <a href="?session_id=<?php echo $session['session_id']; ?>&adapsim" class="btn btn-outline-warning mb-1 btn-block <?php echo isset($_GET['adapsim']) ? 'active' : ''; ?>">Adaptive Simulation</a>
+            <a href="?session_id=<?php echo $session['session_id']; ?>&adapsim" class="btn btn-outline-warning mb-1 btn-block <?php echo isset($_GET['adapsim']) ? 'active' : ''; ?>">Adaptive Sim</a>
             <?php } ?>
             <div>
             <?php

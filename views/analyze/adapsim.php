@@ -30,7 +30,9 @@
                             </form>
                         </div>
                     </div>
-                    
+                    <?php 
+                        $chart_data = json_decode($session['session_model'], true);
+                    ?>
                     <script>
                         $('#plot-data').on('submit', function(){
                             var oldtext = $('#plot-btn').html();
