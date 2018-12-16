@@ -129,7 +129,7 @@
                               <?php echo $row['exam']; ?>
                             </td>
                             <td>
-                              <?php echo $row['subject_invite_code']; ?>
+                              <?php echo $rows['subject_invite_code']; ?>
                             </td>
                             <td class="text-right">
                                 <a href="?edit&subject_id=<?php echo $rows['subject_id']; ?>" class="btn btn-info btn-sm">Edit</a> 
