@@ -11,10 +11,10 @@
     <div class="container-fluid pb-5 pt-5 pt-md-8">
         <div class="row">
             <?php
-                $stm = $_DB->prepare("SELECT * FROM student_subject WHERE uid = :uid");
-                $stm->bindParam(":uid", $user_row['uid']);
-                $stm->execute();
-                while ($srow = $stm->fetch(PDO::FETCH_ASSOC)) {
+                $stmc = $_DB->prepare("SELECT * FROM student_subject WHERE uid = :uid");
+                $stmc->bindParam(":uid", $user_row['uid']);
+                $stmc->execute();
+                while ($srow = $stmc->fetch(PDO::FETCH_ASSOC)) {
 
                     $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id JOIN users ON subjects.subject_owner = users.uid WHERE subjects.subject_id = :subject_id ORDER BY sessions.session_start ASC');
                     $stm->bindParam(":subject_id", $srow['subject_id']);
