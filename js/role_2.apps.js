@@ -303,8 +303,8 @@ subject_delete = function (subject_id) {
     confirmButtonText: 'Yes, delete it!'
   }).then(function (result) {
     if (result.value) {
-      var oldtext = $('#delete-btn').html();
-      $('#delete-btn').html('<i class="fa fa-spinner fa-spin"></i>');
+      var oldtext = $('#delete-btn' + subject_id).html();
+      $('#delete-btn' + subject_id).html('<i class="fa fa-spinner fa-spin"></i>');
       $.ajax({
           type: "POST",
           url: weburl + "ajax/subject",
@@ -318,7 +318,7 @@ subject_delete = function (subject_id) {
           if (response.state) {
             $('#subject-' + subject_id).remove();
           } else {
-            $('#delete-btn').html(oldtext);
+            $('#delete-btn' + subject_id).html(oldtext);
             swal(
               'ERROR',
               response.msg,
@@ -341,8 +341,8 @@ session_delete = function (session_id) {
     confirmButtonText: 'Yes, delete it!'
   }).then(function (result) {
     if (result.value) {
-      var oldtext = $('#delete-btn').html();
-      $('#delete-btn').html('<i class="fa fa-spinner fa-spin"></i>');
+      var oldtext = $('#delete-btn' + session_id).html();
+      $('#delete-btn' + session_id).html('<i class="fa fa-spinner fa-spin"></i>');
       $.ajax({
           type: "POST",
           url: weburl + "ajax/session",
@@ -356,7 +356,7 @@ session_delete = function (session_id) {
           if (response.state) {
             $('#session-' + session_id).remove();
           } else {
-            $('#delete-btn').html(oldtext);
+            $('#delete-btn' + session_id).html(oldtext);
             swal(
               'ERROR',
               response.msg,
@@ -379,8 +379,8 @@ examination_delete = function (examination_id) {
     confirmButtonText: 'Yes, delete it!'
   }).then(function (result) {
     if (result.value) {
-      var oldtext = $('#delete-btn').html();
-      $('#delete-btn').html('<i class="fa fa-spinner fa-spin"></i>');
+      var oldtext = $('#delete-btn' + examination_id).html();
+      $('#delete-btn' + examination_id).html('<i class="fa fa-spinner fa-spin"></i>');
       $.ajax({
           type: "POST",
           url: weburl + "ajax/examination",
@@ -394,7 +394,7 @@ examination_delete = function (examination_id) {
           if (response.state) {
             $('#examination-' + examination_id).remove();
           } else {
-            $('#delete-btn').html(oldtext);
+            $('#delete-btn' + examination_id).html(oldtext);
             swal(
               'ERROR',
               response.msg,

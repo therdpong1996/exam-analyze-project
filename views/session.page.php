@@ -275,7 +275,7 @@
                             <td class="text-right">
                                 <a href="analyze/?session_id=<?php echo $rows['session_id']; ?>&overview" class="btn btn-success btn-sm">Analyze</a>
                                 <a href="?edit&session_id=<?php echo $rows['session_id']; ?>" class="btn btn-info btn-sm">Edit</a> 
-                                <button id="delete-btn" onclick="session_delete(<?php echo $rows['session_id']; ?>)" class="btn btn-danger btn-sm">Delete</button>
+                                <button id="delete-btn-<?php echo $rows['session_id']; ?>" onclick="session_delete(<?php echo $rows['session_id']; ?>)" class="btn btn-danger btn-sm">Delete</button>
                             </td>
                         </tr>
                         <?php } ?>

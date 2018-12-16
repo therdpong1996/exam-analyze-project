@@ -43,19 +43,30 @@
         $password_fail = true;
     }
 
+    $stme = $_DB->prepare("SELECT * FROM student_subject WHERE uid = :uid AND subject_id = :subject_id");
+    $stme->bindParam(":uid", $user_row['uid']);
+    $stme->bindParam(":subject_id", $session['session_id']);
+    $stme->execute();
+    $permid = $stme->fetch(PDO::FETCH_ASSOC);
+
     if ($user_row['role'] == 3) {
         if ($crow['score_id'] or time() > strtotime($session['session_end'])) {
             include_once __DIR__.'/views/denied.page.php';
         } else {
             if ($session['session_adap'] == 0) {
-                if ($session['session_password'] != null and $_SESSION['exam_lock'] == false) {
-                    include_once __DIR__.'/views/doing-password-examination.page.php';
-                } elseif ($session['session_password'] == null and $_SESSION['exam_lock'] == false) {
-                    include_once __DIR__.'/views/doing-examination.page.php';
-                } elseif ($session['session_password'] != null and $_SESSION['exam_lock'] == true) {
-                    include_once __DIR__.'/views/doing-examination.page.php';
-                } elseif ($session['session_password'] == null and $_SESSION['exam_lock'] == true) {
-                    include_once __DIR__.'/views/doing-examination.page.php';
+
+                if (empty($permid['subject_id'])) {
+                    include_once __DIR__.'/views/denied.page.php';
+                }else{
+                    if ($session['session_password'] != null and $_SESSION['exam_lock'] == false) {
+                        include_once __DIR__.'/views/doing-password-examination.page.php';
+                    } elseif ($session['session_password'] == null and $_SESSION['exam_lock'] == false) {
+                        include_once __DIR__.'/views/doing-examination.page.php';
+                    } elseif ($session['session_password'] != null and $_SESSION['exam_lock'] == true) {
+                        include_once __DIR__.'/views/doing-examination.page.php';
+                    } elseif ($session['session_password'] == null and $_SESSION['exam_lock'] == true) {
+                        include_once __DIR__.'/views/doing-examination.page.php';
+                    }
                 }
             } else {
                 include_once __DIR__.'/views/denied.page.php';

@@ -133,7 +133,7 @@
                             </td>
                             <td class="text-right">
                                 <a href="?edit&subject_id=<?php echo $rows['subject_id']; ?>" class="btn btn-info btn-sm">Edit</a> 
-                                <button id="delete-btn" onclick="subject_delete(<?php echo $rows['subject_id']; ?>)" class="btn btn-danger btn-sm">Delete</button>
+                                <button id="delete-btn-<?php echo $rows['subject_id']; ?>" onclick="subject_delete(<?php echo $rows['subject_id']; ?>)" class="btn btn-danger btn-sm">Delete</button>
                             </td>
                         </tr>
                         <?php } ?>
