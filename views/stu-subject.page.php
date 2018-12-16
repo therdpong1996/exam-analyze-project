@@ -42,7 +42,7 @@
                             $stm->bindParam(":uid", $user_row['uid']);
                             $stm->execute();
                             while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
-                                $stmt = $_DB->query('SELECT * FROM subjects WHERE subject_id = :id LIMIT 1');
+                                $stmt = $_DB->prepare('SELECT * FROM subjects WHERE subject_id = :id LIMIT 1');
                                 $stmt->bindParam(":id", $rows['subject_id']);
                                 $stmt->execute();
                                 $subj = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -139,7 +139,7 @@
                         $('#modal-confirm-title').html(response.subject_title)
                         $('#modal-detail').html(response.subject_detail)
                         $('#modal-user').html(response.user)
-                        $('#modal-subject_id').html(response.subject_id)
+                        $('#modal-subject_id').val(response.subject_id)
                         $('#invite-check').html(oldtext);
                         $('#confirmModal').modal('show')
                     }
