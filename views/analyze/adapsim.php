@@ -62,7 +62,7 @@
                         var report = <?php echo $session['session_report']; ?>;
                         var chart = Highcharts.chart('container', {
                             title: {
-                                text: 'Sigmoid Graph Each Exercises'
+                                text: 'Simulation for each problem'
                             },
                             yAxis: {
                                 title: {
