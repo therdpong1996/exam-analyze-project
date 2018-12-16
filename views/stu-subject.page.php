@@ -11,11 +11,11 @@
         <div class="row">
         <div class="col-9">
             <div class="form-group">
-                <input type="text" id="subject-invite" name="subject-invite" class="form-control" />
+                <input type="text" id="subject-invite" name="subject-invite" class="form-control" placeholder="Code 10 Characters"> />
             </div>
         </div>
         <div class="col-3">
-            <button class="btn btn-success" id="invite-check"><i class="fas fa-search"></i></span> ตรรวจสอบ</button>
+            <button class="btn btn-success btn-block" id="invite-check"><i class="fas fa-search"></i></span> ตรรวจสอบ</button>
         </div>
         <div class="col-xl-12">
                 <div class="card shadow mt-3">
