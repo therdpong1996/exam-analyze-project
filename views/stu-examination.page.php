@@ -11,9 +11,15 @@
     <div class="container-fluid pb-5 pt-5 pt-md-8">
         <div class="row">
             <?php
-                $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id JOIN users ON subjects.subject_owner = users.uid ORDER BY sessions.session_start ASC');
+                $stm = $_DB->prepare("SELECT * FROM student_subject WHERE uid = :uid");
+                $stm->bindParam(":uid", $user_row['uid']);
                 $stm->execute();
-                while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                while ($srow = $stm->fetch(PDO::FETCH_ASSOC)) {
+
+                    $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id JOIN users ON subjects.subject_owner = users.uid WHERE examinations.examination_subject = :sjid ORDER BY sessions.session_start ASC');
+                    $stm->bindParam(":sjid", $srow['subject_id']);
+                    $stm->execute();
+                    while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
             ?>
                     <div class="col-xl-6" id="exam-content">
                         <div class="card shadow mb-3">
@@ -107,6 +113,6 @@
                             </div>
                         </div>
                     </div>
-            <?php } ?>
+            <?php } } ?>
         </div>
     </div>

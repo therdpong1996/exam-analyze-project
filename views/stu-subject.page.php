@@ -104,7 +104,7 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Yes, signout it!'
             }).then(function (result) {
                 if (result.value) {
                     var oldtext = $('#stu-delete-btn-'+id+uid).html();
