@@ -14,6 +14,7 @@ RewriteRule ^session/analyze/khan/$ session.analyze.khan.php [L,QSA]
 RewriteRule ^examination/qa/$ examination.qa.php [L,QSA]
 
 #STUDENT
+RewriteRule ^stu-subject/$ stu-subject.php [L,QSA]
 RewriteRule ^stu-examination/$ stu-examination.php [L,QSA]
 
 #NORMAL

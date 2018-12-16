@@ -52,7 +52,7 @@
         <div class="col-xl-10" id="exam-content">
             <div class="card shadow mb-3 card-qa">
                 <div class="card-header">
-                    <strong>Adaptive Testing not sorted</strong>
+                    <strong>ข้อที่ <span id="num_current">1</span>/<?php echo $session['session_adap_number']; ?></strong>
                 </div>
                 <div class="card-body" id="adaptive-content">
                     <!--CONTENT FOR ADAPTIVE EXERCISES-->
@@ -82,10 +82,44 @@
         </div>
         </div>
     </div>
+    <div class="modal fade" id="adapAcceptModal" tabindex="-1" role="dialog" aria-labelledby="adapAcceptModal" aria-hidden="true">
+        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+            <div class="modal-content">
+                
+                <div class="modal-header">
+                    <h6 class="modal-title">Adaptive Testing ?</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                
+                <div class="modal-body exam-scollbar" style="height: 500px;">
+                    <h4>การทดสอบแบบปรับเหมาะด้วยคอมพิวเตอร์</h4>
+                    <p>เป็นการทดสอบที่จัดข้อสอบให้เหมาะสมกับความสามารถของผู้เข้าสอบ ซึ่งอยู่บนพื้นฐานของการตอบข้อสอบข้อแรกหรือข้อที่ผ่านมาของผู้เข้าสอบ กล่าวคือ เมื่อผู้เข้าสอบทำข้อสอบข้อเริ่มต้นหรือชุดเริ่มต้นเรียบร้อยแล้ว ก็จะนำผลการตอบข้อสอบมาวิเคราะห์หรือประเมินระดับความสามารถของผู้เข้าสอบ เพื่อที่จะคัดเลือกข้อสอบข้อถัดไปที่เหมาะสม โดยอาศัยทฤษฎีการตอบสนองข้อสอบ (IRT) เป็นพื้นฐาน และจะสิ้นสุดการทดสอบเมื่อผู้ทดสอบทำการทดสอบตามเงื่อนไขหรือเกณฑ์ที่กำหนด</p>
+                    <h4>ขั้นตอนของการทดสอบแบบปรับเหมาะด้วยคอมพิวเตอร์</h4>
+                    <p>คอมพิวเตอร์ ประกอบไปด้วย 5 ขั้นตอน ดังนี้ ขั้นตอนที่ 1 การสร้างคลังข้อสอบ ขั้นตอนนี้เป็นการคัดเลือกข้อสอบที่ผ่านการวิเคราะห์โดยใช้หลักทฤษฎีการตอบสนองข้อสอบ (IRT) แบบ 3 พารามิเตอร์ ประกอบด้วย ค่าอำนาจจำแนก (a) ค่าความยาก (b) และค่าการเดา (c) ขั้นตอนที่ 2 การคัดเลือกข้อสอบข้อเริ่มต้น ขั้นตอนนี้จะทำการคัดเลือกข้อสอบที่มีค่าความยาก (b) อยู่ในระดับปานกลาง ขั้นตอนที่ 3 การคัดเลือกข้อสอบข้อถัดไป เป็นขั้นตอนที่ต้องคัดเลือกข้อสอบให้ใกล้เคียงกับความสามารถของผู้เข้าสอบในขณะนั้น โดยพิจารณาจากผลการตอบข้อสอบข้อก่อนหน้า ขั้นตอนที่ 4 การประมาณค่าความสามารถของผู้เข้าสอบ เป็นขั้นตอนที่จะทำการประมาณค่าความสามารถของผู้เข้าสอบหลังจากที่ตอบข้อสอบข้อนั้นๆ แล้ว และขั้นตอนที่ 5 การยุติการทดสอบ ขั้นตอนนี้เป็นการสิ้นสุดการทดสอบเมื่อผู้เข้าสอบทำข้อสอบได้ครบตรงตามเกณฑ์ที่กำหนด</p>
+                    <h4>ประโยชน์และความสำคัญของโปรแกรมการทดสอบแบบปรับเหมาะด้วยคอมพิวเตอร์</h4>
+                    <ul>
+                        <li>พัฒนาวิธีการเรียนของตนเอง เพื่อพัฒนาให้มีผลการเรียนดีขึ้นในระดับชั้นต่อไป</li>
+                        <li>พิจารณาเลือกสาขาวิชาที่เรียนเพื่อให้เหมาะสมกับตนเอง</li>
+                        <li>วางแผนการเรียนรู้ของตนเองเพื่อให้มีประสิทธิภาพมากยิ่งขึ้น</li>
+                    </ul>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">ฉันเข้าใจแล้ว</button> 
+                </div>
+                
+            </div>
+        </div>
+    </div>
     <script type="text/javascript">
+        var num_cur = 1;
         const content = $('div#adaptive-content');
         //FIRST VISIT
         $(document).ready(function () {
+            $('#adapAcceptModal').modal('show')
+
             content.html('<div class="text-center pt-5 pb-5"><i class="fas fa-spinner fa-spin fa-3x"></i></div>');
             $.ajax({
                 type: "POST",
@@ -93,6 +127,8 @@
                 data: {userid: userid, session: session_id, number: number},
                 dataType: "html",
                 success: function (response) {
+                    $('#num_current').html(num_cur)
+                    num_cur++;
                     content.html(response)
                 }
             });
@@ -109,6 +145,8 @@
                 data: data,
                 dataType: "html",
                 success: function (response) {
+                    $('#num_current').html(num_cur)
+                    num_cur++;
                     content.html(response)
                 }
             });

@@ -121,6 +121,11 @@
 } elseif ($user_row['role'] == 3) {
         ?>
           <li class="nav-item">
+            <a class="nav-link" href="<?php url('stu-subject/'); ?>">
+              <i class="ni ni-folder-17 text-blue"></i> Subject
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="<?php url('stu-examination/'); ?>">
               <i class="ni ni-ruler-pencil text-blue"></i> Examination
             </a>

@@ -106,6 +106,7 @@
                         <tr>
                             <th scope="col">Subject</th>
                             <th scope="col">Amount of Examination</th>
+                            <th scope="col">Invite Code</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -126,6 +127,9 @@
                             ?>
                             <td>
                               <?php echo $row['exam']; ?>
+                            </td>
+                            <td>
+                              <?php echo $row['subject_invite_code']; ?>
                             </td>
                             <td class="text-right">
                                 <a href="?edit&subject_id=<?php echo $rows['subject_id']; ?>" class="btn btn-info btn-sm">Edit</a> 

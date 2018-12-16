@@ -20,7 +20,7 @@
                             <form action="javascript:void(0)" id="plot-data">
                                 <input type="hidden" name="session" value="<?php echo $session['session_id']; ?>">
                                 <input type="hidden" name="token" value="<?php echo md5('computerizedadaptivetesting'.$session['session_id']); ?>">
-                                <button id="plot-btn" class="btn btn-success btn-lg mt-3 btn-block" type="submit">Ganerate Graph Again</button>
+                                <button id="plot-btn" class="btn btn-success btn-lg mt-3 btn-block" type="submit">Refresh</button>
                             </form>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                         var report = <?php echo $session['session_report']; ?>;
                         var chart = Highcharts.chart('container', {
                             title: {
-                                text: 'Sigmoid Graph Each Exercises'
+                                text: 'For each problem'
                             },
                             yAxis: {
                                 title: {

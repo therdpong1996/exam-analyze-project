@@ -20,7 +20,7 @@
                             <div class="card-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h2 class="mb-0"><?php echo $rows['examination_title']; ?> <?php if ($rows['session_password']): ?><small class="badge badge-warning">ข้อสอบนี้มีการกำหนดรหัสผ่าน</small><?php endif; ?></h2>
+                                        <h2 class="mb-0"><?php echo $rows['examination_title']; ?> <?php if ($rows['session_adap']): ?><span class="badge badge-primary">Adaptive</span><?php endif; ?> <?php if ($rows['session_password']): ?><small class="badge badge-warning">ข้อสอบนี้มีการกำหนดรหัสผ่าน</small><?php endif; ?></h2>
                                         <h6 class="text-uppercase text-muted ls-1 mb-1"><?php echo $rows['subject_title']; ?></h6>
                                     </div>
                                 </div>
@@ -28,7 +28,12 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-8">
-                                        <p class="text-muted"><?php echo $rows['examination_detail']; ?></p>
+                                        <p class="text-muted">
+                                            <?php if ($rows['session_adap']): ?>
+                                                <span class="text-danger">ข้อสอบนี้จะปรับความยาก-ง่ายตามความสามารถของผุ้ทดสอบ</span><br>
+                                            <?php endif; ?>
+                                            <?php echo $rows['examination_detail']; ?>
+                                        </p>
                                         <small>เริ่มต้น: <span class="text-success"><?php echo date('l j M, Y', strtotime($rows['session_start'])); ?></span></small><br>
                                         <small>สิ้นสุด: <span class="text-danger"><?php echo date('l j M, Y', strtotime($rows['session_end'])); ?></span></small><br>
                                         <small>โดย: <?php echo $rows['full_name']; ?></small>
