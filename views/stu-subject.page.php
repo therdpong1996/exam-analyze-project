@@ -11,7 +11,7 @@
         <div class="row">
         <div class="col-9">
             <div class="form-group">
-                <input type="text" id="subject-invite" name="subject-invite" class="form-control" placeholder="Code 10 Characters"> />
+                <input type="text" id="subject-invite" name="subject-invite" class="form-control" placeholder="Code 10 Characters" />
             </div>
         </div>
         <div class="col-3">
@@ -121,7 +121,7 @@
                         }
                     });
                 }
-            }
+            })
         }
 
         $(document).ready(function () {
