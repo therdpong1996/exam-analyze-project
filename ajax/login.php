@@ -19,6 +19,6 @@ if (!empty($row['uid'])) {
     $_SESSION['uid'] = $row['uid'];
     echo json_encode(['state'=>true, 'msg'=>'ระดับผู้ใช้งาน : '.$row['role_title']]);
 }else{
-    echo json_encode(['state'=>false, 'msg'=>'ชื่อผู้ใช้หรือรหัสผ่านไม่ถุกต้อง']);
+    echo json_encode(['state'=>false, 'msg'=>'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง']);
 }
 exit;
