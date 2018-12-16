@@ -83,17 +83,17 @@
         </div>
     </div>
     <div class="modal fade" id="adapAcceptModal" tabindex="-1" role="dialog" aria-labelledby="adapAcceptModal" aria-hidden="true">
-        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 
                 <div class="modal-header">
-                    <h6 class="modal-title">Adaptive Testing ?</h6>
+                    <h2 class="modal-title">Adaptive Testing ?</h2>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 
-                <div class="modal-body exam-scollbar" style="height: 500px;">
+                <div class="modal-body exam-scollbar" style="height: 400px;">
                     <h4>การทดสอบแบบปรับเหมาะด้วยคอมพิวเตอร์</h4>
                     <p>เป็นการทดสอบที่จัดข้อสอบให้เหมาะสมกับความสามารถของผู้เข้าสอบ ซึ่งอยู่บนพื้นฐานของการตอบข้อสอบข้อแรกหรือข้อที่ผ่านมาของผู้เข้าสอบ กล่าวคือ เมื่อผู้เข้าสอบทำข้อสอบข้อเริ่มต้นหรือชุดเริ่มต้นเรียบร้อยแล้ว ก็จะนำผลการตอบข้อสอบมาวิเคราะห์หรือประเมินระดับความสามารถของผู้เข้าสอบ เพื่อที่จะคัดเลือกข้อสอบข้อถัดไปที่เหมาะสม โดยอาศัยทฤษฎีการตอบสนองข้อสอบ (IRT) เป็นพื้นฐาน และจะสิ้นสุดการทดสอบเมื่อผู้ทดสอบทำการทดสอบตามเงื่อนไขหรือเกณฑ์ที่กำหนด</p>
                     <h4>ขั้นตอนของการทดสอบแบบปรับเหมาะด้วยคอมพิวเตอร์</h4>
