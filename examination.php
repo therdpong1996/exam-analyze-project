@@ -1,11 +1,10 @@
 <?php
     session_start();
-    if(!isset($_SESSION['auth']) and !isset($_SESSION['username'])){
-        header('Location: ../login/');
+    require_once __DIR__.'/control/init.php';
+    if (!isset($_SESSION['auth']) and !isset($_SESSION['username'])) {
+        header('Location: '.$_G['url'].'login/');
         exit;
     }
-
-    require_once __DIR__.'/control/init.php';
 
     $_G['title'] = 'ข้อสอบ';
 

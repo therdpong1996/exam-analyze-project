@@ -1,5 +1,8 @@
         <div class="col-xl-10">
             <div class="card shadow">
+                <div class="card-header">
+                    <strong>ข้อที่ <span id="num_current">1</span>/<?php echo $session['session_adap_number']; ?></strong>
+                </div>
                 <div class="card-body" id="simulation-content">
                     <!--CONTENT FOR ADAPTIVE EXERCISES-->
                 </div>
@@ -9,7 +12,7 @@
             </div>
 
             <script>
-
+                var num_cur = 1;
                 let session_id = <?php echo $session['session_id']; ?>;
                 let userid = <?php echo $user_row['uid']; ?>;
                 let number = <?php echo $session['session_adap_number']; ?>;
@@ -162,6 +165,8 @@
                             var qid = $('input#question').val();
                             var cIndex = findChartIndex(qid);
                             chart.series[cIndex].show();
+                            $('#num_current').html(num_cur)
+                            num_cur++;
                         }
                     });
                 })
@@ -181,6 +186,8 @@
                             var qid = $('input#question').val();
                             var cIndex = findChartIndex(qid);
                             chart.series[cIndex].show();
+                            $('#num_current').html(num_cur)
+                            num_cur++;
                         }
                     });
                 });

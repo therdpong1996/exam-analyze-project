@@ -1,11 +1,10 @@
 <?php
     session_start();
+    require_once __DIR__.'/control/init.php';
     if(isset($_SESSION['auth']) and isset($_SESSION['username'])){
-        header('Location: ../dashboard/');
+        header('Location: '.$_G['url'].'dashboard/');
         exit;
     }
-
-    require_once __DIR__.'/control/init.php';
 
     $_G['title'] = 'เข้าสู่ระบบ';
 

@@ -1,8 +1,7 @@
 <?php
     session_start();
-
     require_once __DIR__.'/control/init.php';
-    if(!isset($_SESSION['auth']) and !isset($_SESSION['username'])){
+    if (!isset($_SESSION['auth']) and !isset($_SESSION['username'])) {
         header('Location: '.$_G['url'].'login/');
         exit;
     }
