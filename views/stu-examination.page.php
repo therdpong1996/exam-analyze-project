@@ -16,8 +16,8 @@
                 $stm->execute();
                 while ($srow = $stm->fetch(PDO::FETCH_ASSOC)) {
 
-                    $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id JOIN users ON subjects.subject_owner = users.uid WHERE examinations.examination_subject = :sjid ORDER BY sessions.session_start ASC');
-                    $stm->bindParam(":sjid", $srow['subject_id']);
+                    $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id JOIN users ON subjects.subject_owner = users.uid WHERE subjects.subject_id = :subject_id ORDER BY sessions.session_start ASC');
+                    $stm->bindParam(":subject_id", $srow['subject_id']);
                     $stm->execute();
                     while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
             ?>

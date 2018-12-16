@@ -7,7 +7,7 @@
     require_once '../control/init.php';
 
     $uid = $_POST['uid'];
-    $id = $_POST['subject_id'];
+    $id = $_POST['id'];
 
     $stm = $_DB->prepare("DELETE FROM student_subject WHERE uid = :uid AND subject_id = :subject_id LIMIT 1");
     $stm->bindParam(':uid', $uid, PDO::PARAM_STR);
