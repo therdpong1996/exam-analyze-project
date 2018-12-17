@@ -37,7 +37,7 @@
 
     <tr>
         <td><?php __($solve['qa_id']); ?></td>
-        <td><?php __($solve['qa_question']); ?></td>
+        <td><div style="width: 400px;overflow: hidden;text-overflow: ellipsis;"><?php __($solve['qa_question']); ?></td>
         <td><?php __($solve['qa_choice_'.$answer]); ?></td>
         <td><?php __(($chk==1?'<span class="text-success">ถูกต้อง</span>':'<span class="text-danger">ผิด</span>')); ?></td>
     </tr>
