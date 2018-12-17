@@ -56,7 +56,7 @@
                 </div>
             </div>
             <script>
-                var num_cur = <?php isset($_COOKIE['sim_number'])?$_COOKIE['sim_number']:1; ?>;
+                var num_cur = <?php echo isset($_COOKIE['sim_number'])?$_COOKIE['sim_number']:1; ?>;
                 let session_id = <?php echo $session['session_id']; ?>;
                 let userid = <?php echo $user_row['uid']; ?>;
                 let number = <?php echo $session['session_adap_number']; ?>;
