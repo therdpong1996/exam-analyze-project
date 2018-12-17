@@ -37,3 +37,6 @@
                 </div>
             </div>
         </div>
+        <script>
+            Cookies.set('curr_number', 1, { expires: 7, path: '/' });
+        </script>
