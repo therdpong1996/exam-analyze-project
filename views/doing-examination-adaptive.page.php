@@ -115,7 +115,7 @@
         </div>
     </div>
     <script type="text/javascript">
-        var num_cur = 1;
+        var num_cur = <?php isset($_COOKIE['sim_number'])?$_COOKIE['sim_number']:1; ?>;;
         const content = $('div#adaptive-content');
         //FIRST VISIT
         $(document).ready(function () {
@@ -130,6 +130,7 @@
                 success: function (response) {
                     $('#num_current').html(num_cur)
                     num_cur++;
+                    Cookies.set('curr_number', num_cur, { expires: 7, path: '/' });
                     content.html(response)
                 }
             });
@@ -148,6 +149,7 @@
                 success: function (response) {
                     $('#num_current').html(num_cur)
                     num_cur++;
+                    Cookies.set('curr_number', num_cur, { expires: 7, path: '/' });
                     content.html(response)
                 }
             });

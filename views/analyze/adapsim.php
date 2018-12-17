@@ -13,6 +13,7 @@
                             <button id="next_exercise" class="btn btn-success" type="button">ถัดไป <i class="fa fa-arrow-circle-right"></i></button>
                         </div>
                         <div class="col-6 text-right">
+                            <button id="reset-sim" class="btn btn-warning" type="button"><i class="fas fa-trash"></i> รีเซ็ต</button>
                             <button id="report-modal" class="btn btn-info" type="button" data-toggle="modal" data-target="#reportModal"><i class="fas fa-paper-plane"></i> สรุปผล</button>
                         </div>
                     </div>
@@ -30,7 +31,21 @@
                         </div>
                         
                         <div class="modal-body">
-                            
+                            <div class="table-responsive">
+                                <table class="table align-items-center">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col">ข้อ</th>
+                                            <th scope="col">คำถาม</th>
+                                            <th scope="col">คำตอบ</th>
+                                            <th scope="col">ผลลัพธ์</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="report-table">
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         
                         <div class="modal-footer">
@@ -41,7 +56,7 @@
                 </div>
             </div>
             <script>
-                var num_cur = 1;
+                var num_cur = <?php isset($_COOKIE['sim_number'])?$_COOKIE['sim_number']:1; ?>;
                 let session_id = <?php echo $session['session_id']; ?>;
                 let userid = <?php echo $user_row['uid']; ?>;
                 let number = <?php echo $session['session_adap_number']; ?>;
@@ -196,6 +211,7 @@
                             chart.series[cIndex].show();
                             $('#num_current').html(num_cur)
                             num_cur++;
+                            Cookies.set('sim_number', num_cur, { expires: 7, path: '/' });
                         }
                     });
                 })
@@ -217,8 +233,20 @@
                             chart.series[cIndex].show();
                             $('#num_current').html(num_cur)
                             num_cur++;
+                            Cookies.set('sim_number', num_cur, { expires: 7, path: '/' });
                         }
                     });
+
+                    $.ajax({
+                        type: "POST",
+                        url: weburl + "ajax/simulation_report",
+                        data: data,
+                        dataType: "html",
+                        success: function (response) {
+                            $('#report-table').append(response);
+                        }
+                    });
+
                 });
 
                 // TIME TAKEN
@@ -228,7 +256,7 @@
                     time_taken++;
                 },1000)
 
-                $('a').on('click', function (e){ 
+                $('button#reset-sim').on('click', function (e){
                     e.preventDefault();
                     var data = $('form#doing-exam-form').serialize();
                     $.ajax({
@@ -238,7 +266,7 @@
                         data: data,
                     })
                     .done(function() {});
-                    window.location.href = $(this).attr('href');
+                    window.location.href = window.location.href
                 })
 
                     </script>
