@@ -24,7 +24,6 @@
                 <div class="card-body">
                   <form action="javascript:void(0)" id="add-examination-form">
                     <input type="hidden" name="action" value="add">
-                    <input type="hidden" name="uid" value="<?php echo $user_row['uid']; ?>">
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="examination_title">ชื่อข้อสอบ</label>
                       <div class="col-sm-10">
@@ -36,14 +35,17 @@
                       <div class="col-sm-10">
                         <select class="form-control" id="examination_subject" name="examination_subject" required>
                             <?php
-                                $stm = $_DB->prepare('SELECT * FROM subjects WHERE subject_owner = :uid');
-    $stm->bindParam(':uid', $user_row['uid']);
-    $stm->execute();
-    while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
-        ?>
+                                $stm1 = $_DB->prepare("SELECT subject_id FROM subject_owner WHERE uid = :uid");
+                                $stm1->bindParam(":uid", $user_row['uid']);
+                                $stm1->execute();
+                                while ($orows = $stm1->fetch(PDO::FETCH_ASSOC)) {
+                                  $stm = $_DB->prepare('SELECT * FROM subjects WHERE subject_id = :id');
+                                  $stm->bindParam(':id', $orows['subject_id']);
+                                  $stm->execute();
+                                  while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                            ?>
                                 <option value="<?php echo $rows['subject_id']; ?>"><?php echo $rows['subject_title']; ?></option>
-                            <?php
-    } ?>
+                            <?php } } ?>
                         </select>
                       </div>
                     </div>
@@ -65,7 +67,7 @@
               </div>
           <?php
 } elseif (isset($_GET['edit']) and isset($_GET['examination_id'])) {
-        $stm = $_DB->prepare('SELECT * FROM examinations WHERE examination_id = :examination_id');
+        $stm = $_DB->prepare('SELECT * FROM examinations JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE examinations.examination_id = :examination_id');
         $stm->bindParam(':examination_id', $_GET['examination_id'], PDO::PARAM_INT);
         $stm->execute();
         $row = $stm->fetch(PDO::FETCH_ASSOC); ?>
@@ -82,7 +84,6 @@
                   <form action="javascript:void(0)" id="edit-examination-form">
                   <input type="hidden" name="action" value="edit">
                   <input type="hidden" name="examination_id" value="<?php echo $row['examination_id']; ?>">
-                  <input type="hidden" name="examination_owner" value="<?php echo $row['examination_owner']; ?>">
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="examination_title">ชื่อข้อสอบ</label>
                       <div class="col-sm-10">
@@ -94,14 +95,17 @@
                       <div class="col-sm-10">
                         <select class="form-control" id="examination_subject" name="examination_subject" required>
                             <?php
-                                $stm = $_DB->prepare('SELECT * FROM subjects WHERE subject_owner = :uid');
-        $stm->bindParam(':uid', $user_row['uid']);
-        $stm->execute();
-        while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
-            ?>
+                                $stm1 = $_DB->prepare("SELECT subject_id FROM subject_owner WHERE uid = :uid");
+                                $stm1->bindParam(":uid", $user_row['uid']);
+                                $stm1->execute();
+                                while ($orows = $stm1->fetch(PDO::FETCH_ASSOC)) {
+                                  $stm = $_DB->prepare('SELECT * FROM subjects WHERE subject_id = :id');
+                                  $stm->bindParam(':id', $orows['subject_id']);
+                                  $stm->execute();
+                                  while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                            ?>
                                 <option value="<?php echo $rows['subject_id']; ?>" <?php echo ($rows['subject_id'] == $row['examination_subject']) ? 'selected' : ''; ?>><?php echo $rows['subject_title']; ?></option>
-                            <?php
-        } ?>
+                            <?php } } ?>
                         </select>
                       </div>
                     </div>
@@ -147,9 +151,15 @@
                     </thead>
                     <tbody>
                         <?php
-                          $stm = $_DB->query('SELECT * FROM examinations JOIN subjects ON examinations.examination_subject = subjects.subject_id ORDER BY examination_createtime DESC');
-        while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
-            ?>
+                          $stm1 = $_DB->prepare("SELECT subject_id FROM subject_owner WHERE uid = :uid");
+                          $stm1->bindParam(":uid", $user_row['uid']);
+                          $stm1->execute();
+                          while ($orows = $stm1->fetch(PDO::FETCH_ASSOC)) {
+                            $stm = $_DB->prepare('SELECT * FROM examinations JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE subjects.subject_id = :id ORDER BY examination_createtime DESC');
+                            $stm->bindParam(":id", $orows['subject_id']);
+                            $stm->execute();
+                            while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
                         <tr id="examination-<?php echo $rows['examination_id']; ?>">
                             <th scope="row">
                               <span class="mb-0 text-sm"><?php echo $rows['examination_title']; ?></span>
@@ -159,10 +169,11 @@
                             </td>
                             <?php
                               $stmt = $_DB->prepare('SELECT COUNT(qa_id) AS qac FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam');
-            $stmt->bindParam(':subject', $rows['subject_id']);
-            $stmt->bindParam(':exam', $rows['examination_id']);
-            $stmt->execute();
-            $row = $stmt->fetch(PDO::FETCH_ASSOC); ?>
+                              $stmt->bindParam(':subject', $rows['subject_id']);
+                              $stmt->bindParam(':exam', $rows['examination_id']);
+                              $stmt->execute();
+                              $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                            ?>
                             <td>
                               <?php echo $row['qac']; ?>
                             </td>
@@ -172,8 +183,7 @@
                                 <button id="delete-btn-<?php echo $rows['examination_id']; ?>" onclick="examination_delete(<?php echo $rows['examination_id']; ?>)" class="btn btn-danger btn-sm">Delete</button>
                             </td>
                         </tr>
-                        <?php
-        } ?>
+                        <?php } } ?>
                     </tbody>
                   </table>
                 </div>

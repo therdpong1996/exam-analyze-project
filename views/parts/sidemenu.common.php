@@ -95,8 +95,23 @@
               <i class="ni ni-tv-2 text-primary"></i> Dashboard
             </a>
           </li>
-          <?php if ($user_row['role'] == 2) {
-    ?>
+          <?php if($user_row['role'] == 1) { ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php url('admin/users'); ?>">
+              <i class="fas fa-user text-blue"></i> User Manage
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php url('admin/setting'); ?>">
+              <i class="fas fa-cog text-blue"></i> Website Setting
+            </a>
+          </li>
+          <?php } elseif ($user_row['role'] == 2) { ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php url('article/'); ?>">
+              <i class="fas fa-book-open text-blue"></i> Article
+            </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="<?php url('subject/'); ?>">
               <i class="ni ni-folder-17 text-blue"></i> Subject
@@ -114,12 +129,15 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<?php url('docs/'); ?>">
-              <i class="fa fa-file-word"></i> Documents
+              <i class="fa fa-file-word text-blue"></i> Documents
             </a>
           </li>
-          <?php
-} elseif ($user_row['role'] == 3) {
-        ?>
+          <?php } elseif ($user_row['role'] == 3) { ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php url('stu-article/'); ?>">
+              <i class="fas fa-book-reader text-blue"></i> Article Archive
+            </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="<?php url('stu-subject/'); ?>">
               <i class="ni ni-folder-17 text-blue"></i> Subject
@@ -130,11 +148,9 @@
               <i class="ni ni-ruler-pencil text-blue"></i> Examination
             </a>
           </li>
-          <?php
-    } ?>
+          <?php } ?>
         </ul>
-        <?php if ($user_row['role'] == 3) {
-        ?>
+        <?php if ($user_row['role'] == 3) { ?>
         <hr class="my-3">
         <!-- Navigation -->
         <ul class="navbar-nav mb-md-3">
@@ -163,8 +179,7 @@
           </li>
         <?php } ?>
         </ul>
-        <?php
-    } ?>
+        <?php } ?>
       </div>
     </div>
   </nav>

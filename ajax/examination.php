@@ -9,7 +9,19 @@
     require_once '../control/init.php';
 
     if ($_POST['action'] == 'add') {
+
         if ($_SESSION['role'] != 2) {
+            echo json_encode(['state' => false, 'msg' => 'No permission']);
+            exit;
+        }
+
+        $stmc2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id AND uid = :uid");
+        $stmc2->bindParam(":id", $_POST['examination_subject']);
+        $stmc2->bindParam(":uid", $_SESSION['uid']);
+        $stmc2->execute();
+        $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($rowc2['uid'])) {
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
         }
@@ -39,7 +51,13 @@
             exit;
         }
 
-        if ($_SESSION['uid'] != $_POST['examination_owner']) {
+        $stmc2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id AND uid = :uid");
+        $stmc2->bindParam(":id", $_POST['examination_subject']);
+        $stmc2->bindParam(":uid", $_SESSION['uid']);
+        $stmc2->execute();
+        $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($rowc2['uid'])) {
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
         }
@@ -59,6 +77,7 @@
         echo json_encode(['state' => true, 'msg' => 'แก้ไข '.$title.' แล้ว']);
         exit;
     } elseif ($_POST['action'] == 'delete') {
+
         if ($_SESSION['role'] != 2) {
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
@@ -69,7 +88,13 @@
         $stm->execute();
         $row = $stm->fetch(PDO::FETCH_ASSOC);
 
-        if ($_SESSION['uid'] != $row['examination_owner']) {
+        $stmc2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id AND uid = :uid");
+        $stmc2->bindParam(":id", $row['examination_subject']);
+        $stmc2->bindParam(":uid", $_SESSION['uid']);
+        $stmc2->execute();
+        $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($rowc2['uid'])) {
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
         }

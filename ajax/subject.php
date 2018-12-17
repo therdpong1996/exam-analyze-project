@@ -9,6 +9,7 @@
     require_once '../control/init.php';
 
     if ($_POST['action'] == 'add') {
+
         if ($_SESSION['role'] != 2) {
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
@@ -27,19 +28,32 @@
         $stm->execute();
         $lastid = $_DB->lastInsertId();
 
+        $stm2 = $_DB->prepare('INSERT INTO subject_owner (subject_id,uid) VALUES (:id, :uid)');
+        $stm2->bindParam(':id', $lastid, PDO::PARAM_INT);
+        $stm2->bindParam(':uid', $_SESSION['uid'], PDO::PARAM_INT);
+        $stm2->execute();
+
         if ($lastid) {
             echo json_encode(['state' => true, 'msg' => $title.' ได้ถูกเพิ่มแล้ว']);
         } else {
             echo json_encode(['state' => false, 'msg' => 'Error MySQL Query']);
         }
         exit;
+
     } elseif ($_POST['action'] == 'edit') {
+
         if ($_SESSION['role'] != 2) {
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
         }
 
-        if ($_SESSION['uid'] != $_POST['subject_owner']) {
+        $stmc2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id AND uid = :uid");
+        $stmc2->bindParam(":id", $_POST['subject_id']);
+        $stmc2->bindParam(":uid", $_SESSION['uid']);
+        $stmc2->execute();
+        $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($rowc2['uid'])) {
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
         }
@@ -57,17 +71,19 @@
         echo json_encode(['state' => true, 'msg' => 'แก้ไข '.$title.' แล้ว']);
         exit;
     } elseif ($_POST['action'] == 'delete') {
+
         if ($_SESSION['role'] != 2) {
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
         }
 
-        $stm = $_DB->prepare('SELECT * FROM subjects WHERE subject_id = :subject_id LIMIT 1');
-        $stm->bindParam(':subject_id', $_POST['subject_id'], PDO::PARAM_INT);
-        $stm->execute();
-        $row = $stm->fetch(PDO::FETCH_ASSOC);
+        $stmc2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id AND uid = :uid");
+        $stmc2->bindParam(":id", $_POST['subject_id']);
+        $stmc2->bindParam(":uid", $_SESSION['uid']);
+        $stmc2->execute();
+        $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
 
-        if ($_SESSION['uid'] != $row['subject_owner']) {
+        if (empty($rowc2['uid'])) {
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
         }

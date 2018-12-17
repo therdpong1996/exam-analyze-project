@@ -65,7 +65,6 @@
                   <form action="javascript:void(0)" id="edit-subject-form">
                   <input type="hidden" name="action" value="edit">
                   <input type="hidden" name="subject_id" value="<?php echo $row['subject_id']; ?>">
-                  <input type="hidden" name="subject_owner" value="<?php echo $row['subject_owner']; ?>">
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="subject_title">ชื่อรายวิชา</label>
                       <div class="col-sm-10">
@@ -112,8 +111,14 @@
                     </thead>
                     <tbody>
                         <?php
-                          $stm = $_DB->query('SELECT * FROM subjects ORDER BY subject_createtime DESC');
-                          while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                          $stm1 = $_DB->prepare("SELECT subject_id FROM subject_owner WHERE uid = :uid");
+                          $stm1->bindParam(":uid", $user_row['uid']);
+                          $stm1->execute();
+                          while ($orows = $stm1->fetch(PDO::FETCH_ASSOC)) {
+                            $stm = $_DB->prepare('SELECT * FROM subjects WHERE subject_id = :id ORDER BY subject_createtime DESC');
+                            $stm->bindParam(":id", $orows['subject_id']);
+                            $stm->execute();
+                            while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
                         ?>
                         <tr id="subject-<?php echo $rows['subject_id']; ?>">
                             <th scope="row">
@@ -136,7 +141,7 @@
                                 <button id="delete-btn-<?php echo $rows['subject_id']; ?>" onclick="subject_delete(<?php echo $rows['subject_id']; ?>)" class="btn btn-danger btn-sm">Delete</button>
                             </td>
                         </tr>
-                        <?php } ?>
+                        <?php } } ?>
                     </tbody>
                   </table>
                 </div>

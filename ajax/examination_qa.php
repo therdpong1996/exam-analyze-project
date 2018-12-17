@@ -14,7 +14,13 @@
             exit;
         }
 
-        if ($_SESSION['uid'] != $_POST['qa_owner']) {
+        $stmc2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id AND uid = :uid");
+        $stmc2->bindParam(":id", $_POST['qa_subject']);
+        $stmc2->bindParam(":uid", $_SESSION['uid']);
+        $stmc2->execute();
+        $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($rowc2['uid'])) {
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
         }
@@ -65,7 +71,13 @@
             exit;
         }
 
-        if ($_SESSION['uid'] != $_POST['qa_owner']) {
+        $stmc2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id AND uid = :uid");
+        $stmc2->bindParam(":id", $_POST['qa_subject']);
+        $stmc2->bindParam(":uid", $_SESSION['uid']);
+        $stmc2->execute();
+        $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($rowc2['uid'])) {
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
         }
@@ -110,7 +122,13 @@
         $stm->execute();
         $row2 = $stm->fetch(PDO::FETCH_ASSOC);
 
-        if ($_SESSION['uid'] != $row2['examination_owner']) {
+        $stmc2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id AND uid = :uid");
+        $stmc2->bindParam(":id", $row2['examination_subject']);
+        $stmc2->bindParam(":uid", $_SESSION['uid']);
+        $stmc2->execute();
+        $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($rowc2['uid'])) {
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
         }

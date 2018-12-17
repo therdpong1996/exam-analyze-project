@@ -8,6 +8,32 @@
 
     require_once '../control/init.php';
 
+    if ($_SESSION['role'] != 2) {
+        echo json_encode(['state' => false, 'msg' => 'No permission']);
+        exit;
+    }
+
+    $stm = $_DB->prepare('SELECT * FROM sessions WHERE session_id = :session_id LIMIT 1');
+    $stm->bindParam(':session_id', $_POST['session_id'], PDO::PARAM_INT);
+    $stm->execute();
+    $row = $stm->fetch(PDO::FETCH_ASSOC);
+
+    $stmc1 = $_DB->prepare("SELECT examination_subject FROM examinations WHERE examination_id = :id");
+    $stmc1->bindParam(":id", $row['session_exam']);
+    $stmc1->execute();
+    $rowc1 = $stmc1->fetch(PDO::FETCH_ASSOC);
+
+    $stmc2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id AND uid = :uid");
+    $stmc2->bindParam(":id", $rowc1['examination_subject']);
+    $stmc2->bindParam(":uid", $_SESSION['uid']);
+    $stmc2->execute();
+    $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
+
+    if (empty($rowc2['uid'])) {
+        echo json_encode(['state' => false, 'msg' => 'No permission']);
+        exit;
+    }
+
     $uid = $_POST['uid'];
     $sc_id = $_POST['sc_id'];
     $session_id = $_POST['session_id'];

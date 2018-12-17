@@ -96,7 +96,6 @@
                     <input type="hidden" name="qa_id" value="<?php echo isset($exam_row['qa_id']) ? $exam_row['qa_id'] : '0'; ?>">
                     <input type="hidden" name="qa_subject" value="<?php echo isset($exam['examination_subject']) ? $exam['examination_subject'] : '0'; ?>">
                     <input type="hidden" name="qa_exam" value="<?php echo isset($exam['examination_id']) ? $exam['examination_id'] : '0'; ?>">
-                    <input type="hidden" name="qa_owner" value="<?php echo isset($exam['examination_owner']) ? $exam['examination_owner'] : '0'; ?>">
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="question">คำถาม ?</label>
                         <div class="col-sm-10">
@@ -174,7 +173,6 @@
                     formData.append("file", document.getElementById('excel_file').files[0]);
                     formData.append("subject", "<?php echo isset($exam['examination_subject']) ? $exam['examination_subject'] : '0'; ?>");
                     formData.append("exam" ,"<?php echo isset($exam['examination_id']) ? $exam['examination_id'] : '0'; ?>");
-                    formData.append("qa_owner", "<?php echo isset($exam['examination_owner']) ? $exam['examination_owner'] : '0'; ?>");
 
                     $.ajax({
                         url: weburl + "ajax/excel_import",

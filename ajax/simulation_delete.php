@@ -6,6 +6,11 @@
         exit;
     }
 
+    if ($_SESSION['role'] != 2) {
+        echo json_encode(['state' => false, 'msg' => 'No permission']);
+        exit;
+    }
+
     require_once '../control/init.php';
 
     unset($_COOKIE['sim_number']);

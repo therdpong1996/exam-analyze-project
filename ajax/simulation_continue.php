@@ -5,6 +5,11 @@
         echo json_encode(['state'=>false,'msg'=>'No permission']); exit;
     }
 
+    if ($_SESSION['role'] != 2) {
+        echo json_encode(['state' => false, 'msg' => 'No permission']);
+        exit;
+    }
+    
     require_once '../control/init.php';
 
     $uid = $_POST['uid'];

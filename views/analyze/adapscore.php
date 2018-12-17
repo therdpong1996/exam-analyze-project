@@ -37,7 +37,7 @@
                                             <span class="mb-0 text-sm"><?php echo isset($timet['time_remaining']) ? floor((($rows['session_timeleft'] * 60) - $timet['time_remaining']) / 60).' min' : 'N/A'; ?></span>
                                             </td>
                                             <td>
-                                                <?php echo $rows['score']; ?>/<?php echo $rows['score_full']; ?>
+                                                <?php echo $rows['score']; ?>/<?php echo $session['session_adap_number']; ?>
                                             </td>
                                             <td>
                                                 <?php echo $rows['finish_tile']; ?>

@@ -9,12 +9,28 @@
     require_once '../control/init.php';
 
     if ($_POST['action'] == 'add') {
+
         if ($_SESSION['role'] != 2) {
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
         }
 
-        $uid = $_POST['session_owner'];
+        $stmc1 = $_DB->prepare("SELECT examination_subject FROM examinations WHERE examination_id = :id");
+        $stmc1->bindParam(":id", $_POST['session_exam']);
+        $stmc1->execute();
+        $rowc1 = $stmc1->fetch(PDO::FETCH_ASSOC);
+
+        $stmc2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id AND uid = :uid");
+        $stmc2->bindParam(":id", $rowc1['examination_subject']);
+        $stmc2->bindParam(":uid", $_SESSION['uid']);
+        $stmc2->execute();
+        $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($rowc2['uid'])) {
+            echo json_encode(['state' => false, 'msg' => 'No permission']);
+            exit;
+        }
+
         $exam = $_POST['session_exam'];
         $start = str_replace('/', '-', $_POST['session_start']).' '.$_POST['session_start_time'].':00';
         $end = str_replace('/', '-', $_POST['session_end']).' '.$_POST['session_end_time'].':00';
@@ -22,8 +38,7 @@
         $password = $_POST['session_password'];
         $solve = (isset($_POST['session_solve']) ? '1' : '0');
 
-        $stm = $_DB->prepare('INSERT INTO sessions (session_owner,session_exam,session_password,session_timeleft,session_start,session_end,session_solve) VALUES (:owner, :exam, :password, :timeleft, :start, :end, :solve)');
-        $stm->bindParam(':owner', $uid, PDO::PARAM_INT);
+        $stm = $_DB->prepare('INSERT INTO sessions (session_exam,session_password,session_timeleft,session_start,session_end,session_solve) VALUES (:exam, :password, :timeleft, :start, :end, :solve)');
         $stm->bindParam(':exam', $exam, PDO::PARAM_INT);
         $stm->bindParam(':start', $start, PDO::PARAM_STR);
         $stm->bindParam(':end', $end, PDO::PARAM_STR);
@@ -40,12 +55,24 @@
         }
         exit;
     } elseif ($_POST['action'] == 'edit') {
+        
         if ($_SESSION['role'] != 2) {
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
         }
 
-        if ($_SESSION['uid'] != $_POST['session_owner']) {
+        $stmc1 = $_DB->prepare("SELECT examination_subject FROM examinations WHERE examination_id = :id");
+        $stmc1->bindParam(":id", $_POST['session_exam']);
+        $stmc1->execute();
+        $rowc1 = $stmc1->fetch(PDO::FETCH_ASSOC);
+
+        $stmc2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id AND uid = :uid");
+        $stmc2->bindParam(":id", $rowc1['examination_subject']);
+        $stmc2->bindParam(":uid", $_SESSION['uid']);
+        $stmc2->execute();
+        $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($rowc2['uid'])) {
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
         }
@@ -75,6 +102,7 @@
         echo json_encode(['state' => true, 'msg' => 'แก้ไข Session แล้ว']);
         exit;
     } elseif ($_POST['action'] == 'delete') {
+
         if ($_SESSION['role'] != 2) {
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
@@ -85,7 +113,18 @@
         $stm->execute();
         $row = $stm->fetch(PDO::FETCH_ASSOC);
 
-        if ($_SESSION['uid'] != $row['session_owner']) {
+        $stmc1 = $_DB->prepare("SELECT examination_subject FROM examinations WHERE examination_id = :id");
+        $stmc1->bindParam(":id", $row['session_exam']);
+        $stmc1->execute();
+        $rowc1 = $stmc1->fetch(PDO::FETCH_ASSOC);
+
+        $stmc2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id AND uid = :uid");
+        $stmc2->bindParam(":id", $rowc1['examination_subject']);
+        $stmc2->bindParam(":uid", $_SESSION['uid']);
+        $stmc2->execute();
+        $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($rowc2['uid'])) {
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
         }

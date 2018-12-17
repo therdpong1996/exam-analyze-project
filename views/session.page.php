@@ -23,19 +23,23 @@
                 <div class="card-body">
                   <form action="javascript:void(0)" id="add-session-form">
                     <input type="hidden" name="action" value="add">
-                    <input type="hidden" name="session_owner" value="<?php echo $user_row['uid']; ?>">
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="session_exam">ข้อสอบ</label>
                       <div class="col-sm-10">
                         <select class="form-control" id="session_exam" name="session_exam" required>
                             <?php
-                                $stm = $_DB->prepare('SELECT * FROM examinations WHERE examination_owner = :uid');
-                                $stm->bindParam(':uid', $user_row['uid']);
-                                $stm->execute();
-                                while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                                $stm1 = $_DB->prepare("SELECT subject_id FROM subject_owner WHERE uid = :uid");
+                                $stm1->bindParam(":uid", $user_row['uid']);
+                                $stm1->execute();
+                                while ($orows = $stm1->fetch(PDO::FETCH_ASSOC)) {
+
+                                  $stm = $_DB->prepare('SELECT * FROM examinations WHERE examination_subject = :id');
+                                  $stm->bindParam(':id', $orows['subject_id']);
+                                  $stm->execute();
+                                  while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
                             ?>
-                                <option value="<?php echo $rows['examination_id']; ?>"><?php echo $rows['examination_title']; ?></option>
-                            <?php } ?>
+                                    <option value="<?php echo $rows['examination_id']; ?>"><?php echo $rows['examination_title']; ?></option>
+                            <?php } } ?>
                         </select>
                       </div>
                     </div>
@@ -126,7 +130,6 @@
                   <form action="javascript:void(0)" id="edit-session-form">
                   <input type="hidden" name="action" value="edit">
                   <input type="hidden" name="session_id" value="<?php echo $row['session_id']; ?>">
-                  <input type="hidden" name="session_owner" value="<?php echo $row['session_owner']; ?>">
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="session_adap">Adaptive</label>
                       <div class="col-sm-10">
@@ -157,13 +160,17 @@
                       <div class="col-sm-10">
                         <select class="form-control" id="session_exam" name="session_exam" required>
                             <?php
-                                $stm = $_DB->prepare('SELECT * FROM examinations WHERE examination_owner = :uid');
-                                $stm->bindParam(':uid', $user_row['uid']);
-                                $stm->execute();
-                                while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                                $stm1 = $_DB->prepare("SELECT subject_id FROM subject_owner WHERE uid = :uid");
+                                $stm1->bindParam(":uid", $user_row['uid']);
+                                $stm1->execute();
+                                while ($orows = $stm1->fetch(PDO::FETCH_ASSOC)) {
+                                    $stm = $_DB->prepare('SELECT * FROM examinations WHERE examination_subject = :id');
+                                    $stm->bindParam(':id', $orows['subject_id']);
+                                    $stm->execute();
+                                    while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
                             ?>
-                                <option value="<?php echo $rows['examination_id']; ?>" <?php echo ($rows['examination_id'] == $row['session_exam']) ? 'selected' : ''; ?>><?php echo $rows['examination_title']; ?></option>
-                            <?php } ?>
+                                  <option value="<?php echo $rows['examination_id']; ?>" <?php echo ($rows['examination_id'] == $row['session_exam']) ? 'selected' : ''; ?>><?php echo $rows['examination_title']; ?></option>
+                            <?php } } ?>
                         </select>
                       </div>
                     </div>
@@ -259,8 +266,14 @@
                     </thead>
                     <tbody>
                         <?php
-                          $stm = $_DB->query('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id ORDER BY sessions.session_start ASC');
-                          while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                          $stm1 = $_DB->prepare("SELECT subject_id FROM subject_owner WHERE uid = :uid");
+                          $stm1->bindParam(":uid", $user_row['uid']);
+                          $stm1->execute();
+                          while ($orows = $stm1->fetch(PDO::FETCH_ASSOC)) {
+                            $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE subjects.subject_id = :id ORDER BY sessions.session_start ASC');
+                            $stm->bindParam(":id", $orows['subject_id']);
+                            $stm->execute();
+                            while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
                         ?>
                         <tr id="session-<?php echo $rows['session_id']; ?>">
                             <th scope="row">
@@ -278,7 +291,7 @@
                                 <button id="delete-btn-<?php echo $rows['session_id']; ?>" onclick="session_delete(<?php echo $rows['session_id']; ?>)" class="btn btn-danger btn-sm">Delete</button>
                             </td>
                         </tr>
-                        <?php } ?>
+                        <?php } } ?>
                     </tbody>
                   </table>
                 </div>
