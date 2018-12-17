@@ -158,7 +158,6 @@
         var timer = new Timer();
         if (timeleft == 0) {
             $("form#submit-exam").submit();
-            Cookies.set('curr_number', 1, { expires: 7, path: '/' });
         }
         timer.start({countdown: true, startValues: {seconds: timeleft}});
         $('span#timeleft').html(timer.getTimeValues().toString());
@@ -177,7 +176,6 @@
                 confirmButtonText: 'Yes'
                 }).then((result) => {
                 if (result.value) {
-                    Cookies.set('curr_number', 1, { expires: 7, path: '/' });
                     $("form#submit-exam").submit();
                 }
                 })

@@ -57,8 +57,6 @@
         $stmt->bindParam(':uid', $_POST['uid']);
         $stmt->execute();
 
-        unset($_COOKIE['curr_number']);
-        setcookie('curr_number', null, -1, '/');
         include_once __DIR__.'/views/solve-adaptive.page.php';
     } else {
         include_once __DIR__.'/views/denied.page.php';
