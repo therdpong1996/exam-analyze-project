@@ -129,7 +129,6 @@
                 dataType: "html",
                 success: function (response) {
                     $('#num_current').html(num_cur)
-                    num_cur++;
                     Cookies.set('curr_number', num_cur, { expires: 7, path: '/' });
                     content.html(response)
                 }
@@ -147,8 +146,8 @@
                 data: data,
                 dataType: "html",
                 success: function (response) {
-                    $('#num_current').html(num_cur)
                     num_cur++;
+                    $('#num_current').html(num_cur)
                     Cookies.set('curr_number', num_cur, { expires: 7, path: '/' });
                     content.html(response)
                 }

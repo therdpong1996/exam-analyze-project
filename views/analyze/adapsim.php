@@ -210,7 +210,6 @@
                             var cIndex = findChartIndex(qid);
                             chart.series[cIndex].show();
                             $('#num_current').html(num_cur)
-                            num_cur++;
                             Cookies.set('sim_number', num_cur, { expires: 7, path: '/' });
                         }
                     });
@@ -231,8 +230,8 @@
                             var qid = $('input#question').val();
                             var cIndex = findChartIndex(qid);
                             chart.series[cIndex].show();
-                            $('#num_current').html(num_cur)
                             num_cur++;
+                            $('#num_current').html(num_cur)
                             Cookies.set('sim_number', num_cur, { expires: 7, path: '/' });
                         }
                     });
