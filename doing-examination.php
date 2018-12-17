@@ -45,7 +45,7 @@
 
     $stme = $_DB->prepare("SELECT * FROM student_subject WHERE uid = :uid AND subject_id = :subject_id");
     $stme->bindParam(":uid", $user_row['uid']);
-    $stme->bindParam(":subject_id", $session['session_id']);
+    $stme->bindParam(":subject_id", $session['subject_id']);
     $stme->execute();
     $permid = $stme->fetch(PDO::FETCH_ASSOC);
 
@@ -54,7 +54,6 @@
             include_once __DIR__.'/views/denied.page.php';
         } else {
             if ($session['session_adap'] == 0) {
-
                 if (empty($permid['subject_id'])) {
                     include_once __DIR__.'/views/denied.page.php';
                 }else{

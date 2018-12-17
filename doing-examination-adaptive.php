@@ -46,7 +46,7 @@
 
     $stme = $_DB->prepare("SELECT * FROM student_subject WHERE uid = :uid AND subject_id = :subject_id");
     $stme->bindParam(":uid", $user_row['uid']);
-    $stme->bindParam(":subject_id", $session['session_id']);
+    $stme->bindParam(":subject_id", $session['subject_id']);
     $stme->execute();
     $permid = $stme->fetch(PDO::FETCH_ASSOC);
 

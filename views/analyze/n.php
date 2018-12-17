@@ -28,7 +28,7 @@
                                 $stm->execute();
                                 $ntaken = $stm->fetch(PDO::FETCH_ASSOC);
                             ?>
-                            <div class="mt-4 text-center">จำนวนผุ้เข้าสอบ: <?php __($ntaken['c']); ?></div>
+                            <div class="mt-4 text-center">จำนวนผู้เข้าสอบ: <?php __($ntaken['c']); ?></div>
                         </div>
                         <div class="col-6">
                             <?php 
@@ -40,7 +40,7 @@
                                 $stm->execute();
                                 $antaken = $stm->fetch(PDO::FETCH_ASSOC);
                             ?>
-                            <div class="mt-4 text-center">จำนวนผุ้เข้าสอบ: <?php __($antaken['c']); ?></div>
+                            <div class="mt-4 text-center">จำนวนผู้เข้าสอบ: <?php __($antaken['c']); ?></div>
                         </div>
                         <div class="col-12 mt-4">
                             <hr>
