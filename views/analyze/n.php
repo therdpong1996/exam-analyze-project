@@ -14,11 +14,33 @@
                         </div>
                         <div class="col-6">
                             <canvas id="choiceChart"></canvas>
-                            
                         </div>
                         <div class="col-6">
                             <canvas id="AdaptivechoiceChart"></canvas>
-                            
+                        </div>
+                        <div class="col-6">
+                            <?php 
+                                $stm = $_DB->prepare('SELECT COUNT(uid) AS c FROM answer_data WHERE subject = :subject AND session = :session AND examination = :exam AND question = :question AND temp = 0');
+                                $stm->bindParam(':subject', $session['examination_subject']);
+                                $stm->bindParam(':session', $session['session_id']);
+                                $stm->bindParam(':exam', $session['examination_id']);
+                                $stm->bindParam(':question', $exam_row['qa_id']);
+                                $stm->execute();
+                                $ntaken = $stm->fetch(PDO::FETCH_ASSOC);
+                            ?>
+                            <div class="mt-4 text-center">จำนวนผุ้เข้าสอบ: <?php __($ntaken['c']); ?></div>
+                        </div>
+                        <div class="col-6">
+                            <?php 
+                                $stm = $_DB->prepare('SELECT COUNT(uid) AS c FROM adaptive_answer_data WHERE subject = :subject AND session = :session AND examination = :exam AND question = :question AND temp = 0');
+                                $stm->bindParam(':subject', $session['examination_subject']);
+                                $stm->bindParam(':session', $session['session_id']);
+                                $stm->bindParam(':exam', $session['examination_id']);
+                                $stm->bindParam(':question', $exam_row['qa_id']);
+                                $stm->execute();
+                                $antaken = $stm->fetch(PDO::FETCH_ASSOC);
+                            ?>
+                            <div class="mt-4 text-center">จำนวนผุ้เข้าสอบ: <?php __($antaken['c']); ?></div>
                         </div>
                         <div class="col-12 mt-4">
                             <hr>

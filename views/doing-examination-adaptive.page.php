@@ -56,6 +56,7 @@
                 </div>
                 <div class="card-body" id="adaptive-content">
                     <!--CONTENT FOR ADAPTIVE EXERCISES-->
+                    <div class="text-center pt-5 pb-5"><i class="fas fa-spinner fa-spin fa-3x"></i></div>
                 </div>
             </div>
             <div class="row">
