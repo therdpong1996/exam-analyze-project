@@ -257,6 +257,7 @@
 
                 $('button#reset-sim').on('click', function (e){
                     e.preventDefault();
+                    Cookies.set('sim_number', 1, { expires: 7, path: '/' });
                     var data = $('form#doing-exam-form').serialize();
                     $.ajax({
                         url: weburl + 'ajax/simulation_delete',
