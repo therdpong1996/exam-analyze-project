@@ -7,10 +7,38 @@
                     <!--CONTENT FOR ADAPTIVE EXERCISES-->
                 </div>
                 <div class="card-footer">
-                    <button id="next_exercise" class="btn btn-success" type="button">ถัดไป <i class="fa fa-arrow-circle-right"></i></button>
+                    <div class="row">
+                        <div class="col-6">
+                            <button id="next_exercise" class="btn btn-success" type="button">ถัดไป <i class="fa fa-arrow-circle-right"></i></button>
+                        </div>
+                        <div class="col-6 text-right">
+                            <button id="report-modal" class="btn btn-info" type="button" data-toggle="modal" data-target="#reportModal"><i class="fas fa-paper-plane"></i> สรุปผล</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-
+            <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="reportModal" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        
+                        <div class="modal-header">
+                            <h2 class="modal-title">สรุปผล</h2>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        
+                        <div class="modal-body">
+                            
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">ปิด</button> 
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
             <script>
                 var num_cur = 1;
                 let session_id = <?php echo $session['session_id']; ?>;
