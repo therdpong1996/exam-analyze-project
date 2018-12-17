@@ -115,7 +115,7 @@
         </div>
     </div>
     <script type="text/javascript">
-        var num_cur = <?php echo isset($_COOKIE['sim_number'])?$_COOKIE['sim_number']:1; ?>;;
+        var num_cur = <?php echo isset($_COOKIE['curr_number'])?$_COOKIE['curr_number']:1; ?>;;
         const content = $('div#adaptive-content');
         //FIRST VISIT
         $(document).ready(function () {
