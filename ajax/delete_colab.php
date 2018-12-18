@@ -29,3 +29,6 @@ $stm = $_DB->prepare("DELETE FROM subject_owner WHERE subject_id = :id AND uid =
 $stm->bindParam(":id", $_POST['subject']);
 $stm->bindParam(":uid", $_POST['uid']);
 $stm->execute();
+
+echo json_encode(['state'=>1]);
+exit;
