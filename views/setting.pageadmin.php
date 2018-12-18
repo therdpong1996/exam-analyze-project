@@ -87,6 +87,9 @@
                                         <small class="text-muted">เปิด-ปิด ระบบการทดสอบของนักศึกษา</small>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <button id="setting-btn" class="btn btn-primary btn-block btn-lg" type="submit"><i class="fas fa-save"></i> บันทึก</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -94,7 +97,19 @@
             </div>
         </div>
         <script>
-            $('.custom-toggle-slider').on('click', function () {
-                console.log($('#setting-form').serialize())
+            $('#setting-form').on('submit', function () {
+                var oldtext = $('#setting-btn').html();
+                $('#setting-btn').html('<i class="fa fa-spinner fa-spin"></i> Process..');
+                var setData = $(this').serialize()
+
+                $.ajax({
+                    type: "POST",
+                    url: weburl + "ajax/admin_setting",
+                    data: setData,
+                    dataType: "json",
+                    success: function (response) {
+                        window.location.href = window.location.href
+                    }
+                });
             })
         </script>
