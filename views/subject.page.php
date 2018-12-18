@@ -116,7 +116,7 @@
               <script>
                   var subject_id = <?php __($row['subject_id']);?>;
                   delete_colab = function(subject, uid){
-                      $('#del-col-'+uid).html('<i class="fa fa-spinner fa-spin"></i> Process..');
+                      $('#del-col-'+uid).html('<i class="fa fa-spinner fa-spin"></i>');
 
                       $.ajax({
                           type: "POST",
@@ -145,6 +145,7 @@
                             dataType: "html",
                             success: function (response) {
                                 $('#old-colab').append(response)
+                                $('#sub_colab').val('')
                             }
                         })
                   })
