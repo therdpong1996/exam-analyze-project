@@ -92,11 +92,12 @@
                                   $stm3->execute();
                                   $user = $stm3->fetch(PDO::FETCH_ASSOC);
                           ?>
-                                  <input type="text" disabled class="form-control form-control-sm" value="<?php __($user['full_name']); ?>"/> <button type="button" onclick="delete_colab(<?php __($user['uid']); ?>)" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                            <div id="user-colab-<?php __($user['uid']); ?>"><input type="text" disabled class="form-control form-control-sm" value="<?php __($user['full_name']); ?>"/> <button id="del-col-<?php __($user['uid']); ?>" type="button" onclick="delete_colab(<?php __($row['subject_id']); ?>, <?php __($user['uid']); ?>)" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button></div>
                             <?php } ?>
                         </div>
                         <input type="hidden" name="col_add_uid" value="0">
                         <input type="text" class="form-control form-control-sm" id="sub_colab" name="sub_colab" placeholder="ชื่อผู้ใช้ หรือ ชื่อ-นามสกุล" />
+                          <div id="colab-search"></div>
                       </div>
                       <div class="col-sm-5">
                         <button class="btn btn-primary btn-sm" type="button" id="colab_add"><i class="fas fa-plus-circle"></i> เพิ่ม</button>
@@ -113,18 +114,47 @@
                 </div>
               </div>
               <script>
-                $('#colab_add').on('click', function(){
-                  var colabid = $('#col_add_uid').val()
-                  $.ajax({
-                    type: "POST",
-                    url: weburl + "ajax/",
-                    data: "data",
-                    dataType: "dataType",
-                    success: function (response) {
-                      
-                    }
+                  var subject_id = <?php __($row['subject_id']);?>;
+                  delete_colab = function(subject, uid){
+                      $('#del-col-'+uid).html('<i class="fa fa-spinner fa-spin"></i> Process..');
+
+                      $.ajax({
+                          type: "POST",
+                          url: weburl + "ajax/delete_colab",
+                          data: {uid: uid, subject: subject},
+                          dataType: "json",
+                          success: function (response) {
+                              $('#user-colab-'+uid).remove();
+                              console.log(response)
+                          }
+                      })
+                  }
+
+                  $('#colab_add').on('click', function(){
+                        var colabid = $('#col_add_uid').val()
+                        $.ajax({
+                            type: "POST",
+                            url: weburl + "ajax/add_colab",
+                            data: {uid: colabid, subject: subject_id},
+                            dataType: "html",
+                            success: function (response) {
+                                $('#old-colab').append(response)
+                            }
+                        })
                   })
-                })
+
+                  $('#sub_colab').on('keyup', function(){
+                      var val = $(this).val();
+                      $.ajax({
+                          type: "POST",
+                          url: weburl + "ajax/search_colab",
+                          data: {val: val},
+                          dataType: "html",
+                          success: function (response) {
+                              $('#colab-search').html(response)
+                          }
+                      })
+                  })
               </script>
           <?php } else { ?>
               <a class="btn btn-success mb-3" href="?add"><span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span> เพิ่มรายวิชา</a>

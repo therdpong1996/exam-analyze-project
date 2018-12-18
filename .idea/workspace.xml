@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc29fb97-e1dc-41b1-b942-09cd067510da" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ajax/examination.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax/examination.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ajax/stu-subject-check.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax/stu-subject-check.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ajax/subject.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax/subject.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doing-examination-adaptive.php" beforeDir="false" afterPath="$PROJECT_DIR$/doing-examination-adaptive.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doing-examination.php" beforeDir="false" afterPath="$PROJECT_DIR$/doing-examination.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/solve-examination-adaptive.php" beforeDir="false" afterPath="$PROJECT_DIR$/solve-examination-adaptive.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/solve-examination.php" beforeDir="false" afterPath="$PROJECT_DIR$/solve-examination.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/stu-examination.page.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/stu-examination.page.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ajax/add_colab.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ajax/delete_colab.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ajax/search_colab.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/subject.page.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/subject.page.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,20 +16,56 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/subject.page.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="411">
-              <caret line="95" column="38" lean-forward="true" selection-start-line="95" selection-start-column="38" selection-end-line="95" selection-end-column="38" />
+            <state relative-caret-position="345">
+              <caret line="133" column="53" selection-start-line="133" selection-start-column="41" selection-end-line="133" selection-end-column="53" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ajax/search_colab.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/stu-examination.page.php">
+        <entry file="file://$PROJECT_DIR$/ajax/add_colab.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
-              <caret line="52" column="87" lean-forward="true" selection-start-line="49" selection-start-column="48" selection-end-line="52" selection-end-column="87" />
+            <state relative-caret-position="375">
+              <caret line="25" column="1" lean-forward="true" selection-start-line="11" selection-end-line="25" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ajax/delete_colab.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="27" selection-start-line="27" selection-end-line="30" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ajax/subject.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="290">
+              <caret line="57" column="9" lean-forward="true" selection-start-line="43" selection-start-column="8" selection-end-line="57" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/role_2.apps.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="25" column="40" lean-forward="true" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -50,6 +81,9 @@
         <option value="$PROJECT_DIR$/ajax/stu-subject-check.php" />
         <option value="$PROJECT_DIR$/views/stu-examination.page.php" />
         <option value="$PROJECT_DIR$/views/subject.page.php" />
+        <option value="$PROJECT_DIR$/ajax/delete_colab.php" />
+        <option value="$PROJECT_DIR$/ajax/add_colab.php" />
+        <option value="$PROJECT_DIR$/ajax/search_colab.php" />
       </list>
     </option>
   </component>
@@ -73,6 +107,11 @@
               <item name="exam-analyze-project" type="b2602c69:ProjectViewProjectNode" />
               <item name="exam-analyze-project" type="462c0819:PsiDirectoryNode" />
               <item name="ajax" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="exam-analyze-project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="exam-analyze-project" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="exam-analyze-project" type="b2602c69:ProjectViewProjectNode" />
@@ -112,12 +151,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1545093163619</updated>
-      <workItem from="1545093166113" duration="1408000" />
+      <workItem from="1545093166113" duration="2838000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1408000" />
+    <option name="totallyTimeSpent" value="2838000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -133,7 +172,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24964234" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19313304" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" />
@@ -164,11 +203,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ajax/subject.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-14" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ajax/stu-subject-check.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -193,10 +227,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/js/role_2.apps.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="40" lean-forward="true" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ajax/subject.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="57" column="9" lean-forward="true" selection-start-line="43" selection-start-column="8" selection-end-line="57" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ajax/delete_colab.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" selection-start-line="27" selection-end-line="30" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ajax/add_colab.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="1" lean-forward="true" selection-start-line="11" selection-end-line="25" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/views/subject.page.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="95" column="38" lean-forward="true" selection-start-line="95" selection-start-column="38" selection-end-line="95" selection-end-column="38" />
+        <state relative-caret-position="345">
+          <caret line="133" column="53" selection-start-line="133" selection-start-column="41" selection-end-line="133" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ajax/search_colab.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
         </state>
       </provider>
     </entry>
