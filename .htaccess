@@ -1,5 +1,9 @@
 RewriteEngine On
 
+#ADMIN
+RewriteRule ^admin/users$ admin.user.php [L,QSA]
+RewriteRule ^admin/setting$ admin.setting.php [L,QSA]
+
 #TEACHER
 RewriteRule ^dashboard/$ index.php [L,QSA]
 RewriteRule ^register/$ register.php [L,QSA]

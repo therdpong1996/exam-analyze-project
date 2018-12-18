@@ -21,6 +21,10 @@
         }
     }
 
+    $stms = $_DB->prepare("SELECT * FROM setting");
+    $stms->execute();
+    $_GS = $stms->fetch(PDO::FETCH_ASSOC);
+
     //WEB URL
     $_G['url'] = 'https://exam-analyze.herokuapp.com/';
     $_G['webservice'] = 'https://cat-service.inzpi.com/';
