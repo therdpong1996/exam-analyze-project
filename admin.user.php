@@ -18,7 +18,7 @@
     include_once __DIR__.'/views/parts/sidemenu.common.php';
 
     if ($user_row['role'] == 1) {
-        include_once __DIR__.'/views/admin/user.page.php';
+        include_once __DIR__.'/views/user.pageadmin.php';
     }else{
         include_once __DIR__.'/views/denied.page.php';
 
