@@ -100,7 +100,7 @@
             $('#setting-form').on('submit', function () {
                 var oldtext = $('#setting-btn').html();
                 $('#setting-btn').html('<i class="fa fa-spinner fa-spin"></i> Process..');
-                var setData = $(this').serialize();
+                var setData = $(this).serialize();
 
                 $.ajax({
                     type: "POST",
