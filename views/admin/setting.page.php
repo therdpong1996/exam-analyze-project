@@ -5,7 +5,7 @@
         <div class="container-fluid">
         <!-- Brand -->
         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="<?php url('admin/setting'); ?>">Website Setting <small>(ตั้งค่า)</small></a>
-        <?php require_once 'parts/usermenu.common.php'; ?>
+        <?php require_once '../parts/usermenu.common.php'; ?>
         
         <div class="container-fluid pb-8 pt-5 pt-md-8">
             <div class="row">
