@@ -92,7 +92,7 @@
                                   $stm3->execute();
                                   $user = $stm3->fetch(PDO::FETCH_ASSOC);
                           ?>
-                            <div id="user-colab-<?php __($user['uid']); ?>"><input type="text" disabled class="form-control form-control-sm" value="<?php __($user['full_name']); ?>" > <button id="del-col-<?php __($user['uid']); ?>" type="button" onclick="delete_colab(<?php __($row['subject_id']); ?>, <?php __($user['uid']); ?>)" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button></div>
+                            <div class="row" id="user-colab-<?php __($user['uid']); ?>">;<div class="col-10"><input type="text" disabled class="form-control form-control-sm" value="<?php __($user['full_name']); ?>" ></div><div class="col-2"><button id="del-col-<?php __($user['uid']); ?>" type="button" onclick="delete_colab(<?php __($row['subject_id']); ?>, <?php __($user['uid']); ?>)" class="btn btn-sm btn-danger btn-block"><i class="fas fa-trash"></i></button></div></div>
                             <?php } ?>
                         </div>
                       </div>

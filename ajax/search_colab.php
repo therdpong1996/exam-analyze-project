@@ -16,7 +16,7 @@ if ($_SESSION['role'] != 2) {
 
 $search_key = '%'.$_POST['val'].'%';
 
-$stm = $_DB->prepare("SELECT * FROM users WHERE username LIKE ? OR full_name LIKE ?");
+$stm = $_DB->prepare("SELECT * FROM users WHERE username LIKE ? OR full_name LIKE ? AND role = 2");
 $stm->bindParam(1, $search_key);
 $stm->bindParam(2, $search_key);
 $stm->execute();
