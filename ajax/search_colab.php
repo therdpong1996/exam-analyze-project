@@ -20,7 +20,7 @@ if (empty($_POST['val'])) {
 
 $search_key = '%'.$_POST['val'].'%';
 
-$stm = $_DB->prepare("SELECT * FROM users WHERE username LIKE ? OR full_name LIKE ? AND role = 2");
+$stm = $_DB->prepare("SELECT * FROM users WHERE role = 2 AND (username LIKE ? OR full_name LIKE ?)");
 $stm->bindParam(1, $search_key);
 $stm->bindParam(2, $search_key);
 $stm->execute();
