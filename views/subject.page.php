@@ -92,14 +92,14 @@
                                   $stm3->execute();
                                   $user = $stm3->fetch(PDO::FETCH_ASSOC);
                           ?>
-                            <div id="user-colab-<?php __($user['uid']); ?>"><input type="text" disabled class="form-control form-control-sm" value="<?php __($user['full_name']); ?>"/> <button id="del-col-<?php __($user['uid']); ?>" type="button" onclick="delete_colab(<?php __($row['subject_id']); ?>, <?php __($user['uid']); ?>)" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button></div>
+                            <div id="user-colab-<?php __($user['uid']); ?>"><input type="text" disabled class="form-control form-control-sm" value="<?php __($user['full_name']); ?>" > <button id="del-col-<?php __($user['uid']); ?>" type="button" onclick="delete_colab(<?php __($row['subject_id']); ?>, <?php __($user['uid']); ?>)" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button></div>
                             <?php } ?>
                         </div>
-                        <input type="hidden" name="col_add_uid" value="0">
-                        <input type="text" class="form-control form-control-sm" id="sub_colab" name="sub_colab" placeholder="ชื่อผู้ใช้ หรือ ชื่อ-นามสกุล" />
-                          <div id="colab-search"></div>
                       </div>
                       <div class="col-sm-5">
+                        <input type="hidden" name="col_add_uid" value="0">
+                        <input type="text" class="form-control form-control-sm" id="sub_colab" name="sub_colab" placeholder="ชื่อผู้ใช้ หรือ ชื่อ-นามสกุล" />
+                        <div id="colab-search"></div>
                         <button class="btn btn-primary btn-sm" type="button" id="colab_add"><i class="fas fa-plus-circle"></i> เพิ่ม</button>
                       </div>
                     </div>
@@ -128,6 +128,12 @@
                               console.log(response)
                           }
                       })
+                  }
+
+                  addcoldata = function (uid, name) { 
+                    $('#col_add_uid').val(uid)
+                    $('#sub_colab').val(name)
+                    $('#colab-search').html('')
                   }
 
                   $('#colab_add').on('click', function(){

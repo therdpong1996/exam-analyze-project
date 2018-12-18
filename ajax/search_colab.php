@@ -23,7 +23,7 @@ $stm->execute();
 
 while ($row = $stm->fetch(PDO::FETCH_ASSOC)){ ?>
 
-    <span class="badge badge-primary" onclick="$('#col_add_uid').val(<?php __($row['uid']);?>)"><?php __($row['full_name']);?></span>
+    <span class="badge badge-primary" onclick="addcoldata(<?php __($row['uid']);?>, '<?php __($row['full_name']);?>')"><?php __($row['full_name']);?></span>
 
 <?php
 }
