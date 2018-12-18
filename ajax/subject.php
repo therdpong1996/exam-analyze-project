@@ -20,10 +20,9 @@
         $detail = $_POST['subject_detail'];
         $invite = generateRandomString();
 
-        $stm = $_DB->prepare('INSERT INTO subjects (subject_title,subject_detail,subject_owner,subject_invite_code) VALUES (:title, :detail, :owner, :invite)');
+        $stm = $_DB->prepare('INSERT INTO subjects (subject_title,subject_detail,subject_invite_code) VALUES (:title, :detail, :invite)');
         $stm->bindParam(':title', $title, PDO::PARAM_STR);
         $stm->bindParam(':detail', $detail, PDO::PARAM_STR);
-        $stm->bindParam(':owner', $uid, PDO::PARAM_INT);
         $stm->bindParam(':invite', $invite, PDO::PARAM_STR);
         $stm->execute();
         $lastid = $_DB->lastInsertId();

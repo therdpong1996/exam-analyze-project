@@ -16,7 +16,7 @@
                 $stmc->execute();
                 while ($srow = $stmc->fetch(PDO::FETCH_ASSOC)) {
 
-                    $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id JOIN users ON subjects.subject_owner = users.uid WHERE subjects.subject_id = :subject_id ORDER BY sessions.session_start ASC');
+                    $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE subjects.subject_id = :subject_id ORDER BY sessions.session_start ASC');
                     $stm->bindParam(":subject_id", $srow['subject_id']);
                     $stm->execute();
                     while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
@@ -42,7 +42,19 @@
                                         </p>
                                         <small>เริ่มต้น: <span class="text-success"><?php echo date('l j M, Y', strtotime($rows['session_start'])); ?></span></small><br>
                                         <small>สิ้นสุด: <span class="text-danger"><?php echo date('l j M, Y', strtotime($rows['session_end'])); ?></span></small><br>
-                                        <small>โดย: <?php echo $rows['full_name']; ?></small>
+                                        <small>โดย: <?php
+                                            $stm2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id");
+                                            $stm2->bindParam(":id", $rows['subject_id']);
+                                            $stm2->execute();
+                                            while ($urow = $stm2->fetch(PDO::FETCH_ASSOC)){
+                                                $stm3 = $_DB->prepare("SELECT full_name FROM users WHERE uid = :uid");
+                                                $stm3->bindParam(":uid", $urow['uid']);
+                                                $stm3->execute();
+                                                $user = $stm3->fetch(PDO::FETCH_ASSOC);
+                                                $full_name .= $user['full_name'].', ';
+                                            }
+                                            __(substr($full_name, -1,2));
+                                            ?></small>
                                     </div>
                                     <div class="col-4 text-center">
                                         <small>เวลาในการทำ <strong class="text-success"><?php echo $rows['session_timeleft']; ?></strong> นาที</small>

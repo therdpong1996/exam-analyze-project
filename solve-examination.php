@@ -15,7 +15,7 @@
     $user_row = $stm->fetch(PDO::FETCH_ASSOC);
 
     //EXAM
-    $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id JOIN users ON subjects.subject_owner = users.uid WHERE sessions.session_id = :session_id LIMIT 1');
+    $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE sessions.session_id = :session_id LIMIT 1');
     $stm->bindParam(':session_id', $_GET['session_id'], PDO::PARAM_STR);
     $stm->execute();
     $session = $stm->fetch(PDO::FETCH_ASSOC);

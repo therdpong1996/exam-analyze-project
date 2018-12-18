@@ -31,11 +31,10 @@
         $subject = $_POST['examination_subject'];
         $detail = $_POST['examination_detail'];
 
-        $stm = $_DB->prepare('INSERT INTO examinations (examination_title,examination_subject,examination_detail,examination_owner) VALUES (:title, :subject, :detail, :owner)');
+        $stm = $_DB->prepare('INSERT INTO examinations (examination_title,examination_subject,examination_detail) VALUES (:title, :subject, :detail)');
         $stm->bindParam(':title', $title, PDO::PARAM_STR);
         $stm->bindParam(':subject', $subject, PDO::PARAM_INT);
         $stm->bindParam(':detail', $detail, PDO::PARAM_STR);
-        $stm->bindParam(':owner', $uid, PDO::PARAM_INT);
         $stm->execute();
         $lastid = $_DB->lastInsertId();
 

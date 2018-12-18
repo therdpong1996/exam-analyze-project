@@ -46,11 +46,12 @@
                   </form>
                 </div>
               </div>
-          <?php } elseif (isset($_GET['edit']) and isset($_GET['subject_id'])) {
-          $stm = $_DB->prepare('SELECT * FROM subjects WHERE subject_id = :subject_id');
-          $stm->bindParam(':subject_id', $_GET['subject_id'], PDO::PARAM_INT);
-          $stm->execute();
-          $row = $stm->fetch(PDO::FETCH_ASSOC);
+          <?php 
+            } elseif (isset($_GET['edit']) and isset($_GET['subject_id'])) {
+            $stm = $_DB->prepare('SELECT * FROM subjects WHERE subject_id = :subject_id');
+            $stm->bindParam(':subject_id', $_GET['subject_id'], PDO::PARAM_INT);
+            $stm->execute();
+            $row = $stm->fetch(PDO::FETCH_ASSOC);
           ?>
               <div class="card shadow">
                 <div class="card-header bg-transparent">
@@ -78,6 +79,30 @@
                       </div>
                     </div>
                     <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="subject_detail">ผู้สอนร่วม <small class="text-muted">(Option)</small></label>
+                      <div class="col-sm-5">
+                        <div id="old-colab">
+                          <?php
+                              $stm2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id");
+                              $stm2->bindParam(":id", $row['subject_id']);
+                              $stm2->execute();
+                              while ($urow = $stm2->fetch(PDO::FETCH_ASSOC)){
+                                  $stm3 = $_DB->prepare("SELECT uid,full_name FROM users WHERE uid = :uid");
+                                  $stm3->bindParam(":uid", $urow['uid']);
+                                  $stm3->execute();
+                                  $user = $stm3->fetch(PDO::FETCH_ASSOC);
+                          ?>
+                                  <input type="text" disabled class="form-control form-control-sm" value="<?php __($user['full_name']); ?>"/> <button type="button" onclick="delete_colab(<?php __($user['uid']); ?>)" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                            <?php } ?>
+                        </div>
+                        <input type="hidden" name="col_add_uid" value="0">
+                        <input type="text" class="form-control form-control-sm" id="sub_colab" name="sub_colab" placeholder="ชื่อผู้ใช้ หรือ ชื่อ-นามสกุล" />
+                      </div>
+                      <div class="col-sm-5">
+                        <button class="btn btn-primary btn-sm" type="button" id="colab_add"><i class="fas fa-plus-circle"></i> เพิ่ม</button>
+                      </div>
+                    </div>
+                    <div class="form-group row">
                       <div class="col-sm-2"></div>
                       <div class="col-sm-10">
                         <button type="submit" id="subject-save" class="btn btn-success">บันทึก</button>
@@ -87,6 +112,20 @@
                   </form>
                 </div>
               </div>
+              <script>
+                $('#colab_add').on('click', function(){
+                  var colabid = $('#col_add_uid').val()
+                  $.ajax({
+                    type: "POST",
+                    url: weburl + "ajax/",
+                    data: "data",
+                    dataType: "dataType",
+                    success: function (response) {
+                      
+                    }
+                  })
+                })
+              </script>
           <?php } else { ?>
               <a class="btn btn-success mb-3" href="?add"><span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span> เพิ่มรายวิชา</a>
               <div class="card shadow">
