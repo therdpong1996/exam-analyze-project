@@ -94,7 +94,7 @@
             </div>
         </div>
         <script>
-            $('#setting_sw').on('change', function () {
+            $('.custom-toggle-slider').on('click', function () {
                 console.log($('#setting-form').serialize())
             })
         </script>
