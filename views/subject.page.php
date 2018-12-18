@@ -97,7 +97,7 @@
                         </div>
                       </div>
                       <div class="col-sm-5">
-                        <input type="hidden" name="col_add_uid" value="0">
+                        <input type="hidden" id="col_add_uid" name="col_add_uid" value="0">
                         <input type="text" class="form-control form-control-sm" id="sub_colab" name="sub_colab" placeholder="ชื่อผู้ใช้ หรือ ชื่อ-นามสกุล" />
                         <div id="colab-search"></div>
                         <button class="btn btn-primary btn-sm mt-2" type="button" id="colab_add"><i class="fas fa-plus-circle"></i> เพิ่ม</button>
