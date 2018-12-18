@@ -37,4 +37,4 @@ $user = $ustm->fetch(PDO::FETCH_ASSOC);
 
 ?>
 
-<div class="row" id="user-colab-<?php __($_POST['uid']); ?>"><div class="col-10"><input type="text" disabled class="form-control form-control-sm" value="<?php __($user['full_name']); ?>"/></div><div class="col-2"><button id="del-col-<?php __($_POST['uid']); ?>" type="button" onclick="delete_colab(<?php __($_POST['subject']); ?>, <?php __($_POST['uid']); ?>)" class="btn btn-sm btn-danger btn-block"><i class="fas fa-trash"></i></button></div></div>
+<div class="row mb-2" id="user-colab-<?php __($_POST['uid']); ?>"><div class="col-10"><input type="text" disabled class="form-control form-control-sm" value="<?php __($user['full_name']); ?>"/></div><div class="col-2"><button id="del-col-<?php __($_POST['uid']); ?>" type="button" onclick="delete_colab(<?php __($_POST['subject']); ?>, <?php __($_POST['uid']); ?>)" class="btn btn-sm btn-danger btn-block"><i class="fas fa-trash"></i></button></div></div>

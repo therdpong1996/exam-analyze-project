@@ -92,7 +92,7 @@
                                   $stm3->execute();
                                   $user = $stm3->fetch(PDO::FETCH_ASSOC);
                           ?>
-                            <div class="row" id="user-colab-<?php __($user['uid']); ?>">;<div class="col-10"><input type="text" disabled class="form-control form-control-sm" value="<?php __($user['full_name']); ?>" ></div><div class="col-2"><button id="del-col-<?php __($user['uid']); ?>" type="button" onclick="delete_colab(<?php __($row['subject_id']); ?>, <?php __($user['uid']); ?>)" class="btn btn-sm btn-danger btn-block"><i class="fas fa-trash"></i></button></div></div>
+                            <div class="row mb-2" id="user-colab-<?php __($user['uid']); ?>"><div class="col-10"><input type="text" disabled class="form-control form-control-sm" value="<?php __($user['full_name']); ?>" ></div><div class="col-2"><button id="del-col-<?php __($user['uid']); ?>" type="button" onclick="delete_colab(<?php __($row['subject_id']); ?>, <?php __($user['uid']); ?>)" class="btn btn-sm btn-danger btn-block"><i class="fas fa-trash"></i></button></div></div>
                             <?php } ?>
                         </div>
                       </div>
@@ -100,7 +100,7 @@
                         <input type="hidden" name="col_add_uid" value="0">
                         <input type="text" class="form-control form-control-sm" id="sub_colab" name="sub_colab" placeholder="ชื่อผู้ใช้ หรือ ชื่อ-นามสกุล" />
                         <div id="colab-search"></div>
-                        <button class="btn btn-primary btn-sm" type="button" id="colab_add"><i class="fas fa-plus-circle"></i> เพิ่ม</button>
+                        <button class="btn btn-primary btn-sm mt-2" type="button" id="colab_add"><i class="fas fa-plus-circle"></i> เพิ่ม</button>
                       </div>
                     </div>
                     <div class="form-group row">
