@@ -12,6 +12,11 @@ $stm->bindParam(':password', $password, PDO::PARAM_STR);
 $stm->execute();
 $row = $stm->fetch(PDO::FETCH_ASSOC);
 
+if ($row['role'] == 9) {
+    echo json_encode(['state'=>false, 'msg'=>'ชื่อผู้ใช้นี้ถูกระงับการใช้งานชั่วคราว กรุณาติดต่อเจ้าหน้าที่']);
+    exit;
+}
+
 if (!empty($row['uid'])) {
     $_SESSION['username'] = $row['username'];
     $_SESSION['auth'] = session_id();
