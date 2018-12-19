@@ -48,7 +48,11 @@
                                 <?php echo $rows['role_title']; ?>
                             </td>
                             <td class="text-right">
-                                <button id="ban-btn-<?php echo $rows['uid']; ?>" onclick="useraction(<?php echo $rows['uid']; ?>, 'ban')" class="btn btn-warning btn-sm">Ban</button>
+                                <?php if($rows['role'] != 9){ ?>
+                                    <button id="ban-btn-<?php echo $rows['uid']; ?>" onclick="useraction(<?php echo $rows['uid']; ?>, 'ban')" class="btn btn-warning btn-sm">Ban</button>
+                                <?php }else{ ?>
+                                    <button id="ban-btn-<?php echo $rows['uid']; ?>" onclick="useraction(<?php echo $rows['uid']; ?>, 'unban')" class="btn btn-info btn-sm">Unban</button>
+                                <?php } ?>
                             </td>
                         </tr>
                         <?php } ?>
