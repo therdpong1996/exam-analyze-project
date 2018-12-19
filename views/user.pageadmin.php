@@ -45,7 +45,7 @@
                                 <?php echo $rows['full_name']; ?>
                             </td>
                             <td>
-                                <?php echo $rows['role_title']; ?>
+                                <span id="role-<?php echo $rows['uid']; ?>"><?php echo $rows['role_title']; ?></span>
                             </td>
                             <td class="text-right">
                                 <?php if($rows['role'] != 9){ ?>
@@ -81,6 +81,7 @@
                     }else{
                         $('#ban-btn-' + uid).html('Ban').removeClass('btn-info').addClass('btn-warning').attr('onclick', 'useraction('+uid+', \'ban\')');
                     }
+                    $('#role-' + uid).html(response.role_title)
                 }else{
                     $('#ban-btn-' + uid).html(oldtext);
                     swal(
