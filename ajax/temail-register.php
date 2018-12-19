@@ -31,5 +31,11 @@
             )
         );
 
-        print_r($result);
+        if ($result->http_response_code == 200) {
+            $html = '<div class="text-center"><i class="fas fa-check-circle fa-5x text-success"></i><br><br><h3>ระบบได้ส่งลิงก์ยืนยันไปที่เมล์ "'.$_POST['email'].'" แล้ว กรุณาตรวจสอบที่กล่องข้อความของอีเมล์หรืออีเมล์ขยะ ขอบคุณครับ</h3></div>';
+            echo json_encode(['state' => true, 'html' => $html]);
+        }else{
+            echo json_encode(['state' => false, 'msg' => $result->http_response_body->message, 'head'=> 'ผิดพลาด']);
+        exit;
+        }
     }
