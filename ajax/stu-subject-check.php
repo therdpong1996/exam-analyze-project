@@ -11,7 +11,7 @@
     }
 
     $code = $_POST['code'];
-    $stm = $_DB->prepare("SELECT * FROM subjects JOIN users ON subjects.subject_owner = users.uid WHERE subjects.subject_invite_code = :code LIMIT 1");
+    $stm = $_DB->prepare("SELECT * FROM subjects WHERE subjects.subject_invite_code = :code LIMIT 1");
     $stm->bindParam(':code', $code, PDO::PARAM_STR);
     $stm->execute();
     $row = $stm->fetch(PDO::FETCH_ASSOC);
