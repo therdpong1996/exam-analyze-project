@@ -26,6 +26,7 @@ if($action == 'ban'){
     $stm2->execute();
     $row = $stm2->fetch(PDO::FETCH_ASSOC);
     $text = $row['role_title'];
+
 }else{
     $stm = $_DB->prepare("UPDATE users SET role = role_prev WHERE uid = :uid");
     $stm->bindParam(":uid", $uid);
@@ -37,7 +38,7 @@ if($action == 'ban'){
     $row1 = $stm2->fetch(PDO::FETCH_ASSOC);
 
     $stm3 = $_DB->prepare("SELECT role_title FROM users_role_title WHERE role_id = :id");
-    $stm3->bindParam(":uid", $row1['role_prev']);
+    $stm3->bindParam(":id", $row1['role_prev']);
     $stm3->execute();
     $row = $stm3->fetch(PDO::FETCH_ASSOC);
     $text = $row['role_title'];
