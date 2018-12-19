@@ -20,7 +20,7 @@
         exit;
     }
 
-    $stm = $_DB->prepare('INSERT INTO users (username,password,email,full_name,stu_id,role) VALUES (:username, :password, :email, :full_name, :stu_id, 2)');
+    $stm = $_DB->prepare('INSERT INTO users (username,password,email,full_name,stu_id,role,role_prev) VALUES (:username, :password, :email, :full_name, :stu_id, 2, 2)');
     $stm->bindParam(':username', $username, PDO::PARAM_STR);
     $stm->bindParam(':password', $password, PDO::PARAM_STR);
     $stm->bindParam(':stu_id', $student_id, PDO::PARAM_STR);

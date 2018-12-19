@@ -48,7 +48,7 @@
                                 <?php echo $rows['role_title']; ?>
                             </td>
                             <td class="text-right">
-                                <button id="ban-btn-<?php echo $rows['uid']; ?>" onclick="useraction(<?php echo $rows['uid']; ?>, 'ban')" class="btn btn-warnng btn-sm">Ban</button>
+                                <button id="ban-btn-<?php echo $rows['uid']; ?>" onclick="useraction(<?php echo $rows['uid']; ?>, 'ban')" class="btn btn-warning btn-sm">Ban</button>
                             </td>
                         </tr>
                         <?php } ?>
@@ -60,3 +60,32 @@
         </div>
         </div>
     </div>
+    <script>
+    useraction = function(uid, action){
+        var oldtext = $('#ban-btn-' + uid).html();
+        $('#ban-btn-' + uid).html('<i class="fa fa-spinner fa-spin"></i> Process..');
+
+        $.ajax({
+            type: "POST",
+            url: weburl + "ajax/ban-user",
+            data: {uid: uid, action: action},
+            dataType: "json",
+            success: function (response) {
+                if(response.state){
+                    if(action == 'ban'){
+                        $('#ban-btn-' + uid).html('Unban').removeClass('btn-warning').addClass('btn-info').attr('onclick', 'useraction('+uid+', \'unban\')');
+                    }else{
+                        $('#ban-btn-' + uid).html('Ban').removeClass('btn-info').addClass('btn-warning').attr('onclick', 'useraction('+uid+', \'ban\')');
+                    }
+                }else{
+                    $('#ban-btn-' + uid).html(oldtext);
+                    swal(
+                        'SORRY',
+                        response.msg,
+                        'error'
+                    );
+                }
+            }
+        });
+    }
+    </script>
