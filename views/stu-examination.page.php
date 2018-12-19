@@ -46,12 +46,14 @@
                                             $stm2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id");
                                             $stm2->bindParam(":id", $rows['subject_id']);
                                             $stm2->execute();
+                                            echo $rows['subject_id'];
                                             while ($urow = $stm2->fetch(PDO::FETCH_ASSOC)){
                                                 $stm3 = $_DB->prepare("SELECT full_name FROM users WHERE uid = :uid");
                                                 $stm3->bindParam(":uid", $urow['uid']);
                                                 $stm3->execute();
-                                                $user = $stm3->fetch(PDO::FETCH_ASSOC);
-                                                $full_name .= $user['full_name'].', ';
+                                                echo $urow['uid'];
+                                                $userow = $stm3->fetch(PDO::FETCH_ASSOC);
+                                                $full_name .= $userow['full_name'].', ';
                                             }
                                             __(substr($full_name, -1,2));
                                             ?></small>
