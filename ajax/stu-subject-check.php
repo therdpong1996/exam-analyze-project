@@ -15,14 +15,15 @@
     $stm2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id");
     $stm2->bindParam(":id", $row['subject_id']);
     $stm2->execute();
+    $teach = [];
     while ($urow = $stm2->fetch(PDO::FETCH_ASSOC)){
         $stm3 = $_DB->prepare("SELECT full_name FROM users WHERE uid = :uid");
         $stm3->bindParam(":uid", $urow['uid']);
         $stm3->execute();
-        $user = $stm3->fetch(PDO::FETCH_ASSOC);
-        $row['full_name'] .= $user['full_name'].', ';
+        $userow = $stm3->fetch(PDO::FETCH_ASSOC);
+        array_push($teach, $userow['full_name']);
     }
-    $row['user'] = substr($row['full_name'], -1,2);
+    $row['user'] = implode(', ', $teach);
     __(json_encode($row));
     exit;
 

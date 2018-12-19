@@ -46,13 +46,15 @@
                                             $stm2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id");
                                             $stm2->bindParam(":id", $rows['subject_id']);
                                             $stm2->execute();
+                                            $teach = [];
                                             while ($urow = $stm2->fetch(PDO::FETCH_ASSOC)){
                                                 $stm3c = $_DB->prepare("SELECT full_name FROM users WHERE uid = :uid");
                                                 $stm3c->bindParam(":uid", $urow['uid']);
                                                 $stm3c->execute();
                                                 $userow = $stm3c->fetch(PDO::FETCH_ASSOC);
-                                                echo $userow['full_name'].', ';
+                                                array_push($teach, $userow['full_name']);
                                             }
+                                            __(implode(', ', $teach));
                                             ?></small>
                                     </div>
                                     <div class="col-4 text-center">
