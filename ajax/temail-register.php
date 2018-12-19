@@ -24,8 +24,8 @@
         $html = '<strong>Hello,</strong><br><p>Verify URL : <a href="'.$vurl.'" target="_blank">'.$vurl.'</a></p><br><br><small>CAT@RMUTL<br>'.$_G['url'].'</small>';
         $result = $mgClient->sendMessage("$domain",
             array('from' => 'Mailgun Sandbox <postmaster@sandbox9cf778143713409097470f85c022fee9.mailgun.org>',
-                'to' => 'Anonymouse <'.$email.'>',
-                'subject' => 'Hello '.$email,
+                'to' => 'Anonymouse <'.$_POST['email'].'>',
+                'subject' => 'Hello '.$_POST['email'],
                 'text' => $text,
                 'html' => $html
             )
