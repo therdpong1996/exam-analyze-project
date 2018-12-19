@@ -1,7 +1,6 @@
         <?php
           if($user_row['role'] == 9){
-            header('Location: '.$_G['url'].'logout/');
-            exit;
+            __('<script>window.location.href = '.$_G['url'].'\'logout/\'; return;</script>');
           }
         ?>
         <!-- User -->
