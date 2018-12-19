@@ -119,7 +119,8 @@
                 </div>
                 <div class="text-center">
                     <button type="submit" id="register-btn" class="btn btn-primary mt-4 disabled" disabled >Create account</button>
-                  <div class="mt-3"><small class="text-muted">*โปรดตรวจสอบรหัสนักศึกษาก่อนทุกครั้ง</small></div>
+                    <div class="mt-2"><small class="text-muted">*โปรดตรวจสอบรหัสนักศึกษาก่อนทุกครั้ง</small></div>
+                    <div class="mt-3"><p class="text-muted"><a href="<?php url('register-teacher/'); ?>">สมัครสมาชิกสำหรับอาจารย์</a></p></div>
                 </div>
                 </form>
             </div>
