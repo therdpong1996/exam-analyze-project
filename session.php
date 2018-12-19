@@ -18,7 +18,11 @@
     include_once __DIR__.'/views/parts/sidemenu.common.php';
 
     if ($user_row['role'] == 2) {
-        include_once __DIR__.'/views/session.page.php';
+        if($_GS['init_session']){
+            include_once __DIR__.'/views/session.page.php';
+        }else{
+            include_once __DIR__.'/views/undercons.page.php';
+        }
     }else{
         include_once __DIR__.'/views/denied.page.php';
 

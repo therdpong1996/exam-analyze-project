@@ -48,6 +48,17 @@
               </div>
           <?php 
             } elseif (isset($_GET['edit']) and isset($_GET['subject_id'])) {
+
+            $stmc2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id AND uid = :uid");
+            $stmc2->bindParam(":id", $_GET['subject_id']);
+            $stmc2->bindParam(":uid", $_SESSION['uid']);
+            $stmc2->execute();
+            $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
+
+            if (empty($rowc2['uid'])) {
+                deniedpage();
+            }
+
             $stm = $_DB->prepare('SELECT * FROM subjects WHERE subject_id = :subject_id');
             $stm->bindParam(':subject_id', $_GET['subject_id'], PDO::PARAM_INT);
             $stm->execute();

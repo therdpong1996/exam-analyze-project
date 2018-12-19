@@ -141,6 +141,7 @@
                     </script>
                     <?php
                         } else {
+                            if($_GS['init_graph']){
                             ?>
                             <div class="text-center mt-5 mb-5">
                                 <form action="javascript:void(0)" id="train-data">
@@ -156,6 +157,13 @@
                             </div>
 
                     <?php
+                            }else{
+                    ?>
+                            <div class="text-center mt-5 mb-5 pt-5 pb-5">
+                                <h2>ฟังก์ชันนี้กำลังอยู่ในช่วงการปรับปรุง</h2>
+                            </div>
+                    <?php
+                            }
                         }
                     ?>
                 </div>

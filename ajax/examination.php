@@ -8,6 +8,11 @@
 
     require_once '../control/init.php';
 
+    if(!$_GS['init_exam']){
+        echo json_encode(['state' => false, 'msg' => 'Function under construction']);
+        exit;
+    }
+
     if ($_POST['action'] == 'add') {
 
         if ($_SESSION['role'] != 2) {

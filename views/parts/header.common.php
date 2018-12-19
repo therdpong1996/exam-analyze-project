@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
-  <title><?php echo $_G['title']; ?></title>
+  <title><?php echo $_G['title']; ?> | Examinations System</title>
   <!-- CSS -->
   <link href="<?php echo $_G['url']; ?>assets/img/brand/favicon.png" rel="icon" type="image/png">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">

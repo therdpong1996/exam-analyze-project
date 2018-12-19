@@ -112,10 +112,31 @@
                 </div>
               </div>
             <?php }elseif (isset($_GET['edit']) and isset($_GET['session_id'])) {
+
+              $stm3 = $_DB->prepare('SELECT * FROM sessions WHERE session_id = :session_id LIMIT 1');
+              $stm3->bindParam(':session_id', $_GET['session_id'], PDO::PARAM_INT);
+              $stm3->execute();
+              $row3 = $stm3->fetch(PDO::FETCH_ASSOC);
+
+              $stmc1 = $_DB->prepare("SELECT examination_subject FROM examinations WHERE examination_id = :id");
+              $stmc1->bindParam(":id", $row3['session_exam']);
+              $stmc1->execute();
+              $rowc1 = $stmc1->fetch(PDO::FETCH_ASSOC);
+
+              $stmc2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id AND uid = :uid");
+              $stmc2->bindParam(":id", $rowc1['examination_subject']);
+              $stmc2->bindParam(":uid", $_SESSION['uid']);
+              $stmc2->execute();
+              $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
+
+              if (empty($rowc2['uid'])) {
+                  deniedpage();
+              }
+
               $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE session_id = :session_id');
               $stm->bindParam(':session_id', $_GET['session_id'], PDO::PARAM_INT);
               $stm->execute();
-              $row = $stm->fetch(PDO::FETCH_ASSOC); 
+              $row = $stm->fetch(PDO::FETCH_ASSOC);
             ?>
               <div class="card shadow">
                 <div class="card-header bg-transparent">

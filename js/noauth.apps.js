@@ -142,6 +142,31 @@ $('#register-form').on('submit', function () {
     });
 });
 
+$('#temail-register-form').on('submit', function () {
+  var oldtext = $('#temail-register-btn').html();
+  $('#temail-register-btn').html('<i class="fa fa-spinner fa-spin"></i> Process..');
+  var data = $(this).serialize();
+
+  $.ajax({
+      type: "POST",
+      url: weburl + "ajax/temail-register",
+      data: data,
+      dataType: "json"
+    })
+    .done(function (response) {
+      if (response.state) {
+          $('#temail-content').html(response.html);
+      } else {
+        $('#temail-register-btn').html(oldtext);
+        swal(
+          response.head,
+          response.msg,
+          'error'
+        );
+      }
+    });
+});
+
 $('#verify_stu').on('click', function () {
   var oldtext = $(this).html();
   $(this).html('<i class="fa fa-spinner fa-spin"></i>');

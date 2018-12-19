@@ -6,7 +6,7 @@
         exit;
     }
 
-    $_G['title'] = 'สำเร็จแล้ว';
+    $_G['title'] = 'ส่งข้อสอบและตรวจผล';
 
     //USER
     $stm = $_DB->prepare('SELECT * FROM users JOIN users_role_title ON users.role = users_role_title.role_id WHERE users.username = :username LIMIT 1');

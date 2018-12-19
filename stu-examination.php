@@ -18,7 +18,11 @@
     include_once __DIR__.'/views/parts/sidemenu.common.php';
 
     if ($user_row['role'] == 3) {
-        include_once __DIR__.'/views/stu-examination.page.php';
+        if($_GS['init_testing']){
+            include_once __DIR__.'/views/stu-examination.page.php';
+        }else{
+            include_once __DIR__.'/views/undercons.page.php';
+        }
     }else{
         include_once __DIR__.'/views/denied.page.php';
     }

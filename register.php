@@ -10,7 +10,11 @@
 
     include_once __DIR__.'/views/parts/header.common.php';
 
-    include_once __DIR__.'/views/register.page.php';
+    if($_GS['init_regis']){
+        include_once __DIR__.'/views/register.page.php';
+    }else{
+        include_once __DIR__.'/views/undercons.page.php';
+    }
 
     include_once __DIR__.'/views/parts/footer.content.php';
     include_once __DIR__.'/views/parts/footer.common.php';

@@ -10,8 +10,7 @@
     <div class="container-fluid pb-8 pt-5 pt-md-8">
       <div class="row">
         <div class="col-xl-12">
-          <?php if (isset($_GET['add'])) {
-    ?>
+          <?php if (isset($_GET['add'])) { ?>
               <div class="card shadow">
                 <div class="card-header bg-transparent">
                   <div class="row align-items-center">
@@ -65,12 +64,29 @@
                   </form>
                 </div>
               </div>
-          <?php
-} elseif (isset($_GET['edit']) and isset($_GET['examination_id'])) {
-        $stm = $_DB->prepare('SELECT * FROM examinations JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE examinations.examination_id = :examination_id');
-        $stm->bindParam(':examination_id', $_GET['examination_id'], PDO::PARAM_INT);
-        $stm->execute();
-        $row = $stm->fetch(PDO::FETCH_ASSOC); ?>
+          <?php } elseif (isset($_GET['edit']) and isset($_GET['examination_id'])) {
+
+              //CHECK PERMISSION
+              $stm2 = $_DB->prepare('SELECT * FROM examinations WHERE examination_id = :examination_id LIMIT 1');
+              $stm2->bindParam(':examination_id', $_GET['examination_id'], PDO::PARAM_INT);
+              $stm2->execute();
+              $row2 = $stm2->fetch(PDO::FETCH_ASSOC);
+
+              $stmc2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id AND uid = :uid");
+              $stmc2->bindParam(":id", $row2['examination_subject']);
+              $stmc2->bindParam(":uid", $_SESSION['uid']);
+              $stmc2->execute();
+              $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
+
+              if (empty($rowc2['uid'])) {
+                  deniedpage();
+              }
+              
+              $stm = $_DB->prepare('SELECT * FROM examinations JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE examinations.examination_id = :examination_id');
+              $stm->bindParam(':examination_id', $_GET['examination_id'], PDO::PARAM_INT);
+              $stm->execute();
+              $row = $stm->fetch(PDO::FETCH_ASSOC); 
+          ?>
               <div class="card shadow">
                 <div class="card-header bg-transparent">
                   <div class="row align-items-center">

@@ -6,7 +6,7 @@
         exit;
     }
 
-    $_G['title'] = 'ข้อสอบ';
+    $_G['title'] = 'คลังข้อสอบ';
 
     //USER
     $stm = $_DB->prepare("SELECT * FROM users JOIN users_role_title ON users.role = users_role_title.role_id WHERE users.username = :username LIMIT 1");
@@ -18,7 +18,11 @@
     include_once __DIR__.'/views/parts/sidemenu.common.php';
     
     if ($user_row['role'] == 2) {
-        include_once __DIR__.'/views/examination.page.php';
+        if($_GS['init_exam']){
+            include_once __DIR__.'/views/examination.page.php';
+        }else{
+            include_once __DIR__.'/views/undercons.page.php';
+        }
     }else{
         include_once __DIR__.'/views/denied.page.php';
 

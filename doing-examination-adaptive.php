@@ -57,14 +57,18 @@
                 if (empty($permid['subject_id'])) {
                     include_once __DIR__.'/views/denied.page.php';
                 }else{
-                    if ($session['session_password'] != null and $_SESSION['exam_lock'] == false) {
-                        include_once __DIR__.'/views/doing-password-examination-adaptive.page.php';
-                    } elseif ($session['session_password'] == null and $_SESSION['exam_lock'] == false) {
-                        include_once __DIR__.'/views/doing-examination-adaptive.page.php';
-                    } elseif ($session['session_password'] != null and $_SESSION['exam_lock'] == true) {
-                        include_once __DIR__.'/views/doing-examination-adaptive.page.php';
-                    } elseif ($session['session_password'] == null and $_SESSION['exam_lock'] == true) {
-                        include_once __DIR__.'/views/doing-examination-adaptive.page.php';
+                    if($_GS['init_testing']){
+                        if ($session['session_password'] != null and $_SESSION['exam_lock'] == false) {
+                            include_once __DIR__.'/views/doing-password-examination-adaptive.page.php';
+                        } elseif ($session['session_password'] == null and $_SESSION['exam_lock'] == false) {
+                            include_once __DIR__.'/views/doing-examination-adaptive.page.php';
+                        } elseif ($session['session_password'] != null and $_SESSION['exam_lock'] == true) {
+                            include_once __DIR__.'/views/doing-examination-adaptive.page.php';
+                        } elseif ($session['session_password'] == null and $_SESSION['exam_lock'] == true) {
+                            include_once __DIR__.'/views/doing-examination-adaptive.page.php';
+                        }
+                    }else{
+                        include_once __DIR__.'/views/undercons.page.php';
                     }
                 }
             } else {
