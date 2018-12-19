@@ -19,11 +19,11 @@
         $vurl = $_G['url'].'register-teacher/?token='.$token.'&email='.$email;
 
         $mgClient = new Mailgun('c6a6fb3027866dd672043e123c011a2e-9b463597-b03543b2');
-        $domain = "sandbox9cf778143713409097470f85c022fee9.mailgun.org";
+        $domain = "mg.inzpi.com";
         $text = 'Hello, Verify URL: '.$vurl;
         $html = '<strong>Hello,</strong><br><p>Verify URL : <a href="'.$vurl.'" target="_blank">'.$vurl.'</a></p><br><br><small>CAT@RMUTL<br>'.$_G['url'].'</small>';
         $result = $mgClient->sendMessage("$domain",
-            array('from' => 'Mailgun Sandbox <postmaster@sandbox9cf778143713409097470f85c022fee9.mailgun.org>',
+            array('from' => 'Mailgun Sandbox <postmaster@mg.inzpi.com>',
                 'to' => 'Anonymouse <'.$_POST['email'].'>',
                 'subject' => 'Hello '.$_POST['email'],
                 'text' => $text,
