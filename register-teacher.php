@@ -14,11 +14,20 @@
         if(isset($_GET['token']) and isset($_GET['email']) and isset($_GET['exp'])){
             $emailmd5 = md5(base64_decode($_GET['email']) . 'cat@rmutl');
             $exp = base64_decode($_GET['exp']);
-            if ($_GET['token'] != $emailmd5 and time() > $exp) {
+
+            if ($_GET['token'] != $emailmd5 or time() > $exp) {
                 include_once __DIR__.'/views/denied.page.php';
             }else{
                 $email = base64_decode($_GET['email']);
-                include_once __DIR__.'/views/register-teacher.page.php';
+                $stm = $_DB->prepare("SELECT COUNT(uid) AS n FROM users WHERE email = :email");
+                $stm->bindParam(":email", $email);
+                $stm->execute();
+                $ec = $stm->fetch(PDO::FETCH_ASSOC);
+                if ($ec['n'] >= 1) {
+                    include_once __DIR__.'/views/denied.page.php';
+                }else{
+                    include_once __DIR__.'/views/register-teacher.page.php';
+                }
             }
         }else{
             include_once __DIR__.'/views/register-teacher-email.page.php';
