@@ -167,6 +167,42 @@ $('#temail-register-form').on('submit', function () {
     });
 });
 
+$('#teacher-register-form').on('submit', function () {
+  var oldtext = $('#teach-register-btn').html();
+  $('#teach-register-btn').html('<i class="fa fa-spinner fa-spin"></i> Process..');
+  var data = $(this).serialize();
+
+  $.ajax({
+      type: "POST",
+      url: weburl + "ajax/teach-register",
+      data: data,
+      dataType: "json"
+    })
+    .done(function (response) {
+      if (response.state) {
+        swal({
+          title: 'SUCCESS',
+          text: response.msg,
+          type: 'success',
+          showCancelButton: false,
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'Yes'
+        }).then(function (result) {
+          if (result.value) {
+            window.location.href = weburl + "dashboard/";
+          }
+        });
+      } else {
+        $('#teach-register-btn').html(oldtext);
+        swal(
+          'ERROR',
+          response.msg,
+          'error'
+        );
+      }
+    });
+});
+
 $('#verify_stu').on('click', function () {
   var oldtext = $(this).html();
   $(this).html('<i class="fa fa-spinner fa-spin"></i>');

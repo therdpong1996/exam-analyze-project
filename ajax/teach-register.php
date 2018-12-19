@@ -20,16 +20,7 @@
         exit;
     }
 
-    $stm = $_DB->prepare('SELECT uid FROM users WHERE stu_id = :stu_id LIMIT 1');
-    $stm->bindParam(':stu_id', $student_id, PDO::PARAM_STR);
-    $stm->execute();
-    $stuid = $stm->fetch(PDO::FETCH_ASSOC);
-    if ($stuid['uid']) {
-        echo json_encode(['state' => false, 'msg' => 'Student ID มีการสมัครสมาชิกแล้ว']);
-        exit;
-    }
-
-    $stm = $_DB->prepare('INSERT INTO users (username,password,email,full_name,stu_id) VALUES (:username, :password, :email, :full_name, :stu_id)');
+    $stm = $_DB->prepare('INSERT INTO users (username,password,email,full_name,stu_id,role) VALUES (:username, :password, :email, :full_name, :stu_id, 2)');
     $stm->bindParam(':username', $username, PDO::PARAM_STR);
     $stm->bindParam(':password', $password, PDO::PARAM_STR);
     $stm->bindParam(':stu_id', $student_id, PDO::PARAM_STR);
