@@ -105,7 +105,7 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <button type="submit" id="teach-register-btn" class="btn btn-primary mt-4 disabled" disabled >Create account</button>
+                    <button type="submit" id="teach-register-btn" class="btn btn-primary mt-4" >Create account</button>
                 </div>
                 </form>
             </div>
