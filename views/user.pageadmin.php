@@ -42,7 +42,7 @@
                                 <span class="mb-0 text-sm"><?php echo $rows['username']; ?></span>
                             </th>
                             <td>
-                                <?php echo $row['full_name']; ?>
+                                <?php echo $rows['full_name']; ?>
                             </td>
                             <td>
                                 <?php echo $rows['role_title']; ?>
