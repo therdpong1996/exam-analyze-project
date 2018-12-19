@@ -22,7 +22,7 @@
                 </div>
                 <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table align-items-center">
+                    <table class="table align-items-center dataTable">
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">Username</th>

@@ -16,6 +16,7 @@
   <link type="text/css" href="<?php echo $_G['url']; ?>assets/css/style.css?v=1.0.0" rel="stylesheet">
   <link type="text/css" href="<?php echo $_G['url']; ?>assets/css/sweetalert2.min.css?v=1.0.0" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+  <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
   <!-- Core -->
   <script src="<?php echo $_G['url']; ?>assets/vendor/jquery/dist/jquery.min.js"></script>
   <script src="<?php echo $_G['url']; ?>assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -26,6 +27,8 @@
   <script src="<?php echo $_G['url']; ?>assets/dist/easytimer.min.js"></script>
   <script src="<?php echo $_G['url']; ?>assets/dist/js.cookie-2.2.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
   <!-- Highcharts -->
   <script src="https://code.highcharts.com/highcharts.js"></script>

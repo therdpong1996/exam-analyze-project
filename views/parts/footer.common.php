@@ -1,7 +1,7 @@
 
 
   <script src="<?php echo $_G['url']; ?>assets/js/argon.js?v=1.0.0"></script>
-
+  <script src="<?php echo $_G['url']; ?>js/apps.js?v=1.0.0"></script>
   
   <?php 
     if (isset($_SESSION['auth'])) {
