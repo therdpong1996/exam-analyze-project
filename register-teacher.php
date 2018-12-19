@@ -16,7 +16,7 @@
             $exp = base64_decode($_GET['exp']);
 
             if ($_GET['token'] != $emailmd5 or time() > $exp) {
-                include_once __DIR__.'/views/denied.page.php';
+                include_once __DIR__.'/views/denied.noauth.page.php';
             }else{
                 $email = base64_decode($_GET['email']);
                 $stm = $_DB->prepare("SELECT COUNT(uid) AS n FROM users WHERE email = :email");
@@ -24,7 +24,7 @@
                 $stm->execute();
                 $ec = $stm->fetch(PDO::FETCH_ASSOC);
                 if ($ec['n'] >= 1) {
-                    include_once __DIR__.'/views/denied.page.php';
+                    include_once __DIR__.'/views/denied.noauth.page.php';
                 }else{
                     include_once __DIR__.'/views/register-teacher.page.php';
                 }
