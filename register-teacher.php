@@ -11,9 +11,10 @@
     include_once __DIR__.'/views/parts/header.common.php';
 
     if($_GS['init_regis']){
-        if(isset($_GET['token']) and isset($_GET['email'])){
+        if(isset($_GET['token']) and isset($_GET['email']) and isset($_GET['exp'])){
             $emailmd5 = md5(base64_decode($_GET['email']) . 'cat@rmutl');
-            if ($_GET['token'] != $emailmd5) {
+            $exp = base64_decode($_GET['exp']);
+            if ($_GET['token'] != $emailmd5 and time() > $exp) {
                 include_once __DIR__.'/views/denied.page.php';
             }else{
                 $email = base64_decode($_GET['email']);
