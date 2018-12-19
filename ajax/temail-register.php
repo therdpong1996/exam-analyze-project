@@ -16,7 +16,7 @@
         
         $token = md5($_POST['email'] . 'cat@rmutl');
         $email = base64_encode($_POST['email']);
-        $vurl = $_G['url'].'register-teacher/?token='.$token.'&email='.$email;
+        $vurl = $_G['url'].'register-teacher/?token='.$token.'&email='.$email.'&exp='.base64_encode(time()+(86400*3));
 
         $mgClient = new Mailgun('c6a6fb3027866dd672043e123c011a2e-9b463597-b03543b2');
         $domain = "mg.inzpi.com";
