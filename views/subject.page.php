@@ -149,6 +149,10 @@
 
                     $('#colab_add').on('click', function(){
                         var colabid = $('#col_add_uid').val()
+                        if(colabid == 0){
+                            alert('ไม่พบผู้ใช้งาน');
+                            return;
+                        }
                         $.ajax({
                             type: "POST",
                             url: weburl + "ajax/add_colab",
@@ -157,6 +161,7 @@
                             success: function (response) {
                                 $('#old-colab').append(response)
                                 $('#sub_colab').val('')
+                                $('#col_add_uid').val('0')
                             }
                         })
                     })
