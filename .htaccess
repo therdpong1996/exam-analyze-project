@@ -12,6 +12,7 @@ RewriteRule ^admin/setting$ admin.setting.php [L,QSA]
 
 #TEACHER
 RewriteRule ^dashboard/$ index.php [L,QSA]
+RewriteRule ^article/$ article.php [L,QSA]
 RewriteRule ^subject/$ subject.php [L,QSA]
 RewriteRule ^docs/$ docs.php [L,QSA]
 RewriteRule ^examination/$ examination.php [L,QSA]
