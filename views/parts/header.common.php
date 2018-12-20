@@ -15,6 +15,7 @@
   <link type="text/css" href="<?php echo $_G['url']; ?>assets/css/argon.css?v=1.0.0" rel="stylesheet">
   <link type="text/css" href="<?php echo $_G['url']; ?>assets/css/style.css?v=1.0.0" rel="stylesheet">
   <link type="text/css" href="<?php echo $_G['url']; ?>assets/css/sweetalert2.min.css?v=1.0.0" rel="stylesheet">
+  <link type="text/css" href="<?php echo $_G['url']; ?>assets/css/tagsinput.css?v=1.0.0" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
   <!-- Core -->
@@ -24,6 +25,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
   <script src="<?php echo $_G['url']; ?>assets/js/sweetalert2.all.min.js?v=1.0.0"></script>
   <script src="<?php echo $_G['url']; ?>assets/js/jquery.sortable.min.js?v=1.0.0"></script>
+  <script src="<?php echo $_G['url']; ?>assets/js/tagsinput.js?v=1.0.0"></script>
   <script src="<?php echo $_G['url']; ?>assets/dist/easytimer.min.js"></script>
   <script src="<?php echo $_G['url']; ?>assets/dist/js.cookie-2.2.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>

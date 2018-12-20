@@ -27,13 +27,30 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="article_title">หัวข้อ</label>
                         <div class="col-sm-10">
-                        <input type="text" class="form-control" id="article_title" name="article_title" required>
+                            <input type="text" class="form-control" id="article_title" name="article_title" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="article_content">เนื้อหา</label>
                         <div class="col-sm-10">
                             <textarea class="form-control summernote" id="article_content" name="article_content" required rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="article_tag">แท็ก</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="article_tag" name="article_tag" data-role="tagsinput" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="article_publist">เผยแพร่</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                </div>
+                                <input class="form-control datepicker" id="article_publist" name="article_publist" placeholder="Select date" type="text">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -63,13 +80,30 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="article_title">หัวข้อ</label>
                         <div class="col-sm-10">
-                        <input type="text" class="form-control" id="article_title" name="article_title" required>
+                            <input type="text" class="form-control" id="article_title" name="article_title" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="article_content">เนื้อหา</label>
                         <div class="col-sm-10">
                             <textarea class="form-control summernote" id="article_content" name="article_content" required rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="article_tag">แท็ก</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="article_tag" name="article_tag" data-role="tagsinput" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="article_publist">เผยแพร่</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                </div>
+                                <input class="form-control datepicker" id="article_publist" name="article_publist" placeholder="Select date" type="text">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -115,3 +149,10 @@
         </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $('.summernote').summernote({
+            placeholder: 'ข้อความ',
+            tabsize: 2,
+            height: 300
+        });
+    </script>
