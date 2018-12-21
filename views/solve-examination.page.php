@@ -42,20 +42,20 @@
 
                     $answer_arr = explode(',', $answer['qa_choice_true']);
 
-                    $stmt = $_DB->prepare('SELECT qa_id,qa_order,qa_question FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_order ASC');
+                    $stmt = $_DB->prepare('SELECT * FROM answer_data WHERE qa_subject = :subject AND qa_exam = :exam AND uid = :uid AND session = :session ORDER BY id ASC');
                     $stmt->bindParam(':subject', $session['examination_subject']);
                     $stmt->bindParam(':exam', $session['examination_id']);
+                    $stmt->bindParam(':uid', $user_row['uid'], PDO::PARAM_INT);
+                    $stmt->bindParam(':session', $session['session_id'], PDO::PARAM_INT);
                     $stmt->execute();
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        $stm = $_DB->prepare('SELECT ans_check FROM answer_data WHERE uid = :uid AND question = :question AND subject = :subject AND examination = :exam AND session = :session AND temp = 0 LIMIT 1');
-                        $stm->bindParam(':uid', $user_row['uid'], PDO::PARAM_INT);
-                        $stm->bindParam(':question', $row['qa_id'], PDO::PARAM_INT);
-                        $stm->bindParam(':subject', $session['examination_subject'], PDO::PARAM_INT);
-                        $stm->bindParam(':exam', $session['examination_id'], PDO::PARAM_INT);
-                        $stm->bindParam(':session', $session['session_id'], PDO::PARAM_INT);
-                        $stm->execute();
-                        $makec = $stm->fetch(PDO::FETCH_ASSOC); ?>
-                        <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="?n=<?php echo $row['qa_id']; ?>" class="btn <?php echo $makec['ans_check'] == 0 ? 'btn-danger' : 'btn-outline-primary'; ?> mb-1 btn-block"><?php echo $row['qa_order']; ?>.<?php echo strip_tags($row['qa_question']); ?></a>
+                        $stmt2 = $_DB->prepare('SELECT qa_id,qa_order,qa_question FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_order ASC');
+                        $stmt2->bindParam(':subject', $session['examination_subject']);
+                        $stmt2->bindParam(':exam', $session['examination_id']);
+                        $stmt2->execute();
+                        $qqq = $stm->fetch(PDO::FETCH_ASSOC);
+                    ?>
+                        <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="?n=<?php echo $qqq['qa_id']; ?>" class="btn <?php echo $row['ans_check'] == 0 ? 'btn-danger' : 'btn-outline-primary'; ?> mb-1 btn-block"><?php echo $qqq['qa_order']; ?>.<?php echo strip_tags($qqq['qa_question']); ?></a>
                 <?php
                     }
                 ?>
