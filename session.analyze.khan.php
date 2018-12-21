@@ -16,8 +16,17 @@
     $user_row = $stm->fetch(PDO::FETCH_ASSOC);
 
     if ($user_row['role'] == 2) {
-        $stm = $_DB->prepare('SELECT * FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.session = :session AND answer_data.temp = 0 ORDER BY users.stu_id ASC');
-        $stm->bindParam(':session', $_GET['session_id'], PDO::PARAM_INT);
+
+        if ($_POST['action'] == 1) {
+            $stm = $_DB->prepare('SELECT * FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.examination = :exam AND answer_data.temp = 0 ORDER BY users.stu_id ASC');
+            $stm->bindParam(':exam', $_POST['examination'], PDO::PARAM_INT);
+        }elseif ($_POST['action'] == 2) {
+            $stm = $_DB->prepare('SELECT * FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.adap_table = :adapt AND answer_data.temp = 0 ORDER BY users.stu_id ASC');
+            $stm->bindParam(':adapt', $_POST['refadap'], PDO::PARAM_INT);
+        }else{
+            $stm = $_DB->prepare('SELECT * FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.session = :session AND answer_data.temp = 0 ORDER BY users.stu_id ASC');
+            $stm->bindParam(':session', $_POST['session_id'], PDO::PARAM_INT);
+        }
         $stm->execute();
         while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
             echo $rows['stu_id'].','.$rows['question'].','.$rows['time_taken_s'].','.($rows['ans_check'] == 1 ? 'True' : 'False').PHP_EOL;
