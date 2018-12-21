@@ -44,7 +44,7 @@
             exit;
         }
 
-        $stm = $_DB->prepare('SELECT COUNT(qa_id) AS c FROM q_and_a WHERE qa_subject = :subj AND qa_exam = :exam');
+        $stm = $_DB->prepare('SELECT COUNT(qa_id) AS c FROM q_and_a WHERE qa_subject = :subj AND qa_exam = :exam AND qa_delete = 0');
         $stm->bindParam(':subj', $subject, PDO::PARAM_INT);
         $stm->bindParam(':exam', $exam, PDO::PARAM_INT);
         $stm->execute();
