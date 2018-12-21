@@ -184,7 +184,7 @@
                             <span class="mb-0 text-sm"><?php echo $rows['subject_title']; ?></span>
                             </td>
                             <?php
-                              $stmt = $_DB->prepare('SELECT COUNT(qa_id) AS qac FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam');
+                              $stmt = $_DB->prepare('SELECT COUNT(qa_id) AS qac FROM q_and_a WHERE qa_subject = :subject AND qa_delete = 0 AND qa_exam = :exam');
                               $stmt->bindParam(':subject', $rows['subject_id']);
                               $stmt->bindParam(':exam', $rows['examination_id']);
                               $stmt->execute();

@@ -112,6 +112,10 @@
         $stm->bindParam(':id', $id, PDO::PARAM_INT);
         $stm->execute();
 
+        $stm2 = $_DB->prepare("UPDATE examinations SET examination_newex = 1 WHERE examination_id = :id");
+        $stm2->bindParam(":id", $exam);
+        $stm2->execute();
+
         echo json_encode(['state' => true, 'msg' => 'แก้ไขคำถามเรียบร้อย']);
         exit;
     } elseif ($_POST['action'] == 'delete') {
@@ -142,16 +146,9 @@
             exit;
         }
 
-        $stm3 = $_DB->prepare('SELECT qa_id FROM q_and_a WHERE qa_exam = :qa_exam ORDER BY qa_id DESC LIMIT 1');
-        $stm3->bindParam(':qa_exam', $row1['qa_exam'], PDO::PARAM_INT);
+        $stm3 = $_DB->prepare("UPDATE examinations SET examination_newex = 1 WHERE examination_id = :id");
+        $stm3->bindParam(":id", $exam);
         $stm3->execute();
-        $row3 = $stm3->fetch(PDO::FETCH_ASSOC);
-
-        if($row3['qa_id'] == $_POST['qa_id']){
-            $stm = $_DB->prepare("UPDATE examinations SET examination_newex = 0 WHERE examination_id = :id");
-            $stm->bindParam(":id", $exam);
-            $stm->execute();
-        }
 
         $qa_id = $_POST['qa_id'];
         $stm = $_DB->prepare('UPDATE q_and_a SET qa_delete = 1 WHERE qa_id = :qa_id');

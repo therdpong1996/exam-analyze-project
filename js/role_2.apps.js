@@ -278,7 +278,7 @@ delete_exam = function (qa_id) {
         })
         .done(function (response) {
           if (response.state) {
-            window.location.href = window.location.href;
+            window.location.href = weburl + 'examination/qa/?examination_id=' + examination_id;
           } else {
             $('#delete-btn').html(oldtext);
             swal(

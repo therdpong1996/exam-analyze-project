@@ -18,9 +18,10 @@
     include_once __DIR__.'/views/parts/sidemenu.common.php';
 
     if (isset($_POST['uid']) and isset($_POST['subject']) and isset($_POST['examination']) and isset($_POST['session'])) {
-        $stmt = $_DB->prepare('UPDATE answer_data SET temp = 0 WHERE id = :id');
-        $stmt->bindParam(':id', $rows['id']);
-        $stmt->execute();
+
+        $stmu = $_DB->prepare("UPDATE examinations SET examination_newex = 0 WHERE examination_id = :eid");
+        $stmu->bindParam(':eid', $_POST['examination']);
+        $stmu->execute();
 
         $score = 0;
         $full = 0;
