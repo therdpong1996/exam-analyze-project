@@ -42,7 +42,7 @@
 
                     $answer_arr = explode(',', $answer['qa_choice_true']);
 
-                    $stmt = $_DB->prepare('SELECT * FROM answer_data WHERE qa_subject = :subject AND qa_exam = :exam AND uid = :uid AND session = :session ORDER BY id ASC');
+                    $stmt = $_DB->prepare('SELECT * FROM answer_data WHERE subject = :subject AND examination = :exam AND uid = :uid AND session = :session ORDER BY id ASC');
                     $stmt->bindParam(':subject', $session['examination_subject']);
                     $stmt->bindParam(':exam', $session['examination_id']);
                     $stmt->bindParam(':uid', $user_row['uid'], PDO::PARAM_INT);

@@ -9,59 +9,22 @@
                 </div>
                 <div class="card-body">
                     <?php
-                        if ($session['session_model'] != null) {
-                            $chart_data = json_decode($session['session_model'], true);
+                        if ($session['session_train'] == 1) {
+                            $stm1 = $_DB->prepare("SELECT * FROM adaptive_table WHERE adap_id = :aid");
+                            $stm1->bindParam(":aid", $session['session_adap']);
+                            $stm1->execute();
+                            $adrow = $stm1->fetch(PDO::FETCH_ASSOC);
+                            $chart_data = json_decode($adrow['graph_file'], true);
                     ?>
                     <div id="container"></div>
                     <div class="row">
-                        <div class="col-3"><button id="hide-all" class="mt-3 btn btn-primary btn-lg btn-block">Hide All</button></div>
-                        <div class="col-3"><button id="show-all" class="mt-3 btn btn-info btn-lg btn-block">Show All</button></div>
-                        <div class="col-6">
-                            <form action="javascript:void(0)" id="plot-data">
-                                <input type="hidden" name="session" value="<?php echo $session['session_id']; ?>">
-                                <input type="hidden" name="token" value="<?php echo md5('computerizedadaptivetesting'.$session['session_id']); ?>">
-                                <button id="plot-btn" class="btn btn-success btn-lg mt-3 btn-block" type="submit">Refresh</button>
-                            </form>
-                        </div>
+                        <div class="col-6"><button id="hide-all" class="mt-3 btn btn-primary btn-lg btn-block">Hide All</button></div>
+                        <div class="col-6"><button id="show-all" class="mt-3 btn btn-info btn-lg btn-block">Show All</button></div>
                     </div>
                     
                     <script>
-                        $('#plot-data').on('submit', function(){
-                            var oldtext = $('#plot-btn').html();
-                            $('#plot-btn').html('<i class="fa fa-spinner fa-spin"></i> Process..');
-                            var sData = $(this).serialize();
-                            $.ajax({
-                                type: "POST",
-                                url: webservice + "plot/",
-                                data: sData,
-                                dataType: "json"
-                            })
-                            .done(function(response){
-                                if(response.state){
-                                swal({
-                                    title: 'SUCCESS',
-                                    text: response.msg,
-                                    type: 'success',
-                                    showCancelButton: false,
-                                    confirmButtonColor: '#3085d6',
-                                    confirmButtonText: 'Yes'
-                                }).then(function(result){
-                                    if (result.value) {
-                                    window.location.href = window.location.href;
-                                    }
-                                });
-                                }else{
-                                $('#plot-btn').html(oldtext);
-                                swal(
-                                    'SORRY',
-                                    response.msg,
-                                    'error'
-                                );
-                                }
-                            });
-                        });
 
-                        var report = <?php echo $session['session_report']; ?>;
+                        var report = <?php echo $adrow['report_file']; ?>;
                         var chart = Highcharts.chart('container', {
                             title: {
                                 text: 'For each problem'
@@ -145,9 +108,25 @@
                             ?>
                             <div class="text-center mt-5 mb-5">
                                 <form action="javascript:void(0)" id="train-data">
+                                    <input type="hidden" name="adap_id" value="<?php echo $session['session_adap']; ?>">
+                                    <input type="hidden" name="examination" value="<?php echo $session['session_exam']; ?>">
                                     <input type="hidden" name="session" value="<?php echo $session['session_id']; ?>">
                                     <input type="hidden" name="token" value="<?php echo md5('computerizedadaptivetesting'.$session['session_id']); ?>">
-                                    <button id="train-btn" type="submit" <?php echo timebetween($session['session_start'], $session['session_end']) ? 'disabled' : ''; ?> class="btn btn-success btn-lg <?php echo timebetween($session['session_start'], $session['session_end']) ? 'disabled' : ''; ?>">Train data and plot graph</button>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <select class="form-control" name="action">
+                                                    <option value="1">เลือกข้อมูลทั้งหมดในคลังข้อสอบ</option>
+                                                    <option value="2">เลือกเฉพาะข้อมูลที่เกี่ยวข้อง</option>
+                                                    <option value="3">เลือกเฉพาะของเซสซั่นนี้</option>
+                                                </select>  
+                                            </div>
+                                            <button id="train-btn" type="submit" <?php echo timebetween($session['session_start'], $session['session_end']) ? 'disabled' : ''; ?> class="btn btn-success btn-lg <?php echo timebetween($session['session_start'], $session['session_end']) ? 'disabled' : ''; ?>">Train data</button>
+                                        </div>
+                                        <div class="col-6">
+                                        </div>
+                                    </div>
+                                    
                                 </form>
                                 <?php if (timebetween($session['session_start'], $session['session_end'])) {
                                 ?>

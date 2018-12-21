@@ -23,7 +23,7 @@
                     $n = $_GET['n'];
                 }
 
-                $stmt = $_DB->prepare('SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam AND qa_id = :n LIMIT 1');
+                $stmt = $_DB->prepare('SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam AND qa_delete = 0 AND qa_id = :n LIMIT 1');
                 $stmt->bindParam(':subject', $session['examination_subject']);
                 $stmt->bindParam(':exam', $session['examination_id']);
                 $stmt->bindParam(':n', $n, PDO::PARAM_INT);
@@ -31,7 +31,7 @@
                 $exam_row = $stmt->fetch(PDO::FETCH_ASSOC);
                 $answer_arr = explode(',', $exam_row['qa_choice_true']);
 
-                $stmt = $_DB->prepare('SELECT qa_id,qa_order,qa_question FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_order ASC');
+                $stmt = $_DB->prepare('SELECT qa_id,qa_order,qa_question FROM q_and_a WHERE qa_subject = :subject AND qa_delete = 0 AND qa_exam = :exam ORDER BY qa_order ASC');
                 $stmt->bindParam(':subject', $session['examination_subject']);
                 $stmt->bindParam(':exam', $session['examination_id']);
                 $stmt->execute();
