@@ -87,7 +87,7 @@
                                             <?php } else { ?>
                                                 <a class="btn btn-outline-success btn-block mt-4 pt-4 pb-4" href="<?php url('solve-examination/'.$rows['session_id']); ?>"><?php echo $crow['score']; ?>/<?php echo $crow['score_full']; ?></a>
                                             <?php } } else { ?>
-                                                <button class="btn btn-outline-success disabled btn-block mt-4 pt-4 pb-4"><?php echo $crow['score']; ?>/<?php echo $crow['score_full']; ?></button>
+                                                <button class="btn btn-outline-success disabled btn-block mt-4 pt-4 pb-4"><?php echo $crow['score']; ?>/<?php echo $rows['session_adap_number']; ?></button>
                                             <?php } ?>
                                         <?php } else { ?>
                                         <?php

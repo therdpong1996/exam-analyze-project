@@ -22,8 +22,13 @@
         $stmt->bindParam(':id', $rows['id']);
         $stmt->execute();
 
+        $stmu = $_DB->prepare("SELECT session_adap_number FROM sessions WHERE session_id = :sid");
+        $stmu->bindParam(":sid", $_POST['session']);
+        $stmu->execute();
+        $full = $stmu->fetch(PDO::FETCH_ASSOC);
+        $full = $full['session_adap_number'];
+
         $score = 0;
-        $full = 0;
         $stm = $_DB->prepare('SELECT * FROM adaptive_answer_data WHERE uid = :uid AND subject = :subject AND examination = :exam AND session = :session AND temp = 1');
         $stm->bindParam(':uid', $_POST['uid']);
         $stm->bindParam(':subject', $_POST['subject']);
@@ -33,9 +38,6 @@
         while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
             if ($rows['ans_check'] == 1) {
                 ++$score;
-                ++$full;
-            } else {
-                ++$full;
             }
             $stmt = $_DB->prepare('UPDATE adaptive_answer_data SET temp = 0 WHERE id = :id');
             $stmt->bindParam(':id', $rows['id']);
