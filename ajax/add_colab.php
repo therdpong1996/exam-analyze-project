@@ -25,6 +25,17 @@ if (empty($rowc2['uid'])) {
     exit;
 }
 
+$stmc3 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id AND uid = :uid");
+$stmc3->bindParam(":id", $_POST['subject']);
+$stmc3->bindParam(":uid", $_POST['uid']);
+$stmc3->execute();
+$rowc3 = $stmc3->fetch(PDO::FETCH_ASSOC);
+
+if (!empty($rowc3['uid'])) {
+    echo json_encode(['state' => false, 'msg' => 'Already in subject']);
+    exit;
+}
+
 $stm = $_DB->prepare("INSERT INTO subject_owner(subject_id, uid) VALUES (:sub, :uid)");
 $stm->bindParam(":sub", $_POST['subject']);
 $stm->bindParam(":uid", $_POST['uid']);
@@ -35,6 +46,5 @@ $ustm->bindParam(":uid", $_POST['uid']);
 $ustm->execute();
 $user = $ustm->fetch(PDO::FETCH_ASSOC);
 
-?>
 
-<div class="row mb-2" id="user-colab-<?php __($_POST['uid']); ?>"><div class="col-10"><input type="text" disabled class="form-control form-control-sm" value="<?php __($user['full_name']); ?>"/></div><div class="col-2"><button id="del-col-<?php __($_POST['uid']); ?>" type="button" onclick="delete_colab(<?php __($_POST['subject']); ?>, <?php __($_POST['uid']); ?>)" class="btn btn-sm btn-danger btn-block"><i class="fas fa-trash"></i></button></div></div>
+echo json_encode(['state'=>1, 'html'=>'<div class="row mb-2" id="user-colab-'.$_POST['uid'].'"><div class="col-10"><input type="text" disabled class="form-control form-control-sm" value="'.$user['full_name'].'"/></div><div class="col-2"><button id="del-col-'.$_POST['uid'].'" type="button" onclick="delete_colab('.$_POST['subject'].', '.$_POST['uid'].')" class="btn btn-sm btn-danger btn-block"><i class="fas fa-trash"></i></button></div></div>']);

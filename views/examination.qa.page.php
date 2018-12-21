@@ -38,7 +38,7 @@
             <div class="list-exam-sortable exam-scollbar pr-2">
             <?php
 
-                $stmt = $_DB->prepare('SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_order ASC');
+                $stmt = $_DB->prepare('SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam AND qa_delete = 0 ORDER BY qa_order ASC');
                 $stmt->bindParam(':subject', $exam['examination_subject']);
                 $stmt->bindParam(':exam', $exam['examination_id']);
                 $stmt->execute();

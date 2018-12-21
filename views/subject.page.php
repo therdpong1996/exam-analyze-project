@@ -159,9 +159,14 @@
                             data: {uid: colabid, subject: subject_id},
                             dataType: "html",
                             success: function (response) {
-                                $('#old-colab').append(response)
-                                $('#sub_colab').val('')
-                                $('#col_add_uid').val('0')
+                                if (response.state) {
+                                    $('#old-colab').append(response.html)
+                                    $('#sub_colab').val('')
+                                    $('#col_add_uid').val('0')
+                                }else{
+                                    alert(response.msg);
+                                    return;
+                                }
                             }
                         })
                     })

@@ -65,6 +65,9 @@
         $lastid = $_DB->lastInsertId();
 
         if ($lastid) {
+            $stm = $_DB->prepare("UPDATE examinations SET examination_newex = 1 WHERE examination_id = :id");
+            $stm->bindParam(":id", $exam);
+            $stm->execute();
             echo json_encode(['state' => true, 'msg' => 'คำถามได้ถูกเพิ่มแล้ว']);
         } else {
             echo json_encode(['state' => false, 'msg' => 'Error MySQL Query']);
@@ -112,6 +115,7 @@
         echo json_encode(['state' => true, 'msg' => 'แก้ไขคำถามเรียบร้อย']);
         exit;
     } elseif ($_POST['action'] == 'delete') {
+
         if ($_SESSION['role'] != 2) {
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
@@ -138,8 +142,19 @@
             exit;
         }
 
+        $stm3 = $_DB->prepare('SELECT qa_id FROM q_and_a WHERE qa_exam = :qa_exam ORDER BY qa_id DESC LIMIT 1');
+        $stm3->bindParam(':qa_exam', $row1['qa_exam'], PDO::PARAM_INT);
+        $stm3->execute();
+        $row3 = $stm3->fetch(PDO::FETCH_ASSOC);
+
+        if($row3['qa_id'] == $_POST['qa_id']){
+            $stm = $_DB->prepare("UPDATE examinations SET examination_newex = 0 WHERE examination_id = :id");
+            $stm->bindParam(":id", $exam);
+            $stm->execute();
+        }
+
         $qa_id = $_POST['qa_id'];
-        $stm = $_DB->prepare('DELETE FROM q_and_a WHERE qa_id = :qa_id');
+        $stm = $_DB->prepare('UPDATE q_and_a SET qa_delete = 1 WHERE qa_id = :qa_id');
         $stm->bindParam(':qa_id', $qa_id, PDO::PARAM_INT);
         $stm->execute();
         echo json_encode(['state' => true]);

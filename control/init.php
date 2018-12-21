@@ -26,7 +26,7 @@
     $_GS = $stms->fetch(PDO::FETCH_ASSOC);
 
     //WEB URL
-    $_G['url'] = 'https://exam-analyze.herokuapp.com/';
+    $_G['url'] = 'http://localhost:8888/';
     $_G['webservice'] = 'https://cat-service.inzpi.com/';
 
     require_once 'functions.php';
