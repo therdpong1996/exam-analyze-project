@@ -69,6 +69,7 @@
                                                 $stmt->bindParam(':uid', $user_row['uid']);
                                                 $stmt->execute();
                                                 $crow = $stmt->fetch(PDO::FETCH_ASSOC); 
+                                                $scfull = $rows['session_adap_number'];
                                             }else{
                                                 $stmt = $_DB->prepare('SELECT * FROM session_score WHERE session_id = :session AND exam_id = :exam AND subject_id = :subject AND uid = :uid LIMIT 1');
                                                 $stmt->bindParam(':session', $rows['session_id']);
@@ -77,17 +78,18 @@
                                                 $stmt->bindParam(':uid', $user_row['uid']);
                                                 $stmt->execute();
                                                 $crow = $stmt->fetch(PDO::FETCH_ASSOC);
+                                                $scfull = $crow['score_full'];
                                             } 
                                         ?>
 
                                         <?php if ($crow['score_id']) { ?>
                                             <?php if ($rows['session_solve']) { ?>
                                             <?php if ($rows['session_adap']) { ?>
-                                                <a class="btn btn-outline-success btn-block mt-4 pt-4 pb-4" href="<?php url('solve-examination-adaptive/'.$rows['session_id']); ?>"><?php echo $crow['score']; ?>/<?php echo $crow['score_full']; ?></a>
+                                                <a class="btn btn-outline-success btn-block mt-4 pt-4 pb-4" href="<?php url('solve-examination-adaptive/'.$rows['session_id']); ?>"><?php echo $crow['score']; ?>/<?php echo $scfull; ?></a>
                                             <?php } else { ?>
-                                                <a class="btn btn-outline-success btn-block mt-4 pt-4 pb-4" href="<?php url('solve-examination/'.$rows['session_id']); ?>"><?php echo $crow['score']; ?>/<?php echo $crow['score_full']; ?></a>
+                                                <a class="btn btn-outline-success btn-block mt-4 pt-4 pb-4" href="<?php url('solve-examination/'.$rows['session_id']); ?>"><?php echo $crow['score']; ?>/<?php echo $scfull; ?></a>
                                             <?php } } else { ?>
-                                                <button class="btn btn-outline-success disabled btn-block mt-4 pt-4 pb-4"><?php echo $crow['score']; ?>/<?php echo $rows['session_adap_number']; ?></button>
+                                                <button class="btn btn-outline-success disabled btn-block mt-4 pt-4 pb-4"><?php echo $crow['score']; ?>/<?php echo $scfull; ?></button>
                                             <?php } ?>
                                         <?php } else { ?>
                                         <?php

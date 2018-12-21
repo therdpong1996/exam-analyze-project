@@ -31,7 +31,7 @@
                 $stmt->execute();
                 $exam_row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                $stmt2 = $_DB->prepare('SELECT COUNT(qa_id) AS C FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam');
+                $stmt2 = $_DB->prepare('SELECT COUNT(qa_id) AS C FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam AND qa_delete = 0');
                 $stmt2->bindParam(':subject', $session['examination_subject']);
                 $stmt2->bindParam(':exam', $session['examination_id']);
                 $stmt2->execute();
@@ -168,7 +168,7 @@
                         <div class="col-sm-10">
                         <?php 
                             $nprev = $exam_row['qa_order'] - 1;
-                            $stmt2 = $_DB->prepare('SELECT qa_id FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam AND qa_order = :order LIMIT 1');
+                            $stmt2 = $_DB->prepare('SELECT qa_id FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam AND qa_delete = 0 AND qa_order = :order LIMIT 1');
                             $stmt2->bindParam(':subject', $session['examination_subject']);
                             $stmt2->bindParam(':exam', $session['examination_id']);
                             $stmt2->bindParam(':order', $nprev);
@@ -178,7 +178,7 @@
                         <a href="?n=<?php echo $prev['qa_id']; ?>" class="btn btn-info <?php echo $nprev == 0 ? 'disabled' : ''; ?>"><i class="fa fa-arrow-left"></i> ข้อก่อนหน้า</a>
                         <?php 
                             $nnext = $exam_row['qa_order'] + 1;
-                            $stmt2 = $_DB->prepare('SELECT qa_id FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam AND qa_order = :order LIMIT 1');
+                            $stmt2 = $_DB->prepare('SELECT qa_id FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam AND qa_delete = 0 AND qa_order = :order LIMIT 1');
                             $stmt2->bindParam(':subject', $session['examination_subject']);
                             $stmt2->bindParam(':exam', $session['examination_id']);
                             $stmt2->bindParam(':order', $nnext);
