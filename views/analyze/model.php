@@ -15,6 +15,7 @@
                             $stm1->execute();
                             $adrow = $stm1->fetch(PDO::FETCH_ASSOC);
                             $chart_data = json_decode($adrow['graph_file'], true);
+                            print_r($chart_data);
                     ?>
                     <div id="container"></div>
                     <div class="row">
