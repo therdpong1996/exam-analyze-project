@@ -15,7 +15,6 @@
                             $stm1->execute();
                             $adrow = $stm1->fetch(PDO::FETCH_ASSOC);
                             $chart_data = json_decode($adrow['graph_file'], true);
-                            print_r($chart_data);
                     ?>
                     <div id="container"></div>
                     <div class="row">
@@ -109,6 +108,25 @@
                             ?>
                             <div class="mt-5 mb-5">
                                 <form action="javascript:void(0)" id="train-data">
+                                    <?php
+                                        $stmt = $_DB->prepare("SELECT session,COUNT(DISTINCT(question)) AS cn FROM answer_data WHERE examination = :exam AND session != :session GROUP BY session ORDER BY session DESC LIMIT 1");
+                                        $stmt->bindParam(":exam", $session['session_exam']);
+                                        $stmt->bindParam(":session", $session['session_id']);
+                                        $stmt->execute();
+                                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                        $stmt1 = $_DB->prepare("SELECT session,COUNT(DISTINCT(question)) AS cn FROM answer_data WHERE examination = :exam AND adap_table = :adapt GROUP BY session ORDER BY session DESC LIMIT 1");
+                                        $stmt1->bindParam(":exam", $session['session_exam']);
+                                        $stmt1->bindParam(":adapt", $session['session_adap']);
+                                        $stmt1->execute();
+                                        $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
+
+                                        $stmt2 = $_DB->prepare("SELECT session,COUNT(DISTINCT(question)) AS cn FROM answer_data WHERE examination = :exam AND session = :session");
+                                        $stmt2->bindParam(":exam", $session['session_exam']);
+                                        $stmt2->bindParam(":session", $session['session_id']);
+                                        $stmt2->execute();
+                                        $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+                                    ?> 
                                     <input type="hidden" name="adap_id" value="<?php echo $session['session_adap']; ?>">
                                     <input type="hidden" name="examination" value="<?php echo $session['session_exam']; ?>">
                                     <input type="hidden" name="session" value="<?php echo $session['session_id']; ?>">
@@ -117,8 +135,9 @@
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <select class="form-control" name="action">
-                                                    <option value="1">เลือกข้อมูลทั้งหมดในคลังข้อสอบ</option>
-                                                    <option value="2">เลือกเฉพาะข้อมูลที่เกี่ยวข้อง</option>
+                                                    <option value="0" disabled selected>เลือกรูปแบบการ Train</option>
+                                                    <option value="1" <?php echo ($row['cn'] != $row2['cn'])?'disabled':''; ?>>เลือกข้อมูลทั้งหมดในคลังข้อสอบ</option>
+                                                    <option value="2" <?php echo ($row1['cn'] != $row2['cn'])?'disabled':''; ?>>เลือกเฉพาะข้อมูลที่เกี่ยวข้อง</option>
                                                     <option value="3">เลือกเฉพาะของเซสซั่นนี้</option>
                                                 </select>  
                                             </div>
