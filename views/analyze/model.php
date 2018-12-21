@@ -106,7 +106,7 @@
                         } else {
                             if($_GS['init_graph']){
                             ?>
-                            <div class="text-center mt-5 mb-5">
+                            <div class="mt-5 mb-5">
                                 <form action="javascript:void(0)" id="train-data">
                                     <input type="hidden" name="adap_id" value="<?php echo $session['session_adap']; ?>">
                                     <input type="hidden" name="examination" value="<?php echo $session['session_exam']; ?>">
@@ -128,16 +128,12 @@
                                     </div>
                                     
                                 </form>
-                                <?php if (timebetween($session['session_start'], $session['session_end'])) {
-                                ?>
+                                <?php if (timebetween($session['session_start'], $session['session_end'])) { ?>
                                     <p class="text-danger mt-3">จะสามารถ train data ได้เมื่อเวลาการทดสอบสิ้นสุดลงแล้วเท่านั้น</p>
-                                    <?php
-                            } ?>
+                                <?php } ?>
                             </div>
 
-                    <?php
-                            }else{
-                    ?>
+                    <?php }else{ ?>
                             <div class="text-center mt-5 mb-5 pt-5 pb-5">
                                 <h2>ฟังก์ชันนี้กำลังอยู่ในช่วงการปรับปรุง</h2>
                             </div>

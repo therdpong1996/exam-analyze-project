@@ -155,7 +155,7 @@
                       <label class="col-sm-2 col-form-label" for="session_adap">Adaptive</label>
                       <div class="col-sm-10">
                         <label class="custom-toggle">
-                          <input id="session_adap" type="checkbox" name="session_adap" value="1" <?php echo $row['session_adap'] == 1 ? 'checked' : ''; ?> <?php echo $row['session_model'] == null ? 'disabled' : ''; ?>>
+                          <input id="session_adap" type="checkbox" name="session_adap" value="1" <?php echo $row['session_adap'] != 0 ? 'checked' : ''; ?> <?php echo $row['session_train'] == 0 ? 'disabled' : ''; ?>>
                           <span class="custom-toggle-slider rounded-circle"></span>
                         </label>
                         <p class="text-muted">ใช้งานได้เมื่อมีการ train data เรียบร้อยแล้ว</p>
@@ -298,7 +298,7 @@
                         ?>
                         <tr id="session-<?php echo $rows['session_id']; ?>">
                             <th scope="row">
-                              <span class="mb-0 text-sm"><?php echo $rows['session_adap'] == 1 ? '<span class="badge badge-primary">Adaptive</span>' : ''; ?> <?php echo $rows['examination_title']; ?> <?php echo $rows['session_password'] != null ? '<i class="fas fa-key"></i>' : ''; ?> <small>[<?php echo $rows['subject_title']; ?>]</small></span>
+                              <span class="mb-0 text-sm"><?php echo $rows['session_adap'] != 0 ? '<span class="badge badge-primary">Adaptive</span>' : ''; ?> <?php echo $rows['examination_title']; ?> <?php echo $rows['session_password'] != null ? '<i class="fas fa-key"></i>' : ''; ?> <small>[<?php echo $rows['subject_title']; ?>]</small></span>
                             </th>
                             <td>
                               <?php echo date('l d, M Y', strtotime($rows['session_start'])); ?>
