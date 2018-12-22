@@ -43,7 +43,7 @@
                                     <option value="<?php echo $rows['examination_id']; ?>"><?php echo $rows['examination_title']; ?></option>
                             <?php } } ?>
                         </select>
-                        <div class="import-content"></div>
+                        <div id="import-content" class="import-content"></div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -154,6 +154,7 @@
                   <form action="javascript:void(0)" id="edit-session-form">
                   <input type="hidden" name="action" value="edit">
                   <input type="hidden" name="session_id" value="<?php echo $row['session_id']; ?>">
+                  <input type="hidden" name="import" id="adaptimport" value="<?php echo $row['session_adap']; ?>">
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="session_adap">Adaptive</label>
                       <div class="col-sm-10">
@@ -196,6 +197,7 @@
                                   <option value="<?php echo $rows['examination_id']; ?>" <?php echo ($rows['examination_id'] == $row['session_exam']) ? 'selected' : ''; ?>><?php echo $rows['examination_title']; ?></option>
                             <?php } } ?>
                         </select>
+                        <div id="import-content" class="import-content"></div>
                       </div>
                     </div>
                     <div class="form-group row">

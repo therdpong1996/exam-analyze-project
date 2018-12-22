@@ -222,7 +222,7 @@ $('#exam-form').on('submit', function () {
 
   if (checked <= 1) {
     alert("You must check at least one checkbox.");
-    return false;
+    return;
   }
 
   var sData = $(this).serialize();
