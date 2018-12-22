@@ -107,7 +107,7 @@
                     <div class="form-group row">
                       <div class="col-sm-2"></div>
                       <div class="col-sm-10">
-                        <button type="submit" id="session-add" disabled class="btn btn-success disabled">บันทึก</button>
+                        <button type="submit" id="session-add" class="session-btn btn btn-success">บันทึก</button>
                         <a href="<?php url('session/'); ?>" class="btn btn-danger">ยกเลิก</a>
                       </div>
                     </div>
@@ -261,7 +261,7 @@
                     <div class="form-group row">
                       <div class="col-sm-2"></div>
                       <div class="col-sm-10">
-                        <button type="submit" id="session-save" class="btn btn-success">บันทึก</button>
+                        <button type="submit" id="session-save" class="session-btn btn btn-success">บันทึก</button>
                         <a href="<?php url('subject/'); ?>" class="btn btn-danger">ยกเลิก</a>
                       </div>
                     </div>

@@ -414,6 +414,8 @@ examination_delete = function (examination_id) {
 };
 
 $('#session_exam').on('change', function () {
+  $('#adaptimport').val('none');
+  $('div.session-btn').attr("disabled", "disabled").addClass("disabled");
   $('#import-content').html('<p><i class="fa fa-spinner fa-spin"></i> Loading...</p>');
   var examid = $(this).val();
   $.ajax({
@@ -428,7 +430,7 @@ $('#session_exam').on('change', function () {
         $('#import-content').html(response);
       }else{
         $('#adaptimport').val(0);
-        $('#session-add').removeAttr("disabled").removeClass("disabled");
+        $('div.session-btn').removeAttr("disabled").removeClass("disabled");
       }
     }
   });
@@ -437,5 +439,5 @@ $('#session_exam').on('change', function () {
 function addAdaptid(id){
   $('#adaptimport').val(id);
   $('#import-content').html('');
-  $('#session-add').removeAttr("disabled").removeClass("disabled");
+  $('div.session-btn').removeAttr("disabled").removeClass("disabled");
 }
