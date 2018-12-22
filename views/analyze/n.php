@@ -176,10 +176,10 @@
                         label: 'Choice Chart'
                     }],
                     labels: [
-                        'A (<?php echo round(($ac1c['c'] / $atotal) * 100); ?>%)',
-                        'B (<?php echo round(($ac2c['c'] / $atotal) * 100); ?>%)',
-                        'C (<?php echo round(($ac3c['c'] / $atotal) * 100); ?>%)',
-                        'D (<?php echo round(($ac4c['c'] / $atotal) * 100); ?>%)'
+                        'A (<?php echo round(($ac1c['c'] / $atotal) * 100)+0; ?>%)',
+                        'B (<?php echo round(($ac2c['c'] / $atotal) * 100)+0; ?>%)',
+                        'C (<?php echo round(($ac3c['c'] / $atotal) * 100)+0; ?>%)',
+                        'D (<?php echo round(($ac4c['c'] / $atotal) * 100)+0; ?>%)'
                     ]
                 },
                 options: {
