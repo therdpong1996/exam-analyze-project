@@ -43,7 +43,7 @@
                                     <option value="<?php echo $rows['examination_id']; ?>"><?php echo $rows['examination_title']; ?></option>
                             <?php } } ?>
                         </select>
-                        <div id="import-content" class="import-content"></div>
+                        <div id="import-content" class="import-content mt-2"></div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -197,7 +197,7 @@
                                   <option value="<?php echo $rows['examination_id']; ?>" <?php echo ($rows['examination_id'] == $row['session_exam']) ? 'selected' : ''; ?>><?php echo $rows['examination_title']; ?></option>
                             <?php } } ?>
                         </select>
-                        <div id="import-content" class="import-content"></div>
+                        <div id="import-content" class="import-content mt-2"></div>
                       </div>
                     </div>
                     <div class="form-group row">

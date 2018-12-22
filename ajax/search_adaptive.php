@@ -23,8 +23,8 @@ $stm->bindParam("examid", $_POST['examid']);
 $stm->execute();
 while ($row = $stm->fetch(PDO::FETCH_ASSOC)){ ?>
 
-    <p onclick="addAdaptid(<?php __($row['adap_id']); ?>)">Import ข้อมูลการวิเคราะห์ของ <?php __($row['full_name']); ?> มีผู้ทดสอบจำนวน <?php __($row['std_number']); ?> คน อัพเดทล่าสุด <?php __($row['time_update']); ?></p>
+    <button class="btn btn-info btn-sm btn-block mb-2" type="button" onclick="addAdaptid(<?php __($row['adap_id']); ?>)">Import ข้อมูลการวิเคราะห์ของ <?php __($row['full_name']); ?> มีผู้ทดสอบจำนวน <?php __($row['std_number']); ?> คน อัพเดทล่าสุดเมื่อ <?php __($row['time_update']); ?></button>
 
 <?php } ?>
 
-    <p onclick="addAdaptid(0)">ไม่ Import ข้อมูลการวิเคราะห์</p>
+    <button class="btn btn-warning btn-sm btn-block mb-3" type="button" onclick="addAdaptid(0)">ไม่ Import ข้อมูลการวิเคราะห์</button>
