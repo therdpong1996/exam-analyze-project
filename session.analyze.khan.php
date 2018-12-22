@@ -18,14 +18,50 @@
     if ($user_row['role'] == 2) {
 
         if ($_POST['action'] == 1) {
-            $stm = $_DB->prepare('SELECT * FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.examination = :exam AND answer_data.temp = 0 ORDER BY users.stu_id ASC');
+
+            $stm = $_DB->prepare('SELECT * FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.examination = :exam ORDER BY users.stu_id ASC');
             $stm->bindParam(':exam', $_POST['examination'], PDO::PARAM_INT);
+
+            $stm2 = $_DB->prepare("SELECT COUNT(DISTINCT(answer_data.uid)) AS stdn FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.examination = :exam ORDER BY users.stu_id ASC");
+            $stm2->bindParam(':exam', $_POST['examination'], PDO::PARAM_INT);
+            $stm2->execute();
+            $row = $stm2->fetch(PDO::FETCH_ASSOC);
+
+            $stm3 = $_DB->prepare("UPDATE adaptive_table SET std_number = :number WHERE adap_id = :id");
+            $stm3->bindParam(':number', $row['stdn'], PDO::PARAM_INT);
+            $stm3->bindParam(':id', $_POST['adaptable'], PDO::PARAM_INT);
+            $stm3->execute();
+
         }elseif ($_POST['action'] == 2) {
-            $stm = $_DB->prepare('SELECT * FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.adap_table = :adapt AND answer_data.temp = 0 ORDER BY users.stu_id ASC');
+
+            $stm = $_DB->prepare('SELECT * FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.adap_table = :adapt ORDER BY users.stu_id ASC');
             $stm->bindParam(':adapt', $_POST['refadap'], PDO::PARAM_INT);
+
+            $stm2 = $_DB->prepare("SELECT COUNT(DISTINCT(answer_data.uid)) AS stdn FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.adap_table = :adapt ORDER BY users.stu_id ASC");
+            $stm2->bindParam(':adapt', $_POST['refadap'], PDO::PARAM_INT);
+            $stm2->execute();
+            $row = $stm2->fetch(PDO::FETCH_ASSOC);
+
+            $stm3 = $_DB->prepare("UPDATE adaptive_table SET std_number = :number WHERE adap_id = :id");
+            $stm3->bindParam(':number', $row['stdn'], PDO::PARAM_INT);
+            $stm3->bindParam(':id', $_POST['adaptable'], PDO::PARAM_INT);
+            $stm3->execute();
+
         }else{
-            $stm = $_DB->prepare('SELECT * FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.session = :session AND answer_data.temp = 0 ORDER BY users.stu_id ASC');
+
+            $stm = $_DB->prepare('SELECT * FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.session = :session ORDER BY users.stu_id ASC');
             $stm->bindParam(':session', $_POST['session_id'], PDO::PARAM_INT);
+
+            $stm2 = $_DB->prepare("SELECT COUNT(DISTINCT(answer_data.uid)) AS stdn FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.session = :session ORDER BY users.stu_id ASC");
+            $stm2->bindParam(':session', $_POST['session_id'], PDO::PARAM_INT);
+            $stm2->execute();
+            $row = $stm2->fetch(PDO::FETCH_ASSOC);
+
+            $stm3 = $_DB->prepare("UPDATE adaptive_table SET std_number = :number WHERE adap_id = :id");
+            $stm3->bindParam(':number', $row['stdn'], PDO::PARAM_INT);
+            $stm3->bindParam(':id', $_POST['adaptable'], PDO::PARAM_INT);
+            $stm3->execute();
+
         }
         $stm->execute();
         while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {

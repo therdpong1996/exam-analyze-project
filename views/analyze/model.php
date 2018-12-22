@@ -141,6 +141,24 @@
                                                     <option value="3">เลือกเฉพาะของเซสซั่นนี้</option>
                                                 </select>  
                                             </div>
+                                            <div class="form-group">
+                                                <select class="form-control" name="action">
+                                                    <option value="9" disabled selected>การนำเข้าข้อมูลการ Train</option>
+                                                    <option value="0">สร้างตารางข้อมูลขึ้นมาใหม่</option>
+                                                    <?php
+                                                        $stme = $_DB->prepare("SELECT adap_id,std_number,time_update FROM adaptive_table WHERE uid = :uid");
+                                                        $stme->bindParam(":uid", $user_row['uid']);
+                                                        $stme->execute();
+                                                        while ($rows = $stme->fetch(PDO::FETCH_ASSOC)) {
+                                                    ?>
+                                                        <option value="<?php __($rows['adap_id']); ?>">Additional Train ในข้อมูลวันที่ <?php __($rows['time_update']); ?> จำนวน <?php __($rows['std_number']); ?> คน</option>
+                                                    <?php
+                                                        }
+                                                    ?>
+                                                    <option value="" <?php echo ($row1['cn'] != $row2['cn'])?'disabled':''; ?>>เลือกเฉพาะข้อมูลที่เกี่ยวข้อง</option>
+                                                    <option value="3">เลือกเฉพาะของเซสซั่นนี้</option>
+                                                </select>  
+                                            </div>
                                             <button id="train-btn" type="submit" <?php echo timebetween($session['session_start'], $session['session_end']) ? 'disabled' : ''; ?> class="btn btn-success btn-lg <?php echo timebetween($session['session_start'], $session['session_end']) ? 'disabled' : ''; ?>">Train data</button>
                                         </div>
                                         <div class="col-6">
