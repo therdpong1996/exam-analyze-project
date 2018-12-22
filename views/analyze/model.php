@@ -146,8 +146,9 @@
                                                     <option value="9" disabled selected>การนำเข้าข้อมูลการ Train</option>
                                                     <option value="0">สร้างตารางข้อมูลขึ้นมาใหม่</option>
                                                     <?php
-                                                        $stme = $_DB->prepare("SELECT adap_id,std_number,time_update FROM adaptive_table WHERE uid = :uid");
+                                                        $stme = $_DB->prepare("SELECT adap_id,std_number,time_update FROM adaptive_table WHERE uid = :uid AND exam_id = :exam");
                                                         $stme->bindParam(":uid", $user_row['uid']);
+                                                        $stme->bindParam(":exam", $session['session_exam']);
                                                         $stme->execute();
                                                         while ($rows = $stme->fetch(PDO::FETCH_ASSOC)) {
                                                     ?>
@@ -155,13 +156,22 @@
                                                     <?php
                                                         }
                                                     ?>
-                                                    <option value="" <?php echo ($row1['cn'] != $row2['cn'])?'disabled':''; ?>>เลือกเฉพาะข้อมูลที่เกี่ยวข้อง</option>
-                                                    <option value="3">เลือกเฉพาะของเซสซั่นนี้</option>
                                                 </select>  
                                             </div>
                                             <button id="train-btn" type="submit" <?php echo timebetween($session['session_start'], $session['session_end']) ? 'disabled' : ''; ?> class="btn btn-success btn-lg <?php echo timebetween($session['session_start'], $session['session_end']) ? 'disabled' : ''; ?>">Train data</button>
                                         </div>
                                         <div class="col-6">
+                                            README
+                                                <dl>
+                                                    <dt>รูปแบบการ Train</dt>
+                                                    <dd><strong>เลือกข้อมูลทั้งหมดในคลังข้อสอบ</strong> คือ นำข้อมูลการสอบทั้งหมดที่ผ่านมาของข้อสอบชุด "" และทุกเซสชั่น(รวมถึงเซสชั่นนี้) เพื่อนำมาวิเคราะร์ข้อมูล</dd>
+                                                    <dd><strong>เลือกเฉพาะข้อมูลที่เกี่ยวข้อง</strong> คือ นำข้อมูลการสอบทั้งหมดที่อยู่ในการ Import ของทุกเซสชั่น(รวมถึงเซสชั่นนี้) เพื่อนำมาวิเคราะร์ข้อมูล</dd>
+                                                    <dd><strong>เลือกข้อมูลทั้งหมดในคลังข้อสอบ</strong> คือ นำข้อมูลการสอบทั้งหมดที่ของเซสชั่นนี้ เพื่อนำมาวิเคราะร์ข้อมูล</dd>
+                                                    <dt>รูปแบบการ Train</dt>
+                                                    <dd><strong>สร้างตารางข้อมูลขึ้นมาใหม่</strong> คือ การนำข้อมูลที่วิเคราะห์แล้ว นำมาสร้างตารางข้อมูลขึ้นมาใหม่ ให้เป็นของเรา</dd>
+                                                    <dd><strong>Additional Train</strong> คือ การนำข้อมูลที่วิเคราะห์แล้ว นำไปรวมข้อมูลเดิมของเราที่วิเคราะห์แล้วเช่นกัน (ชุดข้อสอบ ต้องเป็นชุดเดียวกัน)</dd>
+
+                                                </dl>
                                         </div>
                                     </div>
                                     
