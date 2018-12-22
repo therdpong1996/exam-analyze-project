@@ -156,7 +156,7 @@
                     },
                 }
             };
-
+            <?php if (($ac1c['c'] + $ac2c['c'] + $ac3c['c'] + $ac4c['c']) >= 1) { ?>
             var Aconfig = {
                 type: 'pie',
                 data: {
@@ -176,10 +176,10 @@
                         label: 'Choice Chart'
                     }],
                     labels: [
-                        'A (<?php echo round(($ac1c['c'] / $atotal) * 100)+0; ?>%)',
-                        'B (<?php echo round(($ac2c['c'] / $atotal) * 100)+0; ?>%)',
-                        'C (<?php echo round(($ac3c['c'] / $atotal) * 100)+0; ?>%)',
-                        'D (<?php echo round(($ac4c['c'] / $atotal) * 100)+0; ?>%)'
+                        'A (<?php echo round(($ac1c['c']+0 / $atotal) * 100); ?>%)',
+                        'B (<?php echo round(($ac2c['c']+0 / $atotal) * 100); ?>%)',
+                        'C (<?php echo round(($ac3c['c']+0 / $atotal) * 100); ?>%)',
+                        'D (<?php echo round(($ac4c['c']+0 / $atotal) * 100); ?>%)'
                     ]
                 },
                 options: {
@@ -193,7 +193,7 @@
                     },
                 }
             };
-
+            <?php } ?>
             window.onload = function() {
                 var ctx = document.getElementById('choiceChart').getContext('2d');
                 window.myPie = new Chart(ctx, Nconfig);
