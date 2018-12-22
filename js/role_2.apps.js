@@ -36,6 +36,13 @@ $('#add-subject-form').on('submit', function () {
 $('#add-session-form').on('submit', function () {
   var oldtext = $('#session-add').html();
   $('#session-add').html('<i class="fa fa-spinner fa-spin"></i> Process..');
+
+  var imadt = $('#adaptimport').val();
+
+  if (imadt == 'none') {
+    alert('กรุณาเลือกข้อมูลการ Import');
+    return;
+  }
   var sData = $(this).serialize();
   $.ajax({
       type: "POST",
@@ -213,7 +220,7 @@ $('#exam-form').on('submit', function () {
   $('#exam-add').html('<i class="fa fa-spinner fa-spin"></i> Process..');
   checked = $("input[type=checkbox]:checked").length;
 
-  if (!checked) {
+  if (checked <= 1) {
     alert("You must check at least one checkbox.");
     return false;
   }
@@ -405,3 +412,25 @@ examination_delete = function (examination_id) {
     }
   });
 };
+
+$('#session_exam').on('change', function () {
+  $('#import-content').html('<p><i class="fa fa-spinner fa-spin"></i> Loading...</p>');
+  var examid = $(this).val();
+  $.ajax({
+    type: "POST",
+    url: weburl + "ajax/search_adaptive",
+    data: {
+      examid: examid
+    },
+    dataType: "html",
+    success: function (response) {
+      $('#import-content').html(response);
+    }
+  });
+});
+
+function addAdaptid(id){
+  $('#adaptimport').val(id);
+  $('#import-content').html('');
+  $('#session-add').removeAttr("disabled").removeClass("disabled");
+}

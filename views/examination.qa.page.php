@@ -56,7 +56,7 @@
             </div>
         </div>
         <script type="text/javascript">
-            var examination_id = ''<?php echo $exam['examination_id']; ?>;
+            var examination_id = '<?php echo $exam['examination_id']; ?>';
             var Examorder = [];
             $('.list-exam-sortable').sortable({
                 placeholderClass: 'list-exam-item',

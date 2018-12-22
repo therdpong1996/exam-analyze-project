@@ -23,10 +23,12 @@
                 <div class="card-body">
                   <form action="javascript:void(0)" id="add-session-form">
                     <input type="hidden" name="action" value="add">
+                    <input type="hidden" name="import" id="adaptimport" value="none">
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="session_exam">ข้อสอบ</label>
                       <div class="col-sm-10">
                         <select class="form-control" id="session_exam" name="session_exam" required>
+                            <option value="0" disabled selected>เลือกชุดข้อสอบ</option>
                             <?php
                                 $stm1 = $_DB->prepare("SELECT subject_id FROM subject_owner WHERE uid = :uid");
                                 $stm1->bindParam(":uid", $user_row['uid']);
@@ -41,6 +43,7 @@
                                     <option value="<?php echo $rows['examination_id']; ?>"><?php echo $rows['examination_title']; ?></option>
                             <?php } } ?>
                         </select>
+                        <div class="import-content"></div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -104,7 +107,7 @@
                     <div class="form-group row">
                       <div class="col-sm-2"></div>
                       <div class="col-sm-10">
-                        <button type="submit" id="session-add" class="btn btn-success">บันทึก</button>
+                        <button type="submit" id="session-add" disabled class="btn btn-success disabled">บันทึก</button>
                         <a href="<?php url('session/'); ?>" class="btn btn-danger">ยกเลิก</a>
                       </div>
                     </div>
