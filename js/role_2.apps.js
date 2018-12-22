@@ -424,7 +424,12 @@ $('#session_exam').on('change', function () {
     },
     dataType: "html",
     success: function (response) {
-      $('#import-content').html(response);
+      if (response.length > 1){
+        $('#import-content').html(response);
+      }else{
+        $('#adaptimport').val(0);
+        $('#session-add').removeAttr("disabled").removeClass("disabled");
+      }
     }
   });
 });
