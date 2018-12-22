@@ -16,9 +16,12 @@
                 </div>
                 <div class="card-body">
                 <?php
-                  $stmt = $_DB->prepare('SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam AND qa_delete = 0 ORDER BY qa_order ASC');
-                  $stmt->bindParam(':subject', $session['examination_subject']);
-                  $stmt->bindParam(':exam', $session['examination_id']);
+                  if (isset($_GET['adaptive'])) {
+                    $stmt = $_DB->prepare("SELECT DISTINCT(question),qa_id,qa_order,qa_question FROM adaptive_answer_data JOIN q_and_a ON answer_data.question = q_and_a.qa_id WHERE answer_data.session = :session AND answer_data.temp = 0 ORDER BY q_and_a.qa_order ASC");
+                  }else{
+                    $stmt = $_DB->prepare("SELECT DISTINCT(question),qa_id,qa_order,qa_question FROM answer_data JOIN q_and_a ON answer_data.question = q_and_a.qa_id WHERE answer_data.session = :session AND answer_data.temp = 0 ORDER BY q_and_a.qa_order ASC");
+                  }
+                  $stmt->bindParam(':session', $session['session_id']);
                   $stmt->execute();
                   while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 

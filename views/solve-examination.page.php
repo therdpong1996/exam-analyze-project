@@ -42,20 +42,15 @@
 
                     $answer_arr = explode(',', $answer['qa_choice_true']);
 
-                    $stmt = $_DB->prepare('SELECT * FROM answer_data WHERE subject = :subject AND examination = :exam AND uid = :uid AND session = :session ORDER BY id ASC');
+                    $stmt = $_DB->prepare('SELECT DISTINCT(question),qa_id,qa_order,qa_question,ans_check FROM answer_data JOIN q_and_a ON answer_data.question = q_and_a.qa_id WHERE subject = :subject AND examination = :exam AND uid = :uid AND session = :session AND answer_data.temp = 0 ORDER BY q_and_a.qa_order ASC');
                     $stmt->bindParam(':subject', $session['examination_subject']);
                     $stmt->bindParam(':exam', $session['examination_id']);
                     $stmt->bindParam(':uid', $user_row['uid'], PDO::PARAM_INT);
                     $stmt->bindParam(':session', $session['session_id'], PDO::PARAM_INT);
                     $stmt->execute();
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        $stmt2 = $_DB->prepare('SELECT qa_id,qa_order,qa_question FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_order ASC');
-                        $stmt2->bindParam(':subject', $session['examination_subject']);
-                        $stmt2->bindParam(':exam', $session['examination_id']);
-                        $stmt2->execute();
-                        $qqq = $stm->fetch(PDO::FETCH_ASSOC);
                     ?>
-                        <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="?n=<?php echo $qqq['qa_id']; ?>" class="btn <?php echo $row['ans_check'] == 0 ? 'btn-danger' : 'btn-outline-primary'; ?> mb-1 btn-block"><?php echo $qqq['qa_order']; ?>.<?php echo strip_tags($qqq['qa_question']); ?></a>
+                        <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="?n=<?php echo $row['qa_id']; ?>" class="btn <?php echo $row['ans_check'] == 0 ? 'btn-danger' : 'btn-outline-primary'; ?> mb-1 btn-block"><?php echo $row['qa_order']; ?>.<?php echo strip_tags($row['qa_question']); ?></a>
                 <?php
                     }
                 ?>

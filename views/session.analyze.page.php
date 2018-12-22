@@ -31,11 +31,10 @@
                 $exam_row = $stmt->fetch(PDO::FETCH_ASSOC);
                 $answer_arr = explode(',', $exam_row['qa_choice_true']);
 
-                $stmt = $_DB->prepare('SELECT qa_id,qa_order,qa_question FROM q_and_a WHERE qa_subject = :subject AND qa_delete = 0 AND qa_exam = :exam ORDER BY qa_order ASC');
-                $stmt->bindParam(':subject', $session['examination_subject']);
-                $stmt->bindParam(':exam', $session['examination_id']);
+                $stmt = $_DB->prepare('SELECT DISTINCT(question),qa_id,qa_order,qa_question FROM answer_data JOIN q_and_a ON answer_data.question = q_and_a.qa_id WHERE answer_data.session = :session AND answer_data.temp = 0 ORDER BY q_and_a.qa_order ASC');
+                $stmt->bindParam(':session', $session['session_id']);
                 $stmt->execute();
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                while ($rows = $stmt->fetch(PDO::FETCH_ASSOC)) {
             ?>
                     <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="?session_id=<?php echo $session['session_id']; ?>&n=<?php echo $row['qa_id']; ?>" class="btn btn-outline-primary mb-1 btn-block <?php echo $row['qa_id'] == $n ? 'active' : ''; ?>"><?php echo $row['qa_order']; ?>.<?php echo strip_tags($row['qa_question']); ?></a>
             <?php
