@@ -34,7 +34,7 @@
                 $stmt = $_DB->prepare('SELECT DISTINCT(question),qa_id,qa_order,qa_question FROM answer_data JOIN q_and_a ON answer_data.question = q_and_a.qa_id WHERE answer_data.session = :session AND answer_data.temp = 0 ORDER BY q_and_a.qa_order ASC');
                 $stmt->bindParam(':session', $session['session_id']);
                 $stmt->execute();
-                while ($rows = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             ?>
                     <a style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" href="?session_id=<?php echo $session['session_id']; ?>&n=<?php echo $row['qa_id']; ?>" class="btn btn-outline-primary mb-1 btn-block <?php echo $row['qa_id'] == $n ? 'active' : ''; ?>"><?php echo $row['qa_order']; ?>.<?php echo strip_tags($row['qa_question']); ?></a>
             <?php
