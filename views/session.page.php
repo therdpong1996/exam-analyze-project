@@ -47,6 +47,31 @@
                       </div>
                     </div>
                     <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="session_adap">Adaptive</label>
+                      <div class="col-sm-10">
+                        <label class="custom-toggle">
+                          <input id="session_adap" type="checkbox" name="session_adap" value="1" <?php echo $row['session_adap'] != 0 ? 'checked' : ''; ?> <?php echo $row['session_train'] == 0 ? 'disabled' : ''; ?>>
+                          <span class="custom-toggle-slider rounded-circle"></span>
+                        </label>
+                        <p class="text-muted">ใช้งานได้เมื่อมีการ train data เรียบร้อยแล้ว</p>
+                      </div>
+                    </div>
+                    <div class="form-group row" id="adaptive-number" <?php echo ($row['session_adap'] == 0)?'style="display:none;"':''; ?>>
+                      <label class="col-sm-2 col-form-label" for="session_adap_number">จำนวนข้อ</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="session_adap_number" name="session_adap_number" value="<?php echo $row['session_adap_number']; ?>">
+                      </div>
+                    </div>
+                    <script>
+                      $("input#session_adap").change(function() {
+                          if(this.checked) {
+                            $('#adaptive-number').fadeIn(200)
+                          }else{
+                            $('#adaptive-number').fadeOut(200)
+                          }
+                      });
+                    </script>
+                    <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="session_start">ระยะเวลา</label>
                       <div class="col-sm-10">
                         <div class="input-daterange datepicker row align-items-center">
