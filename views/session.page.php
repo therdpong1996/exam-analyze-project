@@ -155,6 +155,27 @@
                   <input type="hidden" name="action" value="edit">
                   <input type="hidden" name="session_id" value="<?php echo $row['session_id']; ?>">
                   <input type="hidden" name="import" id="adaptimport" value="<?php echo $row['session_adap']; ?>">
+                    
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="session_exam">ข้อสอบ</label>
+                      <div class="col-sm-10">
+                        <select class="form-control" id="session_exam" name="session_exam" required>
+                            <?php
+                                $stm1 = $_DB->prepare("SELECT subject_id FROM subject_owner WHERE uid = :uid");
+                                $stm1->bindParam(":uid", $user_row['uid']);
+                                $stm1->execute();
+                                while ($orows = $stm1->fetch(PDO::FETCH_ASSOC)) {
+                                    $stm = $_DB->prepare('SELECT * FROM examinations WHERE examination_subject = :id');
+                                    $stm->bindParam(':id', $orows['subject_id']);
+                                    $stm->execute();
+                                    while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                            ?>
+                                  <option value="<?php echo $rows['examination_id']; ?>" <?php echo ($rows['examination_id'] == $row['session_exam']) ? 'selected' : ''; ?>><?php echo $rows['examination_title']; ?></option>
+                            <?php } } ?>
+                        </select>
+                        <div id="import-content" class="import-content mt-2"></div>
+                      </div>
+                    </div>
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="session_adap">Adaptive</label>
                       <div class="col-sm-10">
@@ -180,26 +201,6 @@
                           }
                       });
                     </script>
-                    <div class="form-group row">
-                      <label class="col-sm-2 col-form-label" for="session_exam">ข้อสอบ</label>
-                      <div class="col-sm-10">
-                        <select class="form-control" id="session_exam" name="session_exam" required>
-                            <?php
-                                $stm1 = $_DB->prepare("SELECT subject_id FROM subject_owner WHERE uid = :uid");
-                                $stm1->bindParam(":uid", $user_row['uid']);
-                                $stm1->execute();
-                                while ($orows = $stm1->fetch(PDO::FETCH_ASSOC)) {
-                                    $stm = $_DB->prepare('SELECT * FROM examinations WHERE examination_subject = :id');
-                                    $stm->bindParam(':id', $orows['subject_id']);
-                                    $stm->execute();
-                                    while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
-                            ?>
-                                  <option value="<?php echo $rows['examination_id']; ?>" <?php echo ($rows['examination_id'] == $row['session_exam']) ? 'selected' : ''; ?>><?php echo $rows['examination_title']; ?></option>
-                            <?php } } ?>
-                        </select>
-                        <div id="import-content" class="import-content mt-2"></div>
-                      </div>
-                    </div>
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="session_start">ระยะเวลา</label>
                       <div class="col-sm-10">

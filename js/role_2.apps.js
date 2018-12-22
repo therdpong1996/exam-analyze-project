@@ -438,6 +438,13 @@ $('#session_exam').on('change', function () {
 });
 
 function addAdaptid(id){
+  if (id != 0) {
+    $('#adaptive-number').fadeIn(200);
+    $('#session_adap').removeAttr("disabled");
+  }else{
+    $('#adaptive-number').fadeOut(200);
+    $('#session_adap').attr("disabled", "disabled").addClass("disabled");
+  }
   $('#adaptimport').val(id);
   $('#import-content').html('');
   $('button.session-btn').removeAttr("disabled").removeClass("disabled");
