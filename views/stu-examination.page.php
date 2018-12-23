@@ -84,7 +84,7 @@
 
                                         <?php if ($crow['score_id']) { ?>
                                             <?php if ($rows['session_solve']) { ?>
-                                            <?php if ($rows['session_adap']) { ?>
+                                            <?php if ($rows['session_adap_active']) { ?>
                                                 <a class="btn btn-outline-success btn-block mt-4 pt-4 pb-4" href="<?php url('solve-examination-adaptive/'.$rows['session_id']); ?>"><?php echo $crow['score']; ?>/<?php echo $scfull; ?></a>
                                             <?php } else { ?>
                                                 <a class="btn btn-outline-success btn-block mt-4 pt-4 pb-4" href="<?php url('solve-examination/'.$rows['session_id']); ?>"><?php echo $crow['score']; ?>/<?php echo $scfull; ?></a>
@@ -95,7 +95,7 @@
                                         <?php
                                             if (timebetween($rows['session_start'], $rows['session_end'])) {
 
-                                                if ($rows['session_adap']) {
+                                                if ($rows['session_adap_active']) {
                                                     $stm = $_DB->prepare('SELECT * FROM adaptive_time_remaining JOIN sessions ON adaptive_time_remaining.session = sessions.session_id JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE adaptive_time_remaining.uid = :uid AND adaptive_time_remaining.session = :session AND adaptive_time_remaining.time_status = 0 LIMIT 1');
                                                     $stm->bindParam(':uid', $user_row['uid']);
                                                     $stm->bindParam(':session', $rows['session_id']);
@@ -114,7 +114,7 @@
                                             } else {
                                                 $textbtn = 'เข้าทดสอบ';
                                             }
-                                            if ($rows['session_adap']) {
+                                            if ($rows['session_adap_active']) {
                                         ?>
                                             <a href="<?php url('doing-examination-adaptive/'.$rows['session_id']); ?>" class="btn btn-primary btn-block mt-4 pt-4 pb-4"><?php echo $textbtn; ?></a>
                                         <?php  } else { ?>

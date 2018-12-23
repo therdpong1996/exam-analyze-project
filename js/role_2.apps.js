@@ -414,7 +414,7 @@ examination_delete = function (examination_id) {
 };
 
 $('#session_exam').on('change', function () {
-  $('#adaptimport').val('none');
+  $('#adaptimport').val(0);
   $('button.session-btn').attr("disabled", "disabled").addClass("disabled");
   $('#import-content').html('<p><i class="fa fa-spinner fa-spin"></i> Loading...</p>');
   var examid = $(this).val();
