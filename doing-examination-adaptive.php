@@ -53,7 +53,7 @@
         if ($crow['score_id'] or time() > strtotime($session['session_end'])) {
             include_once __DIR__.'/views/denied.page.php';
         } else {
-            if ($session['session_adap'] == 1) {
+            if ($session['session_adap_active'] == 1) {
                 if (empty($permid['subject_id'])) {
                     include_once __DIR__.'/views/denied.page.php';
                 }else{

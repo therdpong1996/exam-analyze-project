@@ -34,7 +34,7 @@
         if (empty($crow['score_id']) or $session['session_solve'] != 1) {
             include_once __DIR__.'/views/denied.page.php';
         } else {
-            if ($session['session_adap'] == 1) {
+            if ($session['session_adap_active'] == 1) {
                 include_once __DIR__.'/views/solve-examination-adaptive.page.php';
             } else {
                 include_once __DIR__.'/views/denied.page.php';
