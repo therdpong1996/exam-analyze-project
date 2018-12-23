@@ -15,11 +15,16 @@
                 $stmc->bindParam(":uid", $user_row['uid']);
                 $stmc->execute();
                 while ($srow = $stmc->fetch(PDO::FETCH_ASSOC)) {
+                    $in = $srow['subject_id'].',';
+                }
+                $in = rtrim($in, ",");
+                $in = '('.$in.')';
+                echo $in;
 
-                    $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE subjects.subject_id = :subject_id ORDER BY sessions.session_start ASC');
-                    $stm->bindParam(":subject_id", $srow['subject_id']);
-                    $stm->execute();
-                    while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE subjects.subject_id IN :subject ORDER BY sessions.session_start ASC');
+                $stm->bindParam(":subject", $in);
+                $stm->execute();
+                while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
             ?>
                     <div class="col-xl-6" id="exam-content">
                         <div class="card shadow mb-3">
@@ -29,7 +34,7 @@
                                         <h2 class="mb-0"><?php echo $rows['examination_title']; ?> <?php if ($rows['session_adap']): ?><span class="badge badge-primary">Adaptive</span><?php endif; ?> <?php if ($rows['session_password']): ?><small class="badge badge-warning">ข้อสอบนี้มีการกำหนดรหัสผ่าน</small><?php endif; ?></h2>
                                         <h6 class="text-uppercase text-muted ls-1 mb-1"><?php echo $rows['subject_title']; ?></h6>
                                         <?php if ($rows['session_adap']): ?>
-                                            <small class="text-danger">ข้อสอบนี้จะปรับความยาก-ง่ายตามความสามารถของผุ้ทดสอบ</small>
+                                            <small class="text-danger">ข้อสอบนี้จะปรับความยาก-ง่ายตามความสามารถของผู้ทดสอบ</small>
                                         <?php endif; ?>
                                     </div>
                                 </div>
@@ -128,6 +133,6 @@
                             </div>
                         </div>
                     </div>
-            <?php } } ?>
+            <?php } ?>
         </div>
     </div>
