@@ -16,8 +16,8 @@
     unset($_COOKIE['sim_number']);
     setcookie('sim_number', null, -1, '/');
 
-    $uid = $_POST['uid'];
-    $session_id = $_POST['session'];
+    $uid = $_SESSION['uid'];
+    $session_id = 0;
     $adaptable = $_POST['adaptable'];
 
     $token = md5('computerizedadaptivetesting' . $session_id);
