@@ -32,7 +32,7 @@
     include_once __DIR__.'/views/parts/sidemenu.common.php';
 
     $password_fail = false;
-
+    $_SESSION['exam_lock'] = false;
     if ($session['session_password'] != null and !isset($_SESSION['exam_lock'])) {
         $_SESSION['exam_lock'] = false;
     }
