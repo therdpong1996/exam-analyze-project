@@ -198,6 +198,14 @@
                                   <option value="<?php echo $rows['examination_id']; ?>" <?php echo ($rows['examination_id'] == $row['session_exam']) ? 'selected' : ''; ?>><?php echo $rows['examination_title']; ?></option>
                             <?php } } ?>
                         </select>
+                        <?php if($row['session_adap'] != 0){
+                              $stm5 = $_DB->prepare("SELECT adap_id,std_number,time_update,users.full_name FROM adaptive_table JOIN users ON adaptive_table.uid = users.uid WHERE adaptive_table.adap_id = :adap_id");
+                              $stm5->bindParam(":adap_id", $row['session_adap']);
+                              $stm5->execute();
+                              $adapnow = $stm5->fetch(PDO::FETCH_ASSOC)
+                        ?>
+                        <small class="text-muted">Import ข้อมูลการวิเคราะห์ของ <?php __($row['full_name']); ?> มีผู้ทดสอบจำนวน <?php __($row['std_number']); ?> คน อัพเดทล่าสุดเมื่อ <?php __($row['time_update']); ?></small>
+                        <?php } ?>
                         <div id="import-content" class="import-content mt-2"></div>
                       </div>
                     </div>
