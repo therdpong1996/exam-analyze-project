@@ -45,7 +45,7 @@
         $solve = (isset($_POST['session_solve']) ? '1' : '0');
         $number = (isset($_POST['session_adap_number']) ? $_POST['session_adap_number'] : '0');
         $import = $_POST['adaptimport'];
-        $adap_active = $_POST['session_adap'];
+        $adap_active = (isset($_POST['session_adap']) ? $_POST['session_adap'] : '0');
 
         if($import != 0){
             $train = 1;
@@ -105,7 +105,7 @@
         $solve = (isset($_POST['session_solve']) ? '1' : '0');
         $number = $_POST['session_adap_number'];
         $import = $_POST['adaptimport'];
-        $adap_active = (isset($_POST['session_adap']) ? '1' : '0');
+        $adap_active = (isset($_POST['session_adap']) ? $_POST['session_adap'] : '0');
         if($import != 0){
             $train = 1;
         }else{
