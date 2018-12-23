@@ -69,10 +69,14 @@
                     <div id="container"></div>
                     
                     <?php 
-                        $chart_data = json_decode($session['session_model'], true);
+                        $stm1 = $_DB->prepare("SELECT * FROM adaptive_table WHERE adap_id = :aid");
+                        $stm1->bindParam(":aid", $session['session_adap']);
+                        $stm1->execute();
+                        $adrow = $stm1->fetch(PDO::FETCH_ASSOC);
+                        $chart_data = json_decode($adrow['graph_file'], true);
                     ?>
                     <script>
-                        var report = <?php echo $session['session_report']; ?>;
+                        var report = <?php echo $adrow['report_file']; ?>;
                         var chart = Highcharts.chart('container', {
                             title: {
                                 text: 'Simulation for each problem'
