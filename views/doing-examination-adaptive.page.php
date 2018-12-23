@@ -116,7 +116,7 @@
         </div>
     </div>
     <script type="text/javascript">
-        var num_cur = <?php echo isset($_COOKIE['curr_number'])?$_COOKIE['curr_number']:1; ?>;;
+        var num_cur = <?php echo isset($_COOKIE['curr_number_'.$session['session_id']])?$_COOKIE['curr_number_'.$session['session_id']]:1; ?>;;
         const content = $('div#adaptive-content');
         //FIRST VISIT
         $(document).ready(function () {
@@ -130,7 +130,7 @@
                 dataType: "html",
                 success: function (response) {
                     $('#num_current').html(num_cur)
-                    Cookies.set('curr_number', num_cur, { expires: 7, path: '/' });
+                    Cookies.set('curr_number_'+session_id, num_cur, { expires: 7, path: '/' });
                     content.html(response)
                 }
             });
@@ -149,7 +149,7 @@
                 success: function (response) {
                     num_cur++;
                     $('#num_current').html(num_cur)
-                    Cookies.set('curr_number', num_cur, { expires: 7, path: '/' });
+                    Cookies.set('curr_number_'+session_id, num_cur, { expires: 7, path: '/' });
                     content.html(response)
                 }
             });
@@ -158,7 +158,7 @@
         // TIME COUNTDOWN
         var timer = new Timer();
         if (timeleft == 0) {
-            Cookies.set('curr_number', 1, { expires: 7, path: '/' });
+            Cookies.set('curr_number_'+session_id, 1, { expires: 7, path: '/' });
             $("form#submit-exam").submit();
         }
         timer.start({countdown: true, startValues: {seconds: timeleft}});
@@ -178,7 +178,7 @@
                 confirmButtonText: 'Yes'
                 }).then((result) => {
                 if (result.value) {
-                    Cookies.set('curr_number', 1, { expires: 7, path: '/' });
+                    Cookies.set('curr_number_'+session_id, 1, { expires: 7, path: '/' });
                     $("form#submit-exam").submit();
                 }
                 })

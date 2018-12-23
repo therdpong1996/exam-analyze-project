@@ -13,8 +13,8 @@
 
     require_once '../control/init.php';
 
-    unset($_COOKIE['sim_number']);
-    setcookie('sim_number', null, -1, '/');
+    unset($_COOKIE['sim_number_'.$_POST['session_id']]);
+    setcookie('sim_number'.$_POST['session_id'], null, -1, '/');
 
     $uid = $_SESSION['uid'];
     $session_id = $_POST['session_id'];

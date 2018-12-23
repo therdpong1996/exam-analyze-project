@@ -56,7 +56,7 @@
                 </div>
             </div>
             <script>
-                var num_cur = <?php echo isset($_COOKIE['sim_number'])?$_COOKIE['sim_number']:1; ?>;
+                var num_cur = <?php echo isset($_COOKIE['sim_number_'.$session['session_id']])?$_COOKIE['sim_number_'.$session['session_id']]:1; ?>;
                 let session_id = <?php echo $session['session_id']; ?>;
                 let userid = <?php echo $user_row['uid']; ?>;
                 let number = <?php echo $session['session_adap_number']; ?>;
@@ -180,7 +180,7 @@
                             var cIndex = findChartIndex(qid);
                             chart.series[cIndex].show();
                             $('#num_current').html(num_cur)
-                            Cookies.set('sim_number', num_cur, { expires: 7, path: '/' });
+                            Cookies.set('sim_number_' + session_id, num_cur, { expires: 7, path: '/' });
                         }
                     });
                 })
@@ -202,7 +202,7 @@
                             chart.series[cIndex].show();
                             num_cur++;
                             $('#num_current').html(num_cur)
-                            Cookies.set('sim_number', num_cur, { expires: 7, path: '/' });
+                            Cookies.set('sim_number_' + session_id, num_cur, { expires: 7, path: '/' });
                         }
                     });
 
@@ -227,7 +227,7 @@
 
                 $('button#reset-sim').on('click', function (e){
                     e.preventDefault();
-                    Cookies.set('sim_number', 1, { expires: 7, path: '/' });
+                    Cookies.set('sim_number_' + session_id, 1, { expires: 7, path: '/' });
                     var data = $('form#doing-exam-form').serialize();
                     $.ajax({
                         url: weburl + 'ajax/simulation_delete',
