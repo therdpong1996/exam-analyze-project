@@ -19,10 +19,8 @@
                 }
                 $in = rtrim($in, ",");
                 $in = '('.$in.')';
-                echo $in;
-
-                $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE subjects.subject_id IN :subject ORDER BY sessions.session_start ASC');
-                $stm->bindParam(":subject", $in);
+                
+                $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE subjects.subject_id IN '.$in.' ORDER BY sessions.session_start ASC');
                 $stm->execute();
                 while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
             ?>
