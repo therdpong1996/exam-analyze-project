@@ -204,7 +204,7 @@
                               $stm5->execute();
                               $adapnow = $stm5->fetch(PDO::FETCH_ASSOC)
                         ?>
-                        <small class="text-muted">Import ข้อมูลการวิเคราะห์ของ <?php __($row['full_name']); ?> มีผู้ทดสอบจำนวน <?php __($row['std_number']); ?> คน อัพเดทล่าสุดเมื่อ <?php __($row['time_update']); ?></small>
+                        <small class="text-muted">Import ข้อมูลการวิเคราะห์ของ <?php __($adapnow['full_name']); ?> มีผู้ทดสอบจำนวน <?php __($adapnow['std_number']); ?> คน อัพเดทล่าสุดเมื่อ <?php __($adapnow['time_update']); ?></small>
                         <?php } ?>
                         <div id="import-content" class="import-content mt-2"></div>
                       </div>

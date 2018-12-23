@@ -45,6 +45,7 @@
         <div class="row">
         <script type="text/javascript">
             let session_id = <?php echo $session['session_id']; ?>;
+            let adap_table = <?php echo $session['session_adap']; ?>;
             let userid = <?php echo $user_row['uid']; ?>;
             let timeleft = <?php echo $time_ree; ?>;
             let number = <?php echo $session['session_adap_number']; ?>;
@@ -125,7 +126,7 @@
             $.ajax({
                 type: "POST",
                 url: weburl + "ajax/adaptive_firstrun",
-                data: {userid: userid, session: session_id, number: number},
+                data: {userid: userid, session: session_id, adap_table: adap_table, number: number},
                 dataType: "html",
                 success: function (response) {
                     $('#num_current').html(num_cur)

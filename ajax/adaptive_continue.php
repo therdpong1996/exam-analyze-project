@@ -12,6 +12,7 @@
     $subject = $_POST['subject'];
     $examination = $_POST['examination'];
     $session = $_POST['session'];
+    $adap_table = $_POST['adap_table'];
     $answer = $_POST['answer'];
     $number = $_POST['number'];
     $time_taken = $_POST['time_taken'];
@@ -46,7 +47,7 @@
     $stm->bindParam(':time_taken_s', $time_taken, PDO::PARAM_INT);
     $stm->execute();
 
-    $post_data = 'session='.$session.'&userid='.$uid.'&exercise='.$question.'&correct='.$chk.'&time_taken='.$time_taken.'&number='.$number.'&token='.$token;
+    $post_data = 'session='.$session.'&userid='.$uid.'&exercise='.$question.'&correct='.$chk.'&time_taken='.$time_taken.'&number='.$number.'&adapt='.$adap_table.'&token='.$token;
     $url = $_G['webservice'] . 'continue/';
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -75,6 +76,7 @@
                     <input type="hidden" name="subject" value="<?php echo $exam_row['qa_subject']; ?>">
                     <input type="hidden" name="examination" value="<?php echo $exam_row['qa_exam']; ?>">
                     <input type="hidden" name="session" value="<?php echo $session; ?>">
+                    <input type="hidden" name="adap_table" value="<?php echo $adap_table; ?>">
                     <input type="hidden" name="time_taken" id="time_taken" value="1">
                     <div class="form-group row">
                         <label class="col-sm-2" for="question">คำถาม ?</label>
