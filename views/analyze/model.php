@@ -127,6 +127,7 @@
                                         $stmt2->execute();
                                         $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
                                     ?> 
+                                    <input type="hidden" name="uid" value="<?php echo $user_row['uid']; ?>">
                                     <input type="hidden" name="adap_id" value="<?php echo $session['session_adap']; ?>">
                                     <input type="hidden" name="examination" value="<?php echo $session['session_exam']; ?>">
                                     <input type="hidden" name="session" value="<?php echo $session['session_id']; ?>">
