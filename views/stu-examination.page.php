@@ -19,7 +19,7 @@
                 }
                 $in = rtrim($in, ",");
                 $in = '('.$in.')';
-                
+
                 $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE subjects.subject_id IN '.$in.' ORDER BY sessions.session_start ASC');
                 $stm->execute();
                 while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
@@ -99,17 +99,17 @@
                                             if (timebetween($rows['session_start'], $rows['session_end'])) {
 
                                                 if ($rows['session_adap_active']) {
-                                                    $stm = $_DB->prepare('SELECT * FROM adaptive_time_remaining JOIN sessions ON adaptive_time_remaining.session = sessions.session_id JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE adaptive_time_remaining.uid = :uid AND adaptive_time_remaining.session = :session AND adaptive_time_remaining.time_status = 0 LIMIT 1');
-                                                    $stm->bindParam(':uid', $user_row['uid']);
-                                                    $stm->bindParam(':session', $rows['session_id']);
-                                                    $stm->execute();
-                                                    $ongoing = $stm->fetch(PDO::FETCH_ASSOC);
+                                                    $stm6 = $_DB->prepare('SELECT * FROM adaptive_time_remaining JOIN sessions ON adaptive_time_remaining.session = sessions.session_id JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE adaptive_time_remaining.uid = :uid AND adaptive_time_remaining.session = :session AND adaptive_time_remaining.time_status = 0 LIMIT 1');
+                                                    $stm6->bindParam(':uid', $user_row['uid']);
+                                                    $stm6->bindParam(':session', $rows['session_id']);
+                                                    $stm6->execute();
+                                                    $ongoing = $stm6->fetch(PDO::FETCH_ASSOC);
                                                 }else{
-                                                    $stm = $_DB->prepare('SELECT * FROM time_remaining JOIN sessions ON time_remaining.session = sessions.session_id JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE time_remaining.uid = :uid AND time_remaining.session = :session AND time_remaining.time_status = 0 LIMIT 1');
-                                                    $stm->bindParam(':uid', $user_row['uid']);
-                                                    $stm->bindParam(':session', $rows['session_id']);
-                                                    $stm->execute();
-                                                    $ongoing = $stm->fetch(PDO::FETCH_ASSOC);
+                                                    $stm6 = $_DB->prepare('SELECT * FROM time_remaining JOIN sessions ON time_remaining.session = sessions.session_id JOIN examinations ON sessions.session_exam = examinations.examination_id WHERE time_remaining.uid = :uid AND time_remaining.session = :session AND time_remaining.time_status = 0 LIMIT 1');
+                                                    $stm6->bindParam(':uid', $user_row['uid']);
+                                                    $stm6->bindParam(':session', $rows['session_id']);
+                                                    $stm6->execute();
+                                                    $ongoing = $stm6->fetch(PDO::FETCH_ASSOC);
                                                 }
 
                                             if ($ongoing['time_remaining'] > 0) {
