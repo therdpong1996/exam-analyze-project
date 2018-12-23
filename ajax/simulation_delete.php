@@ -18,10 +18,11 @@
 
     $uid = $_POST['uid'];
     $session_id = $_POST['session'];
+    $adaptable = $_POST['adaptable'];
 
     $token = md5('computerizedadaptivetesting' . $session_id);
 
-    $post_data = 'session='.$session_id.'&userid='.$uid.'&token='.$token;
+    $post_data = 'session='.$session_id.'&userid='.$uid.'&adapt='.$adaptable.'&token='.$token;
     $url = $_G['webservice'] . 'resetscore/';
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);

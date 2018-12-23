@@ -60,6 +60,7 @@
                 let session_id = <?php echo $session['session_id']; ?>;
                 let userid = <?php echo $user_row['uid']; ?>;
                 let number = <?php echo $session['session_adap_number']; ?>;
+                let adaptable = <?php echo $session['session_adap']; ?>;
 
             </script>
 
@@ -71,41 +72,6 @@
                         $chart_data = json_decode($session['session_model'], true);
                     ?>
                     <script>
-                        $('#plot-data').on('submit', function(){
-                            var oldtext = $('#plot-btn').html();
-                            $('#plot-btn').html('<i class="fa fa-spinner fa-spin"></i> Process..');
-                            var sData = $(this).serialize();
-                            $.ajax({
-                                type: "POST",
-                                url: webservice + "plot/",
-                                data: sData,
-                                dataType: "json"
-                            })
-                            .done(function(response){
-                                if(response.state){
-                                swal({
-                                    title: 'SUCCESS',
-                                    text: response.msg,
-                                    type: 'success',
-                                    showCancelButton: false,
-                                    confirmButtonColor: '#3085d6',
-                                    confirmButtonText: 'Yes'
-                                }).then(function(result){
-                                    if (result.value) {
-                                    window.location.href = window.location.href;
-                                    }
-                                });
-                                }else{
-                                $('#plot-btn').html(oldtext);
-                                swal(
-                                    'SORRY',
-                                    response.msg,
-                                    'error'
-                                );
-                                }
-                            });
-                        });
-
                         var report = <?php echo $session['session_report']; ?>;
                         var chart = Highcharts.chart('container', {
                             title: {
@@ -202,7 +168,7 @@
                     $.ajax({
                         type: "POST",
                         url: weburl + "ajax/simulation_firstrun",
-                        data: {userid: userid, session: session_id, number: number},
+                        data: {userid: userid, session: session_id, adaptable: adaptable, number: number},
                         dataType: "html",
                         success: function (response) {
                             content.html(response)

@@ -15,9 +15,10 @@
     $userid = $_POST['userid'];
     $session = $_POST['session'];
     $number = $_POST['number'];
+    $adaptable = $_POST['adaptable'];
     $token = md5('computerizedadaptivetesting' . $session);
 
-    $post_data = 'session='.$session.'&userid='.$userid.'&number='.$number.'&token='.$token;
+    $post_data = 'session='.$session.'&userid='.$userid.'&adapt='.$adaptable.'&number='.$number.'&token='.$token;
     $url = $_G['webservice'] . 'firstrun/';
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -47,6 +48,7 @@
                     <input type="hidden" name="subject" value="<?php echo $exam_row['qa_subject']; ?>">
                     <input type="hidden" name="examination" value="<?php echo $exam_row['qa_exam']; ?>">
                     <input type="hidden" name="session" value="<?php echo $session; ?>">
+                    <input type="hidden" name="adaptable" value="<?php echo $adaptable; ?>">
                     <input type="hidden" name="time_taken" id="time_taken" value="1">
                     <div class="form-group row">
                         <label class="col-sm-2" for="question">คำถาม ?</label>
