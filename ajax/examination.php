@@ -31,7 +31,7 @@
             exit;
         }
 
-        $uid = $_POST['uid'];
+        $uid = $_SESSION['uid'];
         $title = $_POST['examination_title'];
         $subject = $_POST['examination_subject'];
         $detail = $_POST['examination_detail'];
