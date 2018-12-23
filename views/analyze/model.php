@@ -142,7 +142,7 @@
                                                 </select>  
                                             </div>
                                             <div class="form-group">
-                                                <select class="form-control" name="action">
+                                                <select class="form-control" name="import">
                                                     <option value="9" disabled selected>การนำเข้าข้อมูลการ Train</option>
                                                     <option value="0">สร้างตารางข้อมูลขึ้นมาใหม่</option>
                                                     <?php
