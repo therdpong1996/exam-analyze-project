@@ -46,7 +46,7 @@
         $import = $_POST['adaptimport'];
         $adap_active = $_POST['session_adap'];
 
-        $stm = $_DB->prepare('INSERT INTO sessions (session_exam,session_password,session_timeleft,session_start,session_end,session_solve,session_adpa,session_adap_active) VALUES (:exam, :password, :timeleft, :start, :end, :solve, :adap, :active)');
+        $stm = $_DB->prepare('INSERT INTO sessions (session_exam,session_password,session_timeleft,session_start,session_end,session_solve,session_adap,session_adap_active) VALUES (:exam, :password, :timeleft, :start, :end, :solve, :adap, :active)');
         $stm->bindParam(':exam', $exam, PDO::PARAM_INT);
         $stm->bindParam(':start', $start, PDO::PARAM_STR);
         $stm->bindParam(':end', $end, PDO::PARAM_STR);
