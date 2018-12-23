@@ -17,7 +17,7 @@
     setcookie('sim_number', null, -1, '/');
 
     $uid = $_SESSION['uid'];
-    $session_id = 0;
+    $session_id = $_POST['session_id'];
     $adaptable = $_POST['adaptable'];
 
     $token = md5('computerizedadaptivetesting' . $session_id);

@@ -233,7 +233,7 @@
                         url: weburl + 'ajax/simulation_delete',
                         type: 'POST',
                         dataType: 'json',
-                        data: {adaptable: adaptable},
+                        data: {session_id: session_id, adaptable: adaptable},
                     })
                     .done(function() {});
                     window.location.href = window.location.href
