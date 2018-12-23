@@ -23,7 +23,7 @@
                 <div class="card-body">
                   <form action="javascript:void(0)" id="add-session-form">
                     <input type="hidden" name="action" value="add">
-                    <input type="hidden" name="import" id="adaptimport" value="0">
+                    <input type="hidden" name="adaptimport" id="adaptimport" value="0">
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="session_exam">ข้อสอบ</label>
                       <div class="col-sm-10">
@@ -179,7 +179,7 @@
                   <form action="javascript:void(0)" id="edit-session-form">
                   <input type="hidden" name="action" value="edit">
                   <input type="hidden" name="session_id" value="<?php echo $row['session_id']; ?>">
-                  <input type="hidden" name="import" id="adaptimport" value="<?php echo $row['session_adap']; ?>">
+                  <input type="hidden" name="adaptimport" id="adaptimport" value="<?php echo $row['session_adap']; ?>">
                     
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="session_exam">ข้อสอบ</label>
