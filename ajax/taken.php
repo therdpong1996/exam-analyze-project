@@ -30,7 +30,6 @@
         $chk = 0;
     }
 
-
     $stm = $_DB->prepare("UPDATE answer_data SET answer = :answer, ans_check = :chk WHERE uid = :uid AND question = :question AND subject = :subject AND examination = :exam AND session = :session");
     $stm->bindParam(':answer', $answer, PDO::PARAM_INT);
     $stm->bindParam(':chk', $chk, PDO::PARAM_INT);
@@ -39,4 +38,8 @@
     $stm->bindParam(':subject', $subject, PDO::PARAM_INT);
     $stm->bindParam(':exam', $examination, PDO::PARAM_INT);
     $stm->bindParam(':session', $session, PDO::PARAM_INT);
+    $stm->execute();
+
+    $stm = $_DB->prepare("UPDATE q_and_a SET qa_status = 1 WHERE qa_id = :id");
+    $stm->bindParam(':id', $question, PDO::PARAM_INT);
     $stm->execute();

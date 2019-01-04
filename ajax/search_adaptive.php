@@ -19,13 +19,16 @@ if (empty($_POST['examid'])) {
 }
 
 $i = 0;
-$stm = $_DB->prepare("SELECT adap_id,std_number,time_update,users.full_name FROM adaptive_table JOIN users ON adaptive_table.uid = users.uid WHERE adaptive_table.exam_id = :examid");
+$stm = $_DB->prepare("SELECT adap_id,std_number,time_update FROM adaptive_table WHERE exam_id = :examid LIMIT 1");
 $stm->bindParam(":examid", $_POST['examid']);
 $stm->execute();
-while ($row = $stm->fetch(PDO::FETCH_ASSOC)){ ?>
-    <button class="btn btn-info btn-sm btn-block mb-2 text-left" type="button" onclick="addAdaptid(<?php __($row['adap_id']); ?>)">Import ข้อมูลการวิเคราะห์ของ <?php __($row['full_name']); ?> มีผู้ทดสอบจำนวน <?php __($row['std_number']); ?> คน อัพเดทล่าสุดเมื่อ <?php __($row['time_update']); ?></button>
-<?php $i++; }
-if($i >= 1){
-?>
-    <button class="btn btn-warning btn-sm btn-block mb-3 text-left" type="button" onclick="addAdaptid(0)">ไม่ Import ข้อมูลการวิเคราะห์</button>
-<?php } 
+$nrow = $stm->fetchColumn();
+$row = $stm->fetch(PDO::FETCH_ASSOC);
+
+if ($nrow >= 1) {
+    echo json_encode(['state' => true, 'msg' => 'พอข้อมูลการวิเคราะห์ของข้อสอบชุดนี้ ผู้ทดสอบจำนวน '.$row['std_number'].' คน อัพเดทเมื่อ '.$row['time_update'].'<br>ต้องการ Import หรือไม่ ?<br><button class="btn btn-success" onclick="addAdaptid('.$row['adap_id'].')">Import</button> <button class="btn btn-danger" onclick="addAdaptid(0)">ไม่ Import</button>']);
+    exit;
+}else{
+    echo json_encode(['state' => false, 'msg' => 'No result']);
+    exit;
+}

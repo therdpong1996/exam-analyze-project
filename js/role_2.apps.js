@@ -426,8 +426,8 @@ $('#session_exam').on('change', function () {
     },
     dataType: "html",
     success: function (response) {
-      if (response.length > 1){
-        $('#import-content').html(response);
+      if (response.state) {
+        $('#import-content').html(response.msg);
       }else{
         $('#adaptimport').val(0);
         $('button.session-btn').removeAttr("disabled").removeClass("disabled");

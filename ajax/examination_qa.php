@@ -74,6 +74,7 @@
         }
         exit;
     } elseif ($_POST['action'] == 'edit') {
+
         if ($_SESSION['role'] != 2) {
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
@@ -99,18 +100,37 @@
         $choice_3 = $_POST['choice_3'];
         $choice_4 = $_POST['choice_4'];
         $true = implode(',', $_POST['true']);
+        $status = $_POST['status'];
+        $order = $_POST['order'];
 
-        $stm = $_DB->prepare('UPDATE q_and_a SET qa_subject = :subject, qa_exam = :exam, qa_question = :question, qa_choice_1 = :ch1, qa_choice_2 = :ch2, qa_choice_3 = :ch3, qa_choice_4 = :ch4, qa_choice_true = :true WHERE qa_id = :id');
-        $stm->bindParam(':subject', $subject, PDO::PARAM_INT);
-        $stm->bindParam(':exam', $exam, PDO::PARAM_INT);
-        $stm->bindParam(':question', $question, PDO::PARAM_STR);
-        $stm->bindParam(':ch1', $choice_1, PDO::PARAM_STR);
-        $stm->bindParam(':ch2', $choice_2, PDO::PARAM_STR);
-        $stm->bindParam(':ch3', $choice_3, PDO::PARAM_STR);
-        $stm->bindParam(':ch4', $choice_4, PDO::PARAM_STR);
-        $stm->bindParam(':true', $true, PDO::PARAM_STR);
-        $stm->bindParam(':id', $id, PDO::PARAM_INT);
-        $stm->execute();
+        if($status == 0){
+            $stm = $_DB->prepare('UPDATE q_and_a SET qa_subject = :subject, qa_exam = :exam, qa_question = :question, qa_choice_1 = :ch1, qa_choice_2 = :ch2, qa_choice_3 = :ch3, qa_choice_4 = :ch4, qa_choice_true = :true WHERE qa_id = :id');
+            $stm->bindParam(':subject', $subject, PDO::PARAM_INT);
+            $stm->bindParam(':exam', $exam, PDO::PARAM_INT);
+            $stm->bindParam(':question', $question, PDO::PARAM_STR);
+            $stm->bindParam(':ch1', $choice_1, PDO::PARAM_STR);
+            $stm->bindParam(':ch2', $choice_2, PDO::PARAM_STR);
+            $stm->bindParam(':ch3', $choice_3, PDO::PARAM_STR);
+            $stm->bindParam(':ch4', $choice_4, PDO::PARAM_STR);
+            $stm->bindParam(':true', $true, PDO::PARAM_STR);
+            $stm->bindParam(':id', $id, PDO::PARAM_INT);
+            $stm->execute();
+        }else{
+            $stm = $_DB->prepare('INSERT INTO q_and_a (qa_subject,qa_exam,qa_question,qa_choice_1,qa_choice_2,qa_choice_3,qa_choice_4,qa_choice_true,qa_order) VALUES (:subject, :exam, :question, :ch1, :ch2, :ch3, :ch4, :true, :order)');
+            $stm->bindParam(':subject', $subject, PDO::PARAM_INT);
+            $stm->bindParam(':exam', $exam, PDO::PARAM_INT);
+            $stm->bindParam(':question', $question, PDO::PARAM_STR);
+            $stm->bindParam(':ch1', $choice_1, PDO::PARAM_STR);
+            $stm->bindParam(':ch2', $choice_2, PDO::PARAM_STR);
+            $stm->bindParam(':ch3', $choice_3, PDO::PARAM_STR);
+            $stm->bindParam(':ch4', $choice_4, PDO::PARAM_STR);
+            $stm->bindParam(':true', $true, PDO::PARAM_STR);
+            $stm->bindParam(':order', $order, PDO::PARAM_INT);
+            $stm->execute();
+            $stm2 = $_DB->prepare('UPDATE q_and_a SET qa_delete = 1 WHERE qa_id = :id');
+            $stm2->bindParam(':id', $id, PDO::PARAM_INT);
+            $stm2->execute();
+        }
 
         $stm2 = $_DB->prepare("UPDATE examinations SET examination_newex = 1 WHERE examination_id = :id");
         $stm2->bindParam(":id", $exam);
