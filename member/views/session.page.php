@@ -81,7 +81,7 @@
                                       <div class="input-group-prepend">
                                           <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                       </div>
-                                      <input class="form-control" placeholder="Start date" name="session_start" type="text" value="2018/01/01">
+                                      <input class="form-control" placeholder="Start date" name="session_start" type="text" value="<?php __(date('Y/m/d')); ?>">
                                   </div>
                               </div>
                           </div>
@@ -92,7 +92,7 @@
                                       <div class="input-group-prepend">
                                           <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                       </div>
-                                      <input class="form-control" placeholder="End date" name="session_end" type="text" value="2018/01/07">
+                                      <input class="form-control" placeholder="End date" name="session_end" type="text" value="<?php __(date('Y/m/d')); ?>">
                                   </div>
                               </div>
                           </div>

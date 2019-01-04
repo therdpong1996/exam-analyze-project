@@ -67,14 +67,13 @@
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body text-center">
                 <div id="g-container"></div>
                 <div class="mt-3">
                     <?php
                         $report_s = json_decode($exam_row['qa_report'], true);
                     ?>
-                    <p><strong>DIM: </strong> <?php __($report_s['dim']); ?></p>
-                    <p><strong>BIAS: </strong> <?php __($report_s['bias']); ?></p>
+                    <p><strong>DIM: </strong> <?php __($report_s['dim']); ?> <strong>BIAS: </strong> <?php __($report_s['bias']); ?></p>
                 </div>
                 <?php
                     $stm23 = $_DB->prepare("SELECT COUNT(DISTINCT(answer_data.uid)) AS stdn FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.question = :qa_id");
