@@ -121,10 +121,10 @@
                             <?php //#endregion
                                 $gs = json_decode($exam_row['qa_graph'], true);
                             ?>
-                            series: [
+                            series: [{
                                 name: "<?php __($gs['name']); ?>",
                                 data: <?php __($gs['data']); ?>
-                            ],
+                            }],
                             responsive: {
                                 rules: [{
                                     condition: {
