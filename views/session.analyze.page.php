@@ -31,8 +31,13 @@
                 $exam_row = $stmt->fetch(PDO::FETCH_ASSOC);
                 $answer_arr = explode(',', $exam_row['qa_choice_true']);
 
-                $stmt = $_DB->prepare('SELECT DISTINCT(question),qa_id,qa_order,qa_question FROM answer_data JOIN q_and_a ON answer_data.question = q_and_a.qa_id WHERE answer_data.session = :session AND answer_data.temp = 0 ORDER BY q_and_a.qa_order ASC');
-                $stmt->bindParam(':session', $session['session_id']);
+                if ($session['session_status'] == 1) {
+                    $stmt = $_DB->prepare('SELECT DISTINCT(question),qa_id,qa_order,qa_question FROM answer_data JOIN q_and_a ON answer_data.question = q_and_a.qa_id WHERE answer_data.session = :session AND answer_data.temp = 0 ORDER BY q_and_a.qa_order ASC');
+                    $stmt->bindParam(':session', $session['session_id']);
+                }else{
+                    $stmt = $_DB->prepare('SELECT qa_id,qa_order,qa_question FROM q_and_a WHERE q_and_a.qa_exam = :eid ORDER BY q_and_a.qa_order ASC');
+                    $stmt->bindParam(':eid', $session['session_exam']);
+                }
                 $stmt->execute();
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             ?>

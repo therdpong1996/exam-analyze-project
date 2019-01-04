@@ -9,9 +9,6 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-12 mb-5">
-                            <?php echo strip_tags($exam_row['qa_question']); ?>
-                        </div>
                         <div class="col-6">
                             <canvas id="choiceChart"></canvas>
                         </div>
@@ -44,6 +41,8 @@
                         </div>
                         <div class="col-12 mt-4">
                             <hr>
+                            <?php echo strip_tags($exam_row['qa_question']); ?>
+                            <hr>
                             <p><strong>A.</strong> <?php echo $exam_row['qa_choice_1']; ?> <?php echo in_array(1, $answer_arr) ? '<i class="fa fa-check text-success"></i> ' : ''; ?>
                             </p>
                             <p><strong>B.</strong> <?php echo $exam_row['qa_choice_2']; ?> <?php echo in_array(2, $answer_arr) ? '<i class="fa fa-check text-success"></i> ' : ''; ?>
@@ -52,11 +51,90 @@
                             </p>
                             <p><strong>D.</strong> <?php echo $exam_row['qa_choice_4']; ?> <?php echo in_array(4, $answer_arr) ? '<i class="fa fa-check text-success"></i> ' : ''; ?>
                             </p>
+                            <button class="btn btn-info btn-block mt-3" type="button" data-toggle="modal" data-target="#adapReport">Adaptive Report (ข้อมูลการวิเคราะห์)</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="adapReport" tabindex="-1" role="dialog" aria-labelledby="adapReportLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="adapReportLabel"><?php echo strip_tags($exam_row['qa_question']); ?></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="g-container"></div>
+                <div class="mt-3">
+                    <?php
+                        $report_s = json_decode($exam_row['qa_report']);
+                    ?>
+                    <p><strong>DIM: </strong> <?php __($report_s['dim']); ?></p>
+                    <p><strong>BIAS: </strong> <?php __($report_s['bias']); ?></p>
+                </div>
+                <?php
+                    $stm23 = $_DB->prepare("SELECT COUNT(DISTINCT(answer_data.uid)) AS stdn FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.question = :qa_id");
+                    $stm23->bindParam(':qa_id', $exam_row['qa_id'], PDO::PARAM_INT);
+                    $stm23->execute();
+                    $row23 = $stm23->fetch(PDO::FETCH_ASSOC);
+                ?>
+                <p class="mt-3">จากข้อมูลผู้ทดสอบทั้งหมด <?php __($row23['stdn']); ?> คน</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+        </div>
+        <script>
+            var chart = Highcharts.chart('g-container', {
+                            yAxis: {
+                                title: {
+                                    text: 'Answer (Correct)'
+                                },
+                                min: 0,
+                                max: 1
+                            },
+                            xAxis: {
+                                title: {
+                                    text: 'Student Ability'
+                                }
+                            },
+                            legend: {
+                                layout: 'vertical',
+                                align: 'right',
+                                verticalAlign: 'middle'
+                            },
+                            plotOptions: {
+                                series: {
+                                    label: {
+                                        connectorAllowed: false
+                                    },
+                                    pointStart: -3.00,
+                                    pointInterval: 0.01
+                                }
+                            },
+                            series: [<?php echo $exam_row['qa_graph']; ?>],
+                            responsive: {
+                                rules: [{
+                                    condition: {
+                                        maxWidth: 500
+                                    },
+                                    chartOptions: {
+                                        legend: {
+                                            layout: 'horizontal',
+                                            align: 'center',
+                                            verticalAlign: 'bottom'
+                                        }
+                                    }
+                                }]
+                            }
+                        });
+        </script>
         <?php
                 $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM answer_data WHERE answer = 1 AND subject = :subject AND session = :session AND examination = :exam AND question = :question AND temp = 0');
                 $stm->bindParam(':subject', $session['examination_subject']);

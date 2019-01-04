@@ -57,6 +57,11 @@
         $stmt->bindParam(':session', $_POST['session']);
         $stmt->bindParam(':uid', $_POST['uid']);
         $stmt->execute();
+
+        $stmy = $_DB->prepare('UPDATE sessions SET session_status = 1 WHERE session = :session');
+        $stmy->bindParam(':session', $_POST['session']);
+        $stmy->execute();
+        
         include_once __DIR__.'/views/solve.page.php';
     } else {
         include_once __DIR__.'/views/denied.page.php';
