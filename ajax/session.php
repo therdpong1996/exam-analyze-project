@@ -128,6 +128,7 @@
 
         echo json_encode(['state' => true, 'msg' => 'แก้ไข Session แล้ว']);
         exit;
+        
     } elseif ($_POST['action'] == 'delete') {
 
         if ($_SESSION['role'] != 2) {

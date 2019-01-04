@@ -134,45 +134,12 @@
                                     <input type="hidden" name="token" value="<?php echo md5('computerizedadaptivetesting'.$session['session_id']); ?>">
                                     <div class="row">
                                         <div class="col-6">
-                                            <div class="form-group">
-                                                <select class="form-control" name="action">
-                                                    <option value="0" disabled selected>เลือกรูปแบบการ Train</option>
-                                                    <option value="1" <?php echo ($row['cn'] != $row2['cn'])?'disabled':''; ?>>เลือกข้อมูลทั้งหมดในคลังข้อสอบ</option>
-                                                    <option value="2" <?php echo ($row1['cn'] != $row2['cn'])?'disabled':''; ?>>เลือกเฉพาะข้อมูลที่เกี่ยวข้อง</option>
-                                                    <option value="3">เลือกเฉพาะของเซสซั่นนี้</option>
-                                                </select>  
-                                            </div>
-                                            <div class="form-group">
-                                                <select class="form-control" name="import">
-                                                    <option value="9" disabled selected>การนำเข้าข้อมูลการ Train</option>
-                                                    <option value="0">สร้างตารางข้อมูลขึ้นมาใหม่</option>
-                                                    <?php
-                                                        $stme = $_DB->prepare("SELECT adap_id,std_number,time_update FROM adaptive_table WHERE uid = :uid AND exam_id = :exam");
-                                                        $stme->bindParam(":uid", $user_row['uid']);
-                                                        $stme->bindParam(":exam", $session['session_exam']);
-                                                        $stme->execute();
-                                                        while ($rows = $stme->fetch(PDO::FETCH_ASSOC)) {
-                                                    ?>
-                                                        <option value="<?php __($rows['adap_id']); ?>">Additional Train ในข้อมูลวันที่ <?php __($rows['time_update']); ?> จำนวน <?php __($rows['std_number']); ?> คน</option>
-                                                    <?php
-                                                        }
-                                                    ?>
-                                                </select>  
-                                            </div>
                                             <button id="train-btn" type="submit" <?php echo timebetween($session['session_start'], $session['session_end']) ? 'disabled' : ''; ?> class="btn btn-success btn-lg <?php echo timebetween($session['session_start'], $session['session_end']) ? 'disabled' : ''; ?>">Train data</button>
                                         </div>
                                         <div class="col-6">
-                                            <strong class="text-danger">รูปแบบการ Train</strong> 
+                                            <strong class="text-danger">การ Train</strong> 
                                             <ul>
-                                                <li><strong>เลือกข้อมูลทั้งหมดในคลังข้อสอบ</strong> คือ นำข้อมูลการสอบทั้งหมดที่ผ่านมาของข้อสอบชุด "<?php echo $session['examination_title']; ?>" และทุกเซสชั่น(รวมถึงเซสชั่นนี้) เพื่อนำมาวิเคราะร์ข้อมูล</li>
-                                                <li><strong>เลือกเฉพาะข้อมูลที่เกี่ยวข้อง</strong> คือ นำข้อมูลการสอบทั้งหมดที่อยู่ในการ Import ของทุกเซสชั่น(รวมถึงเซสชั่นนี้) เพื่อนำมาวิเคราะร์ข้อมูล</dd>
-                                                <li><strong>เลือกเฉพาะของเซสซั่นนี้</strong> คือ นำข้อมูลการสอบทั้งหมดที่ของเซสชั่นนี้ เพื่อนำมาวิเคราะร์ข้อมูล</li>
-                                            </ul>
-                                            <strong class="text-danger">การนำเข้าข้อมูลการ Train</strong> 
-                                            <ul>
-                                                <li><strong>สร้างตารางข้อมูลขึ้นมาใหม่</strong> คือ การนำข้อมูลที่วิเคราะห์แล้ว นำมาสร้างตารางข้อมูลขึ้นมาใหม่ ให้เป็นของเรา</li>
-                                                <li><strong>Additional Train</strong> คือ การนำข้อมูลที่วิเคราะห์แล้ว นำไปรวมข้อมูลเดิมของเราที่วิเคราะห์แล้วเช่นกัน (ชุดข้อสอบ ต้องเป็นชุดเดียวกัน)</li>
-
+                                                <li>คือการนำข้อมูลการสอบข้อสอบของเซสชั่นไป Train ให้กับข้อสอบชุดที่เลือก เพื่อความแม่นยำมากขึ้น</li>
                                             </ul>
                                         </div>
                                     </div>
