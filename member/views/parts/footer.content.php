@@ -31,3 +31,8 @@
     <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
     <span class="sr-only">Loading...</span>
   </div>
+
+  <div class="overlay-loading" id="no-connecting">
+    <i class="fa fa-times fa-3x fa-fw"></i>
+    <div class="mt-3 text-white">ไม่มีการเชื่อมต่อ Internet</div>
+  </div>

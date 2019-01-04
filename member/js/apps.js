@@ -8,7 +8,7 @@ setInterval(() => {
 
 function doesConnectionExist() {
     var xhr = new XMLHttpRequest();
-    var file = "https://www.kirupa.com/blank.png";
+    var file = "https://www.google.co.th/favicon.ico";
     var randomNum = Math.round(Math.random() * 10000);
 
     xhr.open('HEAD', file + "?rand=" + randomNum, true);
@@ -19,9 +19,9 @@ function doesConnectionExist() {
     function processRequest(e) {
         if (xhr.readyState == 4) {
             if (xhr.status >= 200 && xhr.status < 304) {
-                alert("connection exists!");
+                $('#no-connecting').fadeOut(200);
             } else {
-                alert("connection doesn't exist!");
+                $('#no-connecting').fadeIn(200);
             }
         }
     }
