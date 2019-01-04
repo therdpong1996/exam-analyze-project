@@ -118,7 +118,13 @@
                                     pointInterval: 0.01
                                 }
                             },
-                            series: [<?php echo $exam_row['qa_graph']; ?>],
+                            <?php //#endregion
+                                $gs = json_decode($exam_row['qa_graph'], true);
+                            ?>
+                            series: [
+                                name: <?php __($gs['name']); ?>,
+                                data: <?php __($gs['data']); ?>,
+                            ],
                             responsive: {
                                 rules: [{
                                     condition: {
