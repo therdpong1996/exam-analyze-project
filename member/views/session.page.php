@@ -121,7 +121,7 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="col-sm-2" for="session_password">อนุญาตให้ดูข้อที่ถูกต้อง</label>
+                      <label class="col-sm-2" for="session_solve">อนุญาตให้ดูข้อที่ถูกต้อง</label>
                       <div class="col-sm-10">
                         <div class="custom-control custom-checkbox mb-3">
                           <input class="custom-control-input" id="session_solve" value="1" name="session_solve" type="checkbox">

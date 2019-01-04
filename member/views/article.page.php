@@ -31,6 +31,25 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="article_subject">รายวิชา</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="article_subject" name="article_subject" required>
+                                <?php
+                                    $stm1 = $_DB->prepare("SELECT subject_id FROM subject_owner WHERE uid = :uid");
+                                    $stm1->bindParam(":uid", $user_row['uid']);
+                                    $stm1->execute();
+                                    while ($orows = $stm1->fetch(PDO::FETCH_ASSOC)) {
+                                    $stm = $_DB->prepare('SELECT * FROM subjects WHERE subject_id = :id');
+                                    $stm->bindParam(':id', $orows['subject_id']);
+                                    $stm->execute();
+                                    while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                                ?>
+                                    <option value="<?php echo $rows['subject_id']; ?>"><?php echo $rows['subject_title']; ?></option>
+                                <?php } } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="article_content">เนื้อหา</label>
                         <div class="col-sm-10">
                             <textarea class="form-control summernote" id="article_content" name="article_content" required rows="3"></textarea>
@@ -43,13 +62,22 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label" for="article_publist">เผยแพร่</label>
+                        <label class="col-sm-2 col-form-label" for="article_poston">เผยแพร่เมื่อ</label>
                         <div class="col-sm-10">
                             <div class="input-group input-group-alternative">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
-                                <input class="form-control datepicker" id="article_publist" name="article_publist" placeholder="Select date" type="text">
+                                <input class="form-control datepicker" id="article_poston" name="article_poston" placeholder="Select date" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2" for="article_public">สาธารณะ</label>
+                        <div class="col-sm-10">
+                            <div class="custom-control custom-checkbox mb-3">
+                            <input class="custom-control-input" id="article_public" value="1" name="article_public" type="checkbox">
+                            <label class="custom-control-label" for="article_public">เปิด</label>
                             </div>
                         </div>
                     </div>
@@ -84,6 +112,25 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="article_subject">รายวิชา</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="article_subject" name="article_subject" required>
+                                <?php
+                                    $stm1 = $_DB->prepare("SELECT subject_id FROM subject_owner WHERE uid = :uid");
+                                    $stm1->bindParam(":uid", $user_row['uid']);
+                                    $stm1->execute();
+                                    while ($orows = $stm1->fetch(PDO::FETCH_ASSOC)) {
+                                    $stm = $_DB->prepare('SELECT * FROM subjects WHERE subject_id = :id');
+                                    $stm->bindParam(':id', $orows['subject_id']);
+                                    $stm->execute();
+                                    while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                                ?>
+                                    <option value="<?php echo $rows['subject_id']; ?>"><?php echo $rows['subject_title']; ?></option>
+                                <?php } } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="article_content">เนื้อหา</label>
                         <div class="col-sm-10">
                             <textarea class="form-control summernote" id="article_content" name="article_content" required rows="3"></textarea>
@@ -96,13 +143,22 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label" for="article_publist">เผยแพร่</label>
+                        <label class="col-sm-2 col-form-label" for="article_poston">เผยแพร่เมื่อ</label>
                         <div class="col-sm-10">
                             <div class="input-group input-group-alternative">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
-                                <input class="form-control datepicker" id="article_publist" name="article_publist" placeholder="Select date" type="text">
+                                <input class="form-control datepicker" id="article_poston" name="article_poston" placeholder="Select date" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2" for="article_public">สาธารณะ</label>
+                        <div class="col-sm-10">
+                            <div class="custom-control custom-checkbox mb-3">
+                            <input class="custom-control-input" id="article_public" value="1" name="article_public" type="checkbox">
+                            <label class="custom-control-label" for="article_public">เปิด</label>
                             </div>
                         </div>
                     </div>
