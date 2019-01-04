@@ -122,8 +122,8 @@
                                 $gs = json_decode($exam_row['qa_graph'], true);
                             ?>
                             series: [
-                                name: <?php __($gs['name']); ?>,
-                                data: <?php __($gs['data']); ?>,
+                                name: "<?php __($gs['name']); ?>",
+                                data: <?php __($gs['data']); ?>
                             ],
                             responsive: {
                                 rules: [{
