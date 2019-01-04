@@ -71,7 +71,7 @@
                 <div id="g-container"></div>
                 <div class="mt-3">
                     <?php
-                        $report_s = json_decode($exam_row['qa_report']);
+                        $report_s = json_decode($exam_row['qa_report'], true);
                     ?>
                     <p><strong>DIM: </strong> <?php __($report_s['dim']); ?></p>
                     <p><strong>BIAS: </strong> <?php __($report_s['bias']); ?></p>
