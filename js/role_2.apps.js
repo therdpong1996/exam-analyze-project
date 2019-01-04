@@ -424,11 +424,11 @@ $('#session_exam').on('change', function () {
     data: {
       examid: examid
     },
-    dataType: "html",
+    dataType: "json",
     success: function (response) {
       if (response.state) {
         $('#import-content').html(response.msg);
-      }else{
+      } else {
         $('#adaptimport').val(0);
         $('button.session-btn').removeAttr("disabled").removeClass("disabled");
         $('#import-content').html('');
@@ -437,11 +437,11 @@ $('#session_exam').on('change', function () {
   });
 });
 
-function addAdaptid(id){
+function addAdaptid(id) {
   if (id != 0) {
     $('#adaptive-number').fadeIn(200);
     $('#session_adap').removeAttr("disabled");
-  }else{
+  } else {
     $('#adaptive-number').fadeOut(200);
     $('#session_adap').attr("disabled", "disabled").addClass("disabled");
   }
