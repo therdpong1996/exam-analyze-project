@@ -94,13 +94,12 @@
                     if (empty($ssrow['id'])) {
                         $ans = 0;
                         $temp = 1;
-                        $stm = $_DB->prepare('INSERT INTO answer_data(uid,question,subject,examination,session,adap_table,answer,temp) VALUES (:uid, :question, :subject, :examination, :session, :adaptable, :answer, :temp)');
+                        $stm = $_DB->prepare('INSERT INTO answer_data(uid,question,subject,examination,session,answer,temp) VALUES (:uid, :question, :subject, :examination, :session, :answer, :temp)');
                         $stm->bindParam(':uid', $user_row['uid'], PDO::PARAM_INT);
                         $stm->bindParam(':question', $row['qa_id'], PDO::PARAM_INT);
                         $stm->bindParam(':subject', $session['examination_subject'], PDO::PARAM_INT);
                         $stm->bindParam(':examination', $session['examination_id'], PDO::PARAM_INT);
                         $stm->bindParam(':session', $session['session_id'], PDO::PARAM_INT);
-                        $stm->bindParam(':adaptable', $session['session_adap'], PDO::PARAM_INT);
                         $stm->bindParam(':answer', $ans, PDO::PARAM_INT);
                         $stm->bindParam(':temp', $temp, PDO::PARAM_INT);
                         $stm->execute();
