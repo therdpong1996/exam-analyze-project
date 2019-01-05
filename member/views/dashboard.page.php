@@ -26,7 +26,7 @@
                             while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
                     ?>
                     <div class="card shadow mb-4">
-                        <div class="card-body text-center">
+                        <div class="card-body">
                             <?php if($rows['type']=='article'){
                                 $stmt = $_DB->prepare("SELECT * FROM articles JOIN subjects ON articles.subject = subjects.subject_id WHERE articles.atid = :id");
                                 $stmt->bindParam(':id', $rows['content_id']);
@@ -34,7 +34,7 @@
                                 $row = $stmt->fetch(PDO::FETCH_ASSOC);    
                             ?>
                             <small class="text-muted"><?php __($rows['ontime']); ?></small>
-                            <p class="mt-3"><?php __($rows['full_name']); ?></p>
+                            <p class="mt-3"><div class="mr-2 avatar avatar-sm rounded-circle"><img alt="Image placeholder" avatar="<?php echo $rows['email']; ?>"></div><?php __($rows['full_name']); ?></p>
                             <p>ได้สร้างบทความใหม่ "<?php __($row['title']); ?>"</p>
                             <p>รายวิชา "<?php __($row['subject_title']); ?>"</p>
                             <a href="#" class="btn btn-info">อ่าน</a>
@@ -45,7 +45,7 @@
                                 $row = $stmt->fetch(PDO::FETCH_ASSOC);    
                             ?>
                             <small class="text-muted"><?php __($rows['ontime']); ?></small>
-                            <p class="mt-3"><?php __($rows['full_name']); ?></p>
+                            <p class="mt-3"><div class="mr-2 avatar avatar-sm rounded-circle"><img alt="Image placeholder" avatar="<?php echo $rows['email']; ?>"></div><?php __($rows['full_name']); ?></p>
                             <p>ได้สร้างชุดข้อสอบใหม่ "<?php __($row['examination_title']); ?>"</p>
                             <p>รายวิชา "<?php __($row['subject_title']); ?>"</p>
                             <?php }elseif($rows['type']=='session'){
@@ -55,7 +55,7 @@
                                 $row = $stmt->fetch(PDO::FETCH_ASSOC);    
                             ?>
                             <small class="text-muted"><?php __($rows['ontime']); ?></small>
-                            <p class="mt-3"><?php __($rows['full_name']); ?></p>
+                            <p class="mt-3"><div class="mr-2 avatar avatar-sm rounded-circle"><img alt="Image placeholder" avatar="<?php echo $rows['email']; ?>"></div><?php __($rows['full_name']); ?></p>
                             <p>ได้สร้างเซสชั่นการทำข้อสอบของชุดข้อสอบ "<?php __($row['examination_title']); ?>"</p>
                             <p>รายวิชา "<?php __($row['subject_title']); ?>"</p>
 
@@ -66,7 +66,7 @@
                                 $row = $stmt->fetch(PDO::FETCH_ASSOC);    
                             ?>
                             <small class="text-muted"><?php __($rows['ontime']); ?></small>
-                            <p class="mt-3"><?php __($rows['full_name']); ?></p>
+                            <p class="mt-3"><div class="mr-2 avatar avatar-sm rounded-circle"><img alt="Image placeholder" avatar="<?php echo $rows['email']; ?>"></div><?php __($rows['full_name']); ?></p>
                             <p>ได้สร้าง Train ข้อมูลของข้อสอบชุด "<?php __($row['examination_title']); ?>"</p>
                             <p>รายวิชา "<?php __($row['subject_title']); ?>"</p>
 
@@ -77,7 +77,7 @@
                                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                             ?>
                             <small class="text-muted"><?php __($rows['ontime']); ?></small>
-                            <p class="mt-3"><?php __($rows['full_name']); ?></p>
+                            <p class="mt-3"><div class="mr-2 avatar avatar-sm rounded-circle"><img alt="Image placeholder" avatar="<?php echo $rows['email']; ?>"></div><?php __($rows['full_name']); ?></p>
                             <p>ได้ทำข้อสอบ "<?php __($row['examination_title']); ?>"</p>
                             <p>รายวิชา "<?php __($row['subject_title']); ?>"</p>
                             <p>ได้คะแนน <?php __($row['score']); ?>/<?php __($row['score_full']); ?></p>
@@ -88,7 +88,7 @@
                                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                             ?>
                             <small class="text-muted"><?php __($rows['ontime']); ?></small>
-                            <p class="mt-3"><?php __($rows['full_name']); ?></p>
+                            <p class="mt-3"><div class="mr-2 avatar avatar-sm rounded-circle"><img alt="Image placeholder" avatar="<?php echo $rows['email']; ?>"></div><?php __($rows['full_name']); ?></p>
                             <p>ได้สร้าง Train ข้อมูลของข้อสอบชุด "<?php __($row['examination_title']); ?>"</p>
                             <p>รายวิชา "<?php __($row['subject_title']); ?>"</p>
                             <p>ได้คะแนน <?php __($row['score']); ?>/<?php __($row['score_full']); ?></p>

@@ -27,7 +27,7 @@
           <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media align-items-center">
               <span class="avatar avatar-sm rounded-circle">
-                <img alt="Image placeholder" src="<?php url('assets/img/theme/team-1-800x800.jpg'); ?>">
+                <img alt="Image placeholder" avatar="<?php echo $user_row['email']; ?>">
               </span>
             </div>
           </a>
