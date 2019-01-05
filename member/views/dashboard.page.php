@@ -32,7 +32,6 @@
                         }
 
                         $stm = $_DB->prepare('SELECT * FROM timeline JOIN users ON timeline.taken = users.uid WHERE subject IN '.$in.' AND for_time = :role ORDER BY ontime DESC');
-                        $stm->bindParam(':id', $orows['subject_id']);
                         $stm->bindParam(':role', $user_row['role']);
                         $stm->execute();
                         while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
