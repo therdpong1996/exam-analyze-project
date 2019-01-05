@@ -12,18 +12,30 @@
                 <div class="col-xl-12">
                     <?php
                         if ($user_row['role'] == 2) {
-                            $stm1 = $_DB->prepare("SELECT subject_id FROM subject_owner WHERE uid = :uid");
+                            $stmc = $_DB->prepare("SELECT * FROM subject_owner WHERE uid = :uid");
+                            $stmc->bindParam(":uid", $user_row['uid']);
+                            $stmc->execute();
+                            while ($srow = $stmc->fetch(PDO::FETCH_ASSOC)) {
+                                $in = $srow['subject_id'].',';
+                            }
+                            $in = rtrim($in, ",");
+                            $in = '('.$in.')';
                         }elseif($user_row['role'] == 3){
-                            $stm1 = $_DB->prepare("SELECT subject_id FROM student_ubject WHERE uid = :uid");
+                            $stmc = $_DB->prepare("SELECT * FROM student_subject WHERE uid = :uid");
+                            $stmc->bindParam(":uid", $user_row['uid']);
+                            $stmc->execute();
+                            while ($srow = $stmc->fetch(PDO::FETCH_ASSOC)) {
+                                $in = $srow['subject_id'].',';
+                            }
+                            $in = rtrim($in, ",");
+                            $in = '('.$in.')';
                         }
-                        $stm1->bindParam(":uid", $user_row['uid']);
-                        $stm1->execute();
-                        while ($orows = $stm1->fetch(PDO::FETCH_ASSOC)) {
-                            $stm = $_DB->prepare('SELECT * FROM timeline JOIN users ON timeline.taken = users.uid WHERE subject = :id AND for_time = :role ORDER BY ontime DESC');
-                            $stm->bindParam(':id', $orows['subject_id']);
-                            $stm->bindParam(':role', $user_row['role']);
-                            $stm->execute();
-                            while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+
+                        $stm = $_DB->prepare('SELECT * FROM timeline JOIN users ON timeline.taken = users.uid WHERE subjects.subject_id IN '.$in.' AND for_time = :role ORDER BY ontime DESC');
+                        $stm->bindParam(':id', $orows['subject_id']);
+                        $stm->bindParam(':role', $user_row['role']);
+                        $stm->execute();
+                        while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
                     ?>
                     <div class="card shadow mb-4">
                         <div class="card-body">
@@ -143,7 +155,7 @@
                             <?php } ?>
                         </div>
                     </div>
-                    <?php } } ?>
+                    <?php } ?>
                 </div>
             </div>
         </div>
