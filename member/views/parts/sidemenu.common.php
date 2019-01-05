@@ -127,6 +127,9 @@
               <i class="ni ni-calendar-grid-58 text-blue"></i> Session
             </a>
           </li>
+        </ul>
+        <hr class="my-3">
+        <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" href="<?php url('docs/'); ?>">
               <i class="fa fa-file-word text-blue"></i> Documents

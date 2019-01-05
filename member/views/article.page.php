@@ -91,7 +91,18 @@
                     </form>
                 </div>
                 </div>
-            <?php } elseif (isset($_GET['edit'])) { ?>
+            <?php 
+                } elseif (isset($_GET['edit'])) {
+
+                    $stm = $_DB->prepare('SELECT * FROM articles WHERE atid = :atid');
+                    $stm->bindParam(':atid', $_GET['article_id'], PDO::PARAM_INT);
+                    $stm->execute();
+                    $row = $stm->fetch(PDO::FETCH_ASSOC);
+
+                    if ($row['uid'] != $user_row['uid']) {
+                        deniedpage();
+                    }
+            ?>
                 <div class="card shadow">
                 <div class="card-header bg-transparent">
                     <div class="row align-items-center">
@@ -104,11 +115,11 @@
                 <div class="card-body">
                     <form action="javascript:void(0)" id="edit-article">
                     <input type="hidden" name="action" value="edit">
-                    <input type="hidden" id="article-id" name="article_id" value="">
+                    <input type="hidden" id="article-id" name="article_id" value="<?php __($row['atid']); ?>">
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="article_title">หัวข้อ</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="article_title" name="article_title" required>
+                            <input type="text" class="form-control" id="article_title" name="article_title" value="<?php __($row['title']); ?>">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -125,7 +136,7 @@
                                     $stm->execute();
                                     while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
                                 ?>
-                                    <option value="<?php echo $rows['subject_id']; ?>"><?php echo $rows['subject_title']; ?></option>
+                                    <option value="<?php echo $rows['subject_id']; ?>" <?php echo ($rows['subject_id'] == $row['subject']) ? 'selected' : ''; ?>><?php echo $rows['subject_title']; ?></option>
                                 <?php } } ?>
                             </select>
                         </div>
@@ -133,13 +144,13 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="article_content">เนื้อหา</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control summernote" id="article_content" name="article_content" required rows="3"></textarea>
+                            <textarea class="form-control summernote" id="article_content" name="article_content" required rows="3"><?php __($row['content']); ?></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="article_tag">แท็ก</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="article_tag" name="article_tag" data-role="tagsinput" required>
+                            <input type="text" class="form-control" id="article_tag" name="article_tag" data-role="tagsinput" value="<?php __($row['tags']); ?>">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -149,7 +160,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
-                                <input class="form-control datepicker" id="article_poston" name="article_poston" placeholder="Select date" type="text">
+                                <input class="form-control datepicker" id="article_poston" name="article_poston" value="<?php echo date('Y/m/d', strtotime($row['poston'])); ?>" type="text">
                             </div>
                         </div>
                     </div>
@@ -157,7 +168,7 @@
                         <label class="col-sm-2" for="article_public">สาธารณะ</label>
                         <div class="col-sm-10">
                             <div class="custom-control custom-checkbox mb-3">
-                            <input class="custom-control-input" id="article_public" value="1" name="article_public" type="checkbox">
+                            <input class="custom-control-input" id="article_public" value="1" name="article_public" type="checkbox" <?php echo $row['public'] == 1 ? 'checked' : ''; ?>>
                             <label class="custom-control-label" for="article_public">เปิด</label>
                             </div>
                         </div>
@@ -189,13 +200,42 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">Title</th>
-                            <th scope="col">Read</th>
-                            <th scope="col">Publish time</th>
+                            <th scope="col">Writer</th>
+                            <th scope="col">Subject</th>
+                            <th scope="col">Public on</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        <?php
+                            $stm1 = $_DB->prepare("SELECT subject_id FROM subject_owner WHERE uid = :uid");
+                            $stm1->bindParam(":uid", $user_row['uid']);
+                            $stm1->execute();
+                            while ($orows = $stm1->fetch(PDO::FETCH_ASSOC)) {
+                                $stm = $_DB->prepare('SELECT atid,title,reads,poston,public,full_name,subject_title FROM articles JOIN users ON articles.uid = users.uid JOIN subjects ON articles.subject = subjects.subject_id WHERE subjects.subject_id = :id ORDER BY articles.poston ASC');
+                                $stm->bindParam(":id", $orows['subject_id']);
+                                $stm->execute();
+                                while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                            ?>
+                            <tr id="article-<?php echo $rows['atid']; ?>">
+                                <th scope="row">
+                                    <span class="mb-0 text-sm"><?php echo $rows['title']; ?></span>
+                                </th>
+                                <td>
+                                    <?php echo $rows['full_name']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $rows['subject_title']; ?>
+                                </td>
+                                <td>
+                                <?php echo date('l d, M Y', strtotime($rows['poston'])); ?>
+                            </td>
+                            <td class="text-right">
+                                <a href="?edit&article_id=<?php echo $rows['atid']; ?>" class="btn btn-info btn-sm">Edit</a> 
+                                <button id="delete-btn-<?php echo $rows['atid']; ?>" onclick="article_delete(<?php echo $rows['atid']; ?>)" class="btn btn-danger btn-sm">Delete</button>
+                            </td>
+                        </tr>
+                        <?php } } ?>
                     </tbody>
                     </table>
                 </div>

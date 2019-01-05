@@ -1,3 +1,38 @@
+$('#add-article').on('submit', function () {
+  var oldtext = $('#add-article-btn').html();
+  $('#add-article-btn').html('<i class="fa fa-spinner fa-spin"></i> Process..');
+  var sData = $(this).serialize();
+  $.ajax({
+      type: "POST",
+      url: weburl + "ajax/article",
+      data: sData,
+      dataType: "json"
+    })
+    .done(function (response) {
+      if (response.state) {
+        swal({
+          title: 'SUCCESS',
+          text: response.msg,
+          type: 'success',
+          showCancelButton: false,
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'Yes'
+        }).then(function (result) {
+          if (result.value) {
+            window.location.href = weburl + "article/";
+          }
+        });
+      } else {
+        $('#add-article-btn').html(oldtext);
+        swal(
+          'SORRY',
+          response.msg,
+          'error'
+        );
+      }
+    });
+});
+
 $('#add-subject-form').on('submit', function () {
   var oldtext = $('#subject-add').html();
   $('#subject-add').html('<i class="fa fa-spinner fa-spin"></i> Process..');
@@ -101,6 +136,41 @@ $('#add-examination-form').on('submit', function () {
         });
       } else {
         $('#exam-add').html(oldtext);
+        swal(
+          'SORRY',
+          response.msg,
+          'error'
+        );
+      }
+    });
+});
+
+$('#edit-article').on('submit', function () {
+  var oldtext = $('#save-article-btn').html();
+  $('#save-article-btn').html('<i class="fa fa-spinner fa-spin"></i> Process..');
+  var sData = $(this).serialize();
+  $.ajax({
+      type: "POST",
+      url: weburl + "ajax/article",
+      data: sData,
+      dataType: "json"
+    })
+    .done(function (response) {
+      if (response.state) {
+        swal({
+          title: 'SUCCESS',
+          text: response.msg,
+          type: 'success',
+          showCancelButton: false,
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'Yes'
+        }).then(function (result) {
+          if (result.value) {
+            window.location.href = weburl + "article/";
+          }
+        });
+      } else {
+        $('#save-article-btn').html(oldtext);
         swal(
           'SORRY',
           response.msg,
@@ -288,6 +358,44 @@ delete_exam = function (qa_id) {
             window.location.href = weburl + 'examination/qa/?examination_id=' + examination_id;
           } else {
             $('#delete-btn').html(oldtext);
+            swal(
+              'ERROR',
+              response.msg,
+              'error'
+            );
+          }
+        });
+    }
+  });
+};
+
+article_delete = function (atid) {
+  swal({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then(function (result) {
+    if (result.value) {
+      var oldtext = $('#delete-btn' + atid).html();
+      $('#delete-btn' + atid).html('<i class="fa fa-spinner fa-spin"></i>');
+      $.ajax({
+          type: "POST",
+          url: weburl + "ajax/article",
+          data: {
+            atid: atid,
+            action: "delete"
+          },
+          dataType: "json"
+        })
+        .done(function (response) {
+          if (response.state) {
+            $('#article-' + atid).remove();
+          } else {
+            $('#delete-btn' + atid).html(oldtext);
             swal(
               'ERROR',
               response.msg,
