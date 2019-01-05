@@ -33,7 +33,16 @@
                                 $stmt->execute();
                                 $row = $stmt->fetch(PDO::FETCH_ASSOC);    
                             ?>
-                            <div class="mt-3"><div class="mr-2 avatar avatar-sm rounded-circle"><img avatar="<?php echo $rows['email']; ?>" /></div><?php __($rows['full_name']); ?><br><small class="text-muted"><?php __($rows['ontime']); ?></small></div>
+                            <div class="mt-3">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <div class="avatar avatar-sm rounded-circle"><img avatar="<?php echo $rows['email']; ?>"></div>
+                                    </div>
+                                    <div class="col-11">
+                                        <?php __($rows['full_name']); ?><br><small class="text-muted"><?php __($rows['ontime']); ?></small>
+                                    </div>
+                                </div>    
+                            </div>
                             <p>ได้สร้างบทความใหม่ "<?php __($row['title']); ?>"</p>
                             <p>รายวิชา "<?php __($row['subject_title']); ?>"</p>
                             <a href="#" class="btn btn-info">อ่าน</a>
