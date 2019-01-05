@@ -63,7 +63,7 @@
         $stmy->bindParam(':session', $_POST['session']);
         $stmy->execute();
 
-        addtotimeline('solve', '1', $lastid, $_POST['subject']);
+        addtotimeline('solve', '3', $lastid, $_POST['subject']);
         
         include_once __DIR__.'/views/solve.page.php';
     } else {

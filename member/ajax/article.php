@@ -50,7 +50,7 @@
         $stm->execute();
         $lastid = $_DB->lastInsertId();
 
-        addtotimeline('article', '1', $lastid, $subject);
+        addtotimeline('article', '3', $lastid, $subject);
         addtotimeline('article', '2', $lastid, $subject);
 
         if ($lastid) {
