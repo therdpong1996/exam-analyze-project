@@ -20,11 +20,12 @@
 
     function addtotimeline($type, $for, $id, $subject){
         global $_DB;
-        $stm = $_DB->prepare("INSERT INTO timeline(type,content_id,for_time,subject) VALUES (:type, :content_id, :for, :subject)");
+        $stm = $_DB->prepare("INSERT INTO timeline(type,content_id,for_time,subject,taken) VALUES (:type, :content_id, :for, :subject, :taken)");
         $stm->bindParam(':type', $type);
         $stm->bindParam(':content_id', $id);
         $stm->bindParam(':for', $for);
         $stm->bindParam(':subject', $subject);
+        $stm->bindParam(':taken', $_SESSION['uid']);
         $stm->execute();
 
         return true;
