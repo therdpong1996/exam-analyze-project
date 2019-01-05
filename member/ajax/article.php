@@ -50,6 +50,9 @@
         $stm->execute();
         $lastid = $_DB->lastInsertId();
 
+        addtotimeline('article', '1', $lastid, $subject);
+        addtotimeline('article', '2', $lastid, $subject);
+
         if ($lastid) {
             echo json_encode(['state' => true, 'msg' => 'บทความได้ถูกเพิ่มแล้ว']);
         } else {

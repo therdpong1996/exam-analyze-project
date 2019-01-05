@@ -43,6 +43,8 @@
         $stm->execute();
         $lastid = $_DB->lastInsertId();
 
+        addtotimeline('exam', '2', $lastid, $subject);
+
         if ($lastid) {
             echo json_encode(['state' => true, 'msg' => $title.' ได้ถูกเพิ่มแล้ว']);
         } else {

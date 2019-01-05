@@ -52,6 +52,7 @@
         $stms->bindParam(':sroce', $score);
         $stms->bindParam(':full', $full);
         $stms->execute();
+        $lastid = $_DB->lastInsertId();
 
         $stmt = $_DB->prepare('UPDATE time_remaining SET time_status = 1 WHERE uid = :uid AND session = :session');
         $stmt->bindParam(':session', $_POST['session']);
@@ -61,6 +62,8 @@
         $stmy = $_DB->prepare('UPDATE sessions SET session_status = 1 WHERE session = :session');
         $stmy->bindParam(':session', $_POST['session']);
         $stmy->execute();
+
+        addtotimeline('solve', '1', $lastid, $_POST['subject']);
         
         include_once __DIR__.'/views/solve.page.php';
     } else {

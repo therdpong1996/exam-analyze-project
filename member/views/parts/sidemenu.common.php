@@ -92,7 +92,7 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" href="<?php url('dashboard/'); ?>">
-              <i class="ni ni-tv-2 text-primary"></i> Dashboard
+              <i class="fa fa-clock-o text-primary"></i> Timeline
             </a>
           </li>
           <?php if($user_row['role'] == 1) { ?>

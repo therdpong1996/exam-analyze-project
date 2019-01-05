@@ -67,6 +67,9 @@
         $stm->execute();
         $lastid = $_DB->lastInsertId();
 
+        addtotimeline('session', '1', $lastid, $rowc1['examination_subject']);
+        addtotimeline('session', '2', $lastid, $rowc1['examination_subject']);
+
         if ($lastid) {
             echo json_encode(['state' => true, 'msg' => 'Session ได้ถูกเพิ่มแล้ว']);
         } else {

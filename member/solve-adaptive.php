@@ -59,6 +59,8 @@
         $stmt->bindParam(':uid', $_POST['uid']);
         $stmt->execute();
 
+        addtotimeline('solve', '1', $lastid, $_POST['subject']);
+
         include_once __DIR__.'/views/solve-adaptive.page.php';
     } else {
         include_once __DIR__.'/views/denied.page.php';

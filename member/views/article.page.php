@@ -212,7 +212,7 @@
                             $stm1->bindParam(":uid", $user_row['uid']);
                             $stm1->execute();
                             while ($orows = $stm1->fetch(PDO::FETCH_ASSOC)) {
-                                $stm = $_DB->prepare('SELECT articles.atid,articles.title,articles.reads,articles.poston,articles.public,users.full_name,subjects.subject_title FROM articles JOIN users ON articles.uid = users.uid JOIN subjects ON articles.subject = subjects.subject_id WHERE subjects.subject_id = :id ORDER BY articles.poston ASC');
+                                $stm = $_DB->prepare('SELECT articles.atid,articles.title,articles.reads,articles.poston,articles.public,users.full_name,subjects.subject_title FROM articles JOIN users ON articles.uid = users.uid JOIN subjects ON articles.subject = subjects.subject_id WHERE subjects.subject_id = :id ORDER BY subjects.subject_id,articles.poston ASC');
                                 $stm->bindParam(":id", $orows['subject_id']);
                                 $stm->execute();
                                 while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
