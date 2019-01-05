@@ -16,7 +16,7 @@
                             $stmc->bindParam(":uid", $user_row['uid']);
                             $stmc->execute();
                             while ($srow = $stmc->fetch(PDO::FETCH_ASSOC)) {
-                                $in = $srow['subject_id'].',';
+                                $in .= $srow['subject_id'].',';
                             }
                             $in = rtrim($in, ",");
                             $in = '('.$in.')';
@@ -25,7 +25,7 @@
                             $stmc->bindParam(":uid", $user_row['uid']);
                             $stmc->execute();
                             while ($srow = $stmc->fetch(PDO::FETCH_ASSOC)) {
-                                $in = $srow['subject_id'].',';
+                                $in .= $srow['subject_id'].',';
                             }
                             $in = rtrim($in, ",");
                             $in = '('.$in.')';
