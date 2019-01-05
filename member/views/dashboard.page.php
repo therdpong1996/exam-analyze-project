@@ -19,7 +19,7 @@
                         $stm1->bindParam(":uid", $user_row['uid']);
                         $stm1->execute();
                         while ($orows = $stm1->fetch(PDO::FETCH_ASSOC)) {
-                            $stm = $_DB->prepare('SELECT * FROM timeline JOIN users ON timeline.taken = users.uid WHERE subject = :id AND for_time = :role');
+                            $stm = $_DB->prepare('SELECT * FROM timeline JOIN users ON timeline.taken = users.uid WHERE subject = :id AND for_time = :role ORDER BY ontime DESC');
                             $stm->bindParam(':id', $orows['subject_id']);
                             $stm->bindParam(':role', $user_row['role']);
                             $stm->execute();
