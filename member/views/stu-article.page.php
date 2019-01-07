@@ -38,8 +38,10 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead>
-                                        <th width="10%">Week</th>
-                                        <td>Articles</td>
+                                        <tr>
+                                            <td width="10%">Week</td>
+                                            <td>Articles</td>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         <?php
@@ -49,7 +51,7 @@
                                             while ($ar = $stma->fetch(PDO::FETCH_ASSOC)) {
                                         ?>
                                         <tr>
-                                            <th><?php __($ar['order']); ?></th>
+                                            <td><?php __($ar['order']); ?></td>
                                             <td><a href="<?php furl('article/'.$ar['atid'].'/'.$ar['title']); ?>"><?php __($ar['title']); ?></a></td>
                                         </tr>
                                         <?php } ?>
