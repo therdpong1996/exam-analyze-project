@@ -203,14 +203,14 @@
                     </thead>
                     <tbody>
                             <?php
-                                $stm = $_DB->prepare('SELECT articles.atid,articles.title,articles.reads,articles.poston,articles.public,users.full_name,subjects.subject_title FROM articles JOIN users ON articles.uid = users.uid JOIN subjects ON articles.subject = subjects.subject_id WHERE articles.subject = :sub_id ORDER BY articles.a_order ASC');
+                                $stm = $_DB->prepare('SELECT articles.atid,articles.title,articles.reads,articles.poston,articles.public,articles.a_order,users.full_name,subjects.subject_title FROM articles JOIN users ON articles.uid = users.uid JOIN subjects ON articles.subject = subjects.subject_id WHERE articles.subject = :sub_id ORDER BY articles.a_order ASC');
                                 $stm->bindParam(":sub_id", $_GET['sub_id']);
                                 $stm->execute();
                                 while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
                             ?>
                             <tr id="article-<?php echo $rows['atid']; ?>">
                                 <th scope="row">
-                                    <span a_order="<?php echo $rows['a_order']; ?>" class="glyphicon glyphicon-move"></span> <?php echo $rows['a_order']; ?>
+                                    <span a_order="<?php echo $rows['a_order']; ?>" class="fa fa-arrows-alt"></span> <?php echo $rows['a_order']; ?>
                                 </th>
                                 <td>
                                     <span class="mb-0 text-sm"><?php echo $rows['title']; ?></span>
