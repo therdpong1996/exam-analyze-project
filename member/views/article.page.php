@@ -221,14 +221,11 @@
                                 <td>
                                     <?php echo $rows['subject_title']; ?>
                                 </td>
-                                <td>
-                                <?php echo date('l d, M Y', strtotime($rows['poston'])); ?>
-                            </td>
-                            <td class="text-right">
-                                <a href="?edit&article_id=<?php echo $rows['atid']; ?>" class="btn btn-info btn-sm">Edit</a> 
-                                <button id="delete-btn-<?php echo $rows['atid']; ?>" onclick="article_delete(<?php echo $rows['atid']; ?>)" class="btn btn-danger btn-sm">Delete</button>
-                            </td>
-                        </tr>
+                                <td class="text-right">
+                                    <a href="?edit&article_id=<?php echo $rows['atid']; ?>" class="btn btn-info btn-sm">Edit</a> 
+                                    <button id="delete-btn-<?php echo $rows['atid']; ?>" onclick="article_delete(<?php echo $rows['atid']; ?>)" class="btn btn-danger btn-sm">Delete</button>
+                                </td>
+                            </tr>
                         <?php } ?>
                     </tbody>
                     </table>
@@ -246,14 +243,14 @@
             height: 300
         });
 
-        $('table .sort-table tbody').sortable({
+        $('table tbody').sortable({
             handle: 'span'
         });
         var Arorder = [];
-        $('table .sort-table tbody').sortable().bind('sortupdate', function() {
+        $('table tbody').sortable().bind('sortupdate', function() {
                 $('#overlay-loading').fadeIn(200);
                 Arorder = [];
-                $('table .sort-table tbody span').each(function() {
+                $('table tbody span').each(function() {
                     Arorder.push($(this).attr('a_order'))
                 });
                 console.log(Arorder)
