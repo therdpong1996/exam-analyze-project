@@ -191,27 +191,30 @@
                 </div>
                 <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table align-items-center">
+                    <table class="table align-items-center sort-table">
                     <thead class="thead-light">
                         <tr>
+                            <th>Week</th>
                             <th scope="col">Title</th>
                             <th scope="col">Writer</th>
                             <th scope="col">Subject</th>
-                            <th scope="col">Public on</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
                             <?php
-                                $stm = $_DB->prepare('SELECT articles.atid,articles.title,articles.reads,articles.poston,articles.public,users.full_name,subjects.subject_title FROM articles JOIN users ON articles.uid = users.uid JOIN subjects ON articles.subject = subjects.subject_id WHERE articles.subject = :sub_id ORDER BY articles.order ASC');
+                                $stm = $_DB->prepare('SELECT articles.atid,articles.title,articles.reads,articles.poston,articles.public,users.full_name,subjects.subject_title FROM articles JOIN users ON articles.uid = users.uid JOIN subjects ON articles.subject = subjects.subject_id WHERE articles.subject = :sub_id ORDER BY articles.a_order ASC');
                                 $stm->bindParam(":sub_id", $_GET['sub_id']);
                                 $stm->execute();
                                 while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
                             ?>
                             <tr id="article-<?php echo $rows['atid']; ?>">
                                 <th scope="row">
-                                    <span class="mb-0 text-sm"><?php echo $rows['title']; ?></span>
+                                    <span a_order="<?php echo $rows['a_order']; ?>" class="glyphicon glyphicon-move"></span> <?php echo $rows['a_order']; ?>
                                 </th>
+                                <td>
+                                    <span class="mb-0 text-sm"><?php echo $rows['title']; ?></span>
+                                </td>
                                 <td>
                                     <?php echo $rows['full_name']; ?>
                                 </td>
@@ -242,4 +245,17 @@
             tabsize: 2,
             height: 300
         });
+
+        $('table .sort-table tbody').sortable({
+            handle: 'span'
+        });
+        var Arorder = [];
+        $('table .sort-table tbody').sortable().bind('sortupdate', function() {
+                $('#overlay-loading').fadeIn(200);
+                Arorder = [];
+                $('table .sort-table tbody span').each(function() {
+                    Arorder.push($(this).attr('a_order'))
+                });
+                console.log(Arorder)
+            });
     </script>
