@@ -68,7 +68,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
-                                <input class="form-control datepicker" id="article_poston" name="article_poston" placeholder="Select date" type="text">
+                                <input class="form-control datepicker" id="article_poston" name="article_poston" value="<?php __(date('Y/m/d')); ?>" type="text">
                             </div>
                         </div>
                     </div>

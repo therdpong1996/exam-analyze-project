@@ -289,13 +289,12 @@ $('#exam-form').on('submit', function () {
   var oldtext = $('#exam-add').html();
   $('#exam-add').html('<i class="fa fa-spinner fa-spin"></i> Process..');
   checked = $("input[type=checkbox]:checked").length;
-  var status = $('#qa_status').val();
   if (checked <= 1) {
     alert("You must check at least one checkbox.");
     return;
   }
-  
-  if (status == 1) {
+  var status = $('#qa_status').val();
+  if (status == "1") {
     swal({
         title: 'คุณแน่ใจหรือไม่?',
         text: "หากแก้ไขข้อสอบนี้ ข้อมูลการวิเคราะห์ของข้อนี้จะไม่สามารถนำกลับมาใช้งานได้!",
