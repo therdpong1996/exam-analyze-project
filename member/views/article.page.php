@@ -73,6 +73,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="article_order">ลำดับ</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="article_order" name="article_order">
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-sm-2" for="article_public">สาธารณะ</label>
                         <div class="col-sm-10">
                             <div class="custom-control custom-checkbox mb-3">
@@ -160,6 +166,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="article_order">ลำดับ</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="article_order" name="article_order" value="<?php __($row['a_order']); ?>">
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-sm-2" for="article_public">สาธารณะ</label>
                         <div class="col-sm-10">
                             <div class="custom-control custom-checkbox mb-3">
@@ -210,7 +222,7 @@
                             ?>
                             <tr id="article-<?php echo $rows['atid']; ?>">
                                 <th scope="row">
-                                    <span a_order="<?php echo $rows['a_order']; ?>" class="fa fa-arrows-alt"></span> <?php echo $rows['a_order']; ?>
+                                    <?php echo $rows['a_order']; ?>
                                 </th>
                                 <td>
                                     <span class="mb-0 text-sm"><?php echo $rows['title']; ?></span>
@@ -242,17 +254,4 @@
             tabsize: 2,
             height: 300
         });
-
-        $('table tbody').sortable({
-            handle: 'span'
-        });
-        var Arorder = [];
-        $('table tbody').sortable().bind('sortupdate', function() {
-                $('#overlay-loading').fadeIn(200);
-                Arorder = [];
-                $('table tbody span').each(function() {
-                    Arorder.push($(this).attr('a_order'))
-                });
-                console.log(Arorder)
-            });
     </script>

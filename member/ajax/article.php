@@ -38,8 +38,9 @@
         $tags = $_POST['article_tag'];
         $poston = str_replace('/', '-', $_POST['article_poston']).' 00:00';
         $public = (isset($_POST['article_public']) ? '1' : '0');
+        $order = $_POST['article_order'];
 
-        $stm = $_DB->prepare('INSERT INTO articles (uid,subject,title,content,tags,poston,public) VALUES (:uid, :subject, :title, :content, :tags, :poston, :public)');
+        $stm = $_DB->prepare('INSERT INTO articles (uid,subject,title,content,tags,poston,public,a_order) VALUES (:uid, :subject, :title, :content, :tags, :poston, :public, :a_order)');
         $stm->bindParam(':uid', $uid, PDO::PARAM_INT);
         $stm->bindParam(':subject', $subject, PDO::PARAM_INT);
         $stm->bindParam(':title', $title, PDO::PARAM_STR);
@@ -47,6 +48,7 @@
         $stm->bindParam(':tags', $tags, PDO::PARAM_STR);
         $stm->bindParam(':poston', $poston, PDO::PARAM_STR);
         $stm->bindParam(':public', $public, PDO::PARAM_STR);
+        $stm->bindParam(':a_order', $order, PDO::PARAM_INT);
         $stm->execute();
         $lastid = $_DB->lastInsertId();
 
@@ -85,8 +87,9 @@
         $tags = $_POST['article_tag'];
         $poston = str_replace('/', '-', $_POST['article_poston']).' 00:00';
         $public = (isset($_POST['article_public']) ? '1' : '0');
+        $order = $_POST['article_order'];
 
-        $stm = $_DB->prepare('UPDATE articles SET subject = :subject, title = :title, content = :content, tags = :tags, poston = :poston, public = :public WHERE atid = :atid');
+        $stm = $_DB->prepare('UPDATE articles SET subject = :subject, title = :title, content = :content, tags = :tags, poston = :poston, public = :public, a_order = :a_order WHERE atid = :atid');
         $stm->bindParam(':atid', $atid, PDO::PARAM_INT);
         $stm->bindParam(':subject', $subject, PDO::PARAM_INT);
         $stm->bindParam(':title', $title, PDO::PARAM_STR);
@@ -94,10 +97,12 @@
         $stm->bindParam(':tags', $tags, PDO::PARAM_STR);
         $stm->bindParam(':poston', $poston, PDO::PARAM_STR);
         $stm->bindParam(':public', $public, PDO::PARAM_STR);
+        $stm->bindParam(':a_order', $order, PDO::PARAM_INT);
         $stm->execute();
 
         echo json_encode(['state' => true, 'msg' => 'แก้ไขบทความแล้ว']);
         exit;
+        
     } elseif ($_POST['action'] == 'delete') {
 
         if ($_SESSION['role'] != 2) {

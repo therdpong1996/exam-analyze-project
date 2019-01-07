@@ -19,7 +19,7 @@ $('#add-article').on('submit', function () {
           confirmButtonText: 'Yes'
         }).then(function (result) {
           if (result.value) {
-            window.location.href = weburl + "article/";
+            window.location.href = window.location.href;
           }
         });
       } else {
@@ -166,7 +166,7 @@ $('#edit-article').on('submit', function () {
           confirmButtonText: 'Yes'
         }).then(function (result) {
           if (result.value) {
-            window.location.href = weburl + "article/";
+            window.location.href = window.location.href;
           }
         });
       } else {
