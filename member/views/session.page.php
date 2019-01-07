@@ -367,7 +367,7 @@
                         ?>
                         <tr id="session-<?php echo $rows['session_id']; ?>">
                             <th scope="row">
-                              <span class="mb-0 text-sm"><?php echo $rows['session_adap_active'] == 1 ? '<span class="badge badge-primary">Adaptive</span>' : ''; ?> <?php echo $rows['session_title ']; ?> <?php echo $rows['session_password'] != null ? '<i class="fas fa-key"></i>' : ''; ?></span>
+                              <span class="mb-0 text-sm"><?php echo $rows['session_adap_active'] == 1 ? '<span class="badge badge-primary">Adaptive</span>' : ''; ?> <?php echo $rows['session_title']; ?> <?php echo $rows['session_password'] != null ? '<i class="fas fa-key"></i>' : ''; ?></span>
                             </th>
                             <td>
                               <?php echo $rows['examination_title']; ?> <small>[<?php echo $rows['subject_title']; ?>]</small></span>
