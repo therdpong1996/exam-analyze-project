@@ -6,6 +6,12 @@
         echo $_G['url'].$addr;
     }
 
+    function furl($addr)
+    {
+        global $_G;
+        echo $_G['furl'].$addr;
+    }
+
     function timebetween($start, $end)
     {
         $t = time();
@@ -55,8 +61,8 @@
     }
 
     function deniedpage(){
-        include_once __DIR__.'/member/views/denied.page.php';
-        include_once __DIR__.'/member/views/parts/footer.content.php';
-        include_once __DIR__.'/member/views/parts/footer.common.php';
+        include_once '../views/denied.page.php';
+        include_once '../views/parts/footer.content.php';
+        include_once '../views/parts/footer.common.php';
         exit();
     }

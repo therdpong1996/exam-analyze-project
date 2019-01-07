@@ -12,7 +12,7 @@ RewriteRule ^admin/setting$ admin.setting.php [L,QSA]
 
 #TEACHER
 RewriteRule ^dashboard/$ index.php [L,QSA]
-RewriteRule ^article/$ article.php [L,QSA]
+RewriteRule ^article/([0-9]+)$ article.php?sub_id=$1 [L,QSA]
 RewriteRule ^subject/$ subject.php [L,QSA]
 RewriteRule ^docs/$ docs.php [L,QSA]
 RewriteRule ^examination/$ examination.php [L,QSA]
@@ -23,6 +23,7 @@ RewriteRule ^examination/qa/$ examination.qa.php [L,QSA]
 
 #STUDENT
 RewriteRule ^stu-subject/$ stu-subject.php [L,QSA]
+RewriteRule ^stu-article/([0-9]+)$ stu-article.php?sub_id=$1 [L,QSA]
 RewriteRule ^stu-examination/$ stu-examination.php [L,QSA]
 
 #NORMAL

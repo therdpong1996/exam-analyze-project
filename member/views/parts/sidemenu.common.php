@@ -90,11 +90,6 @@
         </form>
         <!-- Navigation -->
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="<?php url('dashboard/'); ?>">
-              <i class="ni ni-bullet-list-67 text-primary"></i> Timeline
-            </a>
-          </li>
           <?php if($user_row['role'] == 1) { ?>
           <li class="nav-item">
             <a class="nav-link" href="<?php url('admin/users'); ?>">
@@ -108,9 +103,28 @@
           </li>
           <?php } elseif ($user_row['role'] == 2) { ?>
           <li class="nav-item">
-            <a class="nav-link" href="<?php url('article/'); ?>">
-              <i class="fas fa-book-open text-blue"></i> Article
+            <a class="nav-link" href="<?php url('dashboard/'); ?>">
+              <i class="ni ni-bullet-list-67 text-primary"></i> Timeline
             </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                  <i class="fas fa-book-open text-blue"></i> Article
+              </a>
+              <ul class="collapse list-unstyled" id="pageSubmenu">
+                <?php
+                    $stms = $_DB->prepare("SELECT subject_id,subject_title FROM subjects WHERE subject_id IN (SELECT DISTINCT(subject_id) FROM subject_owner WHERE uid = :uid)");
+                    $stms->bindParam(":uid", $user_row['uid']);
+                    $stms->execute();
+                    while ($rows = $stms->fetch(PDO::FETCH_ASSOC)) {
+                ?>
+                  <li class="nav-item">
+                      <a class="nav-link" href="<?php url('article/'.$rows['subject_id']); ?>"><?php __($rows['subject_title']); ?></a>
+                  </li>
+                <?php
+                    }
+                ?>
+              </ul>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<?php url('subject/'); ?>">
@@ -137,9 +151,28 @@
           </li>
           <?php } elseif ($user_row['role'] == 3) { ?>
           <li class="nav-item">
-            <a class="nav-link" href="<?php url('stu-article/'); ?>">
-              <i class="fas fa-book-reader text-blue"></i> Article Archive
+            <a class="nav-link" href="<?php url('dashboard/'); ?>">
+              <i class="ni ni-bullet-list-67 text-primary"></i> Timeline
             </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                  <i class="fas fa-book-open text-blue"></i> Article
+              </a>
+              <ul class="collapse list-unstyled" id="pageSubmenu">
+                <?php
+                    $stms = $_DB->prepare("SELECT subject_id,subject_title FROM subjects WHERE subject_id IN (SELECT DISTINCT(subject_id) FROM student_subject WHERE uid = :uid)");
+                    $stms->bindParam(":uid", $user_row['uid']);
+                    $stms->execute();
+                    while ($rows = $stms->fetch(PDO::FETCH_ASSOC)) {
+                ?>
+                  <li class="nav-item">
+                      <a class="nav-link" href="<?php url('stu-article/'.$rows['subject_id']); ?>"><?php __($rows['subject_title']); ?></a>
+                  </li>
+                <?php
+                    }
+                ?>
+              </ul>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<?php url('stu-subject/'); ?>">
