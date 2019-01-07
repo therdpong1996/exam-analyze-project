@@ -17,7 +17,7 @@
 
     if ($user_row['role'] == 2) {
 
-        $stm = $_DB->prepare('SELECT * FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.examination = :exam ORDER BY users.stu_id ASC');
+        $stm = $_DB->prepare('SELECT * FROM answer_data JOIN users ON answer_data.uid = users.uid JOIN q_and_a ON answer_data.question = q_and_a.qa_id WHERE answer_data.examination = :exam AND q_and_a.qa_delete = 0 ORDER BY users.stu_id ASC');
         $stm->bindParam(':exam', $_POST['examination'], PDO::PARAM_INT);
         $stm->execute();
 

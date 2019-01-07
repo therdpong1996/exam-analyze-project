@@ -93,15 +93,10 @@
                 </div>
             <?php 
                 } elseif (isset($_GET['edit'])) {
-
                     $stm = $_DB->prepare('SELECT * FROM articles WHERE atid = :atid');
                     $stm->bindParam(':atid', $_GET['article_id'], PDO::PARAM_INT);
                     $stm->execute();
                     $row = $stm->fetch(PDO::FETCH_ASSOC);
-
-                    if ($row['uid'] != $user_row['uid']) {
-                        deniedpage();
-                    }
             ?>
                 <div class="card shadow">
                 <div class="card-header bg-transparent">

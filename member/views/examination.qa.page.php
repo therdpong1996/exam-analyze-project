@@ -99,6 +99,7 @@
                     <input type="hidden" name="qa_exam" value="<?php echo isset($exam['examination_id']) ? $exam['examination_id'] : '0'; ?>">
                     <input type="hidden" name="status" value="<?php echo isset($exam_row['qa_status']) ? $exam_row['qa_status'] : '0'; ?>">
                     <input type="hidden" name="order" value="<?php echo isset($exam_row['qa_order']) ? $exam_row['qa_order'] : '0'; ?>">
+                    <input type="hidden" id="qa_status" value="<?php echo isset($exam_row['qa_status']) ? $exam_row['qa_status'] : '0'; ?>">
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="question">คำถาม ?</label>
                         <div class="col-sm-10">

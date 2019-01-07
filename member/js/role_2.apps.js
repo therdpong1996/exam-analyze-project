@@ -289,42 +289,87 @@ $('#exam-form').on('submit', function () {
   var oldtext = $('#exam-add').html();
   $('#exam-add').html('<i class="fa fa-spinner fa-spin"></i> Process..');
   checked = $("input[type=checkbox]:checked").length;
-
+  var status = $('#qa_status').val();
   if (checked <= 1) {
     alert("You must check at least one checkbox.");
     return;
   }
-
-  var sData = $(this).serialize();
-  $.ajax({
-      type: "POST",
-      url: weburl + "ajax/examination_qa",
-      data: sData,
-      dataType: "json"
-    })
-    .done(function (response) {
-      if (response.state) {
-        swal({
-          title: 'SUCCESS',
-          text: response.msg,
-          type: 'success',
-          showCancelButton: false,
-          confirmButtonColor: '#3085d6',
-          confirmButtonText: 'Yes'
-        }).then(function (result) {
+  
+  if (status == 1) {
+    swal({
+        title: 'คุณแน่ใจหรือไม่?',
+        text: "หากแก้ไขข้อสอบนี้ ข้อมูลการวิเคราะห์ของข้อนี้จะไม่สามารถนำกลับมาใช้งานได้!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'ยอมรับ!'
+      }).then(function (result) {
           if (result.value) {
-            window.location.href = window.location.href;
+            var sData = $(this).serialize();
+            $.ajax({
+                type: "POST",
+                url: weburl + "ajax/examination_qa",
+                data: sData,
+                dataType: "json"
+            })
+            .done(function (response) {
+                if (response.state) {
+                  swal({
+                    title: 'SUCCESS',
+                    text: response.msg,
+                    type: 'success',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes'
+                  }).then(function (result) {
+                    if (result.value) {
+                      window.location.href = window.location.href;
+                    }
+                  });
+                } else {
+                  $('#exam-add').html(oldtext);
+                  swal(
+                    'SORRY',
+                    response.msg,
+                    'error'
+                  );
+                }
+            });
           }
-        });
-      } else {
-        $('#exam-add').html(oldtext);
-        swal(
-          'SORRY',
-          response.msg,
-          'error'
-        );
-      }
+      });
+  }else{
+    var sData = $(this).serialize();
+    $.ajax({
+        type: "POST",
+        url: weburl + "ajax/examination_qa",
+        data: sData,
+        dataType: "json"
+      })
+    .done(function (response) {
+        if (response.state) {
+          swal({
+            title: 'SUCCESS',
+            text: response.msg,
+            type: 'success',
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Yes'
+          }).then(function (result) {
+            if (result.value) {
+              window.location.href = window.location.href;
+            }
+          });
+        } else {
+          $('#exam-add').html(oldtext);
+          swal(
+            'SORRY',
+            response.msg,
+            'error'
+          );
+        }
     });
+  }
 });
 
 delete_exam = function (qa_id) {
