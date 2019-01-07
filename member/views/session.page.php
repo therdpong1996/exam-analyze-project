@@ -25,6 +25,21 @@
                     <input type="hidden" name="action" value="add">
                     <input type="hidden" name="adaptimport" id="adaptimport" value="0">
                     <div class="form-group row">
+                      <label class="col-sm-2" for="session_active">เปิดใช้งาน</label>
+                      <div class="col-sm-10">
+                        <div class="custom-control custom-checkbox mb-3">
+                          <input class="custom-control-input" id="session_active" value="1" name="session_active" type="checkbox" checked>
+                          <label class="custom-control-label" for="session_active">ใช้งาน</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="session_title">ชื่อ</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="session_title" name="session_title" required>
+                      </div>
+                    </div>
+                    <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="session_exam">ข้อสอบ</label>
                       <div class="col-sm-10">
                         <select class="form-control" id="session_exam" name="session_exam" required>
@@ -121,11 +136,11 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="col-sm-2" for="session_solve">อนุญาตให้ดูข้อที่ถูกต้อง</label>
+                      <label class="col-sm-2" for="session_solve">อนุญาตให้ดูเฉลย</label>
                       <div class="col-sm-10">
                         <div class="custom-control custom-checkbox mb-3">
                           <input class="custom-control-input" id="session_solve" value="1" name="session_solve" type="checkbox">
-                          <label class="custom-control-label" for="session_solve">เปิด</label>
+                          <label class="custom-control-label" for="session_solve">อนุญาต</label>
                         </div>
                       </div>
                     </div>
@@ -180,7 +195,21 @@
                   <input type="hidden" name="action" value="edit">
                   <input type="hidden" name="session_id" value="<?php echo $row['session_id']; ?>">
                   <input type="hidden" name="adaptimport" id="adaptimport" value="<?php echo $row['session_adap']; ?>">
-                    
+                    <div class="form-group row">
+                      <label class="col-sm-2" for="session_active">เปิดใช้งาน</label>
+                      <div class="col-sm-10">
+                        <div class="custom-control custom-checkbox mb-3">
+                          <input class="custom-control-input" id="session_active" value="1" name="session_active" type="checkbox" <?php echo $row['session_active'] == 1 ? 'checked' : ''; ?>>
+                          <label class="custom-control-label" for="session_active">ใช้งาน</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="session_title">ชื่อ</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="session_title" name="session_title" required value="<?php echo $row['session_title']; ?>">
+                      </div>
+                    </div>
                     <div class="form-group row">
                       <label class="col-sm-2 col-form-label" for="session_exam">ข้อสอบ</label>
                       <div class="col-sm-10">
@@ -284,11 +313,11 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="col-sm-2" for="session_password">อนุญาตให้ดูข้อที่ถูกต้อง</label>
+                      <label class="col-sm-2" for="session_solve">อนุญาตให้ดูเฉลย</label>
                       <div class="col-sm-10">
                         <div class="custom-control custom-checkbox mb-3">
                           <input class="custom-control-input" id="session_solve" value="1" name="session_solve" type="checkbox" <?php echo $row['session_solve'] == 1 ? 'checked' : ''; ?>>
-                          <label class="custom-control-label" for="session_solve">เปิด</label>
+                          <label class="custom-control-label" for="session_solve">อนุญาต</label>
                         </div>
                       </div>
                     </div>
@@ -318,6 +347,7 @@
                   <table class="table align-items-center">
                     <thead class="thead-light">
                         <tr>
+                            <th scope="col">Title</th>
                             <th scope="col">Examination</th>
                             <th scope="col">Start</th>
                             <th scope="col">End</th>
@@ -337,13 +367,16 @@
                         ?>
                         <tr id="session-<?php echo $rows['session_id']; ?>">
                             <th scope="row">
-                              <span class="mb-0 text-sm"><?php echo $rows['session_adap_active'] == 1 ? '<span class="badge badge-primary">Adaptive</span>' : ''; ?> <?php echo $rows['examination_title']; ?> <?php echo $rows['session_password'] != null ? '<i class="fas fa-key"></i>' : ''; ?> <small>[<?php echo $rows['subject_title']; ?>]</small></span>
+                              <span class="mb-0 text-sm"><?php echo $rows['session_adap_active'] == 1 ? '<span class="badge badge-primary">Adaptive</span>' : ''; ?> <?php echo $rows['session_title ']; ?> <?php echo $rows['session_password'] != null ? '<i class="fas fa-key"></i>' : ''; ?></span>
                             </th>
                             <td>
-                              <?php echo date('l d, M Y', strtotime($rows['session_start'])); ?>
+                              <?php echo $rows['examination_title']; ?> <small>[<?php echo $rows['subject_title']; ?>]</small></span>
                             </td>
                             <td>
-                              <?php echo date('l d, M Y', strtotime($rows['session_end'])); ?>
+                              <?php echo date('d/M/Y', strtotime($rows['session_start'])); ?>
+                            </td>
+                            <td>
+                              <?php echo date('d/M/Y', strtotime($rows['session_end'])); ?>
                             </td>
                             <td class="text-right">
                                 <a href="analyze/?session_id=<?php echo $rows['session_id']; ?>&overview" class="btn btn-success btn-sm">Analyze</a>

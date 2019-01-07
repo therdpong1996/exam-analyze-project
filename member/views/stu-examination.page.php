@@ -11,16 +11,8 @@
     <div class="container-fluid pb-5 pt-5 pt-md-8">
         <div class="row">
             <?php
-                $stmc = $_DB->prepare("SELECT * FROM student_subject WHERE uid = :uid");
-                $stmc->bindParam(":uid", $user_row['uid']);
-                $stmc->execute();
-                while ($srow = $stmc->fetch(PDO::FETCH_ASSOC)) {
-                    $in .= $srow['subject_id'].',';
-                }
-                $in = rtrim($in, ",");
-                $in = '('.$in.')';
-
-                $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE subjects.subject_id IN '.$in.' ORDER BY sessions.session_start ASC');
+                $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE sessions_session_active = 1 AND subjects.subject_id IN (SELECT DISTINCT(subject_id) FROM student_subject WHERE uid = :uid) ORDER BY sessions.session_start ASC');
+                $stm->bindParam(":uid", $user_row['uid']);
                 $stm->execute();
                 while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
             ?>

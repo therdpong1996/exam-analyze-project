@@ -99,7 +99,6 @@
                     <input type="hidden" name="qa_exam" value="<?php echo isset($exam['examination_id']) ? $exam['examination_id'] : '0'; ?>">
                     <input type="hidden" name="status" value="<?php echo isset($exam_row['qa_status']) ? $exam_row['qa_status'] : '0'; ?>">
                     <input type="hidden" name="order" value="<?php echo isset($exam_row['qa_order']) ? $exam_row['qa_order'] : '0'; ?>">
-                    <input type="hidden" id="qa_status" value="<?php echo isset($exam_row['qa_status']) ? $exam_row['qa_status'] : '0'; ?>">
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="question">คำถาม ?</label>
                         <div class="col-sm-10">
@@ -151,9 +150,13 @@
                         </div>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <div class="col-sm-2"></div>
                         <div class="col-sm-10">
+                        <?php if($exam_row['qa_status'] == 1){ ?>
+                        <p class="text-warning">คุณแน่ใจหรือไม่? หากแก้ไขข้อสอบข้อนี้ ข้อมูลการวิเคราะห์ของข้อนี้จะไม่สามารถใช้งานได้อีก</p>
+                        <?php } ?>
                         <button type="submit" id="exam-add" class="btn btn-success">บันทึก</button>
                         <a href="<?php url('examination/'); ?>" class="btn btn-danger">ยกเลิก</a>
                         </div>

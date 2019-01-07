@@ -198,7 +198,7 @@
         ?>
           <li class="nav-item">
             <a class="nav-link" href="<?php url('doing-examination/'.$rows['session_id']); ?>">
-              <i class="fa fa-clock"></i> [กำลังทำ] <?php echo $rows['examination_title']; ?>
+              <i class="fa fa-clock"></i> [กำลังทำ] <?php echo $rows['session_title']; ?>
             </a>
           </li>
         <?php } ?>
@@ -210,7 +210,7 @@
         ?>
           <li class="nav-item">
             <a class="nav-link" href="<?php url('doing-examination-adaptive/'.$rows['session_id']); ?>">
-              <i class="fa fa-clock"></i> [กำลังทำ] <?php echo $rows['examination_title']; ?>
+              <i class="fa fa-clock"></i> [กำลังทำ] <?php echo $rows['session_title']; ?>
             </a>
           </li>
         <?php } ?>

@@ -35,8 +35,9 @@
             echo json_encode(['state' => false, 'msg' => 'No permission']);
             exit;
         }
-        
 
+        $active = (isset($_POST['session_active']) ? '1' : '0');
+        $title = $_POST['session_title'];
         $exam = $_POST['session_exam'];
         $start = str_replace('/', '-', $_POST['session_start']).' '.$_POST['session_start_time'].':00';
         $end = str_replace('/', '-', $_POST['session_end']).' '.$_POST['session_end_time'].':00';
@@ -53,8 +54,10 @@
             $train = 0;
         }
 
-        $stm = $_DB->prepare('INSERT INTO sessions (session_exam,session_password,session_timeleft,session_start,session_end,session_solve,session_adap,session_adap_active,session_train,session_adap_number) VALUES (:exam, :password, :timeleft, :start, :end, :solve, :adap, :active, :train, :number)');
+        $stm = $_DB->prepare('INSERT INTO sessions (session_active,session_exam,session_title,session_password,session_timeleft,session_start,session_end,session_solve,session_adap,session_adap_active,session_train,session_adap_number) VALUES (:active, :exam, :title, :password, :timeleft, :start, :end, :solve, :adap, :active, :train, :number)');
+        $stm->bindParam(':active', $active, PDO::PARAM_INT);
         $stm->bindParam(':exam', $exam, PDO::PARAM_INT);
+        $stm->bindParam(':title', $title, PDO::PARAM_STR);
         $stm->bindParam(':start', $start, PDO::PARAM_STR);
         $stm->bindParam(':end', $end, PDO::PARAM_STR);
         $stm->bindParam(':timeleft', $timeleft, PDO::PARAM_STR);
@@ -100,6 +103,8 @@
         }
 
         $id = $_POST['session_id'];
+        $active = (isset($_POST['session_active']) ? '1' : '0');
+        $title = $_POST['session_title'];
         $exam = $_POST['session_exam'];
         $start = str_replace('/', '-', $_POST['session_start']).' '.$_POST['session_start_time'].':00';
         $end = str_replace('/', '-', $_POST['session_end']).' '.$_POST['session_end_time'].':00';
@@ -115,8 +120,10 @@
             $train = 0;
         }
 
-        $stm = $_DB->prepare('UPDATE sessions SET session_exam = :exam, session_password = :password, session_timeleft = :timeleft, session_start = :start, session_end = :end, session_solve = :solve, session_adap = :adap, session_adap_active = :active, session_adap_number = :number, session_train = :train WHERE session_id = :session_id');
+        $stm = $_DB->prepare('UPDATE sessions SET session_active = :active, session_exam = :exam, session_title = :title, session_password = :password, session_timeleft = :timeleft, session_start = :start, session_end = :end, session_solve = :solve, session_adap = :adap, session_adap_active = :active, session_adap_number = :number, session_train = :train WHERE session_id = :session_id');
+        $stm->bindParam(':active', $active, PDO::PARAM_INT);
         $stm->bindParam(':exam', $exam, PDO::PARAM_INT);
+        $stm->bindParam(':title', $title, PDO::PARAM_STR);
         $stm->bindParam(':start', $start, PDO::PARAM_STR);
         $stm->bindParam(':end', $end, PDO::PARAM_STR);
         $stm->bindParam(':timeleft', $timeleft, PDO::PARAM_STR);
