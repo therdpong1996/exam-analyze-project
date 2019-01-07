@@ -1,8 +1,8 @@
 <?php
 
     date_default_timezone_set('Asia/Bangkok');
-    ini_set('display_errors', 0);
-    error_reporting(0);
+    ini_set('display_errors', 1);
+    error_reporting(E_ALL);
 
     //PDO
     $_PDO['dsn'] = 'mysql:host=us-cdbr-iron-east-01.cleardb.net;dbname=heroku_1f970f0ca4cd2ac;charset=utf8';

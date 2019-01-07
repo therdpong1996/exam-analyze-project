@@ -68,6 +68,7 @@
                 </button>
             </div>
             <div class="modal-body text-center">
+                <?php if($exam_row['qa_report'] != NULL){ ?>
                 <div id="g-container"></div>
                 <div class="mt-3">
                     <?php
@@ -82,6 +83,11 @@
                     $row23 = $stm23->fetch(PDO::FETCH_ASSOC);
                 ?>
                 <p class="mt-3">จากข้อมูลผู้ทดสอบทั้งหมด <?php __($row23['stdn']); ?> คน</p>
+                <?php }else{ ?>
+                    <div class="pt-5 pb-5">
+                        <h2 class="text-danger">ข้อสอบนี้ยังไม่มีการวิเคราะห์</h2>
+                    </div>
+                <?php } ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -89,6 +95,7 @@
             </div>
         </div>
         </div>
+        <?php if($exam_row['qa_report'] != NULL){ ?>
         <script>
             var chart = Highcharts.chart('g-container', {
                             yAxis: {
@@ -140,6 +147,7 @@
                             }
                         });
         </script>
+        <?php } ?>
         <?php
                 $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM answer_data WHERE answer = 1 AND subject = :subject AND session = :session AND examination = :exam AND question = :question AND temp = 0');
                 $stm->bindParam(':subject', $session['examination_subject']);
