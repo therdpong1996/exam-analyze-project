@@ -169,6 +169,8 @@
 
         $session_id = $_POST['session_id'];
 
+        removefromtimeline('session', $session_id);
+
         $stm = $_DB->prepare('DELETE FROM sessions WHERE session_id = :session_id');
         $stm->bindParam(':session_id', $session_id, PDO::PARAM_INT);
         $stm->execute();

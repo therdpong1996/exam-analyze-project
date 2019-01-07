@@ -37,6 +37,16 @@
         return true;
     }
 
+    function removefromtimeline($type, $id){
+        global $_DB;
+        $stm = $_DB->prepare("DELETE FROM timeline WHERE type = :type AND content_id = :content_id");
+        $stm->bindParam(':type', $type);
+        $stm->bindParam(':content_id', $id);
+        $stm->execute();
+
+        return true;
+    }
+
     function UniqueRandomNumbersWithinRange($min, $max, $quantity)
     {
         $numbers = range($min, $max);

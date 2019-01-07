@@ -123,6 +123,8 @@
 
         $atid = $_POST['atid'];
 
+        removefromtimeline('article', $atid);
+
         $stm = $_DB->prepare('UPDATE articles SET on_delete = 1 WHERE atid = :atid');
         $stm->bindParam(':atid', $atid, PDO::PARAM_INT);
         $stm->execute();

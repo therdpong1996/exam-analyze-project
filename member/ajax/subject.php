@@ -96,6 +96,8 @@
 
         $subject_id = $_POST['subject_id'];
 
+        removefromtimeline('subject', $subject_id);
+
         $stm = $_DB->prepare('DELETE FROM subjects WHERE subject_id = :subject_id');
         $stm->bindParam(':subject_id', $subject_id, PDO::PARAM_INT);
         $stm->execute();

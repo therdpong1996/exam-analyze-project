@@ -107,6 +107,8 @@
 
         $examination_id = $_POST['examination_id'];
 
+        removefromtimeline('exam', $examination_id);
+
         $stm = $_DB->prepare('DELETE FROM examinations WHERE examination_id = :examination_id');
         $stm->bindParam(':examination_id', $examination_id, PDO::PARAM_INT);
         $stm->execute();
