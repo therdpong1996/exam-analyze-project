@@ -55,8 +55,8 @@
     }
 
     function deniedpage(){
-        include_once __DIR__.'/views/denied.page.php';
-        include_once __DIR__.'/views/parts/footer.content.php';
-        include_once __DIR__.'/views/parts/footer.common.php';
+        include_once __DIR__.'/member/views/denied.page.php';
+        include_once __DIR__.'/member/views/parts/footer.content.php';
+        include_once __DIR__.'/member/views/parts/footer.common.php';
         exit();
     }
