@@ -45,7 +45,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $stma = $_DB->prepare("SELECT atid,a_order,title FROM articles WHERE subject = :sid ORDER BY a_order ASC)");
+                                            $stma = $_DB->prepare("SELECT atid,a_order,title FROM articles WHERE subject = :sid ORDER BY a_order ASC");
                                             $stma->bindParam(":sid", $_GET['sub_id']);
                                             $stma->execute();
                                             while ($ar = $stma->fetch(PDO::FETCH_ASSOC)) {
