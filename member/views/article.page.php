@@ -91,7 +91,6 @@
                         <div class="col-sm-2"></div>
                         <div class="col-sm-10">
                         <button type="submit" id="add-article-btn" class="btn btn-success">บันทึก</button>
-                        <a href="<?php url('article/'); ?>" class="btn btn-danger">ยกเลิก</a>
                         </div>
                     </div>
                     </form>
@@ -184,7 +183,6 @@
                         <div class="col-sm-2"></div>
                         <div class="col-sm-10">
                         <button type="submit" id="save-article-btn" class="btn btn-success">บันทึก</button>
-                        <a href="<?php url('article/'); ?>" class="btn btn-danger">ยกเลิก</a>
                         </div>
                     </div>
                     </form>
