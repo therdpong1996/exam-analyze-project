@@ -67,7 +67,6 @@
                                             echo '{';
                                             echo 'name: \''.$data['name'].'\',';
                                             echo 'data: '.$data['data'].',';
-                                            echo 'visible: false,';
                                             echo 'label: {enabled: false}';
                                             echo '},';
                                         }
