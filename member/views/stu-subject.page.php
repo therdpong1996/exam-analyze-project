@@ -147,7 +147,7 @@
                             $('#invite-check').html(oldtext);
                             $('#confirmModal').modal('show')
                         }else{
-                            alert('ไม่พบวิชาที่ค้นหา');
+                            $('#invite-check').html(oldtext)
                         }
                     }
                 });
