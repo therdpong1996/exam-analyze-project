@@ -9,13 +9,13 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-5 text-center">
                             <canvas id="choiceChart"></canvas>
                         </div>
-                        <div class="col-6">
+                        <div class="col-5 text-center offset-1">
                             <canvas id="AdaptivechoiceChart"></canvas>
                         </div>
-                        <div class="col-6">
+                        <div class="col-5 text-center">
                             <?php 
                                 $stm = $_DB->prepare('SELECT COUNT(uid) AS c FROM answer_data WHERE subject = :subject AND session = :session AND examination = :exam AND question = :question AND temp = 0');
                                 $stm->bindParam(':subject', $session['examination_subject']);
@@ -27,7 +27,7 @@
                             ?>
                             <div class="mt-4 text-center">จำนวนผู้เข้าสอบ: <?php __($ntaken['c']); ?></div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-5 offset-1 text-center">
                             <?php 
                                 $stm = $_DB->prepare('SELECT COUNT(uid) AS c FROM adaptive_answer_data WHERE subject = :subject AND session = :session AND examination = :exam AND question = :question AND temp = 0');
                                 $stm->bindParam(':subject', $session['examination_subject']);
