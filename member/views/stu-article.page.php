@@ -51,8 +51,8 @@
                                             while ($ar = $stma->fetch(PDO::FETCH_ASSOC)) {
                                         ?>
                                         <tr>
-                                            <td><?php __($ar['order']); ?></td>
-                                            <td><a href="<?php furl('article/'.$ar['atid'].'/'.$ar['title']); ?>"><?php __($ar['title']); ?></a></td>
+                                            <td><?php echo $ar['a_order']; ?></td>
+                                            <td><a href="<?php furl('article/'.$ar['atid'].'/'.$ar['title']); ?>"><?php echo $ar['title']; ?></a></td>
                                         </tr>
                                         <?php } ?>
                                     </tbody>
