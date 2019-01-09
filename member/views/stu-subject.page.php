@@ -139,12 +139,16 @@
                     data: {code: incode},
                     dataType: "json",
                     success: function (response) {
-                        $('#modal-confirm-title').html(response.subject_title)
-                        $('#modal-detail').html(response.subject_detail)
-                        $('#modal-user').html(response.user)
-                        $('#modal-subject_id').val(response.subject_id)
-                        $('#invite-check').html(oldtext);
-                        $('#confirmModal').modal('show')
+                        if (response.subject_id) {
+                            $('#modal-confirm-title').html(response.subject_title)
+                            $('#modal-detail').html(response.subject_detail)
+                            $('#modal-user').html(response.user)
+                            $('#modal-subject_id').val(response.subject_id)
+                            $('#invite-check').html(oldtext);
+                            $('#confirmModal').modal('show')
+                        }else{
+                            alert('ไม่พบวิชาที่ค้นหา');
+                        }
                     }
                 });
             })

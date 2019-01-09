@@ -27,7 +27,10 @@
         $userow = $stm3->fetch(PDO::FETCH_ASSOC);
         array_push($teach, $userow['full_name']);
     }
-    $row['user'] = implode(', ', $teach);
-    __(json_encode($row));
+
+    if ($row['subject_id']) {
+        $row['user'] = implode(', ', $teach);
+        __(json_encode($row));
+    }
     exit;
 
