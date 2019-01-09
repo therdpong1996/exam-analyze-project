@@ -31,6 +31,8 @@
     if ($row['subject_id']) {
         $row['user'] = implode(', ', $teach);
         __(json_encode($row));
+    }else{
+        __(json_encode(['subject_id'=>0]));
     }
     exit;
 
