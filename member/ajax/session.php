@@ -54,7 +54,7 @@
             $train = 0;
         }
 
-        $stm = $_DB->prepare('INSERT INTO sessions (session_active,session_exam,session_title,session_password,session_timeleft,session_start,session_end,session_solve,session_adap,session_adap_active,session_train,session_adap_number) VALUES (:active, :exam, :title, :password, :timeleft, :start, :end, :solve, :adap, :active, :train, :number)');
+        $stm = $_DB->prepare('INSERT INTO sessions (session_active,session_exam,session_title,session_password,session_timeleft,session_start,session_end,session_solve,session_adap,session_adap_active,session_train,session_adap_number) VALUES (:active, :exam, :title, :password, :timeleft, :start, :end, :solve, :adap, :adap_active, :train, :number)');
         $stm->bindParam(':active', $active, PDO::PARAM_INT);
         $stm->bindParam(':exam', $exam, PDO::PARAM_INT);
         $stm->bindParam(':title', $title, PDO::PARAM_STR);
@@ -64,7 +64,7 @@
         $stm->bindParam(':password', $password, PDO::PARAM_STR);
         $stm->bindParam(':solve', $solve, PDO::PARAM_INT);
         $stm->bindParam(':adap', $import, PDO::PARAM_INT);
-        $stm->bindParam(':active', $adap_active, PDO::PARAM_INT);
+        $stm->bindParam(':adap_active', $adap_active, PDO::PARAM_INT);
         $stm->bindParam(':train', $train, PDO::PARAM_INT);
         $stm->bindParam(':number', $number, PDO::PARAM_INT);
         $stm->execute();
@@ -120,7 +120,7 @@
             $train = 0;
         }
 
-        $stm = $_DB->prepare('UPDATE sessions SET session_active = :active, session_exam = :exam, session_title = :title, session_password = :password, session_timeleft = :timeleft, session_start = :start, session_end = :end, session_solve = :solve, session_adap = :adap, session_adap_active = :active, session_adap_number = :number, session_train = :train WHERE session_id = :session_id');
+        $stm = $_DB->prepare('UPDATE sessions SET session_active = :active, session_exam = :exam, session_title = :title, session_password = :password, session_timeleft = :timeleft, session_start = :start, session_end = :end, session_solve = :solve, session_adap = :adap, session_adap_active = :adap_active, session_adap_number = :number, session_train = :train WHERE session_id = :session_id');
         $stm->bindParam(':active', $active, PDO::PARAM_INT);
         $stm->bindParam(':exam', $exam, PDO::PARAM_INT);
         $stm->bindParam(':title', $title, PDO::PARAM_STR);
@@ -130,7 +130,7 @@
         $stm->bindParam(':password', $password, PDO::PARAM_STR);
         $stm->bindParam(':solve', $solve, PDO::PARAM_INT);
         $stm->bindParam(':adap', $import, PDO::PARAM_INT);
-        $stm->bindParam(':active', $adap_active, PDO::PARAM_INT);
+        $stm->bindParam(':adap_active', $adap_active, PDO::PARAM_INT);
         $stm->bindParam(':number', $number, PDO::PARAM_INT);
         $stm->bindParam(':session_id', $id, PDO::PARAM_INT);
         $stm->bindParam(':train', $train, PDO::PARAM_INT);
