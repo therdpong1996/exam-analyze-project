@@ -115,6 +115,7 @@
             $stm->bindParam(':true', $true, PDO::PARAM_STR);
             $stm->bindParam(':id', $id, PDO::PARAM_INT);
             $stm->execute();
+            $idddd = $id;
         }else{
             $stm = $_DB->prepare('INSERT INTO q_and_a (qa_subject,qa_exam,qa_question,qa_choice_1,qa_choice_2,qa_choice_3,qa_choice_4,qa_choice_true,qa_order) VALUES (:subject, :exam, :question, :ch1, :ch2, :ch3, :ch4, :true, :order)');
             $stm->bindParam(':subject', $subject, PDO::PARAM_INT);
@@ -127,6 +128,7 @@
             $stm->bindParam(':true', $true, PDO::PARAM_STR);
             $stm->bindParam(':order', $order, PDO::PARAM_INT);
             $stm->execute();
+            $idddd = $_DB->lastInsertId();
             $stm2 = $_DB->prepare('UPDATE q_and_a SET qa_delete = 1 WHERE qa_id = :id');
             $stm2->bindParam(':id', $id, PDO::PARAM_INT);
             $stm2->execute();
@@ -136,8 +138,9 @@
         $stm2->bindParam(":id", $exam);
         $stm2->execute();
 
-        echo json_encode(['state' => true, 'msg' => 'แก้ไขคำถามเรียบร้อย']);
+        echo json_encode(['state' => true, 'msg' => 'แก้ไขคำถามเรียบร้อย', 'id'=>$idddd]);
         exit;
+
     } elseif ($_POST['action'] == 'delete') {
 
         if ($_SESSION['role'] != 2) {
