@@ -10,7 +10,7 @@
         if (isset($_GET['n'])) {
             $n = $_GET['n'];
         } else {
-            $stm = $_DB->prepare('SELECT qa_id FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam ORDER BY qa_id ASC LIMIT 1');
+            $stm = $_DB->prepare('SELECT qa_id FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam AND qa_delete = 0 ORDER BY qa_id ASC LIMIT 1');
             $stm->bindParam(':subject', $exam['examination_subject']);
             $stm->bindParam(':exam', $exam['examination_id']);
             $stm->execute();
