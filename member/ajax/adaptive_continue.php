@@ -19,6 +19,26 @@
     $temp = 1;
     $token = md5('computerizedadaptivetesting' . $session);
 
+    //TIME
+    $time_tt = time();
+    $stmt3 = $_DB->prepare('SELECT * FROM adaptive_time_remaining WHERE session = :session AND uid = :uid');
+    $stmt3->bindParam(':session', $session);
+    $stmt3->bindParam(':uid', $uid);
+    $stmt3->execute();
+    $time_re = $stmt3->fetch(PDO::FETCH_ASSOC);
+    $time_ree = $time_re['time_remaining'] - ($time_tt - $time_re['time_update1']);
+    $time_ree = ($time_ree <= 0) ? 0 : $time_ree;
+    if ($time_tt > $time_re['time_start'] + ($session['session_timeleft'] * 60)) {
+        $time_ree = 0;
+    }
+    $stm = $_DB->prepare('UPDATE adaptive_time_remaining SET time_update1 = :updatet1, time_remaining = :time_re WHERE uid = :uid AND session = :session');
+    $stm->bindParam(':time_re', $time_ree, PDO::PARAM_INT);
+    $stm->bindParam(':uid', $uid, PDO::PARAM_INT);
+    $stm->bindParam(':updatet1', $time_tt, PDO::PARAM_INT);
+    $stm->bindParam(':session', $session, PDO::PARAM_INT);
+    $stm->execute();
+
+    //CHECK ANSWER
     $stm = $_DB->prepare("SELECT * FROM q_and_a WHERE qa_id = :id AND qa_subject = :subject AND qa_exam = :exam LIMIT 1");
     $stm->bindParam(':id', $question, PDO::PARAM_INT);
     $stm->bindParam(':subject', $subject, PDO::PARAM_INT);
