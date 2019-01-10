@@ -68,7 +68,7 @@
             $stm = $_DB->prepare("UPDATE examinations SET examination_newex = 1 WHERE examination_id = :id");
             $stm->bindParam(":id", $exam);
             $stm->execute();
-            echo json_encode(['state' => true, 'msg' => 'คำถามได้ถูกเพิ่มแล้ว']);
+            echo json_encode(['state' => true, 'msg' => 'คำถามได้ถูกเพิ่มแล้ว', 'eid'=>$exam, 'n'=>$lastid]);
         } else {
             echo json_encode(['state' => false, 'msg' => 'Error MySQL Query']);
         }
