@@ -312,7 +312,7 @@ $('#exam-form').on('submit', function () {
           confirmButtonText: 'Yes'
         }).then(function (result) {
           if (result.value) {
-            window.location.href = weburl + 'examination/qa/?examination_id=' + response.id;
+            window.location.href = weburl + 'examination/qa/?examination_id=' + response.eid + '&n=' + response.n;
           }
         });
       } else {

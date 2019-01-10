@@ -138,7 +138,7 @@
         $stm2->bindParam(":id", $exam);
         $stm2->execute();
 
-        echo json_encode(['state' => true, 'msg' => 'แก้ไขคำถามเรียบร้อย', 'id'=>$idddd]);
+        echo json_encode(['state' => true, 'msg' => 'แก้ไขคำถามเรียบร้อย', 'eid'=>$exam, 'n'=>$idddd]);
         exit;
 
     } elseif ($_POST['action'] == 'delete') {
