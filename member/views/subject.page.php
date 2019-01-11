@@ -150,7 +150,7 @@
                             type: "POST",
                             url: weburl + "ajax/add_colab",
                             data: {uid: uid, subject: subject_id},
-                            dataType: "html",
+                            dataType: "json",
                             success: function (response) {
                                 if (response.state) {
                                     $('#old-colab').append(response.html)
