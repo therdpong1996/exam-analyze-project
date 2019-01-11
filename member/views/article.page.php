@@ -220,16 +220,16 @@
                             ?>
                             <tr id="article-<?php echo $rows['atid']; ?>">
                                 <td>
-                                    <i class="fa fa-arrows-alt"></i> 1
+                                    <i class="fa fa-arrows-alt"></i> <?php echo $rows['a_order']; ?>
                                 </td>
                                 <td>
-                                    2
+                                    <?php echo $rows['title']; ?>
                                 </td>
                                 <td>
-                                    3
+                                    <?php echo $rows['full_name']; ?>
                                 </td>
                                 <td>
-                                    4
+                                    <?php echo $rows['subject_title']; ?>
                                 </td>
                                 <td class="text-right">
                                     <a href="?edit&article_id=<?php echo $rows['atid']; ?>" class="btn btn-info btn-sm">Edit</a> 
