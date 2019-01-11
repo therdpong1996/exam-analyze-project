@@ -128,8 +128,8 @@
             $('#invite-check').on('click', function(e){
                 var oldtext = $('#invite-check').html();
                 $('#invite-check').html('<i class="fa fa-spinner fa-spin"></i> Process..');
-                var incode = $('input#subject-invite').val()
-                if (incode.lenght < 1) {
+
+                if ($('input#subject-invite').val().length < 1) {
                     alert('not found code');
                     return;
                 }
@@ -155,6 +155,7 @@
             })
 
             $('#confirm-subject').on('submit', function(){
+                $('#overlay-loading').fadeIn(200);
                 var oldtext = $('#confirm-btn').html();
                 $('#confirm-btn').html('<i class="fa fa-spinner fa-spin"></i> Process..');
                 var data = $(this).serialize()

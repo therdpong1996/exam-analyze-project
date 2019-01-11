@@ -108,7 +108,6 @@
                         </div>
                         </div>
                         <div class="col-sm-5">
-                        <input type="hidden" id="col_add_uid" name="col_add_uid" value="0">
                         <input type="text" class="form-control form-control-sm" id="sub_colab" name="sub_colab" placeholder="ชื่อผู้ใช้ หรือ ชื่อ-นามสกุล" />
                         <div id="colab-search"></div>
                         <button class="btn btn-primary btn-sm mt-2" type="button" id="colab_add"><i class="fas fa-plus-circle"></i> เพิ่ม</button>
@@ -126,6 +125,7 @@
                 </div>
                 <script>
                     var subject_id = '<?php __($row['subject_id']);?>';
+
                     delete_colab = function(subject, uid){
                         $('#del-col-'+uid).html('<i class="fa fa-spinner fa-spin"></i>');
 
@@ -141,35 +141,26 @@
                         })
                     }
 
-                    addcoldata = function (uid, name) { 
-                        $('#col_add_uid').val(uid)
-                        $('#sub_colab').val(name)
-                        $('#colab-search').html('')
-                    }
-
-                    $('#colab_add').on('click', function(){
-                        var colabid = $('#col_add_uid').val()
-                        if(colabid == 0){
+                    addcoldata = function (uid, name) {
+                        if(uid == 0){
                             alert('ไม่พบผู้ใช้งาน');
                             return;
                         }
                         $.ajax({
                             type: "POST",
                             url: weburl + "ajax/add_colab",
-                            data: {uid: colabid, subject: subject_id},
+                            data: {uid: uid, subject: subject_id},
                             dataType: "html",
                             success: function (response) {
                                 if (response.state) {
                                     $('#old-colab').append(response.html)
-                                    $('#sub_colab').val('')
-                                    $('#col_add_uid').val('0')
                                 }else{
                                     alert(response.msg);
                                     return;
                                 }
                             }
                         })
-                    })
+                    }
 
                     $('#sub_colab').on('keyup', function(){
                         var val = $(this).val();

@@ -279,6 +279,7 @@
             })
             .done(function(response) {
                 $('#article-content').html(response)
+                $('#overlay-loading').fadeOut(200);
             });
-            });
+        });
     </script>
