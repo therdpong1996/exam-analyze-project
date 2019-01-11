@@ -188,14 +188,19 @@
                     </form>
                 </div>
                 </div>
-            <?php } else { ?>
+            <?php } else { 
+                $stmj = $_DB->prepare("SELECT subject_title FROM subjects WHERE subject_id = :sid");
+                $stmj->bindParam(":sid", $_GET['sub_id']);
+                $stmj->execute();
+                $subj = $stmj->fetch(PDO::FETCH_ASSOC);
+            ?>
                 <a class="btn btn-success mb-3" href="?add"><span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span> เขียนบทความ</a>
                 <div class="card shadow">
                 <div class="card-header bg-transparent">
                     <div class="row align-items-center">
                     <div class="col">
                         <h6 class="text-uppercase text-muted ls-1 mb-1">รายการบทความ</h6>
-                        <h2 class="mb-0">Article</h2>
+                        <h2 class="mb-0">Article ของ <?php __($subj['subject_title']); ?></h2>
                     </div>
                     </div>
                 </div>
@@ -204,32 +209,32 @@
                     <table class="table align-items-center table-sortable sort-table">
                     <thead class="thead-light">
                         <tr>
-                            <th>Week</th>
+                            <th></th>
+                            <th scope="col">Week</th>
                             <th scope="col">Title</th>
                             <th scope="col">Writer</th>
-                            <th scope="col">Subject</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
                             <?php
-                                $stm = $_DB->prepare('SELECT articles.atid,articles.title,articles.reads,articles.poston,articles.public,articles.a_order,users.full_name,subjects.subject_title FROM articles JOIN users ON articles.uid = users.uid JOIN subjects ON articles.subject = subjects.subject_id WHERE articles.subject = :sub_id ORDER BY articles.a_order ASC');
+                                $stm = $_DB->prepare('SELECT articles.atid,articles.title,articles.reads,articles.poston,articles.public,articles.a_order,users.full_name FROM articles JOIN users ON articles.uid = users.uid WHERE articles.subject = :sub_id ORDER BY articles.a_order ASC');
                                 $stm->bindParam(":sub_id", $_GET['sub_id']);
                                 $stm->execute();
                                 while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
                             ?>
-                            <tr id="article-<?php echo $rows['atid']; ?>">
+                            <tr atid="<?php echo $rows['atid']; ?>" id="article-<?php echo $rows['atid']; ?>">
                                 <td>
-                                    <i class="fa fa-arrows-alt"></i> <?php echo $rows['a_order']; ?>
+                                    <i class="fa fa-arrows-alt"></i>
+                                </td>
+                                <td>
+                                    <?php echo $rows['a_order']; ?>
                                 </td>
                                 <td>
                                     <?php echo $rows['title']; ?>
                                 </td>
                                 <td>
                                     <?php echo $rows['full_name']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $rows['subject_title']; ?>
                                 </td>
                                 <td class="text-right">
                                     <a href="?edit&article_id=<?php echo $rows['atid']; ?>" class="btn btn-info btn-sm">Edit</a> 
@@ -256,4 +261,25 @@
         $('.table-sortable tbody').sortable({
             handle: 'i'
         });
+
+        var Arorder = [];
+
+        $('.table-sortable tbody').sortable().bind('sortupdate', function() {
+            $('#overlay-loading').fadeIn(200);
+            Arorder = [];
+            $('.table-sortable tbody tr').each(function() {
+                Arorder.push($(this).attr('atid'))
+            });
+
+            console.log(Arorder);
+            /*    $.ajax({
+                    url: weburl + 'ajax/order_exam',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {qa_id: Examorder}
+                })
+                .always(function(response) {
+                    window.location.href = window.location.href;
+                });*/
+            });
     </script>

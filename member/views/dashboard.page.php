@@ -11,29 +11,17 @@
             <div class="row">
                 <div class="col-xl-12">
                     <?php
+                        $num_rows = 0;
                         if ($user_row['role'] == 2) {
-                            $stmc = $_DB->prepare("SELECT * FROM subject_owner WHERE uid = :uid");
-                            $stmc->bindParam(":uid", $user_row['uid']);
-                            $stmc->execute();
-                            while ($srow = $stmc->fetch(PDO::FETCH_ASSOC)) {
-                                $in .= $srow['subject_id'].',';
-                            }
-                            $in = rtrim($in, ",");
-                            $in = '('.$in.')';
+                            $stm = $_DB->prepare('SELECT * FROM timeline JOIN users ON timeline.taken = users.uid WHERE subject IN (SELECT subject_id FROM subject_owner WHERE uid = :uid) AND for_time = :role ORDER BY ontime DESC');
                         }elseif($user_row['role'] == 3){
-                            $stmc = $_DB->prepare("SELECT * FROM student_subject WHERE uid = :uid");
-                            $stmc->bindParam(":uid", $user_row['uid']);
-                            $stmc->execute();
-                            while ($srow = $stmc->fetch(PDO::FETCH_ASSOC)) {
-                                $in .= $srow['subject_id'].',';
-                            }
-                            $in = rtrim($in, ",");
-                            $in = '('.$in.')';
+                            $stm = $_DB->prepare('SELECT * FROM timeline JOIN users ON timeline.taken = users.uid WHERE subject IN (SELECT subject_id FROM student_subject WHERE uid = :uid) AND for_time = :role ORDER BY ontime DESC');
                         }
-                        $stm = $_DB->prepare('SELECT * FROM timeline JOIN users ON timeline.taken = users.uid WHERE subject IN '.$in.' AND for_time = :role ORDER BY ontime DESC');
                         $stm->bindParam(':role', $user_row['role']);
+                        $stm->bindParam(":uid", $user_row['uid']);
                         $stm->execute();
                         while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                            $num_rows++;
                     ?>
                     <div class="card shadow mb-4">
                         <div class="card-body">
@@ -153,6 +141,13 @@
                             <?php } ?>
                         </div>
                     </div>
+                    <?php }
+                        if($num_rows == 0){
+                    ?>
+                        <div class="mt-5 mb-5 pt-5 pb-5">
+                            <i class="fa fa-times fa-5x text-muted"></i>
+                            <h2 class="mt-4">ไม่มีข้อมูล</h2>
+                        </div>
                     <?php } ?>
                 </div>
             </div>

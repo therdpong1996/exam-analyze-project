@@ -23,7 +23,7 @@
         $uid = $_POST['uid'];
         $title = $_POST['subject_title'];
         $detail = $_POST['subject_detail'];
-        $invite = generateRandomString();
+        $invite = generateRandomString(4);
 
         $stm = $_DB->prepare('INSERT INTO subjects (subject_title,subject_detail,subject_invite_code) VALUES (:title, :detail, :invite)');
         $stm->bindParam(':title', $title, PDO::PARAM_STR);
@@ -97,6 +97,14 @@
         $subject_id = $_POST['subject_id'];
 
         removefromtimeline('subject', $subject_id);
+
+        $stm = $_DB->prepare('DELETE FROM student_subject WHERE subject_id = :subject_id');
+        $stm->bindParam(':subject_id', $subject_id, PDO::PARAM_INT);
+        $stm->execute();
+
+        $stm = $_DB->prepare('DELETE FROM subject_owner WHERE subject_id = :subject_id');
+        $stm->bindParam(':subject_id', $subject_id, PDO::PARAM_INT);
+        $stm->execute();
 
         $stm = $_DB->prepare('DELETE FROM subjects WHERE subject_id = :subject_id');
         $stm->bindParam(':subject_id', $subject_id, PDO::PARAM_INT);
