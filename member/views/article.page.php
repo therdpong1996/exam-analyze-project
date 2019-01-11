@@ -201,7 +201,7 @@
                 </div>
                 <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table align-items-center sort-table">
+                    <table class="table align-items-center table-sortable sort-table">
                     <thead class="thead-light">
                         <tr>
                             <th>Week</th>
@@ -220,7 +220,7 @@
                             ?>
                             <tr id="article-<?php echo $rows['atid']; ?>">
                                 <th scope="row">
-                                    <?php echo $rows['a_order']; ?>
+                                    <i class="fa fa-arrows-alt"></i> <?php echo $rows['a_order']; ?>
                                 </th>
                                 <td>
                                     <span class="mb-0 text-sm"><?php echo $rows['title']; ?></span>
@@ -252,4 +252,8 @@
             tabsize: 2,
             height: 300
         });
+
+        $('.table-sortable tbody').sortable({
+                handle: 'i'
+            });
     </script>
