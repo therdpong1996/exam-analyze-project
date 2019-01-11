@@ -154,6 +154,7 @@
                                 if (response.state) {
                                     $('#old-colab').append(response.html)
                                     $('#colab-search').html('')
+                                    $('#sub_colab').val('')
                                 }else{
                                     alert(response.msg);
                                     return;
