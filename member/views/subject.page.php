@@ -110,7 +110,6 @@
                         <div class="col-sm-5">
                         <input type="text" class="form-control form-control-sm" id="sub_colab" name="sub_colab" placeholder="ชื่อผู้ใช้ หรือ ชื่อ-นามสกุล" />
                         <div id="colab-search"></div>
-                        <button class="btn btn-primary btn-sm mt-2" type="button" id="colab_add"><i class="fas fa-plus-circle"></i> เพิ่ม</button>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -154,6 +153,7 @@
                             success: function (response) {
                                 if (response.state) {
                                     $('#old-colab').append(response.html)
+                                    $('#colab-search').html('')
                                 }else{
                                     alert(response.msg);
                                     return;

@@ -11,10 +11,12 @@
     <div class="container-fluid pb-5 pt-5 pt-md-8">
         <div class="row">
             <?php
+                $num_rows = 0;
                 $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE sessions.session_active = 1 AND subjects.subject_id IN (SELECT DISTINCT(subject_id) FROM student_subject WHERE uid = :uid) ORDER BY sessions.session_start ASC');
                 $stm->bindParam(":uid", $user_row['uid']);
                 $stm->execute();
                 while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                    $num_rows++;
             ?>
                     <div class="col-xl-6" id="exam-content">
                         <div class="card shadow mb-3">
@@ -123,6 +125,15 @@
                             </div>
                         </div>
                     </div>
+            <?php }
+                if($num_rows == 0){
+            ?>
+                <div class="col-12">
+                    <div class="mt-5 mb-5 pt-5 pb-5 text-center">
+                        <i class="fa fa-times-circle fa-10x text-muted"></i>
+                        <h2 class="mt-4 text-muted">ไม่พบข้อมูลการสอบ</h2>
+                    </div>
+                </div>
             <?php } ?>
         </div>
     </div>

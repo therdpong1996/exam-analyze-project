@@ -145,8 +145,8 @@
                         if($num_rows == 0){
                     ?>
                         <div class="mt-5 mb-5 pt-5 pb-5 text-center">
-                            <i class="fa fa-times fa-10x text-muted"></i>
-                            <h2 class="mt-4">ไม่พบข้อมูลในไทม์ไลน์</h2>
+                            <i class="fa fa-times-circle fa-10x text-muted"></i>
+                            <h2 class="mt-4 text-muted">ไม่พบข้อมูลในไทม์ไลน์</h2>
                         </div>
                     <?php } ?>
                 </div>
