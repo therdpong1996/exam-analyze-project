@@ -1,5 +1,4 @@
 <?php
-    header('Content-type: application/json');
     session_start();
     if(!isset($_SESSION['auth']) and !isset($_SESSION['username']) and $_SESSION['role'] > 2){
         echo json_encode(['state'=>false,'msg'=>'No permission']); exit;

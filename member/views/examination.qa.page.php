@@ -35,7 +35,7 @@
                 <span id="zip-text"><i class="fa fa-upload"></i> Import Excel</span> <input class="form-control" style="display: none;" type="file" name="excel_file" id="excel_file" accept="application/vnd.ms-excel,text/xls,text/xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
             </label>
             <a href="?examination_id=<?php echo $exam['examination_id']; ?>&n=new" class="new-exam btn text-left btn-outline-success mb-2 btn-block"><i class="fa fa-plus"></i> เพิ่มข้อใหม่</a>
-            <div class="list-exam-sortable exam-scollbar pr-2">
+            <div id="exam-content" class="list-exam-sortable exam-scollbar pr-2">
             <?php
 
                 $stmt = $_DB->prepare('SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam AND qa_delete = 0 ORDER BY qa_order ASC');
@@ -71,11 +71,16 @@
                 $.ajax({
                     url: weburl + 'ajax/order_exam',
                     type: 'POST',
-                    dataType: 'json',
-                    data: {qa_id: Examorder}
+                    dataType: 'html',
+                    data: {qa_id: Examorder, subject: '<?php __($exam['examination_subject']); ?>', exam: examination_id}
                 })
-                .always(function(response) {
-                    window.location.href = window.location.href;
+                .done(function(response) {
+                    $('#exam-content').html(response)
+                    $('#overlay-loading').fadeOut(200);
+                    $('.list-exam-sortable').sortable({
+                        placeholderClass: 'list-exam-item',
+                        items: ':not(.new-exam)'
+                    });
                 });
             });
         </script>
