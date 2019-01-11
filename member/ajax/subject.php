@@ -37,8 +37,6 @@
         $stm2->bindParam(':uid', $_SESSION['uid'], PDO::PARAM_INT);
         $stm2->execute();
 
-        addtotimeline('subject', '2', $lastid, $lastid);
-
         if ($lastid) {
             echo json_encode(['state' => true, 'msg' => $title.' ได้ถูกเพิ่มแล้ว']);
         } else {
@@ -95,8 +93,6 @@
         }
 
         $subject_id = $_POST['subject_id'];
-
-        removefromtimeline('subject', $subject_id);
 
         $stm = $_DB->prepare('DELETE FROM student_subject WHERE subject_id = :subject_id');
         $stm->bindParam(':subject_id', $subject_id, PDO::PARAM_INT);
