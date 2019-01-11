@@ -216,7 +216,7 @@
                             <th scope="col"></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="article-content">
                             <?php
                                 $stm = $_DB->prepare('SELECT articles.atid,articles.title,articles.reads,articles.poston,articles.public,articles.a_order,users.full_name FROM articles JOIN users ON articles.uid = users.uid WHERE articles.subject = :sub_id ORDER BY articles.a_order ASC');
                                 $stm->bindParam(":sub_id", $_GET['sub_id']);
@@ -271,15 +271,14 @@
                 Arorder.push($(this).attr('atid'))
             });
 
-            console.log(Arorder);
-            /*    $.ajax({
-                    url: weburl + 'ajax/order_exam',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {qa_id: Examorder}
-                })
-                .always(function(response) {
-                    window.location.href = window.location.href;
-                });*/
+            $.ajax({
+                url: weburl + 'ajax/order_article',
+                type: 'POST',
+                dataType: 'html',
+                data: {atid: Arorder, subject: '<?php echo $_GET['sub_id']; ?>'}
+            })
+            .done(function(response) {
+                $('#article-content').html(response)
+            });
             });
     </script>

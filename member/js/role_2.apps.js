@@ -556,4 +556,42 @@ function addAdaptid(id) {
   $('#adaptimport').val(id);
   $('#import-content').html('');
   $('button.session-btn').removeAttr("disabled").removeClass("disabled");
+};
+
+function subject_signout(sid){
+  swal({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, signout it!'
+  }).then(function (result) {
+    if (result.value) {
+      var oldtext = $('#signout-btn' + sid).html();
+      $('#signout-btn' + sid).html('<i class="fa fa-spinner fa-spin"></i>');
+      
+      $.ajax({
+          type: "POST",
+          url: weburl + "ajax/signout_subject",
+          data: {
+            subject_id: sid,
+          },
+          dataType: "json"
+        })
+        .done(function (response) {
+          if (response.state) {
+            $('#subject-' + sid).remove();
+          } else {
+            $('#signout-btn' + sid).html(oldtext);
+            swal(
+              'ERROR',
+              response.msg,
+              'error'
+            );
+          }
+        });
+    }
+  });
 }
