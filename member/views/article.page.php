@@ -219,9 +219,9 @@
                                 while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
                             ?>
                             <tr id="article-<?php echo $rows['atid']; ?>">
-                                <th scope="row">
+                                <td>
                                     <i class="fa fa-arrows-alt"></i> <?php echo $rows['a_order']; ?>
-                                </th>
+                                </td>
                                 <td>
                                     <span class="mb-0 text-sm"><?php echo $rows['title']; ?></span>
                                 </td>
