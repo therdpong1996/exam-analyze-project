@@ -128,8 +128,8 @@
             $('#invite-check').on('click', function(e){
                 var oldtext = $('#invite-check').html();
                 $('#invite-check').html('<i class="fa fa-spinner fa-spin"></i> Process..');
-
-                if ($('input#subject-invite').val().length < 1) {
+                var incode = $('input#subject-invite').val();
+                if (incode.length < 1) {
                     alert('not found code');
                     return;
                 }
