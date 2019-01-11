@@ -27,10 +27,6 @@
     $stmt3->execute();
     $time_re = $stmt3->fetch(PDO::FETCH_ASSOC);
     $time_ree = $time_re['time_remaining'] - ($time_tt - $time_re['time_update1']);
-    $time_ree = ($time_ree <= 0) ? 0 : $time_ree;
-    if ($time_tt > $time_re['time_start'] + ($session['session_timeleft'] * 60)) {
-        $time_ree = 0;
-    }
     $stm = $_DB->prepare('UPDATE adaptive_time_remaining SET time_update1 = :updatet1, time_remaining = :time_re WHERE uid = :uid AND session = :session');
     $stm->bindParam(':time_re', $time_ree, PDO::PARAM_INT);
     $stm->bindParam(':uid', $uid, PDO::PARAM_INT);

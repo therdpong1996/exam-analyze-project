@@ -21,9 +21,9 @@
                             <div class="card-header">
                                 <div class="row align-items-center">
                                     <div class="col">
-                                        <h2 class="mb-0"><?php echo $rows['examination_title']; ?> <?php if ($rows['session_adap']): ?><span class="badge badge-primary">Adaptive</span><?php endif; ?> <?php if ($rows['session_password']): ?><small class="badge badge-warning">ข้อสอบนี้มีการกำหนดรหัสผ่าน</small><?php endif; ?></h2>
+                                        <h2 class="mb-0"><?php echo $rows['examination_title']; ?> <?php if ($rows['session_adap_active']): ?><span class="badge badge-primary">Adaptive</span><?php endif; ?> <?php if ($rows['session_password']): ?><small class="badge badge-warning">ข้อสอบนี้มีการกำหนดรหัสผ่าน</small><?php endif; ?></h2>
                                         <h6 class="text-uppercase text-muted ls-1 mb-1"><?php echo $rows['subject_title']; ?></h6>
-                                        <?php if ($rows['session_adap']): ?>
+                                        <?php if ($rows['session_adap_active']): ?>
                                             <small class="text-danger">ข้อสอบนี้จะปรับความยาก-ง่ายตามความสามารถของผู้ทดสอบ</small>
                                         <?php endif; ?>
                                     </div>
@@ -56,7 +56,7 @@
                                         <small>เวลาในการทำ <strong class="text-success"><?php echo $rows['session_timeleft']; ?></strong> นาที</small>
 
                                         <?php
-                                            if($rows['session_adap']) {
+                                            if($rows['session_adap_active']) {
                                                 $stmt = $_DB->prepare('SELECT * FROM adaptive_session_score WHERE session_id = :session AND exam_id = :exam AND subject_id = :subject AND uid = :uid LIMIT 1');
                                                 $stmt->bindParam(':session', $rows['session_id']);
                                                 $stmt->bindParam(':exam', $rows['examination_id']);
