@@ -220,16 +220,16 @@
                             ?>
                             <tr id="article-<?php echo $rows['atid']; ?>">
                                 <td>
-                                    <i class="fa fa-arrows-alt"></i> <?php echo $rows['a_order']; ?>
+                                    <i class="fa fa-arrows-alt"></i> 1
                                 </td>
                                 <td>
-                                    <span class="mb-0 text-sm"><?php echo $rows['title']; ?></span>
+                                    2
                                 </td>
                                 <td>
-                                    <?php echo $rows['full_name']; ?>
+                                    3
                                 </td>
                                 <td>
-                                    <?php echo $rows['subject_title']; ?>
+                                    4
                                 </td>
                                 <td class="text-right">
                                     <a href="?edit&article_id=<?php echo $rows['atid']; ?>" class="btn btn-info btn-sm">Edit</a> 
@@ -254,6 +254,6 @@
         });
 
         $('.table-sortable tbody').sortable({
-                handle: 'i'
-            });
+            handle: 'i'
+        });
     </script>
