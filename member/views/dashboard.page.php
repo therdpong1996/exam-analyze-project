@@ -47,7 +47,7 @@
                             <div class="article-content-preview">
                                 <?php echo iconv_substr(strip_tags($row['content'], "<img>"), 0,500, "UTF-8"); ?>...
                             </div>
-                            <a href="#" class="btn btn-info mt-3">อ่านบทความ</a>
+                            <a href="<?php url('post/'.$rows['content_id']); ?>" class="btn btn-info mt-3">อ่านบทความ</a>
                             <?php }elseif($rows['type']=='exam'){
                                 $stmt = $_DB->prepare("SELECT examinations.examination_id,examinations.examination_title,subjects.subject_title FROM examinations JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE examinations.examination_id = :id");
                                 $stmt->bindParam(':id', $rows['content_id']);

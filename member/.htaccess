@@ -1,10 +1,12 @@
 RewriteEngine On
 
-
 RewriteRule ^register-teacher/$ register-teacher.php [L,QSA]
 RewriteRule ^register/$ register.php [L,QSA]
 RewriteRule ^login/$ login.php [L,QSA]
 RewriteRule ^logout/$ logout.php [L,QSA]
+
+#ARTICLE
+RewriteRule ^post/([0-9]+)$ post.php?atid=$1 [L,QSA]
 
 #ADMIN
 RewriteRule ^admin/users$ admin.user.php [L,QSA]

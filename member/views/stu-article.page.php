@@ -52,7 +52,7 @@
                                         ?>
                                         <tr>
                                             <td><?php echo $ar['a_order']; ?></td>
-                                            <td><a href="<?php furl('article/'.$ar['atid'].'/'.$ar['title']); ?>"><?php echo $ar['title']; ?></a></td>
+                                            <td><a href="<?php url('post/'.$ar['atid']); ?>"><?php echo $ar['title']; ?></a></td>
                                         </tr>
                                         <?php } ?>
                                     </tbody>

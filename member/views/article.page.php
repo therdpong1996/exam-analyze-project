@@ -237,6 +237,7 @@
                                     <?php echo $rows['full_name']; ?>
                                 </td>
                                 <td class="text-right">
+                                    <a class="btn btn-primary btn-sm" href="<?php url('post/'.$rows['atid']); ?>">Read</a>
                                     <a href="?edit&article_id=<?php echo $rows['atid']; ?>" class="btn btn-info btn-sm">Edit</a> 
                                     <button id="delete-btn-<?php echo $rows['atid']; ?>" onclick="article_delete(<?php echo $rows['atid']; ?>)" class="btn btn-danger btn-sm">Delete</button>
                                 </td>
