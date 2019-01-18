@@ -30,8 +30,6 @@
     <link href="<?php echo $_G['furl']; ?>assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- Argon CSS -->
     <link type="text/css" href="<?php echo $_G['furl']; ?>assets/css/argon.css?v=1.0.1" rel="stylesheet">
-    <!-- Docs CSS -->
-    <link type="text/css" href="<?php echo $_G['furl']; ?>assets/css/docs.min.css" rel="stylesheet">
 </head>
 
 <body>
