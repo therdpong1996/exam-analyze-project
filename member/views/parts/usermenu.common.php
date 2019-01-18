@@ -20,19 +20,6 @@
               <div class=" dropdown-header noti-title">
                 <h6 class="text-overflow m-0">Welcome!</h6>
               </div>
-              <a href="<?php url('profile/'); ?>" class="dropdown-item">
-                <i class="ni ni-single-02"></i>
-                <span>My profile</span>
-              </a>
-              <a href="<?php url('setting/'); ?>" class="dropdown-item">
-                <i class="ni ni-settings-gear-65"></i>
-                <span>Settings</span>
-              </a>
-              <a href="<?php url('support/'); ?>" class="dropdown-item">
-                <i class="ni ni-support-16"></i>
-                <span>Support</span>
-              </a>
-              <div class="dropdown-divider"></div>
               <a href="<?php url('logout/'); ?>" class="dropdown-item">
                 <i class="ni ni-user-run"></i>
                 <span>Logout</span>
