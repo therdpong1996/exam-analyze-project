@@ -12,11 +12,13 @@
     z-index: 9999;
     display: none;
 }
+
 .exam-scollbar {
     max-height: 620px;
     overflow-x: hidden;
     overflow-y: auto;
 }
+
 .exam-scollbar::-webkit-scrollbar-track {
     border-radius: 3px;
     background-color: #edeff7;
@@ -31,4 +33,13 @@
 .exam-scollbar::-webkit-scrollbar-thumb {
     border-radius: 3px;
     background-color: #adb6d8
+}
+
+.article-content-preview {
+    padding: 10px;
+    background-color: #eee;
+}
+
+.article-content-preview img {
+    width: 50%;
 }
