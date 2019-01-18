@@ -9,7 +9,9 @@
         
         <div class="container-fluid pb-8 pt-5 pt-md-8">
             <div class="row">
-                <div class="col-xl-12">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-12">
                     <?php
                         $num_rows = 0;
                         if ($user_row['role'] == 2) {
@@ -41,8 +43,8 @@
                                     </div>
                                 </div>    
                             </div>
-                            <p>ได้สร้างบทความใหม่ "<?php __($row['title']); ?>"</p>
-                            <p>ในรายวิชา "<?php __($row['subject_title']); ?>"</p>
+                            <p>ได้สร้างบทความใหม่ "<strong><?php __($row['title']); ?></strong>" ในรายวิชา "<?php __($row['subject_title']); ?>"</p>
+                            <p></p>
                             <a href="#" class="btn btn-info">อ่าน</a>
                             <?php }elseif($rows['type']=='exam'){
                                 $stmt = $_DB->prepare("SELECT examinations.examination_id,examinations.examination_title,subjects.subject_title FROM examinations JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE examinations.examination_id = :id");
@@ -149,6 +151,147 @@
                             <h2 class="mt-4 text-muted">ไม่พบข้อมูลในไทม์ไลน์</h2>
                         </div>
                     <?php } ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 affix">
+                    <div class="row">
+                        <?php if($user_row['role'] == 2){ ?>
+                        <div class="col-6 text-center mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <?php
+                                        $stm = $_DB->prepare("SELECT COUNT(atid) AS n FROM articles WHERE uid = :uid");
+                                        $stm->bindParam(":uid", $user_row['uid']);
+                                        $stm->execute();
+                                        $myar = $stm->fetch(PDO::FETCH_ASSOC);
+                                    ?>
+                                    <h2><?php echo $myar['n']; ?></h2>
+                                    <small>บทความของฉัน</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 text-center mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <?php
+                                        $stm = $_DB->prepare("SELECT COUNT(DISTINCT(subject_id)) AS n FROM subject_owner WHERE uid = :uid");
+                                        $stm->bindParam(":uid", $user_row['uid']);
+                                        $stm->execute();
+                                        $mysub = $stm->fetch(PDO::FETCH_ASSOC);
+                                    ?>
+                                    <h2><?php echo $mysub['n']; ?></h2>
+                                    <small>รายวิชา</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 text-center mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <?php
+                                        $stm = $_DB->prepare("SELECT COUNT(examination_id) AS n FROM examinations WHERE examination_subject IN (SELECT DISTINCT(subject_id) FROM subject_owner WHERE uid = :uid)");
+                                        $stm->bindParam(":uid", $user_row['uid']);
+                                        $stm->execute();
+                                        $myexam = $stm->fetch(PDO::FETCH_ASSOC);
+                                    ?>
+                                    <h2><?php echo $myexam['n']; ?></h2>
+                                    <small>ชุดข้อสอบ</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 text-center mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <?php
+                                        $stm = $_DB->prepare("SELECT COUNT(session_id) AS n FROM sessions WHERE session_exam IN (SELECT DISTINCT(examination_id) FROM examinations WHERE examination_subject IN (SELECT DISTINCT(subject_id) FROM subject_owner WHERE uid = :uid))");
+                                        $stm->bindParam(":uid", $user_row['uid']);
+                                        $stm->execute();
+                                        $myses = $stm->fetch(PDO::FETCH_ASSOC);
+                                    ?>
+                                    <h2><?php echo $myses['n']; ?></h2>
+                                    <small>เซสชั่น</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">บทความล่าสุดของฉัน</div>
+                                <div class="card-body">
+                                    <ul>
+                                    <?php
+                                        $stm = $_DB->prepare("SELECT atid,title FROM articles WHERE uid = :uid ORDER BY atid DESC LIMIT 5");
+                                        $stm->bindParam(":uid", $user_row['uid']);
+                                        $stm->execute();
+                                        while($arows = $stm->fetch(PDO::FETCH_ASSOC)){
+                                    ?>
+                                    <li>
+                                        <a href=""><?php echo $arows['title']; ?></a>
+                                    </li>
+                                    <?php
+                                        }
+                                    ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <?php }elseif($user_row['role'] == 3){ ?>
+                        <div class="col-6 text-center mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <?php
+                                        $stm = $_DB->prepare("SELECT COUNT(DISTINCT(subject_id)) AS n FROM student_subject WHERE uid = :uid");
+                                        $stm->bindParam(":uid", $user_row['uid']);
+                                        $stm->execute();
+                                        $mysub = $stm->fetch(PDO::FETCH_ASSOC);
+                                    ?>
+                                    <h2><?php echo $mysub['n']; ?></h2>
+                                    <small>รายวิชา</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 text-center mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <?php
+                                        $stm = $_DB->prepare("SELECT COUNT(session_id) AS n FROM sessions WHERE session_exam IN (SELECT DISTINCT(examination_id) FROM examinations WHERE examination_subject IN (SELECT DISTINCT(subject_id) FROM student_subject WHERE uid = :uid))");
+                                        $stm->bindParam(":uid", $user_row['uid']);
+                                        $stm->execute();
+                                        $myses = $stm->fetch(PDO::FETCH_ASSOC);
+                                    ?>
+                                    <h2><?php echo $myses['n']; ?></h2>
+                                    <small>เซสชั่น</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">การทดสอบที่สามารถทำได้</div>
+                                <div class="card-body">
+                                    <ul>
+                                    <?php
+                                        $num_rows = 0;
+                                        $stm = $_DB->prepare('SELECT * FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE sessions.session_active = 1 AND subjects.subject_id IN (SELECT DISTINCT(subject_id) FROM student_subject WHERE uid = :uid) ORDER BY sessions.session_start ASC');
+                                        $stm->bindParam(":uid", $user_row['uid']);
+                                        $stm->execute();
+                                        while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+                                            $num_rows++;
+                                    ?>
+                                    <li>
+                                        <a href=""><?php echo $rows['title']; ?></a>
+                                    </li>
+                                    <?php }
+                                        if($num_rows == 0){
+                                    ?>
+                                    <li>
+                                        <a href="#">ไม่มีการทดสอบ</a>
+                                    </li>
+                                    <?php } ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
         </div>
