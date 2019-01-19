@@ -12701,6 +12701,16 @@ button.section-darker:focus {
     margin-top: 3rem;
 }
 
+@media (max-width: 768px) {
+    [class*='mt--'] {
+        position: relative;
+        z-index: 5;
+    }
+    .mt--500 {
+        margin-top: -350px !important;
+    }
+}
+
 @media (min-width: 992px) {
 
     [class*='mt--'],
