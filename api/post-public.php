@@ -1,5 +1,5 @@
 <?php
-
+    @session_start();
     require_once '../member/control/init.php';
 
     $post = [];
@@ -11,5 +11,5 @@
     }
 
     $destination = '../static/post.data.json';
-    $data = json_encode($data);
+    $data = json_encode($post);
     file_put_contents($destination, $data);
