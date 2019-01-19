@@ -29,16 +29,51 @@
     <script>
         var weburl = '<?php echo $_G['furl']; ?>';
 
-        $.ajax({
-            type: "GET",
-            url: weburl + "static/post.data.json",
-            dataType: "json",
-            success: function (response) {
-                for(x in response){
-                    $('#content-rows').append('<div class="card shadow mb-3"><div class="card-header"><h2 class="mb-0">'+response[x].title+'</h2></div><div class="card-body">'+strip_html_tags(response[x].content).substring(0,500)+'</div></div>')
+        function readArticle(atid){
+            var index = findChartIndex(atid);
+            $.ajax({
+                type: "GET",
+                url: weburl + "static/post.data.json",
+                dataType: "json",
+                success: function (response) {
+                    $('#content-rows').append('<div class="card shadow mb-3"><div class="card-header"><h2 class="mb-0">'+response[index].title+'</h2></div><div class="card-body">'+response[index].content+'</div><div class="card-footer"><div class="row"><div class="col-6"></div><div class="col-6 text-right"><small>โดย: '+response[index].full_name+'</small></div></div></div></div>')
                 }
-            }
-        });
+            });
+        }
+
+        function findChartIndex(atid){
+            var index = 0;
+            $.ajax({
+                type: "GET",
+                url: weburl + "static/post.data.json",
+                dataType: "json",
+                success: function (response) {
+                    for(x in response){
+                        if (response[x].atid == atid){
+                            return index;
+                        }else{
+                            index++;
+                        }
+                    }
+                }
+            });
+        }
+        
+        function initialApp() {
+            $.ajax({
+                type: "GET",
+                url: weburl + "static/post.data.json",
+                dataType: "json",
+                success: function (response) {
+                    for(x in response){
+                        $('#content-rows').append('<div class="card shadow mb-3"><div class="card-header"><h2 class="mb-0">'+response[x].title+'</h2></div><div class="card-body">'+strip_html_tags(response[x].content).substring(0,1000)+'...</div><div class="card-footer"><div class="row"><div class="col-6"><button class="btn btn-primary" onclick="readArticle('+response[x].atid+')">อ่านเพิ่มเติม</button></div><div class="col-6 text-right"><small>โดย: '+response[x].full_name+'</small></div></div></div></div>')
+                    }
+                }
+            });
+        }
+
+        initialApp();
+
 
         function strip_html_tags(str){
             if ((str===null) || (str===''))
