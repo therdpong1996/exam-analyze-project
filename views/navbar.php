@@ -1,6 +1,6 @@
 
     <header class="header-global">
-        <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom">
+        <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-cat navbar-light headroom">
         <div class="container">
             <a class="navbar-brand mr-lg-5" href="<?php echo $_G['furl']; ?>">
             <img src="<?php furl('assets/img/brand/white.png'); ?>">
@@ -17,10 +17,7 @@
                     </a>
                 </div>
                 <div class="col-6 collapse-close">
-                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
-                    <span></span>
-                    <span></span>
-                    </button>
+                    <a href="<?php url(null); ?>" class="btn d-lg-none btn-primary btn-sm">เข้าสู่ระบบ</a>
                 </div>
                 </div>
             </div>

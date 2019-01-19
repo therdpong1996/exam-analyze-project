@@ -12706,6 +12706,7 @@ button.section-darker:focus {
         position: relative;
         z-index: 5;
     }
+
     .mt--500 {
         margin-top: -350px !important;
     }
@@ -17303,4 +17304,9 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
 .input-slider-value-output.right:after {
     right: 10px;
     left: auto;
+}
+
+.navbar-cat {
+    background-color: #fff !important;
+    border-bottom: 3px solid #5e72e4 !important;
 }
