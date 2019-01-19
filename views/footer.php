@@ -40,12 +40,12 @@
         var weburl = '<?php echo $_G['furl']; ?>';
 
         function readArticle(atid){
+            $('#content-rows').fadeOut(200)
             var index = findChartIndex(atid);
-            console.log(atid)
-            console.log(index)
-            if (postLdata[index]) {
-                $('#content-rows').append('<div class="card shadow"><div class="card-header"><h2 class="mb-0">'+postLdata[index].title+'</h2></div><div class="card-body">'+postLdata[index].content+'</div><div class="card-footer"><div class="row"><div class="col-6"></div><div class="col-6 text-right"><small>โดย: '+postLdata[index].full_name+'</small></div></div></div></div>')
-            }
+            $('#content-rows').html('<div class="card shadow"><div class="card-header"><h2 class="mb-0">'+postLdata[index].title+'</h2></div><div class="card-body">'+postLdata[index].content+'</div><div class="card-footer"><div class="row"><div class="col-6"></div><div class="col-6 text-right"><small>โดย: '+postLdata[index].full_name+'</small></div></div></div></div>')
+            setInterval(() => {
+                $('#content-rows').fadeIn();
+            }, 200);
         }
 
         function findChartIndex(articleid){
@@ -60,9 +60,12 @@
         }
         
         function initialApp() {
+            $('#content-rows').hide();
+            $('#content-rows').html('');
             for(x in postLdata){
                 $('#content-rows').append('<div class="card shadow mb-5"><div class="card-header"><h2 class="mb-0">'+postLdata[x].title+'</h2></div><div class="card-body">'+strip_html_tags(postLdata[x].content).substring(0,1000)+'...</div><div class="card-footer"><div class="row"><div class="col-6"><button class="btn btn-primary" onclick="readArticle('+postLdata[x].atid+')">อ่านเพิ่มเติม</button></div><div class="col-6 text-right"><small>โดย: '+postLdata[x].full_name+'</small></div></div></div></div>')
             }
+            $('#content-rows').fadeIn(200);
         }
 
         initialApp();
