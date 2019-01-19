@@ -25,56 +25,47 @@
     <script src="<?php echo $_G['furl']; ?>assets/vendor/popper/popper.min.js"></script>
     <script src="<?php echo $_G['furl']; ?>assets/vendor/bootstrap/bootstrap.min.js"></script>
     <script src="<?php echo $_G['furl']; ?>assets/vendor/headroom/headroom.min.js"></script>
+<?php
+    $post = [];
 
+    $stm = $_DB->prepare("SELECT articles.atid,articles.title,articles.content,articles.poston,subjects.subject_title,users.full_name FROM articles JOIN subjects ON articles.subject = subjects.subject_id JOIN users ON articles.uid = users.uid WHERE articles.public = 1 ORDER BY articles.atid DESC");
+    $stm->execute();
+    while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
+        array_push($post, $rows);
+    }
+    $data = json_encode($post);
+?>
     <script>
+        var postLdata = <?php echo $data; ?>;
         var weburl = '<?php echo $_G['furl']; ?>';
 
         function readArticle(atid){
             var index = findChartIndex(atid);
+            console.log(atid)
             console.log(index)
-            $.ajax({
-                type: "GET",
-                url: weburl + "static/post.data.json",
-                dataType: "json",
-                success: function (response) {
-                    $('#content-rows').append('<div class="card shadow"><div class="card-header"><h2 class="mb-0">'+response[index].title+'</h2></div><div class="card-body">'+response[index].content+'</div><div class="card-footer"><div class="row"><div class="col-6"></div><div class="col-6 text-right"><small>โดย: '+response[index].full_name+'</small></div></div></div></div>')
-                }
-            });
+            if (postLdata[index]) {
+                $('#content-rows').append('<div class="card shadow"><div class="card-header"><h2 class="mb-0">'+postLdata[index].title+'</h2></div><div class="card-body">'+postLdata[index].content+'</div><div class="card-footer"><div class="row"><div class="col-6"></div><div class="col-6 text-right"><small>โดย: '+postLdata[index].full_name+'</small></div></div></div></div>')
+            }
         }
 
         function findChartIndex(articleid){
             var index = 0;
-            $.ajax({
-                type: "GET",
-                url: weburl + "static/post.data.json",
-                dataType: "json",
-                success: function (response) {
-                    for(x in response){
-                        if (response[x].atid == articleid){
-                            return index;
-                        }else{
-                            index++;
-                        }
-                    }
+            for(x in postLdata){
+                if (postLdata[x].atid == articleid){
+                    return index;
+                }else{
+                    index++;
                 }
-            });
+            }
         }
         
         function initialApp() {
-            $.ajax({
-                type: "GET",
-                url: weburl + "static/post.data.json",
-                dataType: "json",
-                success: function (response) {
-                    for(x in response){
-                        $('#content-rows').append('<div class="card shadow mb-5"><div class="card-header"><h2 class="mb-0">'+response[x].title+'</h2></div><div class="card-body">'+strip_html_tags(response[x].content).substring(0,1000)+'...</div><div class="card-footer"><div class="row"><div class="col-6"><button class="btn btn-primary" onclick="readArticle('+response[x].atid+')">อ่านเพิ่มเติม</button></div><div class="col-6 text-right"><small>โดย: '+response[x].full_name+'</small></div></div></div></div>')
-                    }
-                }
-            });
+            for(x in postLdata){
+                $('#content-rows').append('<div class="card shadow mb-5"><div class="card-header"><h2 class="mb-0">'+postLdata[x].title+'</h2></div><div class="card-body">'+strip_html_tags(postLdata[x].content).substring(0,1000)+'...</div><div class="card-footer"><div class="row"><div class="col-6"><button class="btn btn-primary" onclick="readArticle('+postLdata[x].atid+')">อ่านเพิ่มเติม</button></div><div class="col-6 text-right"><small>โดย: '+postLdata[x].full_name+'</small></div></div></div></div>')
+            }
         }
 
         initialApp();
-
 
         function strip_html_tags(str){
             if ((str===null) || (str===''))
