@@ -45,7 +45,7 @@
                             </div>
                             <p>ได้สร้างบทความใหม่ "<strong><?php __($row['title']); ?></strong>" ในรายวิชา "<?php __($row['subject_title']); ?>"</p>
                             <div class="article-content-preview">
-                                <?php echo iconv_substr(strip_tags($row['content'], "<img>"), 0,500, "UTF-8"); ?>...
+                                <?php echo iconv_substr(strip_tags($row['content']), 0,500, "UTF-8"); ?>...
                             </div>
                             <a href="<?php url('post/'.$rows['content_id']); ?>" class="btn btn-info mt-3">อ่านบทความ</a>
                             <?php }elseif($rows['type']=='exam'){
