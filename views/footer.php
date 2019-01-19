@@ -27,7 +27,7 @@
     <script src="<?php echo $_G['furl']; ?>assets/vendor/headroom/headroom.min.js"></script>
 
     <script>
-        vat weburl = '<?php echo $_G['furl']; ?>';
+        var weburl = '<?php echo $_G['furl']; ?>';
 
         $.ajax({
             type: "GET",
@@ -35,11 +35,19 @@
             dataType: "json",
             success: function (response) {
                 for(x in response){
-                    $('#content-rows').append('<div class="card shadow mb-3"><div class="card-header"><h2 class="mb-0">'+response[x].title+'</h2></div><div class="card-body">'+response[x].content+'</div></div>')
+                    $('#content-rows').append('<div class="card shadow mb-3"><div class="card-header"><h2 class="mb-0">'+response[x].title+'</h2></div><div class="card-body">'+strip_html_tags(response[x].content).substring(0,500)+'</div></div>')
                 }
             }
         });
-        
+
+        function strip_html_tags(str){
+            if ((str===null) || (str===''))
+                return false;
+            else
+            str = str.toString();
+            return str.replace(/<[^>]*>/g, '');
+        }
+
         //Add this below content to your HTML page, or add the js file to your page at the very top to register service worker
         if (navigator.serviceWorker.controller) {
             console.log('[PWA] active service worker found, no need to register')
