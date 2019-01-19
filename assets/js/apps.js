@@ -1,9 +1,12 @@
 function readArticle(atid) {
+    $("html, body").animate({
+        scrollTop: 0
+    }, 300);
     window.location.hash = '#' + atid;
     $('#content-rows').fadeOut(200);
     var index = findChartIndex(atid);
     setTimeout(() => {
-        $('#content-rows').html('<button class="btn btn-info" onclick="initialApp()"><i class="fa fa-arrow-alt-circle-left"></i> กลับ</button><div class="card shadow mt-3"><div class="card-header"><h2 class="mb-0">' + postLdata[index].title + '</h2></div><div class="card-body">' + postLdata[index].content + '</div><div class="card-footer"><div class="row"><div class="col-6"></div><div class="col-6 text-right"><small>โดย: ' + postLdata[index].full_name + '</small></div></div></div></div>')
+        $('#content-rows').html('<button class="btn btn-info" onclick="initialApp()"><i class="fa fa-arrow-left"></i> กลับ</button><div class="card shadow mt-3"><div class="card-header"><h2 class="mb-0">' + postLdata[index].title + '</h2></div><div class="card-body">' + postLdata[index].content + '</div><div class="card-footer"><div class="row"><div class="col-6"></div><div class="col-6 text-right"><small>โดย: ' + postLdata[index].full_name + '</small></div></div></div></div>')
         $('#content-rows').fadeIn(200);
     }, 200);
 }
@@ -21,6 +24,9 @@ function findChartIndex(articleid) {
 
 function initialApp() {
     removeHash();
+    $("html, body").animate({
+        scrollTop: 0
+    }, 300);
     $('#content-rows').hide();
     $('#content-rows').html('');
     for (x in postLdata) {
