@@ -5,12 +5,13 @@ self.addEventListener('install', function (event) {
     var indexPage = new Request('/');
     event.waitUntil(
         fetch(indexPage).then(function (response) {
-            console.log(response);
+            //console.log(response);
+            caches.open(CACHE_NAME).then(function (cache) {
+                cache.add('/static/post.data.json');
+            });
             return caches.open(CACHE_NAME).then(function (cache) {
                 console.log('[PWA] Cached index page during Install: ' + response.url);
-                return cache.put(indexPage, response).then(function (cache) {
-                    return cache.add('/static/post.data.json');
-                });
+                return cache.put(indexPage, response);
             });
         }));
 });
