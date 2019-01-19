@@ -8,8 +8,9 @@ self.addEventListener('install', function (event) {
             console.log(response);
             return caches.open(CACHE_NAME).then(function (cache) {
                 console.log('[PWA] Cached index page during Install: ' + response.url);
-                cache.add('/static/post.data.json');
-                return cache.put(indexPage, response);
+                return cache.put(indexPage, response).then(function (cache) {
+                    return cache.add('/static/post.data.json');
+                });
             });
         }));
 });
