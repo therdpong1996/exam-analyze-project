@@ -19,6 +19,9 @@ self.addEventListener('install', function (event) {
 //If any fetch fails, it will look for the request in the cache and serve it from there first
 self.addEventListener('fetch', function (event) {
     var updateCache = function (request) {
+        caches.open(CACHE_NAME).then(function (cache) {
+            cache.add('/static/post.data.json');
+        });
         return caches.open(CACHE_NAME).then(function (cache) {
             return fetch(request).then(function (response) {
                 console.log('[PWA] add page to offline: ' + response.url);
