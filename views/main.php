@@ -21,15 +21,6 @@
         <section class="section">
             <div class="container mt--300" id="content-rows">
 
-                <div class="card shadow mb-3">
-                    <div class="card-header">
-                        <h2 class="mb-0"></h2>
-                    </div>
-                    <div class="card-body">
-                        
-                    </div>
-                </div>
-
             </div>
         </section>
     </main>

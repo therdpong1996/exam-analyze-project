@@ -27,12 +27,19 @@
     <script src="<?php echo $_G['furl']; ?>assets/vendor/headroom/headroom.min.js"></script>
 
     <script>
-        $.load("/static/post.data.json", function (response, status, request) {
-            console.log(response);
-            console.log(status);
-            console.log(request);
-        });
+        vat weburl = '<?php echo $_G['furl']; ?>';
 
+        $.ajax({
+            type: "GET",
+            url: weburl + "static/post.data.json",
+            dataType: "json",
+            success: function (response) {
+                for(x in response){
+                    $('#content-rows').append('<div class="card shadow mb-3"><div class="card-header"><h2 class="mb-0">'+response[x].title+'</h2></div><div class="card-body">'+response[x].content+'</div></div>')
+                }
+            }
+        });
+        
         //Add this below content to your HTML page, or add the js file to your page at the very top to register service worker
         if (navigator.serviceWorker.controller) {
             console.log('[PWA] active service worker found, no need to register')
