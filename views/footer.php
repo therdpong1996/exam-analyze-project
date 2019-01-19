@@ -42,8 +42,8 @@
         function readArticle(atid){
             $('#content-rows').fadeOut(200)
             var index = findChartIndex(atid);
-            $('#content-rows').html('<div class="card shadow"><div class="card-header"><h2 class="mb-0">'+postLdata[index].title+'</h2></div><div class="card-body">'+postLdata[index].content+'</div><div class="card-footer"><div class="row"><div class="col-6"></div><div class="col-6 text-right"><small>โดย: '+postLdata[index].full_name+'</small></div></div></div></div>')
-            setInterval(() => {
+            $('#content-rows').html('<button class="btn btn-info" onclick="initialApp()"><i class="fa fa-arrow-alt-circle-left"></i> กลับ</button><div class="card shadow mt-3"><div class="card-header"><h2 class="mb-0">'+postLdata[index].title+'</h2></div><div class="card-body">'+postLdata[index].content+'</div><div class="card-footer"><div class="row"><div class="col-6"></div><div class="col-6 text-right"><small>โดย: '+postLdata[index].full_name+'</small></div></div></div></div>')
+            setTimeout(() => {
                 $('#content-rows').fadeIn();
             }, 200);
         }
