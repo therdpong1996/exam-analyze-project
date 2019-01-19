@@ -25,7 +25,6 @@
     <script src="<?php echo $_G['furl']; ?>assets/vendor/popper/popper.min.js"></script>
     <script src="<?php echo $_G['furl']; ?>assets/vendor/bootstrap/bootstrap.min.js"></script>
     <script src="<?php echo $_G['furl']; ?>assets/vendor/headroom/headroom.min.js"></script>
-    <script src="<?php echo $_G['furl']; ?>assets/js/apps.js"></script>
 <?php
     $post = [];
 
@@ -51,5 +50,6 @@
             });
         }
     </script>
+    <script src="<?php echo $_G['furl']; ?>assets/js/apps.js"></script>
 </body>
 </html>
