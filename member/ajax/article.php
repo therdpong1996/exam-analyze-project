@@ -31,7 +31,7 @@
             exit;
         }
 
-        $uid = $_SESSION['uid'];
+        $uid = $_POST['uid'];
         $subject = $_POST['article_subject'];
         $title = $_POST['article_title'];
         $content = $_POST['article_content'];
@@ -54,6 +54,16 @@
 
         addtotimeline('article', '3', $lastid, $subject);
         addtotimeline('article', '2', $lastid, $subject);
+
+        //Sync Firestore
+        if($public == 1){
+            $stm = $_DB->prepare("SELECT subjects.subject_title,users.full_name FROM subjects JOIN users WHERE subjects.subject_id = :sid AND users.uid = :uid LIMIT 1");
+            $stm->bindParam(":sid", $subject);
+            $stm->bindParam(":uid", $uid);
+            $stm->execute();
+            $sync_row = $stm->fetch(PDO::FETCH_ASSOC);
+            insertFirestore($lastid, $title, strtotime($poston), $sync_row['subject_title'], $sync_row['full_name'], $content);
+        }
 
         if ($lastid) {
             echo json_encode(['state' => true, 'msg' => 'บทความได้ถูกเพิ่มแล้ว']);
@@ -80,6 +90,7 @@
             exit;
         }
 
+        $uid = $_POST['uid'];
         $atid = $_POST['article_id'];
         $subject = $_POST['article_subject'];
         $title = $_POST['article_title'];
@@ -99,6 +110,16 @@
         $stm->bindParam(':public', $public, PDO::PARAM_STR);
         $stm->bindParam(':a_order', $order, PDO::PARAM_INT);
         $stm->execute();
+
+        //Sync Firestore
+        if($public == 1){
+            $stm = $_DB->prepare("SELECT subjects.subject_title,users.full_name FROM subjects JOIN users WHERE subjects.subject_id = :sid AND users.uid = :uid LIMIT 1");
+            $stm->bindParam(":sid", $subject);
+            $stm->bindParam(":uid", $uid);
+            $stm->execute();
+            $sync_row = $stm->fetch(PDO::FETCH_ASSOC);
+            updateFirestore($atid, $title, strtotime($poston), $sync_row['subject_title'], $sync_row['full_name'], $content);
+        }
 
         echo json_encode(['state' => true, 'msg' => 'แก้ไขบทความแล้ว']);
         exit;
@@ -128,6 +149,11 @@
         $stm = $_DB->prepare('UPDATE articles SET on_delete = 1 WHERE atid = :atid');
         $stm->bindParam(':atid', $atid, PDO::PARAM_INT);
         $stm->execute();
+
+        //Sync Firestore
+        if($public == 1){
+            deleteFirestore($atid);
+        }
 
         echo json_encode(['state' => true]);
         exit;

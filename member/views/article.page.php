@@ -116,6 +116,7 @@
                     <form action="javascript:void(0)" id="edit-article">
                     <input type="hidden" name="action" value="edit">
                     <input type="hidden" id="article-id" name="article_id" value="<?php __($row['atid']); ?>">
+                    <input type="hidden" name="uid" value="<?php echo $row['uid']; ?>">
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="article_title">หัวข้อ</label>
                         <div class="col-sm-10">
