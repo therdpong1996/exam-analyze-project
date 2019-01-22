@@ -2,7 +2,7 @@
     header('Content-type: application/json');
     session_start();
     if (!isset($_SESSION['auth']) and !isset($_SESSION['username']) and $_SESSION['role'] > 2) {
-        echo json_encode(['state' => false, 'msg' => 'No permission']);
+        echo json_encode(['state' => false, 'msg' => 'คุณไม่มีสิทธิ์ดำเนินการส่วนนี้ (ER000)']);
         exit;
     }
 
@@ -16,7 +16,7 @@
     if ($_POST['action'] == 'add') {
 
         if ($_SESSION['role'] != 2) {
-            echo json_encode(['state' => false, 'msg' => 'No permission']);
+            echo json_encode(['state' => false, 'msg' => 'คุณไม่มีสิทธิ์ดำเนินการส่วนนี้ (ER004)']);
             exit;
         }
 
@@ -27,7 +27,7 @@
         $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
 
         if (empty($rowc2['uid'])) {
-            echo json_encode(['state' => false, 'msg' => 'No permission']);
+            echo json_encode(['state' => false, 'msg' => 'คุณไม่มีสิทธิ์ดำเนินการส่วนนี้ (ER001)']);
             exit;
         }
 
@@ -75,7 +75,7 @@
     } elseif ($_POST['action'] == 'edit') {
 
         if ($_SESSION['role'] != 2) {
-            echo json_encode(['state' => false, 'msg' => 'No permission']);
+            echo json_encode(['state' => false, 'msg' => 'คุณไม่มีสิทธิ์ดำเนินการส่วนนี้ (ER004)']);
             exit;
         }
 
@@ -86,7 +86,7 @@
         $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
 
         if (empty($rowc2['uid'])) {
-            echo json_encode(['state' => false, 'msg' => 'No permission']);
+            echo json_encode(['state' => false, 'msg' => 'คุณไม่มีสิทธิ์ดำเนินการส่วนนี้ (ER001)']);
             exit;
         }
 
@@ -127,18 +127,7 @@
     } elseif ($_POST['action'] == 'delete') {
 
         if ($_SESSION['role'] != 2) {
-            echo json_encode(['state' => false, 'msg' => 'No permission']);
-            exit;
-        }
-
-        $stmc2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id AND uid = :uid");
-        $stmc2->bindParam(":id", $_POST['article_subject']);
-        $stmc2->bindParam(":uid", $_SESSION['uid']);
-        $stmc2->execute();
-        $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
-
-        if (empty($rowc2['uid'])) {
-            echo json_encode(['state' => false, 'msg' => 'No permission']);
+            echo json_encode(['state' => false, 'msg' => 'คุณไม่มีสิทธิ์ดำเนินการส่วนนี้ (ER004)']);
             exit;
         }
 
