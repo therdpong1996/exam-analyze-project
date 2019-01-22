@@ -34,7 +34,6 @@
     <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script>
     <script>
-        const timestamp = snapshot.get('created_at');
         const date = timestamp.toDate();
         firebase.initializeApp({
             apiKey: "AIzaSyB9qKRcxJkjhJAcuKLErhCF15o0ZZkEfNQ",
@@ -46,7 +45,7 @@
             timestampsInSnapshots: true
         });
         db.enablePersistence()
-        db.collection("users").get().then((querySnapshot) => {
+        db.collection("articles").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 console.log(`${doc.id} => ${doc.data()}`);
             });
