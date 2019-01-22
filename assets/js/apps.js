@@ -1,3 +1,14 @@
+firebase.initializeApp({
+    apiKey: "AIzaSyB9qKRcxJkjhJAcuKLErhCF15o0ZZkEfNQ",
+    authDomain: "cat-project-rmutl.firebaseapp.com",
+    projectId: "cat-project-rmutl",
+})
+var db = firebase.firestore();
+db.settings({
+    timestampsInSnapshots: true
+});
+db.enablePersistence();
+
 function readArticle(atid) {
     $("html, body").animate({
         scrollTop: 0
@@ -29,9 +40,12 @@ function initialApp() {
     }, 300);
     $('#content-rows').hide();
     $('#content-rows').html('');
-    for (x in postLdata) {
-        $('#content-rows').append('<div class="card shadow mb-5"><div class="card-header"><h2 class="mb-0">' + postLdata[x].title + '</h2></div><div class="card-body">' + strip_html_tags(postLdata[x].content).substring(0, 1000) + '...</div><div class="card-footer"><div class="row"><div class="col-6"><button class="btn btn-success" onclick="readArticle(' + postLdata[x].atid + ')">อ่านเพิ่มเติม</button></div><div class="col-6 text-right"><small>โดย: ' + postLdata[x].full_name + '</small></div></div></div></div>')
-    }
+    db.collection("articles").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            $('#content-rows').append('<div class="card shadow mb-5"><div class="card-header"><h2 class="mb-0">' + doc.data().title + '</h2></div><div class="card-body">' + strip_html_tags(doc.data().content).substring(0, 1000) + '...</div><div class="card-footer"><div class="row"><div class="col-6"><button class="btn btn-success" onclick="readArticle(' + doc.data().atid + ')">อ่านเพิ่มเติม</button></div><div class="col-6 text-right"><small>โดย: ' + doc.data().auther + '</small></div></div></div></div>')
+            console.log(doc.data());
+        });
+    });
     $('#content-rows').fadeIn(200);
 }
 

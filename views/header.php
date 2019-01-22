@@ -34,21 +34,6 @@
     <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script>
     <script>
-        firebase.initializeApp({
-            apiKey: "AIzaSyB9qKRcxJkjhJAcuKLErhCF15o0ZZkEfNQ",
-            authDomain: "cat-project-rmutl.firebaseapp.com",
-            projectId: "cat-project-rmutl",
-        })
-        var db = firebase.firestore();
-        db.settings({
-            timestampsInSnapshots: true
-        });
-        db.enablePersistence()
-        db.collection("articles").get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                console.log(`${doc.id} => ${doc.data()}`);
-            });
-        });
 
         var weburl = '<?php echo $_G['furl']; ?>';
     </script>
