@@ -1,44 +1,59 @@
-//This is the "Offline copy of pages" service worker
-var CACHE_NAME = 'catCachev2';
-//Install stage sets up the index page (home page) in the cache and opens a new cache
-self.addEventListener('install', function (event) {
-    var indexPage = new Request('/');
-    event.waitUntil(
-        fetch(indexPage).then(function (response) {
-            //console.log(response);
-            return caches.open(CACHE_NAME).then(function (cache) {
-                console.log('[PWA] Cached index page during Install: ' + response.url);
-                return cache.put(indexPage, response);
-            });
-        }));
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.0.0/workbox-sw.js")
+
+workbox.setConfig({
+    debug: false
 });
 
-//If any fetch fails, it will look for the request in the cache and serve it from there first
-self.addEventListener('fetch', function (event) {
-    var updateCache = function (request) {
-        return caches.open(CACHE_NAME).then(function (cache) {
-            return fetch(request).then(function (response) {
-                console.log('[PWA] add page to offline: ' + response.url);
-                return cache.put(request, response);
-            });
-        });
-    };
+workbox.routing.registerRoute(
+    new RegExp('.*(?:googleapis|gstatic)\.com.*$'),
+    workbox.strategies.staleWhileRevalidate()
+)
 
-    event.waitUntil(updateCache(event.request));
+workbox.routing.registerRoute(
+    new RegExp('.*\.js'),
+    workbox.strategies.staleWhileRevalidate({
+        cacheName: 'js-cache',
+    })
+)
 
-    event.respondWith(
-        fetch(event.request).catch(function (error) {
-            console.log('[PWA] Network request Failed. Serving content from cache: ' + error);
+workbox.routing.registerRoute(
+    new RegExp('.*\.css'),
+    workbox.strategies.staleWhileRevalidate({
+        cacheName: 'css-cache',
+    })
+)
 
-            //Check to see if you have it in the cache
-            //Return response
-            //If not in the cache, then return error page
-            return caches.open(CACHE_NAME).then(function (cache) {
-                return cache.match(event.request).then(function (matching) {
-                    var report = !matching || matching.status == 404 ? Promise.reject('no-match') : matching;
-                    return report;
-                });
-            });
-        })
-    );
-});
+workbox.routing.registerRoute(
+    new RegExp('.*\.woff2'),
+    workbox.strategies.staleWhileRevalidate({
+        cacheName: 'font-cache',
+    })
+)
+
+workbox.routing.registerRoute(
+    /\.(?:png|gif|jpg|jpeg|svg|ico)$/,
+    workbox.strategies.staleWhileRevalidate({
+        cacheName: 'image-cache',
+    })
+)
+
+workbox.routing.registerRoute(
+    '/',
+    workbox.strategies.staleWhileRevalidate({
+        cacheName: 'page-cache',
+        plugins: [
+            new workbox.expiration.Plugin({
+                maxEntries: 10,
+                maxAgeSeconds: 7 * 24 * 60 * 60
+            })
+        ]
+    })
+)
+
+workbox.routing.setCatchHandler(({
+    url,
+    event,
+    params
+}) => {
+    return caches.match('/offline/')
+})

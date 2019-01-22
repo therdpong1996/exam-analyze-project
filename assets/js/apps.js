@@ -1,9 +1,3 @@
-if (workbox) {
-    console.log(`Yay! Workbox is loaded 🎉`);
-} else {
-    console.log(`Boo! Workbox didn't load 😬`);
-}
-
 firebase.initializeApp({
     apiKey: "AIzaSyB9qKRcxJkjhJAcuKLErhCF15o0ZZkEfNQ",
     authDomain: "cat-project-rmutl.firebaseapp.com",

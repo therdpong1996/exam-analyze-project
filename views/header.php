@@ -33,7 +33,6 @@
     <!-- Firestore -->
     <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script>
-    <script src="https://storage.googleapis.com/workbox-cdn/releases/3.6.1/workbox-sw.js"></script>
     <script>
         var weburl = '<?php echo $_G['furl']; ?>';
     </script>
