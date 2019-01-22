@@ -34,18 +34,13 @@
     <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script>
     <script>
-        (async function () {
-            firebase.initializeApp({
-                apiKey: "AIzaSyB9qKRcxJkjhJAcuKLErhCF15o0ZZkEfNQ",
-                authDomain: "cat-project-rmutl.firebaseapp.com",
-                projectId: "cat-project-rmutl",
-            })
-            let offlineEnable = await firebase.firestore().enablePersistence()
-            // Initialize Cloud Firestore through firebase
-            let db = firebase.firestore()
-            db.settings({timestampsInSnapshots: true});
-
-        })()
+        firebase.initializeApp({
+            apiKey: "AIzaSyB9qKRcxJkjhJAcuKLErhCF15o0ZZkEfNQ",
+            authDomain: "cat-project-rmutl.firebaseapp.com",
+            projectId: "cat-project-rmutl",
+        })
+        firebase.firestore().enablePersistence()
+        let db = firebase.firestore()
 
         var weburl = '<?php echo $_G['furl']; ?>';
     </script>
