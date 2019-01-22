@@ -34,17 +34,18 @@
     <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script>
     <script>
+        const timestamp = snapshot.get('created_at');
+        const date = timestamp.toDate();
         firebase.initializeApp({
             apiKey: "AIzaSyB9qKRcxJkjhJAcuKLErhCF15o0ZZkEfNQ",
             authDomain: "cat-project-rmutl.firebaseapp.com",
             projectId: "cat-project-rmutl",
         })
-        firebase.firestore().enablePersistence()
         var db = firebase.firestore();
         db.settings({
             timestampsInSnapshots: true
         });
-
+        db.enablePersistence()
         db.collection("users").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 console.log(`${doc.id} => ${doc.data()}`);
