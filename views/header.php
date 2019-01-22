@@ -34,7 +34,6 @@
     <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script>
     <script>
-        const date = timestamp.toDate();
         firebase.initializeApp({
             apiKey: "AIzaSyB9qKRcxJkjhJAcuKLErhCF15o0ZZkEfNQ",
             authDomain: "cat-project-rmutl.firebaseapp.com",
