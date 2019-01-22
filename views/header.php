@@ -29,7 +29,23 @@
     <link href="<?php echo $_G['furl']; ?>assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- Argon CSS -->
     <link type="text/css" href="<?php echo $_G['furl']; ?>assets/css/argon.css?v=1.0.1" rel="stylesheet">
+
+    <!-- Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script>
     <script>
+        (async function () {
+            firebase.initializeApp({
+                apiKey: "AIzaSyB9qKRcxJkjhJAcuKLErhCF15o0ZZkEfNQ",
+                authDomain: "cat-project-rmutl.firebaseapp.com",
+                projectId: "cat-project-rmutl",
+            })
+            let offlineEnable = await firebase.firestore().enablePersistence()
+            // Initialize Cloud Firestore through firebase
+            let db = firebase.firestore()
+
+        })()
+
         var weburl = '<?php echo $_G['furl']; ?>';
     </script>
 </head>
