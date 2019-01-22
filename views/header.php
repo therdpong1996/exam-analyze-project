@@ -40,7 +40,16 @@
             projectId: "cat-project-rmutl",
         })
         firebase.firestore().enablePersistence()
-        let db = firebase.firestore()
+        var db = firebase.firestore();
+        db.settings({
+            timestampsInSnapshots: true
+        });
+
+        db.collection("users").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                console.log(`${doc.id} => ${doc.data()}`);
+            });
+        });
 
         var weburl = '<?php echo $_G['furl']; ?>';
     </script>
