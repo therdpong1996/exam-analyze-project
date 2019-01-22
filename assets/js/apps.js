@@ -28,7 +28,7 @@ function initialApp() {
         querySnapshot.forEach((doc) => {
             $('#content-rows').append('<div class="card shadow mb-5"><div class="card-header"><h2 class="mb-0">' + doc.data().title + '</h2></div><div class="card-body">' + strip_html_tags(doc.data().content).substring(0, 1000) + '...</div><div class="card-footer"><div class="row"><div class="col-6"><button class="btn btn-success" onclick="readArticle(' + doc.data().atid + ')">อ่านเพิ่มเติม</button></div><div class="col-6 text-right"><small>โดย: ' + doc.data().auther + '</small></div></div></div></div>')
         });
-        $('#content-rows').fadeIn(300);
+        $('#content-rows').fadeIn(200);
     });
 }
 
