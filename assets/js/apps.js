@@ -3,11 +3,12 @@ firebase.initializeApp({
     authDomain: "cat-project-rmutl.firebaseapp.com",
     projectId: "cat-project-rmutl",
 })
+firebase.firestore().enablePersistence();
 var db = firebase.firestore();
 db.settings({
     timestampsInSnapshots: true
 });
-db.enablePersistence();
+
 
 function readArticle(atid) {
     window.location.hash = '#' + atid;
@@ -33,9 +34,9 @@ function initialApp() {
 }
 
 if (window.location.hash == "#" || window.location.hash === "") {
-    initialApp()
+    initialApp();
 } else {
-    readArticle(window.location.hash.replace("#", ""))
+    readArticle(window.location.hash.replace("#", ""));
 }
 
 function removeHash() {
