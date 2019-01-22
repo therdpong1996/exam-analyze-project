@@ -3,12 +3,11 @@ firebase.initializeApp({
     authDomain: "cat-project-rmutl.firebaseapp.com",
     projectId: "cat-project-rmutl",
 })
-firebase.firestore().enablePersistence();
 var db = firebase.firestore();
 db.settings({
     timestampsInSnapshots: true
 });
-
+firebase.firestore().enablePersistence();
 
 function readArticle(atid) {
     window.location.hash = '#' + atid;
