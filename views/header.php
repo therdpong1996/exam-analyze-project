@@ -43,6 +43,7 @@
             let offlineEnable = await firebase.firestore().enablePersistence()
             // Initialize Cloud Firestore through firebase
             let db = firebase.firestore()
+            db.settings({timestampsInSnapshots: true});
 
         })()
 
