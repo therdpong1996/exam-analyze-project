@@ -51,7 +51,7 @@ workbox.routing.registerRoute(
 )
 
 workbox.routing.registerRoute(
-    ['/', '/offline'],
+    '/',
     workbox.strategies.staleWhileRevalidate({
         cacheName: 'page-cache',
         plugins: [
