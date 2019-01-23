@@ -21,17 +21,17 @@
         <section class="section">
             <div class="container mt--500">
                 <div class="text-center mb-5">
-                    <h1 class="text-white"><?php echo $rows['title']; ?></h1>
-                    <h4 class="text-muted">รายวิชา: <?php echo $rows['subject_title']; ?> โดย:<?php echo $rows['full_name']; ?></h4>
+                    <h1 class="text-white"><?php echo $row['title']; ?></h1>
+                    <h5 class="text-muted">รายวิชา: <?php echo $row['subject_title']; ?> โดย:<?php echo $row['full_name']; ?></h5>
                 </div>
 
                 <div class="card">
                     <div class="card-body">
-                        <?php echo $rows['content']; ?>
+                        <?php echo $row['content']; ?>
                     </div>
                     <div class="card-footer">
                         <?php
-                            $tags = explode(',', $rows['tags']);
+                            $tags = explode(',', $row['tags']);
                             foreach ($tags as $tag) {
                         ?>
                             <a class="badge badge-primary" href="<?php furl('tags/'.urlencode(strtolower($tag))); ?>"><?php echo $tag ;?></a>
