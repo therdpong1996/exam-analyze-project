@@ -20,9 +20,9 @@
         </section>
         <section class="section">
             <div class="container mt--500">
-                <div class="text-center mb-3">
+                <div class="text-center mb-5">
                     <h1 class="text-white">Computerized Adaptive Testing</h1>
-                    <h3 class="text-muted">บทความสำหรับการศึกษา</h3>
+                    <h4 class="text-muted">บทความสำหรับการศึกษา</h4>
                 </div>
 
                 <div class="row">
@@ -31,8 +31,8 @@
     $stm->execute();
     while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
 ?>
-                    <div class="col-12 col-md-6">
-                        <div class="card">
+                    <div class="col-12 col-md-6 mb-3">
+                        <div class="card shadow">
                             <div class="card-header">
                             <?php echo $rows['title']; ?>
                             </div>
@@ -45,7 +45,7 @@
                                         <a class="btn btn-success" href="<?php furl('article/'.$rows['atid']); ?>"><i class="fa fa-book-reader"></i> อ่านเพิ่มเติม</a>
                                     </div>
                                     <div class="col-6 d-flex align-content-center justify-content-end">
-                                        โดย: <?php echo $rows['full_name']; ?>
+                                        <small>โดย: <?php echo $rows['full_name']; ?></small>
                                     </div>
                                 </div>
                             </div>
