@@ -38,7 +38,7 @@ workbox.routing.registerRoute(
 )
 
 workbox.routing.registerRoute(
-    '/',
+    new RegExp('(?:article|tags)\/.*'),
     workbox.strategies.staleWhileRevalidate({
         cacheName: 'page-cache',
         plugins: [
