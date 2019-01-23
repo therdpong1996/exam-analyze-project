@@ -24,7 +24,7 @@
                     <h1 class="text-white"><?php echo $row['title']; ?></h1>
                     <h5 class="text-muted">รายวิชา: <?php echo $row['subject_title']; ?> โดย: <?php echo $row['full_name']; ?></h5>
                 </div>
-                <a href="<?php furl(); ?>" class="btn btn-warning mb-3">กลับ</a>
+                <a href="<?php furl(null); ?>" class="btn btn-warning mb-3">กลับ</a>
                 <div class="card shadow">
                     <div class="card-body">
                         <?php echo $row['content']; ?>
