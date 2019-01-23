@@ -50,26 +50,10 @@ workbox.routing.registerRoute(
     })
 )
 
-workbox.routing.registerRoute(
-    '/',
-    workbox.strategies.staleWhileRevalidate({
-        cacheName: 'page-cache',
-        plugins: [
-            new workbox.expiration.Plugin({
-                maxEntries: 10,
-                maxAgeSeconds: 7 * 24 * 60 * 60
-            })
-        ]
-    })
-)
-
-workbox.routing.registerRoute(
-    '/offline',
-    workbox.strategies.staleWhileRevalidate({
-        cacheName: 'offline-page-cache',
-    })
-)
-
-workbox.routing.setCatchHandler(({url, event, params}) => {
+workbox.routing.setCatchHandler(({
+    url,
+    event,
+    params
+}) => {
     return caches.match('/offline')
 })

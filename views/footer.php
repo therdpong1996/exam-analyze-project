@@ -26,9 +26,14 @@
     <script src="<?php echo $_G['furl']; ?>assets/vendor/bootstrap/bootstrap.min.js"></script>
     <script src="<?php echo $_G['furl']; ?>assets/vendor/headroom/headroom.min.js"></script>
     <script>
+    async function addToCache(urls) {
+        const pageCache = await window.caches.open('page-cache');
+        await pageCache.addAll(urls);
+    }
 
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
+            addToCache(['/', '/offline']);
             navigator.serviceWorker.register('/service-worker.js');
         });
     }
