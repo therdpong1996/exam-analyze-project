@@ -26,14 +26,14 @@
 
     function insertFirestore($atid, $title, $poston, $subject, $auther, $content)
     {
-        $data = "atid=$atid&title=$title&poston=$poston&subject_title=$subject&full_name=$auther&content=$content";
+        $data = "atid=$atid&title=$title&poston=$poston&subject_title=$subject&full_name=$auther&content=".urlencode($content);
         $url = 'https://us-central1-cat-project-rmutl.cloudfunctions.net/Insert';
         curl($url, $data);
     }
 
     function updateFirestore($atid, $title, $poston, $subject, $auther, $content)
     {
-        $data = "atid=$atid&title=$title&poston=$poston&subject_title=$subject&full_name=$auther&content=$content";
+        $data = "atid=$atid&title=$title&poston=$poston&subject_title=$subject&full_name=$auther&content=".urlencode($content);
         $url = 'https://us-central1-cat-project-rmutl.cloudfunctions.net/Update';
         curl($url, $data);
     }
@@ -59,9 +59,9 @@
         curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36");
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         $out = curl_exec($ch);
         curl_close($ch);
 
