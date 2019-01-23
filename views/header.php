@@ -29,10 +29,6 @@
     <link href="<?php echo $_G['furl']; ?>assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- Argon CSS -->
     <link type="text/css" href="<?php echo $_G['furl']; ?>assets/css/argon.css?v=1.0.1" rel="stylesheet">
-
-    <!-- Firestore -->
-    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script>
     <script>
         var weburl = '<?php echo $_G['furl']; ?>';
     </script>
