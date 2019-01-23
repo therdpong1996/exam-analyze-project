@@ -50,6 +50,25 @@ workbox.routing.registerRoute(
     })
 )
 
+workbox.routing.registerRoute(
+    '/',
+    workbox.strategies.staleWhileRevalidate({
+        cacheName: 'page-cache',
+        plugins: [
+            new workbox.expiration.Plugin({
+                maxEntries: 10,
+                maxAgeSeconds: 7 * 24 * 60 * 60
+            })
+        ]
+    })
+)
+
+async function addToCache(urls) {
+    const pageCache = await window.caches.open('page-cache');
+    await pageCache.addAll(urls);
+}
+addToCache(['/offline']);
+
 workbox.routing.setCatchHandler(({
     url,
     event,
