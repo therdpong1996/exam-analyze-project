@@ -31,7 +31,7 @@
     $stm->execute();
     while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
 ?>
-                    <div class="col-12 col-md-6 mb-3">
+                    <div class="col-12 col-md-6 mb-4">
                         <div class="card shadow">
                             <div class="card-header">
                             <?php echo $rows['title']; ?>
