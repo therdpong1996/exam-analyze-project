@@ -38,6 +38,5 @@
         });
     }
     </script>
-    <script src="<?php echo $_G['furl']; ?>assets/js/apps.js"></script>
 </body>
 </html>
