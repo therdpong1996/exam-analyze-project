@@ -53,7 +53,6 @@
                     </div>
 <?php } ?>
                 </div>
-                <iframe class="d-none" src="<?php furl(null); ?>" height="0" frameborder="0" width="0"></iframe>
                 <iframe class="d-none" src="<?php furl('offline'); ?>" height="0" frameborder="0" width="0"></iframe>
             </div>
         </section>
