@@ -63,10 +63,13 @@ workbox.routing.registerRoute(
     })
 )
 
-workbox.routing.setCatchHandler(({
-    url,
-    event,
-    params
-}) => {
+workbox.routing.registerRoute(
+    '/offline',
+    workbox.strategies.staleWhileRevalidate({
+        cacheName: 'offline-page-cache',
+    })
+)
+
+workbox.routing.setCatchHandler(({url, event, params}) => {
     return caches.match('/offline')
 })
