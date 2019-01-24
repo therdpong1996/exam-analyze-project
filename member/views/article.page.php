@@ -21,8 +21,9 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="javascript:void(0)" id="add-article">
+                    <form action="javascript:void(0)" id="form-article">
                     <input type="hidden" name="action" value="add">
+                    <input type="text" id="article_type" name="article_type" value="none" hidden>
                     <input type="hidden" name="uid" value="<?php echo $user_row['uid']; ?>">
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="article_title">หัวข้อ</label>
@@ -91,6 +92,7 @@
                         <div class="col-sm-2"></div>
                         <div class="col-sm-10">
                         <button type="submit" id="add-article-btn" class="btn btn-success">บันทึก</button>
+                        <button type="button" id="save-article-with-draft-btn" class="btn btn-warning">บันทึกแบบฉบับร่าง</button>
                         </div>
                     </div>
                     </form>
@@ -113,8 +115,9 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="javascript:void(0)" id="edit-article">
+                    <form action="javascript:void(0)" id="form-article">
                     <input type="hidden" name="action" value="edit">
+                    <input type="text" id="article_type" name="article_type" value="none" hidden>
                     <input type="hidden" id="article-id" name="article_id" value="<?php __($row['atid']); ?>">
                     <input type="hidden" name="uid" value="<?php echo $row['uid']; ?>">
                     <div class="form-group row">
@@ -184,6 +187,7 @@
                         <div class="col-sm-2"></div>
                         <div class="col-sm-10">
                         <button type="submit" id="save-article-btn" class="btn btn-success">บันทึก</button>
+                        <button type="button" id="save-article-with-draft-btn" class="btn btn-warning">บันทึกแบบฉบับร่าง</button>
                         </div>
                     </div>
                     </form>
@@ -219,7 +223,7 @@
                     </thead>
                     <tbody id="article-content">
                             <?php
-                                $stm = $_DB->prepare('SELECT articles.atid,articles.title,articles.reads,articles.poston,articles.public,articles.a_order,users.full_name FROM articles JOIN users ON articles.uid = users.uid WHERE articles.subject = :sub_id ORDER BY articles.a_order ASC');
+                                $stm = $_DB->prepare('SELECT articles.atid,articles.title,articles.reads,articles.poston,articles.public,articles.draft,articles.a_order,users.full_name FROM articles JOIN users ON articles.uid = users.uid WHERE articles.subject = :sub_id ORDER BY articles.a_order ASC');
                                 $stm->bindParam(":sub_id", $_GET['sub_id']);
                                 $stm->execute();
                                 while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
@@ -229,7 +233,7 @@
                                     <i class="fa fa-arrows-alt"></i>
                                 </td>
                                 <td>
-                                    <?php echo $rows['a_order']; ?>
+                                    <?php echo $rows['a_order']; ?> <?php echo ($rows['draft']==1?'<span class="text-danger">ฉบับร่าง</span>':''); ?>
                                 </td>
                                 <td>
                                     <?php echo $rows['title']; ?>
@@ -259,6 +263,11 @@
             tabsize: 2,
             height: 300
         });
+
+        savedraft = function(){
+            $('input#article_type').val('draft');
+            $('form#form-article').submit();
+        }
 
         $('.table-sortable tbody').sortable({
             handle: 'i'

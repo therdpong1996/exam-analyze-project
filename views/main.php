@@ -27,7 +27,7 @@
 
                 <div class="row">
 <?php
-    $stm = $_DB->prepare("SELECT articles.atid,articles.title,articles.content,articles.poston,subjects.subject_title,users.full_name FROM articles JOIN subjects ON articles.subject = subjects.subject_id JOIN users ON articles.uid = users.uid WHERE articles.public = 1 ORDER BY articles.atid DESC LIMIT 20");
+    $stm = $_DB->prepare("SELECT articles.atid,articles.title,articles.content,articles.poston,subjects.subject_title,users.full_name FROM articles JOIN subjects ON articles.subject = subjects.subject_id JOIN users ON articles.uid = users.uid WHERE articles.public = 1 AND articles.draft = 0 ORDER BY articles.atid DESC LIMIT 20");
     $stm->execute();
     while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
 ?>
