@@ -33,6 +33,7 @@
                 <h1 class="text-white">You are offline</h1>
                 <h3 class="text-muted">Please connect the internet for access content</h3>
                 <small class="text-muted">คุณกำลังออฟไลน์! โปรดเชื่อมต่ออินเทอร์เน็ตเพื่อเข้าถึงเนื้อหา</small>
+                <a href="<?php furl(null); ?>" class="btn btn-warning btn-lg mb-5">กลับไปหน้าแรก</a>
             </div>
         </section>
     </main>
