@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="javascript:void(0)" id="form-article">
+                    <form action="javascript:void(0)" id="add-form-article">
                     <input type="hidden" name="action" value="add">
                     <input type="text" id="article_type" name="article_type" value="none" hidden>
                     <input type="hidden" name="uid" value="<?php echo $user_row['uid']; ?>">
@@ -92,7 +92,7 @@
                         <div class="col-sm-2"></div>
                         <div class="col-sm-10">
                         <button type="submit" id="add-article-btn" class="btn btn-success">บันทึก</button>
-                        <button type="button" id="save-article-with-draft-btn" onclick="savedraft()" class="btn btn-warning">บันทึกแบบฉบับร่าง</button>
+                        <button type="button" id="save-article-with-draft-btn" onclick="asavedraft()" class="btn btn-warning">บันทึกแบบฉบับร่าง</button>
                         </div>
                     </div>
                     </form>
@@ -115,7 +115,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="javascript:void(0)" id="form-article">
+                    <form action="javascript:void(0)" id="edit-form-article">
                     <input type="hidden" name="action" value="edit">
                     <input type="text" id="article_type" name="article_type" value="none" hidden>
                     <input type="hidden" id="article-id" name="article_id" value="<?php __($row['atid']); ?>">
@@ -187,7 +187,7 @@
                         <div class="col-sm-2"></div>
                         <div class="col-sm-10">
                         <button type="submit" id="save-article-btn" class="btn btn-success">บันทึก</button>
-                        <button type="button" id="save-article-with-draft-btn" onclick="savedraft()" class="btn btn-warning">บันทึกแบบฉบับร่าง</button>
+                        <button type="button" id="save-article-with-draft-btn" onclick="esavedraft()" class="btn btn-warning">บันทึกแบบฉบับร่าง</button>
                         </div>
                     </div>
                     </form>
@@ -263,11 +263,6 @@
             tabsize: 2,
             height: 300
         });
-
-        savedraft = function(){
-            $('input#article_type').val('draft');
-            $('form#form-article').submit();
-        }
 
         $('.table-sortable tbody').sortable({
             handle: 'i'
