@@ -38,7 +38,7 @@ workbox.routing.registerRoute(
 )
 
 workbox.routing.registerRoute(
-    new RegExp('(?:article|tags)\/.*'),
+    new RegExp('(?:p|tags)\/.*'),
     workbox.strategies.staleWhileRevalidate({
         cacheName: 'page-cache',
         plugins: [
@@ -71,6 +71,10 @@ workbox.routing.registerRoute(
 )
 
 
-workbox.routing.setCatchHandler(({url, event, params}) => {
+workbox.routing.setCatchHandler(({
+    url,
+    event,
+    params
+}) => {
     return caches.match('/offline')
 })

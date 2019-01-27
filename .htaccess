@@ -1,5 +1,5 @@
 RewriteEngine On
 
-RewriteRule ^article/([0-9]+)$ article.php?atid=$1
+RewriteRule ^p/([0-9]+)$ article.php?atid=$1
 RewriteRule ^tags/(.+)$ tags.php?tag=$1
 RewriteRule ^offline$ offline.php

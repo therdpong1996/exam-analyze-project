@@ -42,7 +42,7 @@
                             <div class="card-footer">
                                 <div class="row">
                                     <div class="col-6">
-                                        <a class="btn btn-success" href="<?php furl('article/'.$rows['atid']); ?>">อ่านเพิ่มเติม</a>
+                                        <a class="btn btn-success" href="<?php furl('p/'.$rows['atid']); ?>">อ่านเพิ่มเติม</a>
                                     </div>
                                     <div class="col-6 d-flex align-items-center justify-content-end">
                                         <small>โดย: <?php echo $rows['full_name']; ?></small>
