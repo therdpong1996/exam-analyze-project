@@ -15,9 +15,11 @@
         echo json_encode(['state' => false, 'msg' => 'No permission 2']);
         exit;
     }
-
+    echo json_encode(['state' => false, 'msg' => 'No permission - '.$_FILES['file']['type']]);
+    exit;
 
         if (in_array($_FILES['file']['type'], $allowedFileType)) {
+
             $targetPath = '../uploads/'.$_FILES['file']['name'];
             move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
