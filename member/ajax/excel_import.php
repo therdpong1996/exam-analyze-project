@@ -34,7 +34,7 @@
 
             for ($i = 0; $i < $sheetCount; $i++) {
                 $Reader->ChangeSheet($i);
-
+                $k = 0;
                 foreach ($Reader as $Row) {
                     $qa_question = '';
                     $qa_choice_1 = '';
@@ -67,7 +67,7 @@
                         $qa_choice_true = $Row[5];
                     }
 
-                    $order = $old_order + $i + 1;
+                    $order = $old_order + $k + 1;
 
                     if (!empty($qa_question) and !empty($qa_choice_true)) {
                         $stm = $_DB->prepare('INSERT INTO q_and_a (qa_subject,qa_exam,qa_question,qa_choice_1,qa_choice_2,qa_choice_3,qa_choice_4,qa_choice_true,qa_order) VALUES (:subject, :exam, :question, :ch1, :ch2, :ch3, :ch4, :true, :order)');
@@ -83,6 +83,7 @@
                         $stm->execute();
                         $lastid = $_DB->lastInsertId();
                     }
+                    $k++;
                 }
             }
             unlink($targetPath);
