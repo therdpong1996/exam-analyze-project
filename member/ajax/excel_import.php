@@ -2,7 +2,7 @@
     header('Content-type: application/json');
     session_start();
     if (!isset($_SESSION['auth']) and !isset($_SESSION['username']) and $_SESSION['role'] > 2) {
-        echo json_encode(['state' => false, 'msg' => 'No permission']);
+        echo json_encode(['state' => false, 'msg' => 'No permission 1']);
         exit;
     }
     require '../control/init.php';
@@ -12,7 +12,7 @@
     $allowedFileType = ['application/vnd.ms-excel', 'text/xls', 'text/xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
 
     if ($_SESSION['role'] != 2) {
-        echo json_encode(['state' => false, 'msg' => 'No permission']);
+        echo json_encode(['state' => false, 'msg' => 'No permission 2']);
         exit;
     }
 
@@ -23,7 +23,7 @@
         $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
 
         if (empty($rowc2['uid'])) {
-            echo json_encode(['state' => false, 'msg' => 'No permission']);
+            echo json_encode(['state' => false, 'msg' => 'No permission 3']);
             exit;
         }
 
