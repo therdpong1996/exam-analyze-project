@@ -16,16 +16,6 @@
         exit;
     }
 
-        $stmc2 = $_DB->prepare("SELECT uid FROM subject_owner WHERE subject_id = :id AND uid = :uid");
-        $stmc2->bindParam(":id", $_POST['subject']);
-        $stmc2->bindParam(":uid", $_SESSION['uid']);
-        $stmc2->execute();
-        $rowc2 = $stmc2->fetch(PDO::FETCH_ASSOC);
-
-        if (empty($rowc2['uid'])) {
-            echo json_encode(['state' => false, 'msg' => 'No permission 3']);
-            exit;
-        }
 
         if (in_array($_FILES['file']['type'], $allowedFileType)) {
             $targetPath = '../uploads/'.$_FILES['file']['name'];
