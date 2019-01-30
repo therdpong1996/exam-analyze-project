@@ -216,7 +216,7 @@ $('#edit-form-article').on('submit', function () {
     });
 });
 
-asavedraft = function () {
+esavedraft = function () {
   $('input#article_type').val('draft');
   var oldtext = $('#save-article-with-draft-btn').html();
   $('#save-article-with-draft-btn').html('<i class="fa fa-spinner fa-spin"></i> Process..');
