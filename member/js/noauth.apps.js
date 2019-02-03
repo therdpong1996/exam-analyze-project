@@ -226,11 +226,14 @@ $('#verify_stu').on('click', function () {
       if (response.state) {
         $('#fullname').val(response.full_name);
         $('#email').val(response.email);
-        $('#btn-register').removeAttr('disabled').removeClass('disabled');
+        $('#register-btn').removeAttr('disabled').removeClass('disabled');
       } else {
         alert(response.msg);
         return;
       }
+    })
+    .always(()=>{
+      $('#verify_stu').html(oldtext);
     });
 
 });
