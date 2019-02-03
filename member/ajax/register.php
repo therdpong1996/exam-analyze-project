@@ -11,7 +11,7 @@
     $fullname = $_POST['fullname'];
     $email = $_POST['email'];
 
-    if(strlen($username) <= 6 || !preg_match('/([a-zA-Z0-9]+)/')){
+    if(strlen($username) <= 6 || !preg_match('/([a-zA-Z0-9]+)/', $username)){
         echo json_encode(['state' => false, 'msg' => 'Username ต้องมี 6 ตัวอักษรขึ้นไป และต้องเป็นตัวภาษาอังกฤษและตัวเลขเท่านั้น']);
         exit;
     }
