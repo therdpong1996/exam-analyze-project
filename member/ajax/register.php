@@ -16,6 +16,16 @@
         exit;
     }
 
+    if(strlen($student_id) != 13){
+        echo json_encode(['state' => false, 'msg' => 'Invalid Student ID']);
+        exit;
+    }
+
+    if(empty($fullname) or empty($email)){
+        echo json_encode(['state' => false, 'msg' => 'ไม่พบข้อมูล ชื่อ-นามสกุล หรือ อีเมล']);
+        exit;
+    }
+
     $stm = $_DB->prepare('SELECT uid FROM users WHERE username = :username LIMIT 1');
     $stm->bindParam(':username', $username, PDO::PARAM_STR);
     $stm->execute();

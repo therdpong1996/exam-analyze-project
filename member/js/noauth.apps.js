@@ -238,3 +238,9 @@ $('#verify_stu').on('click', function () {
     });
 
 });
+
+$('#stu_id').on('keyup', ()=>{
+  $('#fullname').val('')
+  $('#email').val('')
+  $('#register-btn').attr('disabled', 'disabled').addClass('disabled');
+})
