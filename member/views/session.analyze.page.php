@@ -14,8 +14,9 @@
             <a href="?session_id=<?php echo $session['session_id']; ?>&model" class="btn btn-outline-info mb-1 btn-block <?php echo isset($_GET['model']) ? 'active' : ''; ?>">Train Model</a>
             <a href="?session_id=<?php echo $session['session_id']; ?>&scorelist" class="btn btn-outline-warning mb-1 btn-block <?php echo isset($_GET['scorelist']) ? 'active' : ''; ?>">Score by Student</a>
             <?php if($session['session_adap_active'] == 1 and $session['session_train'] == 1) { ?>
+            <a href="?session_id=<?php echo $session['session_id']; ?>&stdability" class="btn btn-outline-warning mb-1 btn-block <?php echo isset($_GET['stdability']) ? 'active' : ''; ?>">Ability</a>
             <a href="?session_id=<?php echo $session['session_id']; ?>&adapscore" class="btn btn-outline-warning mb-1 btn-block <?php echo isset($_GET['adapscore']) ? 'active' : ''; ?>">Adaptive Score</a>
-            <a href="?session_id=<?php echo $session['session_id']; ?>&adapsim" class="btn btn-outline-warning mb-1 btn-block <?php echo isset($_GET['adapsim']) ? 'active' : ''; ?>">Adaptive Sim</a>
+            <a href="?session_id=<?php echo $session['session_id']; ?>&adapsim" class="btn btn-outline-warning mb-2 btn-block <?php echo isset($_GET['adapsim']) ? 'active' : ''; ?>">Adaptive Sim</a>
             <?php } ?>
             <div>
             <?php
@@ -48,16 +49,18 @@
             </div>
         </div>
         <?php 
-            if (isset($_GET['n']) and !isset($_GET['overview']) and !isset($_GET['scorelist']) and !isset($_GET['model']) and !isset($_GET['adapscore']) and !isset($_GET['adapsim'])) {
+            if (isset($_GET['n'])) {
                 include_once 'analyze/n.php';
-            } elseif (!isset($_GET['n']) and isset($_GET['overview']) and !isset($_GET['scorelist']) and !isset($_GET['model']) and !isset($_GET['adapscore']) and !isset($_GET['adapsim'])) {
+            } elseif (isset($_GET['overview'])) {
                 include_once 'analyze/overview.php';
-            } elseif (!isset($_GET['n']) and !isset($_GET['overview']) and !isset($_GET['scorelist']) and isset($_GET['model']) and !isset($_GET['adapscore']) and !isset($_GET['adapsim'])) {
+            } elseif (isset($_GET['model'])) {
                 include_once 'analyze/model.php';
-            } elseif (!isset($_GET['n']) and !isset($_GET['overview']) and !isset($_GET['scorelist']) and !isset($_GET['model']) and isset($_GET['adapscore']) and !isset($_GET['adapsim'])) {
+            } elseif (isset($_GET['adapscore'])) {
                 include_once 'analyze/adapscore.php';
-            } elseif (!isset($_GET['n']) and !isset($_GET['overview']) and !isset($_GET['scorelist']) and !isset($_GET['model']) and !isset($_GET['adapscore']) and isset($_GET['adapsim'])) {
+            } elseif (isset($_GET['adapsim'])){
                 include_once 'analyze/adapsim.php';
+            } elseif (isset($_GET['stdability'])) {
+                include_once 'analyze/stdability.php';
             } else {
                 include_once 'analyze/scorelist.php';
             } 
