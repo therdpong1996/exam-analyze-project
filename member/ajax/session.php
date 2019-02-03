@@ -70,7 +70,6 @@
         $stm->execute();
         $lastid = $_DB->lastInsertId();
 
-        addtotimeline('session', '3', $lastid, $rowc1['examination_subject']);
         addtotimeline('session', '2', $lastid, $rowc1['examination_subject']);
 
         if ($lastid) {
