@@ -86,8 +86,9 @@
                             <a class="btn btn-primary mt-3" href="<?php url('session/analyze/?session_id='.$rows['content_id'].'&overview'); ?>">ดูเกี่ยวกับเซสชั่นนี้</a>
 
                             <?php }elseif($rows['type']=='solve'){
-                                $stmt = $_DB->prepare("SELECT session_score.score,session_score.score_full,examinations.examination_title,subjects.subject_title FROM session_score JOIN examinations ON session_score.exam_id = examinations.examination_id JOIN subjects ON session_score.subject_id = subjects.subject_id WHERE session_score.score_id = :id");
+                                $stmt = $_DB->prepare("SELECT session_score.score,session_score.score_full,examinations.examination_title,subjects.subject_title FROM session_score JOIN examinations ON session_score.exam_id = examinations.examination_id JOIN subjects ON session_score.subject_id = subjects.subject_id WHERE session_score.score_id = :id AND session_score.uid = :uid");
                                 $stmt->bindParam(':id', $rows['content_id']);
+                                $stmt->bindParam(':uid', $user_row['uid']);
                                 $stmt->execute();
                                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                             ?>
@@ -104,8 +105,9 @@
                             <p>ได้ทำข้อสอบ "<?php __($row['examination_title']); ?>" ในรายวิชา "<?php __($row['subject_title']); ?>"</p>
                             <h1>ได้คะแนน <?php __($row['score']); ?>/<?php __($row['score_full']); ?></h1>
                             <?php }elseif($rows['type']=='solve-a'){
-                                $stmt = $_DB->prepare("SELECT adaptive_session_score.score,adaptive_session_score.score_full,examinations.examination_title,subjects.subject_title FROM adaptive_session_score JOIN examinations ON adaptive_session_score.exam_id = examinations.examination_id JOIN subjects ON adaptive_session_score.subject_id = subjects.subject_id WHERE adaptive_session_score.score_id = :id");
+                                $stmt = $_DB->prepare("SELECT adaptive_session_score.score,adaptive_session_score.score_full,examinations.examination_title,subjects.subject_title FROM adaptive_session_score JOIN examinations ON adaptive_session_score.exam_id = examinations.examination_id JOIN subjects ON adaptive_session_score.subject_id = subjects.subject_id WHERE adaptive_session_score.score_id = :id AND adaptive_session_score.uid = :uid");
                                 $stmt->bindParam(':id', $rows['content_id']);
+                                $stmt->bindParam(':uid', $user_row['uid']);
                                 $stmt->execute();
                                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                             ?>

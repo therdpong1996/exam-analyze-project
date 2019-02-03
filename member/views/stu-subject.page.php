@@ -131,6 +131,7 @@
                 var incode = $('input#subject-invite').val();
                 if (incode.length < 1) {
                     alert('not found code');
+                    $('#invite-check').html(oldtext)
                     return;
                 }
                 $.ajax({
