@@ -11,6 +11,11 @@
     $fullname = $_POST['fullname'];
     $email = $_POST['email'];
 
+    if(strlen($username) <= 6 || !preg_match('/([a-zA-Z0-9]+)/')){
+        echo json_encode(['state' => false, 'msg' => 'Username ต้องมี 6 ตัวอักษรขึ้นไป และต้องเป็นตัวภาษาอังกฤษและตัวเลขเท่านั้น']);
+        exit;
+    }
+
     $stm = $_DB->prepare('SELECT uid FROM users WHERE username = :username LIMIT 1');
     $stm->bindParam(':username', $username, PDO::PARAM_STR);
     $stm->execute();

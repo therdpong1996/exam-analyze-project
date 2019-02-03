@@ -210,6 +210,7 @@ $('#verify_stu').on('click', function () {
 
   if (stu_id.length != 13) {
     alert('Invalid Student ID');
+    $('#verify_stu').html(oldtext);
     return;
   }
 
