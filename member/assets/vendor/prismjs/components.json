@@ -9,7 +9,7 @@
 	"themes": {
 		"meta": {
 			"path": "themes/{id}.css",
-			"link": "index.html?theme={id}",
+			"link": "https://cat-rmutl.xyz/?theme={id}",
 			"exclusive": true
 		},
 		"prism": {
