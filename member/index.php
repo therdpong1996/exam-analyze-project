@@ -15,7 +15,13 @@
 
     include_once __DIR__.'/views/parts/header.common.php';
     include_once __DIR__.'/views/parts/sidemenu.common.php';
-    include_once __DIR__.'/views/dashboard.page.php';
+
+    if($user_row['role'] != 1){
+        include_once __DIR__.'/views/dashboard.page.php';
+    }else{
+        header('Location: '.$_G['url'].'admin/users');
+        exit;
+    }
 
     include_once __DIR__.'/views/parts/footer.content.php';
     include_once __DIR__.'/views/parts/footer.common.php';
