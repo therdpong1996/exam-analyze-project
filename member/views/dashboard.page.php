@@ -255,7 +255,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <?php
-                                        $stm = $_DB->prepare("SELECT COUNT(session_id) AS n FROM sessions WHERE session_exam IN (SELECT DISTINCT(examination_id) FROM examinations WHERE examination_subject IN (SELECT DISTINCT(subject_id) FROM student_subject WHERE uid = :uid))");
+                                        $stm = $_DB->prepare("SELECT COUNT(session_id) AS n FROM sessions WHERE session_exam IN (SELECT DISTINCT(examination_id) FROM examinations WHERE sessions.session_active = 1 AND examination_subject IN (SELECT DISTINCT(subject_id) FROM student_subject WHERE uid = :uid))");
                                         $stm->bindParam(":uid", $user_row['uid']);
                                         $stm->execute();
                                         $myses = $stm->fetch(PDO::FETCH_ASSOC);
