@@ -15,9 +15,9 @@
                     <?php
                         $num_rows = 0;
                         if ($user_row['role'] == 2) {
-                            $stm = $_DB->prepare('SELECT * FROM timeline JOIN users ON timeline.taken = users.uid WHERE subject IN (SELECT subject_id FROM subject_owner WHERE uid = :uid) AND for_time = :role ORDER BY ontime DESC');
+                            $stm = $_DB->prepare('SELECT * FROM timeline JOIN users ON timeline.taken = users.uid WHERE subject IN (SELECT subject_id FROM subject_owner WHERE uid = :uid) AND for_time = :role AND taken = :uid ORDER BY ontime DESC');
                         }elseif($user_row['role'] == 3){
-                            $stm = $_DB->prepare('SELECT * FROM timeline JOIN users ON timeline.taken = users.uid WHERE subject IN (SELECT subject_id FROM student_subject WHERE uid = :uid) AND for_time = :role ORDER BY ontime DESC');
+                            $stm = $_DB->prepare('SELECT * FROM timeline JOIN users ON timeline.taken = users.uid WHERE subject IN (SELECT subject_id FROM student_subject WHERE uid = :uid) AND for_time = :role AND taken = :uid ORDER BY ontime DESC');
                         }
                         $stm->bindParam(':role', $user_row['role']);
                         $stm->bindParam(":uid", $user_row['uid']);
