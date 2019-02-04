@@ -23,15 +23,9 @@
                         $stm->bindParam(":uid", $user_row['uid']);
                         $stm->execute();
                         while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
-
-                            if(($rows['type']=='solve' or $rows['type']=='solve-a') and $rows['taken'] == $user_row['uid']){
-                                $num_rows++;
-                            }elseif($rows['type']!='solve' or $rows['type']!='solve-a'){
-                                $num_rows++;
-                            }
-                            
                     ?>
                             <?php if($rows['type']=='article'){
+                                $num_rows++;
                                 $stmt = $_DB->prepare("SELECT * FROM articles JOIN subjects ON articles.subject = subjects.subject_id WHERE articles.atid = :id");
                                 $stmt->bindParam(':id', $rows['content_id']);
                                 $stmt->execute();
@@ -57,6 +51,7 @@
                                 </div>
                             </div>
                             <?php }elseif($rows['type']=='exam'){
+                                $num_rows++;
                                 $stmt = $_DB->prepare("SELECT examinations.examination_id,examinations.examination_title,subjects.subject_title FROM examinations JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE examinations.examination_id = :id");
                                 $stmt->bindParam(':id', $rows['content_id']);
                                 $stmt->execute();
@@ -79,6 +74,7 @@
                                 </div>
                             </div>
                             <?php }elseif($rows['type']=='session'){
+                                $num_rows++;
                                 $stmt = $_DB->prepare("SELECT sessions.session_id,sessions.session_adap_active,examinations.examination_title,subjects.subject_title FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE sessions.session_id = :id");
                                 $stmt->bindParam(':id', $rows['content_id']);
                                 $stmt->execute();
@@ -101,6 +97,7 @@
                                 </div>
                             </div>
                             <?php }elseif($rows['type']=='solve' and $rows['taken'] == $user_row['uid']){
+                                $num_rows++;
                                 $stmt = $_DB->prepare("SELECT session_score.score,session_score.score_full,examinations.examination_title,subjects.subject_title FROM session_score JOIN examinations ON session_score.exam_id = examinations.examination_id JOIN subjects ON session_score.subject_id = subjects.subject_id WHERE session_score.score_id = :id AND session_score.uid = :uid");
                                 $stmt->bindParam(':id', $rows['content_id']);
                                 $stmt->bindParam(':uid', $user_row['uid']);
@@ -124,6 +121,7 @@
                                 </div>
                             </div>
                             <?php }elseif($rows['type']=='solve-a' and $rows['taken'] == $user_row['uid']){
+                                $num_rows++;
                                 $stmt = $_DB->prepare("SELECT adaptive_session_score.score,adaptive_session_score.score_full,examinations.examination_title,subjects.subject_title FROM adaptive_session_score JOIN examinations ON adaptive_session_score.exam_id = examinations.examination_id JOIN subjects ON adaptive_session_score.subject_id = subjects.subject_id WHERE adaptive_session_score.score_id = :id AND adaptive_session_score.uid = :uid");
                                 $stmt->bindParam(':id', $rows['content_id']);
                                 $stmt->bindParam(':uid', $user_row['uid']);
