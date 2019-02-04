@@ -26,7 +26,7 @@
 
                             if(($rows['type']=='solve' or $rows['type']=='solve-a') and $rows['taken'] == $user_row['uid']){
                                 $num_rows++;
-                            }else{
+                            }elseif($rows['type']!='solve' or $rows['type']!='solve-a'){
                                 $num_rows++;
                             }
                             
