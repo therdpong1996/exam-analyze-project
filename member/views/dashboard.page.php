@@ -85,7 +85,7 @@
                             <p>ได้สร้างเซสชั่นการทำข้อสอบของชุดข้อสอบ "<strong><?php __($row['examination_title']); ?></strong>" ในรายวิชา "<?php __($row['subject_title']); ?>"</p>
                             <a class="btn btn-primary mt-3" href="<?php url('session/analyze/?session_id='.$rows['content_id'].'&overview'); ?>">ดูเกี่ยวกับเซสชั่นนี้</a>
 
-                            <?php }elseif($rows['type'] == 'solve' and $rows['taken'] == $user_row['uid']){
+                            <?php }elseif($rows['type']=='solve'){
                                 $stmt = $_DB->prepare("SELECT session_score.score,session_score.score_full,examinations.examination_title,subjects.subject_title FROM session_score JOIN examinations ON session_score.exam_id = examinations.examination_id JOIN subjects ON session_score.subject_id = subjects.subject_id WHERE session_score.score_id = :id AND session_score.uid = :uid");
                                 $stmt->bindParam(':id', $rows['content_id']);
                                 $stmt->bindParam(':uid', $user_row['uid']);
