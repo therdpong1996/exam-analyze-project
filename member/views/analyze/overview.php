@@ -59,7 +59,7 @@
                       $true = $stm->fetch(PDO::FETCH_ASSOC);
                     }
 
-                    $precen = ($true['c'] / $total['c']) * 100;
+                    $precen = round((($true['c'] / $total['c']) * 100), 2);
                 ?>
                         <div class="progress-wrapper" style="padding-top: 0.5rem;">
                           <div class="progress-info">
