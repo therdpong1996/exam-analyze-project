@@ -5,9 +5,9 @@
     error_reporting(0);
 
     //PDO
-    $_PDO['dsn'] = 'mysql:host=us-cdbr-iron-east-01.cleardb.net;dbname=heroku_1f970f0ca4cd2ac;charset=utf8';
-    $_PDO['username'] = 'baad56daf6e4f8';
-    $_PDO['password'] = '385cbae4';
+    $_PDO['dsn'] = 'mysql:host=157.230.12.219;dbname=cat_database;charset=utf8';
+    $_PDO['username'] = 'cat_database';
+    $_PDO['password'] = 'cat_db@pass';
 
     try {
         $_DB = new PDO($_PDO['dsn'], $_PDO['username'], $_PDO['password']);
