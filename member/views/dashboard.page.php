@@ -23,109 +23,130 @@
                         $stm->bindParam(":uid", $user_row['uid']);
                         $stm->execute();
                         while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
-                            $num_rows++;
+
+                            if(($rows['type']=='solve' or $rows['type']=='solve-a') and $rows['taken'] == $user_row['uid']){
+                                $num_rows++;
+                            }else{
+                                $num_rows++;
+                            }
+                            
                     ?>
-                    <div class="card mb-4">
-                        <div class="card-body">
                             <?php if($rows['type']=='article'){
                                 $stmt = $_DB->prepare("SELECT * FROM articles JOIN subjects ON articles.subject = subjects.subject_id WHERE articles.atid = :id");
                                 $stmt->bindParam(':id', $rows['content_id']);
                                 $stmt->execute();
                                 $row = $stmt->fetch(PDO::FETCH_ASSOC);    
                             ?>
-                            <div class="mb-3">
-                                <div class="row">
-                                    <div class="col-1 text-center pt-1">
-                                        <div class="avatar avatar-sm rounded-circle"><img avatar="<?php echo $rows['email']; ?>"></div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <div class="col-1 text-center pt-1">
+                                                <div class="avatar avatar-sm rounded-circle"><img avatar="<?php echo $rows['email']; ?>"></div>
+                                            </div>
+                                            <div class="col-11 pl-1">
+                                                <?php __($rows['full_name']); ?><br><small class="text-muted"><?php __($rows['ontime']); ?></small>
+                                            </div>
+                                        </div>    
                                     </div>
-                                    <div class="col-11 pl-1">
-                                        <?php __($rows['full_name']); ?><br><small class="text-muted"><?php __($rows['ontime']); ?></small>
+                                    <p>ได้สร้างบทความใหม่ "<strong><?php __($row['title']); ?></strong>" ในรายวิชา "<?php __($row['subject_title']); ?>"</p>
+                                    <div class="article-content-preview">
+                                        <?php echo iconv_substr(strip_tags($row['content']), 0,500, "UTF-8"); ?>...
                                     </div>
-                                </div>    
+                                    <a href="<?php url('post/'.$rows['content_id']); ?>" class="btn btn-info mt-3">อ่านบทความ</a>
+                                </div>
                             </div>
-                            <p>ได้สร้างบทความใหม่ "<strong><?php __($row['title']); ?></strong>" ในรายวิชา "<?php __($row['subject_title']); ?>"</p>
-                            <div class="article-content-preview">
-                                <?php echo iconv_substr(strip_tags($row['content']), 0,500, "UTF-8"); ?>...
-                            </div>
-                            <a href="<?php url('post/'.$rows['content_id']); ?>" class="btn btn-info mt-3">อ่านบทความ</a>
                             <?php }elseif($rows['type']=='exam'){
                                 $stmt = $_DB->prepare("SELECT examinations.examination_id,examinations.examination_title,subjects.subject_title FROM examinations JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE examinations.examination_id = :id");
                                 $stmt->bindParam(':id', $rows['content_id']);
                                 $stmt->execute();
                                 $row = $stmt->fetch(PDO::FETCH_ASSOC);    
                             ?>
-                            <div class="mb-3">
-                                <div class="row">
-                                    <div class="col-1 text-center pt-1">
-                                        <div class="avatar avatar-sm rounded-circle"><img avatar="<?php echo $rows['email']; ?>"></div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <div class="col-1 text-center pt-1">
+                                                <div class="avatar avatar-sm rounded-circle"><img avatar="<?php echo $rows['email']; ?>"></div>
+                                            </div>
+                                            <div class="col-11 pl-1">
+                                                <?php __($rows['full_name']); ?><br><small class="text-muted"><?php __($rows['ontime']); ?></small>
+                                            </div>
+                                        </div>    
                                     </div>
-                                    <div class="col-11 pl-1">
-                                        <?php __($rows['full_name']); ?><br><small class="text-muted"><?php __($rows['ontime']); ?></small>
-                                    </div>
-                                </div>    
+                                    <p>ได้สร้างชุดข้อสอบใหม่ "<strong><?php __($row['examination_title']); ?></strong>" ในรายวิชา "<?php __($row['subject_title']); ?>"</p>
+                                    <a class="btn btn-primary mt-3" href="<?php url('examination/qa/?examination_id='.$rows['content_id']); ?>">ตรวจสอบคำถาม-คำตอบ</a>
+                                </div>
                             </div>
-                            <p>ได้สร้างชุดข้อสอบใหม่ "<strong><?php __($row['examination_title']); ?></strong>" ในรายวิชา "<?php __($row['subject_title']); ?>"</p>
-                            <a class="btn btn-primary mt-3" href="<?php url('examination/qa/?examination_id='.$rows['content_id']); ?>">ตรวจสอบคำถาม-คำตอบ</a>
                             <?php }elseif($rows['type']=='session'){
                                 $stmt = $_DB->prepare("SELECT sessions.session_id,sessions.session_adap_active,examinations.examination_title,subjects.subject_title FROM sessions JOIN examinations ON sessions.session_exam = examinations.examination_id JOIN subjects ON examinations.examination_subject = subjects.subject_id WHERE sessions.session_id = :id");
                                 $stmt->bindParam(':id', $rows['content_id']);
                                 $stmt->execute();
                                 $row = $stmt->fetch(PDO::FETCH_ASSOC);    
                             ?>
-                            <div class="mb-3">
-                                <div class="row">
-                                    <div class="col-1 text-center pt-1">
-                                        <div class="avatar avatar-sm rounded-circle"><img avatar="<?php echo $rows['email']; ?>"></div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <div class="col-1 text-center pt-1">
+                                                <div class="avatar avatar-sm rounded-circle"><img avatar="<?php echo $rows['email']; ?>"></div>
+                                            </div>
+                                            <div class="col-11 pl-1">
+                                                <?php __($rows['full_name']); ?><br><small class="text-muted"><?php __($rows['ontime']); ?></small>
+                                            </div>
+                                        </div>    
                                     </div>
-                                    <div class="col-11 pl-1">
-                                        <?php __($rows['full_name']); ?><br><small class="text-muted"><?php __($rows['ontime']); ?></small>
-                                    </div>
-                                </div>    
+                                    <p>ได้สร้างเซสชั่นการทำข้อสอบของชุดข้อสอบ "<strong><?php __($row['examination_title']); ?></strong>" ในรายวิชา "<?php __($row['subject_title']); ?>"</p>
+                                    <a class="btn btn-primary mt-3" href="<?php url('session/analyze/?session_id='.$rows['content_id'].'&overview'); ?>">ดูเกี่ยวกับเซสชั่นนี้</a>
+                                </div>
                             </div>
-                            <p>ได้สร้างเซสชั่นการทำข้อสอบของชุดข้อสอบ "<strong><?php __($row['examination_title']); ?></strong>" ในรายวิชา "<?php __($row['subject_title']); ?>"</p>
-                            <a class="btn btn-primary mt-3" href="<?php url('session/analyze/?session_id='.$rows['content_id'].'&overview'); ?>">ดูเกี่ยวกับเซสชั่นนี้</a>
-
-                            <?php }elseif($rows['type']=='solve'){
+                            <?php }elseif($rows['type']=='solve' and $rows['taken'] == $user_row['uid']){
                                 $stmt = $_DB->prepare("SELECT session_score.score,session_score.score_full,examinations.examination_title,subjects.subject_title FROM session_score JOIN examinations ON session_score.exam_id = examinations.examination_id JOIN subjects ON session_score.subject_id = subjects.subject_id WHERE session_score.score_id = :id AND session_score.uid = :uid");
                                 $stmt->bindParam(':id', $rows['content_id']);
                                 $stmt->bindParam(':uid', $user_row['uid']);
                                 $stmt->execute();
                                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                             ?>
-                            <div class="mb-3">
-                                <div class="row">
-                                    <div class="col-1 text-center pt-1">
-                                        <div class="avatar avatar-sm rounded-circle"><img avatar="<?php echo $rows['email']; ?>"></div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <div class="col-1 text-center pt-1">
+                                                <div class="avatar avatar-sm rounded-circle"><img avatar="<?php echo $rows['email']; ?>"></div>
+                                            </div>
+                                            <div class="col-11 pl-1">
+                                                <?php __($rows['full_name']); ?><br><small class="text-muted"><?php __($rows['ontime']); ?></small>
+                                            </div>
+                                        </div>    
                                     </div>
-                                    <div class="col-11 pl-1">
-                                        <?php __($rows['full_name']); ?><br><small class="text-muted"><?php __($rows['ontime']); ?></small>
-                                    </div>
-                                </div>    
+                                    <p>ได้ทำข้อสอบ "<?php __($row['examination_title']); ?>" ในรายวิชา "<?php __($row['subject_title']); ?>"</p>
+                                    <h1>ได้คะแนน <?php __($row['score']); ?>/<?php __($row['score_full']); ?></h1>
+                                </div>
                             </div>
-                            <p>ได้ทำข้อสอบ "<?php __($row['examination_title']); ?>" ในรายวิชา "<?php __($row['subject_title']); ?>"</p>
-                            <h1>ได้คะแนน <?php __($row['score']); ?>/<?php __($row['score_full']); ?></h1>
-                            <?php }elseif($rows['type']=='solve-a'){
+                            <?php }elseif($rows['type']=='solve-a' and $rows['taken'] == $user_row['uid']){
                                 $stmt = $_DB->prepare("SELECT adaptive_session_score.score,adaptive_session_score.score_full,examinations.examination_title,subjects.subject_title FROM adaptive_session_score JOIN examinations ON adaptive_session_score.exam_id = examinations.examination_id JOIN subjects ON adaptive_session_score.subject_id = subjects.subject_id WHERE adaptive_session_score.score_id = :id AND adaptive_session_score.uid = :uid");
                                 $stmt->bindParam(':id', $rows['content_id']);
                                 $stmt->bindParam(':uid', $user_row['uid']);
                                 $stmt->execute();
                                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                             ?>
-                            <div class="mb-3">
-                                <div class="row">
-                                    <div class="col-1 text-center pt-1">
-                                        <div class="avatar avatar-sm rounded-circle"><img avatar="<?php echo $rows['email']; ?>"></div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <div class="row">
+                                            <div class="col-1 text-center pt-1">
+                                                <div class="avatar avatar-sm rounded-circle"><img avatar="<?php echo $rows['email']; ?>"></div>
+                                            </div>
+                                            <div class="col-11 pl-1">
+                                                <?php __($rows['full_name']); ?><br><small class="text-muted"><?php __($rows['ontime']); ?></small>
+                                            </div>
+                                        </div>    
                                     </div>
-                                    <div class="col-11 pl-1">
-                                        <?php __($rows['full_name']); ?><br><small class="text-muted"><?php __($rows['ontime']); ?></small>
-                                    </div>
-                                </div>    
+                                    <p>ได้ทำข้อสอบ "<?php __($row['examination_title']); ?>" ในรายวิชา "<?php __($row['subject_title']); ?>"</p>
+                                    <h1>ได้คะแนน <?php __($row['score']); ?>/<?php __($row['score_full']); ?></h1>
+                                </div>
                             </div>
-                            <p>ได้ทำข้อสอบ "<?php __($row['examination_title']); ?>" ในรายวิชา "<?php __($row['subject_title']); ?>"</p>
-                            <h1>ได้คะแนน <?php __($row['score']); ?>/<?php __($row['score_full']); ?></h1>
                             <?php } ?>
-                        </div>
-                    </div>
                     <?php }
                         if($num_rows == 0){
                     ?>
