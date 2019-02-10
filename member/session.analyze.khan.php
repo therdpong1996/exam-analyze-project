@@ -38,7 +38,7 @@
         addtotimeline('train', '2', $_POST['adaptable'], $sub['examination_subject']);
 
         while ($rows = $stm->fetch(PDO::FETCH_ASSOC)) {
-            echo $rows['stu_id'].','.$rows['question'].','.round($rows['time_taken_s']/60).','.($rows['ans_check'] == 1 ? 'True' : 'False').PHP_EOL;
+            echo $rows['stu_id'].','.$rows['question'].','.(round($rows['time_taken_s']/60)+1).','.($rows['ans_check'] == 1 ? 'True' : 'False').PHP_EOL;
         }
 
     } else {
