@@ -28,6 +28,6 @@
     //WEB URL
     $_G['furl'] = 'https://cat-rmutl.xyz/';
     $_G['url'] = 'https://cat-rmutl.xyz/member/';
-    $_G['webservice'] = 'https://5e775892.ngrok.io/';
+    $_G['webservice'] = 'https://9506fd4f.ngrok.io/';
 
     require_once 'functions.php';
