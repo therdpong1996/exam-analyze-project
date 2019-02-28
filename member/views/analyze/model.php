@@ -67,8 +67,8 @@
                                                 success: function (response) {
                                                     alert(
                                                     '(' + response.qa_id + ') ' + response.qa_question + '\n' +
-                                                    'Dim: ' + report[response.qa_id]['dim'] + '\n' +
-                                                    'Bias: ' + report[response.qa_id]['bias']
+                                                    'Dim: ' + report[response.qa_id.toString()]['dim'] + '\n' +
+                                                    'Bias: ' + report[response.qa_id.toString()]['bias']
                                                 );
                                                 }
                                             });
