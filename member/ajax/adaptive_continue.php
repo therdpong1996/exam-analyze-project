@@ -72,7 +72,7 @@
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $response = curl_exec($ch);
     curl_close($ch);
-    file_put_contents('log_continue', $response, FILE_APPEND);
+    file_put_contents('../../log_continue.json', $response, FILE_APPEND);
 
     $response = json_decode($response, true);
     if ($response['state'] == 'success') {
