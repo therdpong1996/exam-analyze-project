@@ -62,13 +62,13 @@
                                             $.ajax({
                                                 type: "POST",
                                                 url: weburl + "ajax/lineDetail",
-                                                data: {id: this.name},
+                                                data: {id: this.name, exam: '<?php $session['session_exam']; ?>'},
                                                 dataType: "json",
                                                 success: function (response) {
                                                     alert(
-                                                    '(' + response.id + ') ' + response.q + '\n' +
-                                                    'Dim: ' + report[response.id]['dim'] + '\n' +
-                                                    'Bias: ' + report[response.id]['bias']
+                                                    '(' + response.qa_id + ') ' + response.qa_question + '\n' +
+                                                    'Dim: ' + report[response.qa_id]['dim'] + '\n' +
+                                                    'Bias: ' + report[response.qa_id]['bias']
                                                 );
                                                 }
                                             });
