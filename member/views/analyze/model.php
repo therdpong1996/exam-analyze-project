@@ -62,6 +62,23 @@
                                     label: {
                                         connectorAllowed: false
                                     },
+                                    events: {
+                                        click: function (event) {
+                                            $.ajax({
+                                                type: "POST",
+                                                url: weburl + "ajax/lineDetail",
+                                                data: {id: this.name},
+                                                dataType: "json",
+                                                success: function (response) {
+                                                    alert(
+                                                    '(' + response.id + ') ' + response.q + '\n' +
+                                                    'Dim: ' + report[response.id]['dim'] + '\n' +
+                                                    'Bias: ' + report[response.id]['bias']
+                                                );
+                                                }
+                                            });
+                                        }
+                                    },
                                     pointStart: -3.00,
                                     pointInterval: 0.01
                                 }
