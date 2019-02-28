@@ -62,7 +62,7 @@
                                             $.ajax({
                                                 type: "POST",
                                                 url: weburl + "ajax/lineDetail",
-                                                data: {id: this.name, exam: '<?php $session['session_exam']; ?>'},
+                                                data: {id: this.name, exam: '<?php echo $session['session_exam']; ?>'},
                                                 dataType: "json",
                                                 success: function (response) {
                                                     alert(
