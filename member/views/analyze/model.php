@@ -47,11 +47,6 @@
                                     text: 'Student Ability'
                                 }
                             },
-                            tooltip: {
-                                formatter: function () {
-                                    return '<b>' + this.series.name + '</b><br /> Dim: ' + report[this.series.name]['dim'] + ', Bias: ' + report[this.series.name]['bias'] + '<br /> StuAbi: ' + this.x + ', Answer: ' + this.y;
-                                }
-                            },
                             legend: {
                                 layout: 'vertical',
                                 align: 'right',
