@@ -25,7 +25,7 @@
                                     <input type="hidden" name="adap_id" value="<?php echo $session['session_adap']; ?>">
                                     <input type="hidden" name="examination" value="<?php echo $session['session_exam']; ?>">
                                     <input type="hidden" name="session" value="<?php echo $session['session_id']; ?>">
-                                    <input type="hidden" name="token" value="<?php echo md5('computerizedadaptivetesting'.$session['session_id']); ?>"><button type="submit" class="mt-3 btn btn-success btn-lg btn-block">Refresh Graph</button></form></div>
+                                    <input type="hidden" name="token" value="<?php echo md5('computerizedadaptivetesting'.$session['session_id']); ?>"><button type="submit" id="train-btn" class="mt-3 btn btn-success btn-lg btn-block">Refresh Graph</button></form></div>
                     </div>
                     
                     <script>
