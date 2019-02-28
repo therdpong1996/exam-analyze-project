@@ -93,11 +93,6 @@
                                     text: 'Student Ability'
                                 }
                             },
-                            tooltip: {
-                                formatter: function () {
-                                    return '<b>' + this.series.name + '</b><br /> Dim: ' + report[this.series.name]['dim'] + ', Bias: ' + report[this.series.name]['bias'] + '<br /> StuAbi: ' + this.x + ', Answer: ' + this.y;
-                                }
-                            },
                             legend: {
                                 layout: 'vertical',
                                 align: 'right',
@@ -107,6 +102,23 @@
                                 series: {
                                     label: {
                                         connectorAllowed: false
+                                    },
+                                    events: {
+                                        click: function (event) {
+                                            $.ajax({
+                                                type: "POST",
+                                                url: weburl + "ajax/lineDetail",
+                                                data: {id: this.name, exam: '<?php echo $session['session_exam']; ?>'},
+                                                dataType: "json",
+                                                success: function (response) {
+                                                    alert(
+                                                    '(' + response.qa_id + ') ' + response.qa_question + '\n' +
+                                                    'Dim: ' + report[response.qa_id.toString()]['dim'] + '\n' +
+                                                    'Bias: ' + report[response.qa_id.toString()]['bias']
+                                                );
+                                                }
+                                            });
+                                        }
                                     },
                                     pointStart: -3.00,
                                     pointInterval: 0.01
@@ -180,7 +192,7 @@
                         dataType: "html",
                         success: function (response) {
                             content.html(response)
-                            var qid = $('input#question').val();
+                            var qid = $('input#qa_order').val();
                             var cIndex = findChartIndex(qid);
                             chart.series[cIndex].show();
                             $('#num_current').html(num_cur)
@@ -201,7 +213,7 @@
                         dataType: "html",
                         success: function (response) {
                             content.html(response)
-                            var qid = $('input#question').val();
+                            var qid = $('input#qa_order').val();
                             var cIndex = findChartIndex(qid);
                             chart.series[cIndex].show();
                             num_cur++;

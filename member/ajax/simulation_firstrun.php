@@ -50,6 +50,7 @@
                     <input type="hidden" name="session" value="<?php echo $session; ?>">
                     <input type="hidden" name="adaptable" value="<?php echo $adaptable; ?>">
                     <input type="hidden" name="time_taken" id="time_taken" value="1">
+                    <input type="hidden" name="order" id="qa_order" value="<?php echo $exam_row['qa_order']; ?>">
                     <div class="form-group row">
                         <label class="col-sm-2" for="question">คำถาม ?</label>
                         <div class="col-sm-10">
