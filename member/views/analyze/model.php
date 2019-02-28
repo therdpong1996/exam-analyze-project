@@ -18,8 +18,14 @@
                     ?>
                     <div id="container"></div>
                     <div class="row">
-                        <div class="col-6"><button id="hide-all" class="mt-3 btn btn-primary btn-lg btn-block">Hide All</button></div>
-                        <div class="col-6"><button id="show-all" class="mt-3 btn btn-info btn-lg btn-block">Show All</button></div>
+                        <div class="col-3"><button id="hide-all" class="mt-3 btn btn-primary btn-lg btn-block">Hide All</button></div>
+                        <div class="col-3"><button id="show-all" class="mt-3 btn btn-info btn-lg btn-block">Show All</button></div>
+                        <div class="col-6"><form action="javascript:void(0)" id="train-data">
+                        <input type="hidden" name="uid" value="<?php echo $user_row['uid']; ?>">
+                                    <input type="hidden" name="adap_id" value="<?php echo $session['session_adap']; ?>">
+                                    <input type="hidden" name="examination" value="<?php echo $session['session_exam']; ?>">
+                                    <input type="hidden" name="session" value="<?php echo $session['session_id']; ?>">
+                                    <input type="hidden" name="token" value="<?php echo md5('computerizedadaptivetesting'.$session['session_id']); ?>"><button type="submit" class="mt-3 btn btn-success btn-lg btn-block">Refresh Graph</button></form></div>
                     </div>
                     
                     <script>
@@ -107,25 +113,6 @@
                             ?>
                             <div class="mt-5 mb-5">
                                 <form action="javascript:void(0)" id="train-data">
-                                    <?php
-                                        $stmt = $_DB->prepare("SELECT session,COUNT(DISTINCT(question)) AS cn FROM answer_data WHERE examination = :exam AND session != :session GROUP BY session ORDER BY session DESC LIMIT 1");
-                                        $stmt->bindParam(":exam", $session['session_exam']);
-                                        $stmt->bindParam(":session", $session['session_id']);
-                                        $stmt->execute();
-                                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                                        $stmt1 = $_DB->prepare("SELECT session,COUNT(DISTINCT(question)) AS cn FROM answer_data WHERE examination = :exam AND adap_table = :adapt GROUP BY session ORDER BY session DESC LIMIT 1");
-                                        $stmt1->bindParam(":exam", $session['session_exam']);
-                                        $stmt1->bindParam(":adapt", $session['session_adap']);
-                                        $stmt1->execute();
-                                        $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
-
-                                        $stmt2 = $_DB->prepare("SELECT session,COUNT(DISTINCT(question)) AS cn FROM answer_data WHERE examination = :exam AND session = :session");
-                                        $stmt2->bindParam(":exam", $session['session_exam']);
-                                        $stmt2->bindParam(":session", $session['session_id']);
-                                        $stmt2->execute();
-                                        $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-                                    ?> 
                                     <input type="hidden" name="uid" value="<?php echo $user_row['uid']; ?>">
                                     <input type="hidden" name="adap_id" value="<?php echo $session['session_adap']; ?>">
                                     <input type="hidden" name="examination" value="<?php echo $session['session_exam']; ?>">
