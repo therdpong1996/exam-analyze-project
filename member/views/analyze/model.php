@@ -70,8 +70,12 @@
                                 <?php
                                     foreach ($chart_data as $data) {
                                         if ($data['name']) {
+                                            $stm1_order = $_DB->prepare("SELECT qa_order FROM q_and_a WHERE qa_id = :qaid LIMIT 1");
+                                            $stm1_order->bindParam(":qaid", $data['name']);
+                                            $stm1_order->execute();
+                                            $orderid = $stm1_order->fetch(PDO::FETCH_ASSOC);
                                             echo '{';
-                                            echo 'name: \''.$data['name'].'\',';
+                                            echo 'name: \''.$orderid['qa_order'].'\',';
                                             echo 'data: '.$data['data'].',';
                                             echo 'label: {enabled: false}';
                                             echo '},';
