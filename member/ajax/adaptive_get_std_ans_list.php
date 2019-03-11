@@ -33,7 +33,7 @@ switch ($letter_label[0]) {
 }
 
 $stm = $_DB->prepare('SELECT adaptive_answer_data.time_taken_s,users.full_name,users.stu_id FROM adaptive_answer_data JOIN users ON adaptive_answer_data.uid = users.uid WHERE adaptive_answer_data.answer = :ans AND adaptive_answer_data.subject = :subject AND adaptive_answer_data.session = :session AND adaptive_answer_data.examination = :exam AND adaptive_answer_data.question = :question AND adaptive_answer_data.temp = 0');
-$stm->bindParam(':and', $ans);
+$stm->bindParam(':ans', $ans);
 $stm->bindParam(':subject', $_POST['subject']);
 $stm->bindParam(':session', $_POST['session']);
 $stm->bindParam(':exam', $_POST['exam']);

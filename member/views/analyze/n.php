@@ -322,7 +322,7 @@
                 $.ajax({
                     type: "POST",
                     url: weburl + "ajax/adaptive_get_std_ans_list",
-                    data: {label: label, subject: <?php echo $session['examination_subject']; ?>, session: <?php echo $session['session_id']; ?>, exam: <?php echo $session['examination_id']; ?>, qaid: <?php echo $exam_row['qa_id']; ?>},
+                    data: {label: alabel, subject: <?php echo $session['examination_subject']; ?>, session: <?php echo $session['session_id']; ?>, exam: <?php echo $session['examination_id']; ?>, qaid: <?php echo $exam_row['qa_id']; ?>},
                     dataType: "html",
                     success: function (response) {
                         $('#datalist-content').html(response)
@@ -333,7 +333,7 @@
         </script>
         
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Datalist</h5>
