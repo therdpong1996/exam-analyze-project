@@ -267,10 +267,10 @@
                         label: 'Choice Chart'
                     }],
                     labels: [
-                        'A (<?php echo round(($ac1c['c']+0 / $atotal) * 100); ?>%)',
-                        'B (<?php echo round(($ac2c['c']+0 / $atotal) * 100); ?>%)',
-                        'C (<?php echo round(($ac3c['c']+0 / $atotal) * 100); ?>%)',
-                        'D (<?php echo round(($ac4c['c']+0 / $atotal) * 100); ?>%)'
+                        'A (<?php echo round(($ac1c['c'] / $atotal) * 100); ?>%)',
+                        'B (<?php echo round(($ac2c['c'] / $atotal) * 100); ?>%)',
+                        'C (<?php echo round(($ac3c['c'] / $atotal) * 100); ?>%)',
+                        'D (<?php echo round(($ac4c['c'] / $atotal) * 100); ?>%)'
                     ]
                 },
                 options: {
@@ -282,14 +282,30 @@
                     legend: {
                         display: true
                     },
+                    events: ['click']
                 }
             };
             <?php } ?>
-            window.onload = function() {
-                var ctx = document.getElementById('choiceChart').getContext('2d');
-                window.myPie = new Chart(ctx, Nconfig);
-                var actx = document.getElementById('AdaptivechoiceChart').getContext('2d');
-                window.myPie = new Chart(actx, Aconfig);
+
+            var canvas = document.getElementById("choiceChart");
+            var ctx = canvas.getContext("2d");
+            var ctxChart = new Chart(ctx, Nconfig);
+
+            var canvas2 = document.getElementById("AdaptivechoiceChart");
+            var actx = canvas2.getContext("2d");
+            var actxChart = new Chart(actx, Aconfig);
+
+            canvas2.onclick = function(evt) {
+                var activePoints = actxChart.getElementsAtEvent(evt);
+                var chartData = activePoints[0]['_chart'].config.data;
+                var idx = activePoints[0]['_index'];
+
+                var label = chartData.labels[idx];
+                var value = chartData.datasets[0].data[idx];
+
+                var url = "http://example.com/?label=" + label + "&value=" + value;
+                console.log(url);
+                alert(url);
             };
         </script>
         

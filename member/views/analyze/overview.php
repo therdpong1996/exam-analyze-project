@@ -63,7 +63,7 @@
                 ?>
                         <div class="progress-wrapper" style="padding-top: 0.5rem;">
                           <div class="progress-info">
-                            <div style="white-space: nowrap;width: 600px;overflow: hidden;text-overflow: ellipsis;"><?php echo $row['qa_order']; ?>. <?php echo strip_tags($row['qa_question']); ?></div>
+                            <div style="white-space: nowrap;width: 600px;overflow: hidden;text-overflow: ellipsis;"><a style="text-decoration: none" href="?session_id=<?php echo $session['session_id']; ?>&n=<?php echo $row['qa_id']; ?>"><?php echo $row['qa_order']; ?>. <?php echo strip_tags($row['qa_question']); ?></a></div>
                             <div class="progress-percentage">
                               <span><i class="fa fa-check text-success"></i> <strong class="text-success"><?php echo $precen; ?>%</strong> | <i class="fa fa-times text-danger"></i> <strong class="text-danger"><?php echo 100 - $precen; ?>%</strong></span>
                             </div>
