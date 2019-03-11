@@ -308,9 +308,9 @@
                     dataType: "html",
                     success: function (response) {
                         $('#datalist-content').html(response)
+                        $('#exampleModal').modal('show')
                     }
                 });
-                $('#exampleModal').modal('show')
             };
 
             canvas2.onclick = function(evt) {
@@ -326,9 +326,9 @@
                     dataType: "html",
                     success: function (response) {
                         $('#datalist-content').html(response)
+                        $('#exampleModal').modal('show')
                     }
                 });
-                $('#exampleModal').modal('show')
             };
         </script>
         
