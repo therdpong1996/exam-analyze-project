@@ -29,7 +29,7 @@
                             <?php }else{ ?>
                                 <p>ไม่เป็นไร! รอบหน้าเอาใหม่</p>
                             <?php } ?>
-
+                            <a class="btn btn-success mt-5" href="https://docs.google.com/forms/d/e/1FAIpQLSeBnKoUSHhDG8ccoGZjrNAyl0nkCrj0NIRLen0zhu-7LVrWSg/viewform" target="_blank">แบบประเมินการใช้งาน</a>
                             <a href="<?php url('stu-examination/'); ?>" class="btn btn-primary mt-5"><i class="fa fa-arrow-left"></i> กลับ</a>
                         </div>
                     </div>
