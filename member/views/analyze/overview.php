@@ -3,10 +3,10 @@
                 <div class="card-body">
                   <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                      <a class="nav-link active" id="Classic-tab" data-toggle="tab" href="#Classic" role="tab" aria-controls="Classic" aria-selected="true">Classic</a>
+                      <a class="nav-link active" id="Classic-tab" data-toggle="tab" href="#Classic" role="tab" aria-controls="Classic" aria-selected="true">Classic Overview</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="Adaptive-tab" data-toggle="tab" href="#Adaptive" role="tab" aria-controls="Adaptive" aria-selected="false">Adaptive</a>
+                      <a class="nav-link" id="Adaptive-tab" data-toggle="tab" href="#Adaptive" role="tab" aria-controls="Adaptive" aria-selected="false">Adaptive Overview</a>
                     </li>
                   </ul>
                   <div class="tab-content" id="myTabContent">

@@ -59,7 +59,7 @@ $stm->execute();
                         <span class="mb-0 text-sm"><?php echo $rows['full_name']; ?></span>
                     </td>
                     <td>
-                        <span class="mb-0 text-sm"><?php echo round($rows['time_taken_s']/60); ?></span>
+                        <span class="mb-0 text-sm"><?php echo round($rows['time_taken_s']/60); ?> min</span>
                     </td>
                 </tr>
             <?php } ?>
