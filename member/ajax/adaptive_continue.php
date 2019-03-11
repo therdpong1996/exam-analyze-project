@@ -76,7 +76,12 @@
     $response = json_decode($response, true);
     if ($response['state'] == 'success') {
 ?>
-        <div class="text-center text-success pt-5 pb-5"><i class="fas fa-check-square fa-3x"></i> <h3 class="mt-3">เสร็จเรียบร้อยแล้ว สามารถส่งคำตอบได้เลยครับ/ค่ะ</h3></div>
+        <div class="text-center text-success pt-5 pb-5">
+            <i class="fas fa-check-square fa-3x"></i>
+            <h3 class="mt-3">เสร็จเรียบร้อยแล้ว สามารถส่งคำตอบได้เลยครับ/ค่ะ</h3>
+
+            <a class="btn btn-success" href="https://docs.google.com/forms/d/e/1FAIpQLSeBnKoUSHhDG8ccoGZjrNAyl0nkCrj0NIRLen0zhu-7LVrWSg/viewform" target="_blank">แบบประเมินการใช้งาน</a>
+        </div>
 <?php
     }else{
         if ($response['qa_id']) {
