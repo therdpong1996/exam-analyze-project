@@ -116,6 +116,7 @@
         </div>
     </div>
     <script type="text/javascript">
+        var time_taken = 1;
         var num_cur = <?php echo isset($_COOKIE['curr_number_'.$session['session_id']])?$_COOKIE['curr_number_'.$session['session_id']]:1; ?>;;
         const content = $('div#adaptive-content');
         //FIRST VISIT
@@ -151,6 +152,7 @@
                     $('#num_current').html(num_cur)
                     Cookies.set('curr_number_'+session_id, num_cur, { expires: 7, path: '/' });
                     content.html(response)
+                    time_taken = 1
                 }
             });
         });
@@ -186,7 +188,7 @@
         // END TIME COUNTDOWN
         
         // TIME TAKEN
-        var time_taken = 1;
+        
         setInterval(function(){
             $('input#time_taken').val(time_taken);
             time_taken++;
