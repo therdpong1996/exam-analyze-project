@@ -10,7 +10,7 @@
                     </li>
                   </ul>
                   <div class="tab-content" id="myTabContent">
-                  <div class="tab-pane fade show active" id="classic" role="tabpanel" aria-labelledby="classic-tab">
+                  <div class="tab-pane fade show active" id="Classic" role="tabpanel" aria-labelledby="Classic-tab">
                   <?php
                     $stmt = $_DB->prepare("SELECT DISTINCT(question),qa_id,qa_subject,qa_exam,qa_order,qa_question FROM answer_data JOIN q_and_a ON answer_data.question = q_and_a.qa_id WHERE answer_data.session = :session AND answer_data.temp = 0 ORDER BY q_and_a.qa_order ASC");
                     $stmt->bindParam(':session', $session['session_id']);
@@ -23,7 +23,6 @@
                         $stm->bindParam(':question', $row['qa_id']);
                         $stm->execute();
                         $total = $stm->fetch(PDO::FETCH_ASSOC);
-
                         $stm = $_DB->prepare('SELECT COUNT(id) AS c FROM answer_data WHERE ans_check = 1 AND subject = :subject AND session = :session AND examination = :exam AND question = :question AND temp = 0');
                         $stm->bindParam(':subject', $row['qa_subject']);
                         $stm->bindParam(':session', $session['session_id']);
@@ -48,7 +47,7 @@
                       <?php
                   } ?>
                 </div>
-                <div class="tab-pane fade show active" id="adaptive" role="tabpanel" aria-labelledby="adaptive-tab">
+                <div class="tab-pane fade" id="Adaptive" role="tabpanel" aria-labelledby="Adaptive-tab">
                   <?php
                     $stmt = $_DB->prepare("SELECT DISTINCT(question),qa_id,qa_subject,qa_exam,qa_order,qa_question FROM adaptive_answer_data JOIN q_and_a ON adaptive_answer_data.question = q_and_a.qa_id WHERE adaptive_answer_data.session = :session AND adaptive_answer_data.temp = 0 ORDER BY q_and_a.qa_order ASC");
                     $stmt->bindParam(':session', $session['session_id']);
