@@ -301,6 +301,15 @@
                 var idx = activePoints[0]['_index'];
                 var label = chartData.labels[idx];
                 var value = chartData.datasets[0].data[idx];
+                $.ajax({
+                    type: "POST",
+                    url: weburl + "ajax/get_std_ans_list",
+                    data: {label: label, subject: <?php echo $session['examination_subject']; ?>, session: <?php echo $session['session_id']; ?>, exam: <?php echo $session['examination_id']; ?>, qaid: <?php echo $exam_row['qa_id']; ?>},
+                    dataType: "html",
+                    success: function (response) {
+                        $('#datalist-content').html(response)
+                    }
+                });
                 $('#exampleModal').modal('show')
             };
 
@@ -310,6 +319,15 @@
                 var aidx = aactivePoints[0]['_index'];
                 var alabel = achartData.labels[aidx];
                 var avalue = achartData.datasets[0].data[aidx];
+                $.ajax({
+                    type: "POST",
+                    url: weburl + "ajax/adaptive_get_std_ans_list",
+                    data: {label: label, subject: <?php echo $session['examination_subject']; ?>, session: <?php echo $session['session_id']; ?>, exam: <?php echo $session['examination_id']; ?>, qaid: <?php echo $exam_row['qa_id']; ?>},
+                    dataType: "html",
+                    success: function (response) {
+                        $('#datalist-content').html(response)
+                    }
+                });
                 $('#exampleModal').modal('show')
             };
         </script>
@@ -323,8 +341,7 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    ...
+                <div class="modal-body" id="datalist-content">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
