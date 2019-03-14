@@ -233,10 +233,10 @@
                                     <i class="fa fa-arrows-alt"></i>
                                 </td>
                                 <td>
-                                    <?php echo $rows['a_order']; ?> <?php echo ($rows['draft']==1?'<span class="text-danger">ฉบับร่าง</span>':''); ?>
+                                    <?php echo $rows['a_order']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $rows['title']; ?>
+                                    <?php echo $rows['title']; ?> <?php echo ($rows['draft']==1?'<span class="text-danger">ฉบับร่าง</span>':''); ?>
                                 </td>
                                 <td>
                                     <?php echo $rows['full_name']; ?>
