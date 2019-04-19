@@ -26,8 +26,8 @@
     $_GS = $stms->fetch(PDO::FETCH_ASSOC);
 
     //WEB URL
-    $_G['furl'] = 'https://cat-rmutl.xyz/';
-    $_G['url'] = 'https://cat-rmutl.xyz/member/';
+    $_G['furl'] = 'https://exam-analyze.herokuapp.com/';
+    $_G['url'] = 'https://exam-analyze.herokuapp.com/member/';
     $_G['webservice'] = 'https://analyze.cat-rmutl.xyz/';
 
     require_once 'functions.php';
