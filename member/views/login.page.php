@@ -3,7 +3,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
       <div class="container px-4">
-        <a class="navbar-brand" href="https://cat-rmutl.xyz/">
+        <a class="navbar-brand" href="https://exam-analyze.herokuapp.com/">
           <img src="../assets/img/brand/white.png" />
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +14,7 @@
           <div class="navbar-collapse-header d-md-none">
             <div class="row">
               <div class="col-6 collapse-brand">
-                <a href="https://cat-rmutl.xyz/">
+                <a href="https://exam-analyze.herokuapp.com/">
                   <img src="../assets/img/brand/blue.png">
                 </a>
               </div>

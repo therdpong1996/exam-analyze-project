@@ -9,7 +9,7 @@
 	"themes": {
 		"meta": {
 			"path": "themes/{id}.css",
-			"link": "https://cat-rmutl.xyz/?theme={id}",
+			"link": "https://exam-analyze.herokuapp.com/?theme={id}",
 			"exclusive": true
 		},
 		"prism": {
