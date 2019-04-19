@@ -79,7 +79,7 @@
                         var report = <?php echo $adrow['report_file']; ?>;
                         var chart = Highcharts.chart('container', {
                             title: {
-                                text: 'Simulation for each problem'
+                                text: 'Item Characteristic Curve'
                             },
                             yAxis: {
                                 title: {
