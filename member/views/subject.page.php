@@ -226,7 +226,7 @@
                                 <?php echo $rows['subject_invite_code']; ?>
                             </td>
                             <td class="text-right">
-                                <button id="signout-btn-<?php echo $rows['subject_id']; ?>" onclick="subject_signout(<?php echo $rows['subject_id']; ?>)" class="btn btn-warning btn-sm">Signout</button>
+                                <button id="signout-btn-<?php echo $rows['subject_id']; ?>" onclick="subject_signout(<?php echo $rows['subject_id']; ?>)" class="btn btn-warning btn-sm">Leave</button>
                                 <a href="?edit&subject_id=<?php echo $rows['subject_id']; ?>" class="btn btn-info btn-sm">Edit</a>
                                 <button id="delete-btn-<?php echo $rows['subject_id']; ?>" onclick="subject_delete(<?php echo $rows['subject_id']; ?>)" class="btn btn-danger btn-sm">Delete</button>
                             </td>
