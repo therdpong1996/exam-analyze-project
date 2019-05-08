@@ -136,8 +136,8 @@
                                     <input type="hidden" name="token" value="<?php echo md5('computerizedadaptivetesting'.$session['session_id']); ?>">
                                     <div class="row">
                                         <div class="col-12 mb-4">
-                                            <label>มิติในการวิเคราะห์ข้อมูล</label>
-                                            <input type="number" name="dimensional" min="1" value="1">
+                                            <label>มิติในการวิเคราะห์ข้อมูล</label><br>
+                                            <input type="number" class="form-control" name="dimensional" min="1" value="1">
                                         </div>
                                         <div class="col-6">
                                             <button id="train-btn" type="submit" <?php echo timebetween($session['session_start'], $session['session_end']) ? 'disabled' : ''; ?> class="btn btn-success btn-lg <?php echo timebetween($session['session_start'], $session['session_end']) ? 'disabled' : ''; ?>">วิเคราะห์ข้อมูลการสอบ</button>
