@@ -247,6 +247,29 @@
                     },
                 }
             };
+
+            var canvas = document.getElementById("choiceChart");
+            var ctx = canvas.getContext("2d");
+            var ctxChart = new Chart(ctx, Nconfig);
+
+            canvas.onclick = function(evt) {
+                var activePoints = ctxChart.getElementsAtEvent(evt);
+                var chartData = activePoints[0]['_chart'].config.data;
+                var idx = activePoints[0]['_index'];
+                var label = chartData.labels[idx];
+                var value = chartData.datasets[0].data[idx];
+                $.ajax({
+                    type: "POST",
+                    url: weburl + "ajax/get_std_ans_list",
+                    data: {label: label, subject: <?php echo $session['examination_subject']; ?>, session: <?php echo $session['session_id']; ?>, exam: <?php echo $session['examination_id']; ?>, qaid: <?php echo $exam_row['qa_id']; ?>},
+                    dataType: "html",
+                    success: function (response) {
+                        $('#datalist-content').html(response)
+                        $('#exampleModal').modal('show')
+                    }
+                });
+            };
+
             <?php if (($ac1c['c'] + $ac2c['c'] + $ac3c['c'] + $ac4c['c']) >= 1) { ?>
             var Aconfig = {
                 type: 'pie',
@@ -285,33 +308,10 @@
                     events: ['click']
                 }
             };
-            <?php } ?>
-
-            var canvas = document.getElementById("choiceChart");
-            var ctx = canvas.getContext("2d");
-            var ctxChart = new Chart(ctx, Nconfig);
 
             var canvas2 = document.getElementById("AdaptivechoiceChart");
             var actx = canvas2.getContext("2d");
             var actxChart = new Chart(actx, Aconfig);
-
-            canvas.onclick = function(evt) {
-                var activePoints = ctxChart.getElementsAtEvent(evt);
-                var chartData = activePoints[0]['_chart'].config.data;
-                var idx = activePoints[0]['_index'];
-                var label = chartData.labels[idx];
-                var value = chartData.datasets[0].data[idx];
-                $.ajax({
-                    type: "POST",
-                    url: weburl + "ajax/get_std_ans_list",
-                    data: {label: label, subject: <?php echo $session['examination_subject']; ?>, session: <?php echo $session['session_id']; ?>, exam: <?php echo $session['examination_id']; ?>, qaid: <?php echo $exam_row['qa_id']; ?>},
-                    dataType: "html",
-                    success: function (response) {
-                        $('#datalist-content').html(response)
-                        $('#exampleModal').modal('show')
-                    }
-                });
-            };
 
             canvas2.onclick = function(evt) {
                 var aactivePoints = actxChart.getElementsAtEvent(evt);
@@ -330,6 +330,9 @@
                     }
                 });
             };
+
+            <?php } ?>
+
         </script>
         
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
