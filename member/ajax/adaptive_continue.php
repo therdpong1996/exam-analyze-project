@@ -99,8 +99,11 @@
                     <input type="hidden" name="time_taken" id="time_taken" value="1">
                     <div class="form-group row">
                         <label class="col-sm-2" for="question">คำถาม ?</label>
-                        <div class="col-sm-10">
-                        <div><?php echo $exam_row['qa_question']; ?></div>
+                        <div class="col-sm-8">
+                            <div><?php echo $exam_row['qa_question']; ?></div>
+                        </div>
+                        <div class="col-sm-2 text-center">
+                            คะแนนของคุณ : <br><strong><?php echo $response['score']; ?></strong>
                         </div>
                     </div>
                     <div class="form-group row">

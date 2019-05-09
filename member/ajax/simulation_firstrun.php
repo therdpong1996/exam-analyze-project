@@ -56,8 +56,8 @@
                         <div class="col-sm-8">
                             <div><?php echo $exam_row['qa_question']; ?></div>
                         </div>
-                        <div class="col-sm-8">
-                            คะแนนของคุณ : 0.0000<br>
+                        <div class="col-sm-2 text-center">
+                            คะแนนของคุณ : <br><strong>0.0000</strong>
                         </div>
                     </div>
                     <div class="form-group row">
