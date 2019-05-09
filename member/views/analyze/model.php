@@ -69,7 +69,7 @@
                                                     '(' + response.qa_id + ') ' + response.qa_question + '\n' +
                                                     <?php 
                                                         for($i=1; $i <= $adrow['dimensional']; $i++){
-                                                            echo "'Dim".$i.": ' + report[response.qa_id.toString()]['dim".$i."'] + '\n' +";
+                                                            echo "'Dim".$i.": ' + report[response.qa_id.toString()]['dim".$i."'] + '\\n' +";
                                                         }
                                                     ?>
                                                     'Bias: ' + report[response.qa_id.toString()]['bias']
