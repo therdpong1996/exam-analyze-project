@@ -53,8 +53,11 @@
                     <input type="hidden" name="order" id="qa_order" value="<?php echo $exam_row['qa_order']; ?>">
                     <div class="form-group row">
                         <label class="col-sm-2" for="question">คำถาม ?</label>
-                        <div class="col-sm-10">
-                        <div><?php echo $exam_row['qa_question']; ?></div>
+                        <div class="col-sm-8">
+                            <div><?php echo $exam_row['qa_question']; ?></div>
+                        </div>
+                        <div class="col-sm-8">
+                            คะแนนของคุณ : 0.0000<br>
                         </div>
                     </div>
                     <div class="form-group row">
