@@ -67,7 +67,11 @@
                                                 success: function (response) {
                                                     alert(
                                                     '(' + response.qa_id + ') ' + response.qa_question + '\n' +
-                                                    'Dim: ' + report[response.qa_id.toString()]['dim'] + '\n' +
+                                                    <?php 
+                                                        for($i=1; $i <= $adrow['dimensional']; $i++){
+                                                            echo "'Dim".$i.": ' + report[response.qa_id.toString()]['dim".$i."'] + '\n' +";
+                                                        }
+                                                    ?>
                                                     'Bias: ' + report[response.qa_id.toString()]['bias']
                                                 );
                                                 }
