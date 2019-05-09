@@ -74,7 +74,18 @@
                     <?php
                         $report_s = json_decode($exam_row['qa_report'], true);
                     ?>
-                    <p><strong>DIM: </strong> <?php __($report_s['dim']); ?> <strong>BIAS: </strong> <?php __($report_s['bias']); ?></p>
+                    <ul>
+                        <?php 
+                            $stm46 = $_DB->prepare("SELECT dimensional FROM adaptive_table WHERE exam_id = :exam_id");
+                            $stm46->bindParam(':exam_id', $exam_row['qa_exam'], PDO::PARAM_INT);
+                            $stm46->execute();
+                            $row46 = $stm46->fetch(PDO::FETCH_ASSOC);
+                            for($i=1; $i <= $row46['dimensional']; $i++){
+                        ?>
+                        <li><strong>DIM<?php echo $i; ?>: </strong> <?php __($report_s['dim'.$i]); ?></li>
+                            <?php } ?>
+                    </ul>
+                    <p><strong>BIAS: </strong> <?php __($report_s['bias']); ?></p>
                 </div>
                 <?php
                     $stm23 = $_DB->prepare("SELECT COUNT(DISTINCT(answer_data.uid)) AS stdn FROM answer_data JOIN users ON answer_data.uid = users.uid WHERE answer_data.question = :qa_id");
