@@ -38,7 +38,7 @@
 <div class="train-alert" id="train-alert">
   <div class="header">
     แจ้งเตือน
-    <div class="close"><i class="fa fa-times"></i></div>
+    <div class="close" onclick="$('#train-alert').hide(200)"><i class="fa fa-times"></i></div>
   </div>
   <div class="content">
   </div>
