@@ -125,6 +125,7 @@
                                 chart.series[x].show();
                             }
                         });
+                        
                     </script>
                     <?php
                         } else {
@@ -179,6 +180,71 @@
                     ?>
                 </div>
             </div>
+
+            <div class="card mt-3">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <?php
+                                    $stmkk = $_DB->prepare("SELECT dimensional FROM adaptive_table WHERE exam_id = :exam LIMIT 1");
+                                    $stmkk->bindParam(':exam', $examination['examination_id']);
+                                    $stmkk->execute();
+                                    $dimensional = $stmkk->fetch(PDO::FETCH_ASSOC);
+                                ?>
+                                <tr>
+                                    <th>คำถาม</th>
+                                    <th>BIAS</th>
+                                    <?php
+                                        for($i=1; $i <= $dimensional['dimensional']; $i++){
+                                            echo "<th>DIM".$i."</th>";
+                                        }
+                                    ?>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                                $stmtuu = $_DB->prepare("SELECT q_and_a.qa_question, q_and_a.qa_order, q_and_a.qa_report FROM q_and_a WHERE q_and_a.qa_exam = :exam AND q_and_a.qa_status = 1 AND q_and_a.qa_delete = 0 ORDER BY q_and_a.qa_order");
+                                $stmtuu->bindParam(':exam', $examination['examination_id']);
+                                $stmtuu->execute();
+                                while($rowwww = $stmtuu->fetch(PDO::FETCH_ASSOC)){
+                                    $report = json_decode($rowwww['qa_report'], true);
+                            ?>
+                                <tr>
+                                    <td><?php echo substr($rowwww['qa_question'], 0, 50); ?></td>
+                                    <td><?php echo $report['bias']; ?></td>
+                                    <?php
+                                        for($i=1; $i <= $dimensional['dimensional']; $i++){
+                                            echo "<td>".$report['dim'.$i]."</td>";
+                                        }
+                                    ?>
+                                </tr>
+                            <?php
+                                }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+            <script>
+                        function findChartIndex(name){
+                            var index = 0;
+                            for(x in chart.series){
+                                if (chart.series[x].name == name) {
+                                    return index;
+                                }else{
+                                    index++;
+                                }
+                            }
+                        }
+
+                        function findGraph(qid){
+                            var cIndex = findChartIndex(qid);
+                            chart.series[cIndex].show();
+                        }
+            </script>
         </div>
         <script>
             $('#train-data').on('submit', function(){
