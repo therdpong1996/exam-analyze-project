@@ -21901,7 +21901,9 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: 1px solid #666
+    border-bottom: 1px solid #666;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .train-alert .header .close {

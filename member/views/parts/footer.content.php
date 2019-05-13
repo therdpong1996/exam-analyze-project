@@ -67,6 +67,10 @@
         <a class="btn btn-success btn-sm" href="<?php url('examination/analyze/?examination_id='.$rows['examination_id'].'&overview'); ?>">วิเคราะห์ข้อมูล</a>
         <hr>
 <?php
+        }else{
+?>
+        ยินดีต้อนรับกลับ, <?php echo $_SESSION['username']; ?>
+<?php
         }
       }
     ?>
