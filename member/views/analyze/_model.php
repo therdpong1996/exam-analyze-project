@@ -9,9 +9,9 @@
                 </div>
                 <div class="card-body">
                     <?php
-                        if ($session['session_train'] == 1) {
+                        if ($examination['examination_train'] == 1) {
                             $stm1 = $_DB->prepare("SELECT * FROM adaptive_table WHERE adap_id = :aid");
-                            $stm1->bindParam(":aid", $session['session_adap']);
+                            $stm1->bindParam(":aid", $examination['examination_table']);
                             $stm1->execute();
                             $adrow = $stm1->fetch(PDO::FETCH_ASSOC);
                             $chart_data = json_decode($adrow['graph_file'], true);
@@ -22,10 +22,9 @@
                         <div class="col-3"><button id="show-all" class="mt-3 btn btn-info btn-lg btn-block">Show All</button></div>
                         <div class="col-6"><form action="javascript:void(0)" id="train-data">
                         <input type="hidden" name="uid" value="<?php echo $user_row['uid']; ?>">
-                                    <input type="hidden" name="adap_id" value="<?php echo $session['session_adap']; ?>">
-                                    <input type="hidden" name="examination" value="<?php echo $session['session_exam']; ?>">
-                                    <input type="hidden" name="session" value="<?php echo $session['session_id']; ?>">
-                                    <input type="hidden" name="token" value="<?php echo md5('computerizedadaptivetesting'.$session['session_id']); ?>"><button type="submit" id="train-btn" class="mt-3 btn btn-success btn-lg btn-block">Refresh Graph</button></form></div>
+                                    <input type="hidden" name="adap_id" value="<?php echo $examination['examination_table']; ?>">
+                                    <input type="hidden" name="examination" value="<?php echo $examination['examination_id']; ?>">
+                                    <input type="hidden" name="token" value="<?php echo md5('computerizedadaptivetesting'.$examination['examination_id']); ?>"><button type="submit" id="train-btn" class="mt-3 btn btn-success btn-lg btn-block">Refresh Graph</button></form></div>
                     </div>
                     
                     <script>
@@ -62,7 +61,7 @@
                                             $.ajax({
                                                 type: "POST",
                                                 url: weburl + "ajax/lineDetail",
-                                                data: {id: this.name, exam: '<?php echo $session['session_exam']; ?>'},
+                                                data: {id: this.name, exam: '<?php echo $examination['examination_id']; ?>'},
                                                 dataType: "json",
                                                 success: function (response) {
                                                     alert(
@@ -134,24 +133,20 @@
                             <div class="mt-5 mb-5">
                                 <form action="javascript:void(0)" id="train-data">
                                     <input type="hidden" name="uid" value="<?php echo $user_row['uid']; ?>">
-                                    <input type="hidden" name="adap_id" value="<?php echo $session['session_adap']; ?>">
-                                    <input type="hidden" name="examination" value="<?php echo $session['session_exam']; ?>">
-                                    <input type="hidden" name="session" value="<?php echo $session['session_id']; ?>">
-                                    <input type="hidden" name="token" value="<?php echo md5('computerizedadaptivetesting'.$session['session_id']); ?>">
+                                    <input type="hidden" name="adap_id" value="<?php echo $examination['examination_table']; ?>">
+                                    <input type="hidden" name="examination" value="<?php echo $examination['examination_id']; ?>">
+                                    <input type="hidden" name="token" value="<?php echo md5('computerizedadaptivetesting'.$examination['examination_id']); ?>">
                                     <div class="row">
                                         <div class="col-12 mb-4">
                                             <label>มิติในการวิเคราะห์ข้อมูล</label><br>
                                             <input type="number" class="form-control" name="dimensional" min="1" value="1">
                                         </div>
                                         <div class="col-12 text-center">
-                                            <button id="train-btn" type="submit" <?php echo timebetween($session['session_start'], $session['session_end']) ? 'disabled' : ''; ?> class="btn btn-success btn-lg <?php echo timebetween($session['session_start'], $session['session_end']) ? 'disabled' : ''; ?>">วิเคราะห์ข้อมูลการสอบ</button>
+                                            <button id="train-btn" type="submit" class="btn btn-success btn-lg">วิเคราะห์ข้อมูลการสอบ</button>
                                         </div>
                                     </div>
                                     
                                 </form>
-                                <?php if (timebetween($session['session_start'], $session['session_end'])) { ?>
-                                    <p class="text-danger mt-3">จะสามารถวิเคราะห์ข้อมูลได้เมื่อเวลาการทดสอบสิ้นสุดลงแล้วเท่านั้น</p>
-                                <?php } ?>
                             </div>
 
                     <?php }else{ ?>
