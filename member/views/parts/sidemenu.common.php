@@ -114,14 +114,8 @@
               <i class="ni ni-calendar-grid-58 text-blue"></i> Session
             </a>
           </li>
-        </ul>
-        <hr class="my-3">
+        </ul
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="<?php url('docs/'); ?>">
-              <i class="fa fa-file-word text-blue"></i> Documents
-            </a>
-          </li>
           <?php } elseif ($user_row['role'] == 3) { ?>
           <li class="nav-item">
             <a class="nav-link" href="<?php url('dashboard/'); ?>">

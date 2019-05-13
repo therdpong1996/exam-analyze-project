@@ -609,13 +609,13 @@ $('#session_exam').on('change', function () {
       if (response.state) {
         $('#import-content').html(response.msg);
         $('#adap-detail').append(response.adapdetail);
-        $('#anouse').hide();
+        $('#ause').hide();
       } else {
         $('#adaptimport').val(0);
         $('button.session-btn').removeAttr("disabled").removeClass("disabled");
         $('#import-content').html('');
         $('#anouse').show();
-        $('#ause').html('');
+        $('#ause').html('').hide();
       }
     }
   });
@@ -625,9 +625,13 @@ function addAdaptid(id) {
   if (id != 0) {
     $('#adaptive-number').fadeIn(200);
     $('#session_adap').removeAttr("disabled");
+    $('#anouse').hide();
+    $('#ause').show();
   } else {
     $('#adaptive-number').fadeOut(200);
     $('#session_adap').attr("disabled", "disabled").addClass("disabled");
+    $('#anouse').show();
+    $('#ause').hide();
   }
   $('#adaptimport').val(id);
   $('#import-content').html('');
