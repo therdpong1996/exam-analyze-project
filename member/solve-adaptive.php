@@ -44,14 +44,21 @@
             $stmt->execute();
         }
 
+        $stmt_cscore = $_DB->prepare("SELECT num_score_temp FROM adaptive_time_remaining WHERE uid = :uid AND session = :session");
+        $stmt_cscore->bindParam(':session', $_POST['session']);
+        $stmt_cscore->bindParam(':uid', $_POST['uid']);
+        $stmt_cscore->execute();
+        $cscore = $stmt_cscore->fetch(PDO::FETCH_ASSOC);
+
         $percen = ($score / $full) * 100;
-        $stms = $_DB->prepare('INSERT INTO adaptive_session_score (session_id,exam_id,subject_id,uid,score,score_full) VALUES (:session, :exam, :subject, :uid, :sroce, :full)');
+        $stms = $_DB->prepare('INSERT INTO adaptive_session_score (session_id,exam_id,subject_id,uid,score,score_full,adap_score) VALUES (:session, :exam, :subject, :uid, :sroce, :full, :adap_score)');
         $stms->bindParam(':session', $_POST['session']);
         $stms->bindParam(':exam', $_POST['examination']);
         $stms->bindParam(':subject', $_POST['subject']);
         $stms->bindParam(':uid', $_POST['uid']);
         $stms->bindParam(':sroce', $score);
         $stms->bindParam(':full', $full);
+        $stms->bindParam(':adap_score', $cscore['num_score_temp']);
         $stms->execute();
 
         $stmt = $_DB->prepare('UPDATE adaptive_time_remaining SET time_status = 1 WHERE uid = :uid AND session = :session');

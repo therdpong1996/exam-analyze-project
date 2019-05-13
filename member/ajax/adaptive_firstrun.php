@@ -43,6 +43,7 @@
                     <input type="hidden" name="examination" value="<?php echo $exam_row['qa_exam']; ?>">
                     <input type="hidden" name="session" value="<?php echo $session; ?>">
                     <input type="hidden" name="adap_table" value="<?php echo $adap_table; ?>">
+                    <input type="hidden" name="num_score" value="0.0000">
                     <input type="hidden" name="time_taken" id="time_taken" value="1">
                     <div class="form-group row">
                         <label class="col-sm-2" for="question">คำถาม ?</label>

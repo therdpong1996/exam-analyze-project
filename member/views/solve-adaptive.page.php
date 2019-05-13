@@ -22,7 +22,8 @@
                                 <?php }else{ ?>
                                 <i class="fas fa-sad-cry text-danger"></i> 
                                 <?php } ?>
-                                <?php echo $score; ?><span class="text-muted">/<?php echo $full; ?></span>
+                                <?php echo $score; ?><span class="text-muted">/<?php echo $full; ?></span><br>
+                                <small>Adaptive Score <?php echo $cscore['num_score_temp']; ?></small>
                             </h1>
                             <?php if($percen >= 50){ ?>
                                 <p>ยินดีด้วย! คะแนนคุณผ่านเกณฑ์</p>

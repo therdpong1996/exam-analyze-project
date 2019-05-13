@@ -16,6 +16,7 @@
     $answer = $_POST['answer'];
     $number = $_POST['number'];
     $time_taken = $_POST['time_taken'];
+    $num_score_temp = $_POST['num_score'];
     $temp = 1;
     $token = md5('computerizedadaptivetesting' . $session);
 
@@ -27,11 +28,12 @@
     $stmt3->execute();
     $time_re = $stmt3->fetch(PDO::FETCH_ASSOC);
     $time_ree = $time_re['time_remaining'] - ($time_tt - $time_re['time_update1']);
-    $stm = $_DB->prepare('UPDATE adaptive_time_remaining SET time_update1 = :updatet1, time_remaining = :time_re WHERE uid = :uid AND session = :session');
+    $stm = $_DB->prepare('UPDATE adaptive_time_remaining SET time_update1 = :updatet1, time_remaining = :time_re, num_score_temp = :num_score_temp WHERE uid = :uid AND session = :session');
     $stm->bindParam(':time_re', $time_ree, PDO::PARAM_INT);
     $stm->bindParam(':uid', $uid, PDO::PARAM_INT);
     $stm->bindParam(':updatet1', $time_tt, PDO::PARAM_INT);
     $stm->bindParam(':session', $session, PDO::PARAM_INT);
+    $stm->bindParam(':num_score_temp', $num_score_temp);
     $stm->execute();
 
     //CHECK ANSWER
@@ -96,6 +98,7 @@
                     <input type="hidden" name="examination" value="<?php echo $exam_row['qa_exam']; ?>">
                     <input type="hidden" name="session" value="<?php echo $session; ?>">
                     <input type="hidden" name="adap_table" value="<?php echo $adap_table; ?>">
+                    <input type="hidden" name="num_score" value="<?php echo $response['score']; ?>">
                     <input type="hidden" name="time_taken" id="time_taken" value="1">
                     <div class="form-group row">
                         <label class="col-sm-2" for="question">คำถาม ?</label>
