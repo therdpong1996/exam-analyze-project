@@ -1,4 +1,4 @@
-<div class="col-xl-10">
+<div class="col-xl-12">
             <div class="card shadow">
                 <div class="card-header bg-transparent">
                     <div class="row align-items-center">
@@ -143,20 +143,14 @@
                                             <label>มิติในการวิเคราะห์ข้อมูล</label><br>
                                             <input type="number" class="form-control" name="dimensional" min="1" value="1">
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-12 text-center">
                                             <button id="train-btn" type="submit" <?php echo timebetween($session['session_start'], $session['session_end']) ? 'disabled' : ''; ?> class="btn btn-success btn-lg <?php echo timebetween($session['session_start'], $session['session_end']) ? 'disabled' : ''; ?>">วิเคราะห์ข้อมูลการสอบ</button>
-                                        </div>
-                                        <div class="col-6">
-                                            <strong class="text-danger">การ Train</strong> 
-                                            <ul>
-                                                <li>คือการนำข้อมูลการสอบข้อสอบของเซสชั่นไป Train ให้กับข้อสอบชุดที่เลือก เพื่อความแม่นยำมากขึ้น</li>
-                                            </ul>
                                         </div>
                                     </div>
                                     
                                 </form>
                                 <?php if (timebetween($session['session_start'], $session['session_end'])) { ?>
-                                    <p class="text-danger mt-3">จะสามารถ train data ได้เมื่อเวลาการทดสอบสิ้นสุดลงแล้วเท่านั้น</p>
+                                    <p class="text-danger mt-3">จะสามารถวิเคราะห์ข้อมูลได้เมื่อเวลาการทดสอบสิ้นสุดลงแล้วเท่านั้น</p>
                                 <?php } ?>
                             </div>
 

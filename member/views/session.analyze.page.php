@@ -22,6 +22,7 @@
             <a href="?session_id=<?php echo $session['session_id']; ?>&scorelist" class="btn btn-outline-warning mb-1 btn-block <?php echo isset($_GET['scorelist']) ? 'active' : ''; ?>">Normal Score</a>
                 <?php } if($session['session_adap_active'] == 1 and $session['session_train'] == 1) { ?>
             <a href="?session_id=<?php echo $session['session_id']; ?>&adapscore" class="btn btn-outline-warning mb-1 btn-block <?php echo isset($_GET['adapscore']) ? 'active' : ''; ?>">Adaptive Score</a>
+            <a href="?session_id=<?php echo $session['session_id']; ?>&adapsim" class="btn btn-outline-warning mb-2 btn-block <?php echo isset($_GET['adapsim']) ? 'active' : ''; ?>">Simulator</a>
             <?php } ?>
             <div>
             <?php
@@ -61,6 +62,8 @@
                 include_once 'analyze/adapscore.php';
             } elseif (isset($_GET['stdability'])) {
                 include_once 'analyze/stdability.php';
+            } elseif (isset($_GET['adapsim'])){
+                include_once 'analyze/adapsim.php';
             } else {
                 include_once 'analyze/scorelist.php';
             } 
