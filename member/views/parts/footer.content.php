@@ -35,12 +35,12 @@
   <div class="mt-3 text-white">ไม่มีการเชื่อมต่อ Internet</div>
 </div>
 <?php 
-    if (isset($_SESSION['auth']) and $user_row['role'] == 2) {
+    if (isset($_SESSION['auth']) and $user_row['role'] == 2 and ($_COOKIE['talert'] == 0 or !isset($_COOKIE['talert'])) {
 ?>
 <div class="train-alert" id="train-alert">
   <div class="header">
     แจ้งเตือน
-    <div class="close" onclick="$('#train-alert').hide(200)"><i class="fa fa-times"></i></div>
+    <div class="close" onclick="setCookie('talert', 'true', 1); $('#train-alert').hide(200)"><i class="fa fa-times"></i></div>
   </div>
   <div class="content">
     <?php
