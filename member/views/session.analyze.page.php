@@ -11,18 +11,23 @@
         <div class="row">
         <div class="col-xl-2">
             <a href="?session_id=<?php echo $session['session_id']; ?>&overview" class="btn btn-outline-success mb-1 btn-block <?php echo isset($_GET['overview']) ? 'active' : ''; ?>">Overview</a>
-            <a href="?session_id=<?php echo $session['session_id']; ?>&model" class="btn btn-outline-info mb-1 btn-block <?php echo isset($_GET['model']) ? 'active' : ''; ?>">Train Model</a>
-            <a href="?session_id=<?php echo $session['session_id']; ?>&scorelist" class="btn btn-outline-warning mb-1 btn-block <?php echo isset($_GET['scorelist']) ? 'active' : ''; ?>">Score by Student</a>
-            <?php if($session['session_adap_active'] == 1 and $session['session_train'] == 1) { ?>
+            <?php 
+                $stmt22 = $_DB->prepare('SELECT COUNT(score_id) as num FROM session_score WHERE session_id = :session AND exam_id = :exam');
+                $stmt22->bindParam(':session', $session['session_id']);
+                $stmt22->bindParam(':exam', $session['examination_id']);
+                $stmt22->execute();
+                $examNum = $stmt22->fetch(PDO::FETCH_ASSOC);
+                if($examNum['num'] > 0){
+            ?>
+            <a href="?session_id=<?php echo $session['session_id']; ?>&scorelist" class="btn btn-outline-warning mb-1 btn-block <?php echo isset($_GET['scorelist']) ? 'active' : ''; ?>">Normal Score</a>
+                <?php } if($session['session_adap_active'] == 1 and $session['session_train'] == 1) { ?>
             <a href="?session_id=<?php echo $session['session_id']; ?>&adapscore" class="btn btn-outline-warning mb-1 btn-block <?php echo isset($_GET['adapscore']) ? 'active' : ''; ?>">Adaptive Score</a>
-            <a href="?session_id=<?php echo $session['session_id']; ?>&adapsim" class="btn btn-outline-warning mb-2 btn-block <?php echo isset($_GET['adapsim']) ? 'active' : ''; ?>">Adaptive Sim</a>
             <?php } ?>
             <div>
             <?php
                 if (isset($_GET['n'])) {
                     $n = $_GET['n'];
                 }
-
                 $stmt = $_DB->prepare('SELECT * FROM q_and_a WHERE qa_subject = :subject AND qa_exam = :exam AND qa_id = :n LIMIT 1');
                 $stmt->bindParam(':subject', $session['examination_subject']);
                 $stmt->bindParam(':exam', $session['examination_id']);
@@ -52,12 +57,8 @@
                 include_once 'analyze/n.php';
             } elseif (isset($_GET['overview'])) {
                 include_once 'analyze/overview.php';
-            } elseif (isset($_GET['model'])) {
-                include_once 'analyze/model.php';
             } elseif (isset($_GET['adapscore'])) {
                 include_once 'analyze/adapscore.php';
-            } elseif (isset($_GET['adapsim'])){
-                include_once 'analyze/adapsim.php';
             } elseif (isset($_GET['stdability'])) {
                 include_once 'analyze/stdability.php';
             } else {

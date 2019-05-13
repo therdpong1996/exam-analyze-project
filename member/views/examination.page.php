@@ -194,6 +194,7 @@
                               <?php echo $row['qac']; ?>
                             </td>
                             <td class="text-right">
+                                <a href="analyze/?examination_id=<?php echo $rows['examination_id']; ?>&overview" class="btn btn-success btn-sm">Analyze</a>
                                 <a href="qa/?examination_id=<?php echo $rows['examination_id']; ?>" class="btn btn-warning btn-sm">Edit Question</a>
                                 <a href="?edit&examination_id=<?php echo $rows['examination_id']; ?>" class="btn btn-info btn-sm">Edit</a> 
                                 <button id="delete-btn-<?php echo $rows['examination_id']; ?>" onclick="examination_delete(<?php echo $rows['examination_id']; ?>)" class="btn btn-danger btn-sm">Delete</button>
