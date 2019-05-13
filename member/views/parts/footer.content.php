@@ -34,12 +34,16 @@
   <i class="fa fa-times fa-3x fa-fw"></i>
   <div class="mt-3 text-white">ไม่มีการเชื่อมต่อ Internet</div>
 </div>
-
+<?php 
+    if (isset($_SESSION['auth']) and $user_row['role'] == 2) {
+?>
 <div class="train-alert" id="train-alert">
   <div class="header">
     แจ้งเตือน
     <div class="close" onclick="$('#train-alert').hide(200)"><i class="fa fa-times"></i></div>
   </div>
   <div class="content">
+    
   </div>
 </div>
+<?php } ?>

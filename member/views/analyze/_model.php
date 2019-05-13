@@ -130,7 +130,7 @@
                         } else {
                             if($_GS['init_graph']){
                                 
-                                $stmty = $_DB->prepare("SELECT COUNT(id) FROM answer_data WHERE examination = :examid");
+                                $stmty = $_DB->prepare("SELECT COUNT(id) as c FROM answer_data WHERE examination = :examid");
                                 $stmty->bindParam(':examid', $examination['examination_id']);
                                 $stmty->execute();
                                 $dataNum = $stmty->fetch(PDO::FETCH_ASSOC);
@@ -142,7 +142,7 @@
 
                                 $rate = ($ttNum['qac']*10);
 
-                                if($dataNum >= $rate)
+                                if($dataNum['c'] >= $rate)
                                     $aTrain = true;
                                 else
                                     $aTrain = false;
