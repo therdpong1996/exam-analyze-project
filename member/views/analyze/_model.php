@@ -180,7 +180,7 @@
                     ?>
                 </div>
             </div>
-
+            <?php if ($examination['examination_train'] == 1) { ?>
             <div class="card mt-3">
                 <div class="card-body">
                     <div class="table-responsive">
@@ -245,6 +245,7 @@
                             chart.series[cIndex].show();
                         }
             </script>
+            <?php } ?>
         </div>
         <script>
             $('#train-data').on('submit', function(){
