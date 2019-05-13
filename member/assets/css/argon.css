@@ -17814,7 +17814,7 @@ a.btn-icon-only
 
     cursor: pointer;
 
-    border: 1px solid #cad1d7;
+    border: 1px solid #8898aa;
     border-radius: 34px !important;
     background-color: transparent;
 }
@@ -17831,7 +17831,7 @@ a.btn-icon-only
     transition: all .2s cubic-bezier(.68, -.55, .265, 1.55); 
 
     border-radius: 50% !important;
-    background-color: #e9ecef;
+    background-color: #8898aa;
 }
 
 .dropdown,

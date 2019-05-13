@@ -68,7 +68,9 @@
                           <input id="session_adap" type="checkbox" name="session_adap" value="1" <?php echo $row['session_adap'] != 0 ? 'checked' : ''; ?> <?php echo $row['session_train'] == 0 ? 'disabled' : ''; ?>>
                           <span class="custom-toggle-slider rounded-circle"></span>
                         </label>
-                        <p class="text-muted">ใช้งานได้เมื่อมีการ train data เรียบร้อยแล้ว</p>
+                        <div id="adap-detail">
+                          <p id="anouse" class="text-muted">ใช้งานได้เมื่อมีการวิเคราะห์ข้อมูลคำตอบเรียบร้อยแล้ว</p>
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row" id="adaptive-number" <?php echo ($row['session_adap'] == 0)?'style="display:none;"':''; ?>>
@@ -245,7 +247,9 @@
                           <input id="session_adap" type="checkbox" name="session_adap" value="1" <?php echo $row['session_adap_active'] == 1 ? 'checked' : ''; ?> <?php echo ($row['session_train'] == 0 and $row['session_adap'] == 0) ? 'disabled' : ''; ?>>
                           <span class="custom-toggle-slider rounded-circle"></span>
                         </label>
-                        <p class="text-muted">ใช้งานได้เมื่อมีการ train data เรียบร้อยแล้ว</p>
+                        <div id="adap-detail">
+                          <p id="anouse" class="text-muted">ใช้งานได้เมื่อมีการวิเคราะห์ข้อมูลคำตอบเรียบร้อยแล้ว</p>
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row" id="adaptive-number" <?php echo ($row['session_adap_active'] == 0)?'style="display:none;"':''; ?>>

@@ -24,7 +24,7 @@ $stm->execute();
 $row = $stm->fetch(PDO::FETCH_ASSOC);
 
 if ($row['adap_id']) {
-    echo json_encode(['state' => true, 'msg' => 'พอข้อมูลการวิเคราะห์ของข้อสอบชุดนี้ ผู้ทดสอบจำนวน '.$row['std_number'].' คน อัพเดทเมื่อ '.$row['time_update'].'<br>ต้องการ Import หรือไม่ ?<br><button class="btn btn-success" onclick="addAdaptid('.$row['adap_id'].')">Import</button> <button class="btn btn-danger" onclick="addAdaptid(0)">ไม่ Import</button>']);
+    echo json_encode(['state' => true, 'adapdetail' => '<p id="ause" class="text-muted">ใช้ข้อมูลการวิเคราะห์ของข้อสอบของผู้ทดสอบจำนวน '.$row['std_number'].' คน อัพเดทเมื่อ '.$row['time_update'].'</p>', 'msg' => 'พบข้อมูลการวิเคราะห์ของข้อสอบชุดนี้ ผู้ทดสอบจำนวน '.$row['std_number'].' คน อัพเดทเมื่อ '.$row['time_update'].'<br>ต้องการ Import หรือไม่ ?<br><button class="btn btn-success" onclick="addAdaptid('.$row['adap_id'].')">Import</button> <button class="btn btn-danger" onclick="addAdaptid(0)">ไม่ Import</button>']);
     exit;
 }else{
     echo json_encode(['state' => false, 'msg' => 'No result']);

@@ -608,10 +608,14 @@ $('#session_exam').on('change', function () {
     success: function (response) {
       if (response.state) {
         $('#import-content').html(response.msg);
+        $('#adap-detail').append(response.adapdetail);
+        $('#anouse').hide();
       } else {
         $('#adaptimport').val(0);
         $('button.session-btn').removeAttr("disabled").removeClass("disabled");
         $('#import-content').html('');
+        $('#anouse').show();
+        $('#ause').html('');
       }
     }
   });
