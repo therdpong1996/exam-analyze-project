@@ -193,6 +193,7 @@
                                     $dimensional = $stmkk->fetch(PDO::FETCH_ASSOC);
                                 ?>
                                 <tr>
+                                    <th>#</th>
                                     <th>คำถาม</th>
                                     <th>BIAS</th>
                                     <?php
@@ -211,11 +212,12 @@
                                     $report = json_decode($rowwww['qa_report'], true);
                             ?>
                                 <tr>
-                                    <td><?php echo iconv_substr(strip_tags($rowwww['qa_question']), 0, 50, 'UTF-8'); ?></td>
-                                    <td><?php echo $report['bias']; ?></td>
+                                    <th><?php echo $rowwww['qa_order']; ?></th>
+                                    <td><?php echo iconv_substr(strip_tags($rowwww['qa_question']), 0, 47, 'UTF-8'); ?>...</td>
+                                    <td><?php echo round($report['bias'], 4); ?></td>
                                     <?php
                                         for($i=1; $i <= $dimensional['dimensional']; $i++){
-                                            echo "<td>".$report['dim'.$i]."</td>";
+                                            echo "<td>".round($report['dim'.$i], 4)."</td>";
                                         }
                                     ?>
                                 </tr>
