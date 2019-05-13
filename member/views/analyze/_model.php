@@ -211,7 +211,7 @@
                                     $report = json_decode($rowwww['qa_report'], true);
                             ?>
                                 <tr>
-                                    <td><?php echo mb_substr(strip_tags($rowwww['qa_question']), 0, 50, 'UTF-8'); ?></td>
+                                    <td><?php echo iconv_substr(strip_tags($rowwww['qa_question']), 0, 50, 'UTF-8'); ?></td>
                                     <td><?php echo $report['bias']; ?></td>
                                     <?php
                                         for($i=1; $i <= $dimensional['dimensional']; $i++){
@@ -250,7 +250,7 @@
         <script>
             $('#train-data').on('submit', function(){
                 var oldtext = $('#train-btn').html();
-                $('#train-btn').html('<i class="fa fa-spinner fa-spin"></i> Process..');
+                $('#train-btn').html('<i class="fa fa-spinner fa-spin"></i> กำลังวิเคราะห์ข้อมูลอาจจะใช้เวลาประมาณ 2-3 นาที..');
                 var sData = $(this).serialize();
                 $.ajax({
                     type: "POST",
@@ -269,7 +269,7 @@
                         confirmButtonText: 'Yes'
                     }).then(function(result){
                         if (result.value) {
-                        window.location.href = window.location.href;
+                            location.reload(true);
                         }
                     });
                     }else{
