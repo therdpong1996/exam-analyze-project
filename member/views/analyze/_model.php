@@ -211,7 +211,7 @@
                                     $report = json_decode($rowwww['qa_report'], true);
                             ?>
                                 <tr>
-                                    <td><?php echo substr($rowwww['qa_question'], 0, 50); ?></td>
+                                    <td><?php echo mb_substr(strip_tags($rowwww['qa_question']), 0, 50, 'UTF-8'); ?></td>
                                     <td><?php echo $report['bias']; ?></td>
                                     <?php
                                         for($i=1; $i <= $dimensional['dimensional']; $i++){
