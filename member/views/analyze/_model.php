@@ -129,7 +129,24 @@
                     <?php
                         } else {
                             if($_GS['init_graph']){
-                            ?>
+                                
+                                $stmty = $_DB->prepare("SELECT COUNT(id) FROM answer_data WHERE examination = :examid");
+                                $stmty->bindParam(':examid', $examination['examination_id']);
+                                $stmty->execute();
+                                $dataNum = $stmty->fetch(PDO::FETCH_ASSOC);
+
+                                $stmtx = $_DB->prepare('SELECT COUNT(qa_id) AS qac FROM q_and_a WHERE qa_delete = 0 AND qa_exam = :exam');
+                                $stmtx->bindParam(':exam', $examination['examination_id']);
+                                $stmtx->execute();
+                                $ttNum = $stmtx->fetch(PDO::FETCH_ASSOC);
+
+                                $rate = ($ttNum['qac']*10);
+
+                                if($dataNum >= $rate)
+                                    $aTrain = true;
+                                else
+                                    $aTrain = false;
+                    ?>
                             <div class="mt-5 mb-5">
                                 <form action="javascript:void(0)" id="train-data">
                                     <input type="hidden" name="uid" value="<?php echo $user_row['uid']; ?>">
@@ -142,11 +159,14 @@
                                             <input type="number" class="form-control" name="dimensional" min="1" value="1">
                                         </div>
                                         <div class="col-12 text-center">
-                                            <button id="train-btn" type="submit" class="btn btn-success btn-lg">วิเคราะห์ข้อมูลการสอบ</button>
+                                            <button id="train-btn" type="submit" <?php echo $aTrain ? '' : 'disabled'; ?> class="btn btn-success btn-lg <?php echo $aTrain ? '' : 'disabled'; ?>">วิเคราะห์ข้อมูลการสอบ</button>
                                         </div>
                                     </div>
                                     
                                 </form>
+                                <?php if (!$aTrain) { ?>
+                                    <p class="text-danger mt-3">ขออภัย! ข้อมูลการวิเคราะห์ไม่เพียงพอ (ต้องมีการทดสอบอย่างน้อย 10 คนขึ้นไป)</p>
+                                <?php } ?>
                             </div>
 
                     <?php }else{ ?>
