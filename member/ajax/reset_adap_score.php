@@ -55,7 +55,7 @@
 
     $token = md5('computerizedadaptivetesting' . $session_id);
 
-    $post_data = 'session='.$session_id.'&userid='.$uid.'&token='.$token;
+    $post_data = 'session='.$session_id.'&adapt='.$row['session_adap'].'&userid='.$uid.'&token='.$token;
     $url = $_G['webservice'] . 'resetscore/';
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
