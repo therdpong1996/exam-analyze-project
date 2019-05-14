@@ -78,16 +78,13 @@
                 </div>
                 <div class="form-group">
                     <div class="row">
-                    <div class="col-10">
+                    <div class="col-12">
                         <div class="input-group input-group-alternative mb-1">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-id-card"></i></span>
                         </div>
-                        <input class="form-control" placeholder="Student ID" id="stu_id" name="student_id" type="text" required>
+                        <input class="form-control" placeholder="รหัสนักศึกษาหรือรหัสบัตรแระชาชน" id="stu_id" name="student_id" type="text" required>
                         </div>
-                    </div>
-                    <div class="col-2">
-                        <button class="btn btn-warning" type="button" id="verify_stu"><i class="fas fa-search"></i></button>
                     </div>
                     </div>
                 </div>
@@ -118,7 +115,7 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <button type="submit" id="register-btn" class="btn btn-primary mt-4 disabled" disabled >Create account</button>
+                    <button type="submit" id="register-btn" class="btn btn-primary mt-4" >Create account</button>
                     <div class="mt-2"><small class="text-muted">*โปรดตรวจสอบรหัสนักศึกษาก่อนทุกครั้ง</small></div>
                     <div class="mt-3"><p class="text-muted"><a href="<?php url('register-teacher/'); ?>">สมัครสมาชิกสำหรับอาจารย์</a></p></div>
                 </div>
