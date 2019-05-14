@@ -54,17 +54,18 @@
         $_SESSION['role'] = 3;
         $_SESSION['uid'] = $lastid;
 
-        $mgClient = new Mailgun('c6a6fb3027866dd672043e123c011a2e-9b463597-b03543b2');
+        $mgClient = Mailgun::create('c6a6fb3027866dd672043e123c011a2e-9b463597-b03543b2');
         $domain = "mg.inzpi.com";
         $text = 'สวัสดีครับ, '.$username.' ขอบคุณสำหรับการสมัครสมาชิก';
         $html = '<strong>สวัสดีครับ, '.$username.'</strong><br><p>ขอบคุณสำหรับการสมัครสมาชิกเว็บไซต์</p><p>วันที่สมัคร '.date('d/m/Y H:i').'</p><br><br><small>CAT@RMUTL<br>'.$_G['url'].'</small>';
-        $result = $mgClient->sendMessage("$domain",
-            array('from' => 'No-reply CAT@RMUTL <noreply@mg.inzpi.com>',
+        $result = $mgClient->messages()->send($domain,
+            [
+                'from' => 'No-reply CAT@RMUTL <noreply@mg.inzpi.com>',
                 'to' => 'Anonymouse <'.$email.'>',
                 'subject' => 'สวัสดีครับ, ขอบคุณสำหรับการสมัครสมาชิก ('.$email .')',
                 'text' => $text,
                 'html' => $html
-            )
+            ]
         );
 
         if ($result->http_response_code == 200) {
