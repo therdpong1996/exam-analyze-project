@@ -1,8 +1,8 @@
 <?php
 
     date_default_timezone_set('Asia/Bangkok');
-    ini_set('display_errors', 1);
-    error_reporting(E_ALL);
+    ini_set('display_errors', 0);
+    error_reporting(0);
 
     //PDO
     $_PDO['dsn'] = 'mysql:host=157.230.12.219;dbname=cat_database;charset=utf8';
