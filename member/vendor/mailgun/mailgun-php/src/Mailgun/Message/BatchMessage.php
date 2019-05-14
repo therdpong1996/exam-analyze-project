@@ -72,6 +72,8 @@ class BatchMessage extends MessageBuilder
      *
      * @throws MissingRequiredParameter
      * @throws TooManyRecipients
+     *
+     * @return BatchMessage
      */
     protected function addRecipient($headerName, $address, array $variables)
     {
@@ -91,9 +93,12 @@ class BatchMessage extends MessageBuilder
         }
 
         $this->batchRecipientAttributes[(string) $address] = $variables;
+
+        return $this;
     }
 
     /**
+     * @throws RuntimeException
      * @throws MissingRequiredParameter
      */
     public function finalize()
