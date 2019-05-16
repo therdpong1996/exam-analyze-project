@@ -12,6 +12,15 @@
     $email = base64_encode($_POST['email']);
     $vurl = $_G['url'].'register-teacher/?token='.$token.'&email='.$email.'&exp='.base64_encode(time()+(86400*3));
 
+    $stm = $_DB->prepare('SELECT uid FROM users WHERE email = :email LIMIT 1');
+    $stm->bindParam(':email', $_POST['email'], PDO::PARAM_STR);
+    $stm->execute();
+    $userchk = $stm->fetch(PDO::FETCH_ASSOC);
+    if ($userchk['uid']) {
+        echo json_encode(['state' => false, 'msg' => 'Username นี้มีคนใช้งานแล้ว']);
+        exit;
+    }
+
     // $mgClient = Mailgun::create('c6a6fb3027866dd672043e123c011a2e-9b463597-b03543b2');
     // $domain = "mg.inzpi.com";
     // $text = 'Hello, Verify URL: '.$vurl;
@@ -25,7 +34,7 @@
     //             'html' => $html
     //         ]
     // );
-    header('location: '.$vurl);
+    echo json_encode(['state' => true, 'redirect_url' => $vurl]);
     // if ($result->http_response_code == 200) {
     //     $html = '<div class="text-center"><i class="fas fa-check-circle fa-5x text-success"></i><br><br><h3>ระบบได้ส่งลิงก์ยืนยันไปที่เมล์ "'.$_POST['email'].'" แล้ว กรุณาตรวจสอบที่กล่องข้อความของอีเมล์หรืออีเมล์ขยะ ขอบคุณครับ</h3></div>';
     //     echo json_encode(['state' => true, 'html' => $html]);

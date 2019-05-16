@@ -155,7 +155,7 @@ $('#temail-register-form').on('submit', function () {
     })
     .done(function (response) {
       if (response.state) {
-          $('#temail-content').html(response.html);
+        window.location.href = response.redirect_url;
       } else {
         $('#temail-register-btn').html(oldtext);
         swal(
