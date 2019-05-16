@@ -17,7 +17,7 @@
     $stm->execute();
     $userchk = $stm->fetch(PDO::FETCH_ASSOC);
     if ($userchk['uid']) {
-        echo json_encode(['state' => false, 'msg' => 'Username นี้มีคนใช้งานแล้ว']);
+        echo json_encode(['state' => false, 'msg' => 'Email นี้มีการใช้งานแล้ว']);
         exit;
     }
 

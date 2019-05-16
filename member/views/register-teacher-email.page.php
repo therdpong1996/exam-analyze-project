@@ -65,7 +65,6 @@
                             </div>
                             <input class="form-control" placeholder="Email" id="email" name="email" type="email" required>
                         </div>
-                        <p class="text-muted">กรอกอีเมล์ของโรงเรียนหรือมหาวิทยาลัยที่ต้องการใช้งาน</p>
                     </div>
                     <div class="text-center">
                         <button type="submit" id="temail-register-btn" class="btn btn-primary mt-4">Create account</button>
